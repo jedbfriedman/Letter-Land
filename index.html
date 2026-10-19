@@ -545,6 +545,17 @@ label.btn{display:block;text-align:center}
 @keyframes fxheart{0%{transform:translateY(0) scale(.6);opacity:0}15%{opacity:1}100%{transform:translateY(-130px) scale(1.1);opacity:0}}
 .dmove.act-pet{animation:aPet .9s ease}
 @keyframes aPet{25%{transform:translateY(-6%)}50%{transform:translateY(0)}70%{transform:translateY(-3%)}}
+
+.stat-tabs{display:flex;gap:6px;justify-content:center;flex-wrap:wrap}
+.stat-sum{margin:0;text-align:left}
+.stat-list{display:flex;flex-direction:column;gap:6px;max-height:46vh;overflow:auto;text-align:left}
+.srow{display:grid;grid-template-columns:28px 1fr 44px 44px;align-items:center;gap:8px;font-size:15px}
+.srow b{font-family:var(--letter);font-size:20px}
+.sbar{height:12px;border-radius:6px;background:#E3E8EE;overflow:hidden}.sbar i{display:block;height:100%;border-radius:6px}
+.srow small{color:var(--ink-soft)}
+#board.nudge{animation:nudge .28s}
+@keyframes nudge{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+#keptMove{cursor:pointer;width:100%;height:100%}
 </style>
 
 <div id="app">
@@ -673,7 +684,7 @@ label.btn{display:block;text-align:center}
 <div id="ov" hidden><div class="ov-card" id="ovCard"></div></div>
 <div class="toast" id="toast" hidden></div>
 <canvas id="confetti"></canvas>
-<script>const VOICE_VER=15;document.write('<script src="voice.js?v='+VOICE_VER+'"><\/script>')</script>
+<script>const VOICE_VER=16;document.write('<script src="voice.js?v='+VOICE_VER+'"><\/script>')</script>
 <script>
 (function(){
 const $=s=>document.querySelector(s);
@@ -706,7 +717,7 @@ const VL={
     oops:'Oops, let\'s try that again.',batt:'Uh oh, the battery ran out! Let\'s try again.',nohear:'I didn\'t hear you. Let\'s try again!',
     pick:'Pick your prize!',bonus:'A bonus box! Pick your prize!',newprize:'Yay! A new prize!',newsticker:'A new sticker!',
     place:'Where should it go? Tap a spot in your room!',decorate:'Pick a sticker, then tap your prize to stick it on!',nostickers:'You can win stickers in the prize shop.',
-    surprise:'You earned a bonus game!',g_find:'Find it!',g_say:'Say it!',g_sound:'Sound it out!',g_room:'Treasure room!',which:'Which one starts with',soundgo:'Sound it out! Which picture starts with the letter?',unlocked:'Wow! You unlocked a new game!',gotall:'Good job! You got them all!',band:'Let\'s make some music!',memory:'Find the matching pairs!',maze:'Help the truck get to the treasure chest!',tryagain:'Let\'s try again!',bonuswin:'You did it! You win a bonus prize!'}
+    surprise:'You earned a bonus game!',g_find:'Find it!',g_say:'Say it!',g_sound:'Sound it out!',g_room:'Treasure room!',ms_place5:'You put five toys in your room! You earned a bonus game!',ms_legend1:'You put a legendary prize in your room! You earned a bonus game!',ms_combo1:'You made your first pair! You earned a bonus game!',ms_master1:'Great saying! You earned a bonus game!',ms_p25:'You won twenty-five prizes! You earned a bonus game!',ms_p50:'You won fifty prizes! You earned a bonus game!',which:'Which one starts with',soundgo:'Sound it out! Which picture starts with the letter?',unlocked:'Wow! You unlocked a new game!',gotall:'Good job! You got them all!',band:'Let\'s make some music!',memory:'Find the matching pairs!',maze:'Help the truck get to the treasure chest!',tryagain:'Let\'s try again!',bonuswin:'You did it! You win a bonus prize!'}
 };
 const PRIZE_WORDS={b_car:'Car',b_pickup:'Pickup Truck',b_dump:'Dump Truck',b_bus:'Bus',b_race:'Race Car',b_van:'Van',b_bot:'Little Robot',b_ball:'Bouncy Ball',b_balloon:'Balloon',b_star:'Happy Star',b_plant:'Plant',b_block:'Letter Block',b_teddy:'Teddy Bear',b_bunny:'Bunny',b_candyjar:'Candy Jar',
   b_fire:'Fire Truck',b_tractor:'Tractor',b_digger:'Digger',b_mixer:'Cement Mixer',b_antbot:'Beep Robot',b_rocket:'Rocket',b_lamp:'Lamp',b_flag:'Flag',b_drum:'Drum',b_plushpup:'Puppy Plush',
@@ -727,6 +738,8 @@ function buildLines(){const T={};
     T['is1_'+L]=`${L} is for ${WORDS1[L][0]}!`;
     T['is2_'+L]=`${L} is for ${WORDS2[L][0]}!`;
     T['next_'+L]=`Next, find the letter ${L}!`;
+    T['fa_'+L]=`Find the ${L}'s again!`;
+    WORDS_T.forEach((W,t)=>{T['if'+t+'_'+L]=`${L} is for ${W[L][0]}! Find every ${L}!`});
     T['wh_'+L]=`Which one starts with ${L}?`;
     WORDS_T.forEach(W=>{const w=W[L][0];T['st_'+slug(w)]=`${w[0].toUpperCase()+w.slice(1)} starts with ${L}!`});
   });
@@ -744,7 +757,7 @@ const HEAR={A:['a','ay','eh','hey','hay','aye'],B:['b','be','bee','bea'],C:['c',
 /* ---------- state ---------- */
 const KEY='letter-garage-v2',OLD_KEY='letter-garage-v1';
 const DEF={case:'upper',myVoice:true,timer:15,tiles:'auto',rounds:3,lookalikes:false,sayGoal:5,listen:'auto',voice:true,letters:LETTERS.join('')};
-function fixData(d){d=d||{};if(d.settings&&!d._v){d.settings.timer=15;d.settings.tiles='auto'}return{settings:{...DEF,...(d.settings||{})},owned:d.owned||[],pending:d.pending||0,prizeNo:d.prizeNo||0,stats:d.stats||{},pool:d.pool||null,placed:d.placed||{},decor:d.decor||{},stickers:d.stickers||{},flevel:d._v>=9?(d.flevel||{}):{},fstars:d.fstars||{},fstat:d.fstat||{},sstat:d.sstat||{},sayPool:d.sayPool||null,sayNewest:d.sayNewest||null,pairs:d.pairs||{},bonus:d._v>=9?(d.bonus||0):Math.min(1,d.bonus||0),ms:d.ms||{},memLevel:d.memLevel||0,traceMode:d.traceMode||0,traceLevel:d.traceLevel||0,fround:d.fround||{},soundOn:d.soundOn||0,istate:d.istate||{},soundRun:d.soundRun||null,memWins:d.memWins!=null?d.memWins:(d.memLevel||0)*2,mazeLevel:d.mazeLevel||0,specialBox:d.specialBox||0,poolSpecial:d.poolSpecial||0,unlockPending:d.unlockPending||0,poolOpen:!!(d.pool&&d.poolOpen),_v:10}}
+function fixData(d){d=d||{};if(d.settings&&!d._v){d.settings.timer=15;d.settings.tiles='auto'}return{settings:{...DEF,...(d.settings||{})},owned:d.owned||[],pending:d.pending||0,prizeNo:d.prizeNo||0,stats:d.stats||{},pool:d.pool||null,placed:d.placed||{},decor:d.decor||{},stickers:d.stickers||{},flevel:d._v>=9?(d.flevel||{}):{},fstars:d.fstars||{},fstat:d.fstat||{},ostat:d.ostat||{},sstat:d.sstat||{},sayPool:d.sayPool||null,sayNewest:d.sayNewest||null,pairs:d.pairs||{},bonus:d._v>=9?(d.bonus||0):Math.min(1,d.bonus||0),ms:d.ms||{},memLevel:d.memLevel||0,traceMode:d.traceMode||0,traceLevel:d.traceLevel||0,fround:d.fround||{},soundOn:d.soundOn||0,istate:d.istate||{},soundRun:d.soundRun||null,memWins:d.memWins!=null?d.memWins:(d.memLevel||0)*2,mazeLevel:d.mazeLevel||0,specialBox:d.specialBox||0,poolSpecial:d.poolSpecial||0,unlockPending:d.unlockPending||0,poolOpen:!!(d.pool&&d.poolOpen),_v:10}}
 function loadRoot(){
   try{const r=JSON.parse(localStorage.getItem(KEY)||'null');if(r&&r.profiles&&r.profiles.length){r.profiles.forEach(p=>p.data=fixData(p.data));if(!r.profiles.some(p=>p.id===r.current))r.current=r.profiles[0].id;return r}}catch(e){}
   let old=null;try{old=JSON.parse(localStorage.getItem(OLD_KEY)||'null')}catch(e){}
@@ -787,6 +800,7 @@ for(let i=0;i<4;i++){const e=new Audio();e.setAttribute('playsinline','');sfxPoo
 function tone(f,d,type='triangle',v=.14,w=0){const a=CT||live();if(!a){sfxCtx(()=>tone(f,d,type,v,w),d+w+.15);return}const t=a.currentTime+w,o=a.createOscillator(),g=a.createGain();o.type=type;o.frequency.setValueAtTime(f,t);g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.001,t+d);o.connect(g).connect(a.destination);o.start(t);o.stop(t+d+.02)}
 const sPop=()=>{tone(660,.09);tone(990,.12,'triangle',.12,.06)};
 const sOops=()=>tone(200,.18,'sine',.1);
+const sBuzz=()=>{sweep(230,170,.2,'square',.03,0,700);sweep(200,150,.18,'square',.025,.16,700)};
 /* fun sound effects (synthesized) */
 function noise(d,f0,f1,q=1,v=.15,w=0){const a=CT||live();if(!a){sfxCtx(()=>noise(d,f0,f1,q,v,w),d+w+.15);return}const t=a.currentTime+w,len=Math.max(1,Math.floor(a.sampleRate*d)),buf=a.createBuffer(1,len,a.sampleRate),ch=buf.getChannelData(0);for(let i=0;i<len;i++)ch[i]=Math.random()*2-1;const src=a.createBufferSource();src.buffer=buf;const fl=a.createBiquadFilter();fl.type='bandpass';fl.Q.value=q;fl.frequency.setValueAtTime(f0,t);fl.frequency.exponentialRampToValueAtTime(f1,t+d);const g=a.createGain();g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(v,t+.03);g.gain.exponentialRampToValueAtTime(.0001,t+d);src.connect(fl).connect(g).connect(a.destination);src.start(t);src.stop(t+d+.05)}
 function sweep(f0,f1,d,type='sawtooth',v=.08,w=0,lp=2000){const a=CT||live();if(!a){sfxCtx(()=>sweep(f0,f1,d,type,v,w,lp),d+w+.15);return}const t=a.currentTime+w,o=a.createOscillator(),g=a.createGain(),f=a.createBiquadFilter();f.type='lowpass';f.frequency.value=lp;o.type=type;o.frequency.setValueAtTime(f0,t);o.frequency.exponentialRampToValueAtTime(f1,t+d);g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(v,t+.03);g.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(f).connect(g).connect(a.destination);o.start(t);o.stop(t+d+.05)}
@@ -1053,7 +1067,7 @@ Object.assign(BASES,{
   <rect x="6" y="78" width="88" height="5" fill="${d}" stroke="${OL}" stroke-width="1.5"/><path d="M12 83 V94 M88 83 V94" stroke="#E2B13C" stroke-width="4.5" stroke-linecap="round"/><path d="M46 84 v6 M54 84 v6" stroke="#E2B13C" stroke-width="2.5"/><polygon points="${starPts(18,10,5,2)}" fill="#FFD23F"/><polygon points="${starPts(96,30,4,1.6)}" fill="#FFF3A0"/>`]
 });
 /* some prizes are big */
-const SIZEK={piano:1.35,harp:1.15,drumkit:2.4,giantbear:1.1,elephant:1.2,giraffe:1.25,unicorn:1.3,bigdragon:1.45,pegasus:1.3,phoenix:1.3,candycastle:1.25,swirlpop:1.1};
+const SIZEK={piano:1.2,harp:1.1,drumkit:1.5,giantbear:1.1,elephant:1.2,giraffe:1.25,unicorn:1.3,bigdragon:1.3,pegasus:1.3,phoenix:1.3,candycastle:1.25,swirlpop:1.1};
 /* ---------- animals and treats ---------- */
 const EYE=(x,y,r=2.8)=>`<circle cx="${x}" cy="${y}" r="${r}" fill="${OL}"/><circle cx="${x+r*.35}" cy="${y-r*.35}" r="${(r*.36).toFixed(2)}" fill="#fff"/>`;
 const BLUSH=(x,y,r=3)=>`<circle cx="${x}" cy="${y}" r="${r}" fill="#FF8FAB" opacity=".5"/>`;
@@ -1103,10 +1117,11 @@ for(const [key,[tier,name]] of Object.entries(BASES)){
   const T=TIERS[tier],o=BASES[key][3]||{};
   const cols=o.nat?NATURE[key]:o.treat?TREAT_COLS.concat(T.gold?['gold']:[]):DEF_COLS;
   const pats=o.pats||(o.nat?(o.plain?['plain']:tier===0?['plain']:tier===3?['plain','stars']:['plain',tier===1?'spots':'stars']):T.pats);
+  if(key==='block'){LETTERS.forEach((Lt,n)=>{const ci=[0,1,2,3,4,5,6,7][n%8];const id='block.'+Lt;const pr={id,key,tier,ci,pat:'plain',name:'Letter Block '+Lt,L:Lt};PRIZES.push(pr);PRIZE_BY[id]=pr;LINES['pz_'+id]=pr.name+'.'})}
   COLORS.forEach((col,ci)=>{if(!cols.includes(col[0]))return;if(col[0]==='gold'&&!T.gold)return;pats.forEach(p=>{
     const id=`${key}.${col[0]}.${p}`;
     const nm=(o.plain?[PATS[p],name]:[col[1],PATS[p],name]).filter(Boolean).join(' ');
-    const pr={id,key,tier,ci,pat:p,name:nm};PRIZES.push(pr);PRIZE_BY[id]=pr;LINES['pz_'+id]=nm.replace(/\bMech\b/,'Meck')+'.';})});
+    const pr={id,key,tier,ci,pat:p,name:nm,retired:key==='block'};PRIZES.push(pr);PRIZE_BY[id]=pr;LINES['pz_'+id]=nm.replace(/\bMech\b/,'Meck')+'.';})});
 }
 let pid=0;
 /* ---------- stickers & candy (consumables, stuck onto prizes forever) ---------- */
@@ -1132,7 +1147,7 @@ const STK_LIST=[
  ['starpatch','Star Patch',1,'patch',24,u=>`<polygon points="${starPts(0,0,16,7)}" fill="#FFC21A" stroke="#C99A2E" stroke-width="1.2"/><polygon points="${starPts(0,0,12,5.2)}" fill="none" stroke="#fff" stroke-width="1" stroke-dasharray="2 2"/>`],
  ['rainbowpatch','Rainbow Patch',2,'patch',26,u=>`<clipPath id="rp${u}"><rect x="-14" y="-12" width="28" height="24" rx="5"/></clipPath><g clip-path="url(#rp${u})">${RAINBOW.map((c,i)=>`<rect x="-14" y="${-12+i*4}" width="28" height="4" fill="${c}"/>`).join('')}</g><rect x="-12" y="-10" width="24" height="20" rx="4" fill="none" stroke="#fff" stroke-width="1.2" stroke-dasharray="2 2"/>`],
  ['party','Party Hat',0,'hat',34,u=>`<path d="M-12 14 L0 -18 L12 14Z" fill="#2C67E0"/><path d="M-8 4 L4 -6 M-10 10 L8 -2 M-2 14 L10 6" stroke="#FFC21A" stroke-width="3"/><circle cy="-18" r="4" fill="#EE4B33"/><ellipse cy="14" rx="13" ry="3" fill="#1D4AA8"/>`],
- ['propeller','Propeller Cap',1,'hat',34,u=>`<path d="M-15 8 Q-15 -8 0 -8 Q15 -8 15 8Z" fill="#EE4B33"/><path d="M-5 -8 Q0 8 5 -8" fill="#2C67E0"/><path d="M8 8 H22 Q22 12 16 12 H8Z" fill="#B5321F"/><rect x="-1" y="-14" width="2" height="6" fill="#3A3F47"/><ellipse cx="-7" cy="-15" rx="7" ry="2" fill="#FFC21A"/><ellipse cx="7" cy="-15" rx="7" ry="2" fill="#16A39B"/>`],
+ ['propeller','Propeller Cap',1,'hat',34,u=>`<path d="M-15 8 Q-15 -8 0 -8 Q15 -8 15 8Z" fill="#EE4B33"/><path d="M-5 -8 Q0 8 5 -8" fill="#2C67E0"/><rect x="-1" y="-14" width="2" height="6" fill="#3A3F47"/><ellipse cx="-7" cy="-15" rx="7" ry="2" fill="#FFC21A"/><ellipse cx="7" cy="-15" rx="7" ry="2" fill="#16A39B"/>`],
  ['cowboy','Cowboy Hat',1,'hat',36,u=>`<path d="M-20 6 Q-18 12 0 12 Q18 12 20 6 Q14 9 0 9 Q-14 9 -20 6Z" fill="#8C5A30"/><path d="M-10 8 Q-12 -10 -4 -10 Q0 -6 4 -10 Q12 -10 10 8Z" fill="#A86F3D"/><rect x="-10" y="3" width="20" height="3" fill="#5A3A1E"/>`],
  ['tophat','Top Hat',1,'hat',34,u=>`<rect x="-10" y="-16" width="20" height="24" rx="2" fill="#2A2E35"/><rect x="-10" y="2" width="20" height="4" fill="#EE4B33"/><ellipse cy="8" rx="17" ry="4" fill="#1B1E23"/>`],
  ['wizard','Wizard Hat',2,'hat',38,u=>`<path d="M-12 12 L4 -20 Q6 -10 12 12Z" fill="#7A4FD0"/><ellipse cy="12" rx="18" ry="4" fill="#5A36A3"/><polygon points="${starPts(-2,0,4,1.6)}" fill="#FFC21A"/><polygon points="${starPts(5,-9,3,1.2)}" fill="#fff"/><circle cx="4" cy="-20" r="2" fill="#FFC21A"/>`],
@@ -1195,7 +1210,7 @@ function prizeSVG(pr,dec){
     if(pr.pat==='stripes')defs=`<pattern id="${id}" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="12" height="12" fill="${c}"/><rect width="5" height="12" fill="${l}"/></pattern>`;
     if(pr.pat==='spots')defs=`<pattern id="${id}" width="14" height="14" patternUnits="userSpaceOnUse"><rect width="14" height="14" fill="${c}"/><circle cx="4" cy="4" r="2.6" fill="${l}"/><circle cx="11" cy="11" r="2.6" fill="${l}"/></pattern>`;
     if(pr.pat==='stars')defs=`<pattern id="${id}" width="16" height="16" patternUnits="userSpaceOnUse"><rect width="16" height="16" fill="${c}"/><polygon points="${starPts(5,5,4,1.7)}" fill="#fff" opacity=".85"/><polygon points="${starPts(13,13,3,1.3)}" fill="${l}"/></pattern>`;}
-  const L=COLORS[pr.ci][1][0];
+  const L=pr.L||COLORS[pr.ci][1][0];
   return `<svg viewBox="0 0 100 100" overflow="visible" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${pr.name}"><defs>${defs}</defs>${decorSVG(dec,true)}${BASES[pr.key][2](b,c,l,d,pr.ci,L)}${decorSVG(dec,false)}</svg>`;
 }
 
@@ -1214,7 +1229,7 @@ function show(id){
 }
 $('#back').onclick=()=>{closeOv();show('home')};
 $('#who').onclick=()=>{ac();show('who')};
-document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{ac();const g=b.dataset.go;introKey={pick:'g_find',say:'g_say',sound:'g_sound',room:'g_room'}[g]||null;if(g==='room'){const k=introKey;introKey=null;setTimeout(()=>say(k),0)}if(g==='say'){show('say');startSay()}else if(g==='sound'){if(soundUnlocked())startSound();else toast('Sound It Out unlocks after every letter reaches gold in Find It')}else show(g)});
+document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{ac();const g=b.dataset.go;introKey={pick:'g_find',say:'g_say',sound:'g_sound'}[g]||null;if(g==='say'){show('say');startSay()}else if(g==='sound'){if(soundUnlocked())startSound();else toast('Sound It Out unlocks after every letter reaches gold in Find It')}else show(g)});
 
 /* ---------- overlay / toast ---------- */
 function ov(html,btns){const c=$('#ovCard');c.innerHTML=html+'<div class="ov-btns"></div>';const row=c.querySelector('.ov-btns');(btns||[]).forEach(b=>{const e=document.createElement('button');e.className='btn '+(b.cls||'');if(b.brk){const d=document.createElement('div');d.className='brk';row.appendChild(d);return}if(b.html)e.innerHTML=b.html;else e.textContent=b.label;if(b.aria)e.setAttribute('aria-label',b.aria);e.onclick=()=>{closeOv();b.fn&&b.fn()};row.appendChild(e)});$('#ov').hidden=false}
@@ -1278,7 +1293,7 @@ const pic=e=>PIC[e]||e;
 /* Find It progress: every round won adds a star to that letter (or to "?"). Three stars wins a prize and moves the letter up a level (silver, then gold). */
 const tierK=k=>(S.flevel||{})[k]||0,starsK=k=>Math.min(3,(S.fstars||{})[k]||0);
 const isKeyFor=L=>['is_','is1_','is2_'][tierOf(L)]+L,wordFor=L=>WORDS_T[tierOf(L)][L];
-const promptKeys=L=>[isKeyFor(L),'find_'+L];
+const promptKeys=L=>['if'+tierOf(L)+'_'+L];
 function setTarget(){$('#fTarget').textContent=disp(F.letter);$('#fWord').innerHTML=pic(wordFor(F.letter)[1])}
 function boardSize(){const t=S.settings.tiles;if(t==='auto'||t==null)return LEVELS[tierK(F.key)];const cols=t===9?3:4;return{cols,rows:t/cols,t:t<=9?3:t<=12?4:5}}
 function startFind(L){const mystery=L==='?',key=mystery?'?':L;F={mystery,key,letter:mystery?pickFresh():L,practice:doneL(key),pw:0};S.fstars=S.fstars||{};S.flevel=S.flevel||{};
@@ -1290,13 +1305,15 @@ function findWin(){F.done=true;stopFind();bump(F.letter,'f');lastGame='find';con
   if(F.practice){F.pw++;starsRow($('#fPips'),R,F.pw);
     if(F.pw>=R){save();sFan();confetti();say('gotall');
       ov(`<div class="done-check">${CHECK_SVG}</div><h2>Good job, you got them all!</h2><p>${key==='?'?'Every mystery level':disp(F.letter)+' is all'} done. Keep practicing anytime.</p>`,[{label:'Find a new letter',cls:'green big',fn:()=>show('pick')},{brk:1},homeBtn]);return}
-    return nextRound(R-F.pw)}
+    if(F.strikes===0)return perfectRound();return nextRound(R-F.pw)}
   S.fstars[key]=starsK(key)+1;starsRow($('#fPips'),R,S.fstars[key]);
   if(S.fstars[key]>=R){S.pending++;const lv=tierK(key);let up='',special=false;
     if(lv<2){S.flevel[key]=lv+1;S.fstars[key]=0;up=lv===0?'silver':'gold'}else{S.fstars[key]=R;if(key==='?'){S.specialBox=(S.specialBox||0)+1;special=true}}
     save();checkMaster();checkSoundUnlock();sFan();confetti();const dk=vary('done',8);say(dk);const nm=key==='?'?'The mystery letter':disp(key);
     ov(`<h2>${LINES[dk].replace(' You win a prize!','')}</h2><p>You win a prize!</p>${up?`<p class="lvlup"><span class="mini-medal">${up==='silver'?MEDAL_S:MEDAL_G}</span>${nm} moved up to ${up}!</p>`:''}${special?'<p class="lvlup">A super treasure chest with legendary prizes!</p>':''}`,[{label:'Pick my prize',cls:'yellow big',fn:()=>show('shop')}]);return}
-  save();nextRound(R-S.fstars[key])}
+  save();if(F.strikes===0)return perfectRound();nextRound(R-S.fstars[key])}
+function perfectRound(){if(F.mystery){F.letter=pickFresh(F.letter);setTarget()}sPop();tierSfx(1,0);
+  say([vary('cheer',6),F.mystery?'next_'+F.letter:'fa_'+F.letter]);toast('Perfect! ★');setTimeout(()=>{if(cur==='find'){F.fromIntro=true;newBoard()}},650)}
 function nextRound(left){if(F.mystery){F.letter=pickFresh(F.letter);setTarget()}
   sPop();const pk=vary('praise',12);say([pk,left<=4?'more'+(left-1):null,F.mystery?'next_'+F.letter:null].filter(Boolean));
   const next=F.mystery?'n_'+F.letter:remindKey(F.letter);
@@ -1318,7 +1335,7 @@ function newBoard(prompt){
     const t=document.createElement('button');t.className='tile';t.style.setProperty('--tc',col);t.style.setProperty('--tl',mix(col,'#ffffff',.84));t.textContent=disp(L);t.setAttribute('aria-label',L);
     t.onclick=()=>{if(F.done||t.classList.contains('found'))return;S.fstat=S.fstat||{};const fs=S.fstat[F.letter]||(S.fstat[F.letter]={h:0,m:0});if(L===F.letter)fs.h++;else fs.m++;
       if(L===F.letter){t.classList.add('found');sPop();F.left--;if(F.left===0)findWin();else say('n_'+L);}
-      else{t.classList.remove('shake');void t.offsetWidth;t.classList.add('shake');sOops();F.strikes++;renderStrikes();if(F.strikes>=3)strikeOut();else say('no_'+L)}};
+      else{t.classList.remove('shake');void t.offsetWidth;t.classList.add('shake');sBuzz();try{navigator.vibrate&&navigator.vibrate(60)}catch(e){}const bd=$('#board');bd.classList.remove('nudge');void bd.offsetWidth;bd.classList.add('nudge');F.strikes++;renderStrikes();if(F.strikes>=3)strikeOut();else say('n_'+L)}};
     bd.appendChild(t)});
   if(prompt)say(prompt);else if(!F.fromIntro)say(['find_'+F.letter]);F.fromIntro=false;
   startTimer();
@@ -1330,39 +1347,44 @@ function startTimer(){stopFind();const sec=S.settings.timer,bat=$('#battery'),ch
   fRAF=requestAnimationFrame(step)}
 function stopFind(){if(fRAF){cancelAnimationFrame(fRAF);fRAF=null}}
 $('#testWin').onclick=()=>{if(cur!=='find'||F.done||!$('#ov').hidden)return;document.querySelectorAll('#board .tile:not(.found)').forEach(t=>{if(t.getAttribute('aria-label')===F.letter)t.classList.add('found')});F.left=0;findWin()};
-function strikeOut(){F.done=true;stopFind();say(['oops',...promptKeys(F.letter)]);
+function strikeOut(){F.done=true;stopFind();say(['tryagain','find_'+F.letter]);
   ov(`<h2>Almost!</h2><p>Let's try that again.</p><div class="next-up"><span>Find every</span><span class="chipL">${disp(F.letter)}</span></div>`,[{label:'Try again',cls:'green big',fn:()=>newBoard()}])}
 function findTimeout(){F.done=true;sOops();say(['batt',...promptKeys(F.letter)]);
   ov(`<h2>Out of power!</h2><p>The robot battery ran out. Let's try again.</p><div class="next-up"><span>Find every</span><span class="chipL">${disp(F.letter)}</span></div>`,[{label:'Try again',cls:'green big',fn:()=>newBoard()},{label:'New letter',cls:'grey',fn:()=>show('pick')}])}
 
 /* ---------- SAY IT ---------- */
 /* ---------- SAY IT: which letters to ask (adaptive) ----------
-   Find It keeps a hit rate for every letter (taps on the right letter vs. wrong taps while hunting it).
-   Say It starts with the letters he already finds best, adds one new letter each time he gets a letter
-   right 8 times in a row (and isn't still struggling with the newest one), and shows mastered letters much less often. */
+   Starts with the 3 letters he finds best in Find It. Each answer updates that letter's streak and recent hit rate.
+   Letters he clearly knows (5 or 10 in a row, or 90%/95%+ right) come up less; letters he misses a lot come up more.
+   A new letter joins whenever all but one of the current letters are going well. */
 const STARTERS='OXABSTMPCDEHIKLNRUWZFGJQVY'.split('');
 const fRate=L=>{const s=(S.fstat||{})[L];if(!s||s.h+s.m<3)return null;return s.h/(s.h+s.m)};
 const sRate=L=>{const s=(S.sstat||{})[L];if(!s||!s.n)return null;return s.ok/s.n};
-const recentRate=L=>{const h=((S.sstat||{})[L]||{}).hist||[];if(h.length<3)return null;const r=h.slice(-5);return r.reduce((a,b)=>a+b,0)/r.length};
-const mastered=L=>(((S.sstat||{})[L]||{}).streak||0)>=8;
+const recentRate=L=>{const h=((S.sstat||{})[L]||{}).hist||[];if(h.length<3)return null;return h.reduce((a,b)=>a+b,0)/h.length};
+const comfortable=L=>{const s=(S.sstat||{})[L];if(!s)return false;const r=recentRate(L);return s.streak>=5||(s.hist.length>=5&&r>=.9)};
+const mastered=L=>{const s=(S.sstat||{})[L];if(!s)return false;const r=recentRate(L);return s.streak>=10||(s.hist.length>=6&&r>=.95)};
 function nextNewLetter(pool){const have=new Set(pool);
   const known=LETTERS.filter(L=>!have.has(L)&&fRate(L)!=null).sort((a,b)=>fRate(b)-fRate(a));
   return known[0]||STARTERS.find(L=>!have.has(L))||null}
-function initSayPool(){if(S.sayPool&&S.sayPool.length)return;
-  const known=LETTERS.filter(L=>fRate(L)!=null).sort((a,b)=>fRate(b)-fRate(a));
-  let pool=known.slice(0,3);const want=Math.min(3,Math.max(2,pool.length+1));
-  while(pool.length<want){const n=nextNewLetter(pool);if(!n)break;pool.push(n)}
-  S.sayPool=pool;S.sayNewest=pool[pool.length-1];save()}
+function initSayPool(){S.sayPool=S.sayPool||[];
+  if(!S.sayPool.length){const known=LETTERS.filter(L=>fRate(L)!=null).sort((a,b)=>fRate(b)-fRate(a));S.sayPool=known.slice(0,3)}
+  while(S.sayPool.length<3){const n=nextNewLetter(S.sayPool);if(!n)break;S.sayPool.push(n);S.sayNewest=n}
+  save()}
 function maybeAddLetter(){const pool=S.sayPool;if(pool.length>=26)return;
-  const nw=S.sayNewest,r=nw?recentRate(nw):1;if(nw&&!mastered(nw)&&(r==null||r<.6))return;
+  const comfy=pool.filter(comfortable).length;if(comfy<pool.length-1)return;
   const n=nextNewLetter(pool);if(n){pool.push(n);S.sayNewest=n;Y.newLetter=n;save()}}
-function sayWeight(L){if(L===Y.letter)return 0;if(mastered(L))return .15;
-  const h=((S.sstat||{})[L]||{}).hist||[];if(h.length>=2&&!h[h.length-1]&&!h[h.length-2])return .3;
-  if(L===S.sayNewest&&h.length<6)return 1.3;return 1}
+function sayWeight(L){if(L===Y.letter)return 0;const s=(S.sstat||{})[L];
+  if(!s||s.hist.length<3)return L===S.sayNewest?1.4:1.1;
+  const r=recentRate(L);let w=1;
+  if(s.streak>=10)w=.12;else if(s.streak>=5)w=.35;
+  if(s.hist.length>=6){if(r>=.95)w=Math.min(w,.15);else if(r>=.9)w=Math.min(w,.3)}
+  if(r<.25)w=2.2;else if(r<.5)w=Math.max(w,1.6);
+  const h=s.hist;if(h.length>=2&&!h[h.length-1]&&!h[h.length-2])w*=.5;
+  return w}
 function pickSayLetter(){initSayPool();const pool=S.sayPool;if(Y.newLetter&&pool.includes(Y.newLetter)){const n=Y.newLetter;Y.newLetter=null;return n}
   const ws=pool.map(sayWeight);let r=Math.random()*ws.reduce((a,b)=>a+b,0);for(let i=0;i<pool.length;i++){r-=ws[i];if(r<=0)return pool[i]}return pool.find(L=>L!==Y.letter)||pool[0]}
 function sayRecord(L,ok){S.sstat=S.sstat||{};const s=S.sstat[L]||(S.sstat[L]={n:0,ok:0,streak:0,hist:[]});s.n++;if(ok){s.ok++;s.streak++}else s.streak=0;s.hist.push(ok?1:0);if(s.hist.length>12)s.hist.shift();
-  if(ok&&s.streak===8)maybeAddLetter();save()}
+  maybeAddLetter();save()}
 const strikesOn=()=>(S.sayPool||[]).length>=6;
 function starRow(el,n,on){el.innerHTML=Array.from({length:n},(_,i)=>`<span class="rstar${i<on?' on':''}">★</span>`).join('')}
 
@@ -1418,8 +1440,8 @@ $('#pNext').onclick=()=>{ac();nextSay()};
 let sel=null;
 function tierWeights(n){if(n%10===0)return[[0,78,21.16,.84],true];if(n%5===0)return[[40,52,7.16,.84],true];return[[77,20.16,2,.84],false]}
 const rollTier=w=>{let r=Math.random()*100,t=0;for(;t<3;t++){r-=w[t];if(r<=0)break}return t};
-function pickPrize(t,owned,usedKeys,out){for(let tt=t;tt>=0;tt--){const keys=[...new Set(PRIZES.filter(p=>p.tier===tt&&!owned.has(p.id)&&!usedKeys.has(p.key)&&!out.includes(p.id)).map(p=>p.key))];
-    if(keys.length){const k=pick(keys);return pick(PRIZES.filter(p=>p.key===k&&!owned.has(p.id)&&!out.includes(p.id)))}}
+function pickPrize(t,owned,usedKeys,out){for(let tt=t;tt>=0;tt--){const keys=[...new Set(PRIZES.filter(p=>!p.retired&&p.tier===tt&&!owned.has(p.id)&&!usedKeys.has(p.key)&&!out.includes(p.id)).map(p=>p.key))];
+    if(keys.length){const k=pick(keys);return pick(PRIZES.filter(p=>!p.retired&&p.key===k&&!owned.has(p.id)&&!out.includes(p.id)))}}
   const c=PRIZES.filter(p=>!owned.has(p.id)&&!out.includes(p.id));return c.length?pick(c):null}
 function rollPool(){const owned=new Set(S.owned),out=[],usedKeys=new Set();
   if(S.specialBox>0){S.specialBox--;S.poolSpecial=1;for(let k=0;k<3;k++){const p=pickPrize(3,owned,usedKeys,out);if(!p)break;out.push(p.id);usedKeys.add(p.key)}if(out.length===3)return out}
@@ -1458,8 +1480,8 @@ $('#keepBtn').onclick=()=>{if(!sel)return;const id=sel;S.pending=Math.max(0,S.pe
     ov(`<div class="big-prize t${st.tier}">${stickerSVG(st)}</div><h2>${st.name}</h2><p>Stick ${n>1?'them':'it'} on any prize in your treasure room.</p>`,
       S.pending>0?[more]:[{label:'Decorate a prize',cls:'yellow big',fn:()=>{show('room');toast('Tap a prize in your room to decorate it')}},{brk:1},again,{brk:1},homeBtn]);return}
   const p=PRIZE_BY[id];S.owned.unshift(id);save();say(['newprize','pz_'+id]);
-  ov(`<div class="big-prize t${p.tier}">${prizeSVG(p)}</div><h2>${p.name}</h2><p>You get to pick where it goes in your room!</p>`,
-    S.pending>0?[more]:[{label:'Put it in my room',cls:'yellow big',fn:()=>{show('room');startPlacing(id)}},{brk:1},again,{brk:1},homeBtn]);if(!S.pending&&S.unlockPending)setTimeout(showUnlock,2600)};
+  ov(`<div class="big-prize t${p.tier}"><div class="dmove" id="keptMove">${prizeSVG(p)}</div></div><h2>${p.name}</h2><p>You get to pick where it goes in your room!</p>`,
+    S.pending>0?[more]:[{label:'Put it in my room',cls:'yellow big',fn:()=>{show('room');startPlacing(id)}},{brk:1},again,{brk:1},homeBtn]);const km=$('#keptMove');if(km)km.onclick=()=>{if(isInstr(p.key))instrRiff(p.key);else if(ACT[p.key])doAct(id,km);else prizeSfx(p)};if(!S.pending&&S.unlockPending)setTimeout(showUnlock,2600)};
 
 /* ---------- TREASURE ROOM (cabin) ---------- */
 const ROOM_W=2400,ROOM_H=1000,PX=x=>(x/24).toFixed(3)+'%',PY=y=>(y/10).toFixed(3)+'%';
@@ -1473,7 +1495,7 @@ const CONTAINERS=[
   {id:'drR',x:662,y:578,w:186,h:52,kind:'drawer',shelves:[626]}];
 const CONT_BY=Object.fromEntries(CONTAINERS.map(c=>[c.id,c]));
 const OPEN={};
-const ISZ=[92,106,122,190];
+const ISZ=[160,180,205,260];
 const isz=p=>Math.round(ISZ[p.tier]*(SIZEK[p.key]||1));
 /* toys that others can sit on: fraction of the toy's size from its bottom to its top surface */
 const STACK_TOP={block:.62,car:.56,race:.42,van:.62,bus:.56,pickup:.44,drum:.46,candyjar:.72,cup:.0};
@@ -1569,7 +1591,8 @@ function zoomAt(z,fx,fy,px,py){const v=$('#roomView');rz=z;layoutRoom();const W=
 function viewFocus(cx,cy){const v=$('#roomView'),r=v.getBoundingClientRect(),sr=$('#stage').getBoundingClientRect();return{fx:(cx-sr.left)/sr.width,fy:(cy-sr.top)/sr.height,px:cx-r.left,py:cy-r.top}}
 function stagePt(e){const r=$('#stage').getBoundingClientRect();return{x:(e.clientX-r.left)/r.width*ROOM_W,y:(e.clientY-r.top)/r.height*ROOM_H,inside:e.clientX>=r.left&&e.clientX<=r.right&&e.clientY>=r.top&&e.clientY<=r.bottom}}
 const overEl=(e,sel)=>{const c=$(sel);if(!c)return false;const r=c.getBoundingClientRect();return e.clientX>=r.left&&e.clientX<=r.right&&e.clientY>=r.top-6&&e.clientY<=r.bottom};
-function itemHTML(p){const pos=absPos(p.id),sz=isz(p);const hid=pos.in&&!OPEN[pos.in];let gk=p.key==='plant'?growK(p.id):1;if(pos.in&&CONT_BY[pos.in]&&CONT_BY[pos.in].kind==='drawer')gk=Math.min(gk,74/sz);return `<button class="ritem t${p.tier}${p.id===lastNew?' new':''}${hid?' inside':''}${S.placed[p.id].on?' stacked':''}${toyClasses(p.id,p.key)}" data-id="${p.id}" style="left:${PX(pos.x)};top:${PY(pos.y)};width:${PX(sz*gk)};z-index:${(pos.y|0)+(S.placed[p.id].on?1:0)}" aria-label="${esc(p.name)}">${prizeSVG(p,S.decor[p.id])}</button>`}
+function zOf(id,d=0){const p=S.placed[id];if(p&&p.on&&d<4&&S.placed[p.on])return zOf(p.on,d+1)+1;const a=absPos(id);return a?(a.y|0):1}
+function itemHTML(p){const pos=absPos(p.id),sz=isz(p);const hid=pos.in&&!OPEN[pos.in];let gk=p.key==='plant'?growK(p.id):1;if(pos.in&&CONT_BY[pos.in]&&CONT_BY[pos.in].kind==='drawer')gk=Math.min(gk,74/sz);return `<button class="ritem t${p.tier}${p.id===lastNew?' new':''}${hid?' inside':''}${S.placed[p.id].on?' stacked':''}${toyClasses(p.id,p.key)}" data-id="${p.id}" style="left:${PX(pos.x)};top:${PY(pos.y)};width:${PX(sz*gk)};z-index:${zOf(p.id)}" aria-label="${esc(p.name)}">${prizeSVG(p,S.decor[p.id])}</button>`}
 function partnerOf(id){for(const k of Object.keys(S.pairs||{})){const [a,b]=k.split('|');if(a===id&&S.owned.includes(b))return b;if(b===id&&S.owned.includes(a))return a}return null}
 function pairBadges(){let h='';const seen=new Set();for(const k of Object.keys(S.pairs||{})){const [a,b]=k.split('|');if(seen.has(a)||seen.has(b))continue;if(!S.placed[a]||!S.placed[b]||S.placed[a].on||S.placed[b].on||!S.owned.includes(a)||!S.owned.includes(b))continue;const pa=absPos(a),pb=absPos(b);if((pa.in&&!OPEN[pa.in])||(pb.in&&!OPEN[pb.in]))continue;
   if(Math.hypot(pa.x-pb.x,(pa.y-pb.y)*1.5)>260)continue;seen.add(a);seen.add(b);const sa=isz(PRIZE_BY[a]),sb=isz(PRIZE_BY[b]);const L=Math.min(pa.x-sa*.42,pb.x-sb*.42),Rr=Math.max(pa.x+sa*.42,pb.x+sb*.42),y=Math.max(pa.y,pb.y);
@@ -1634,7 +1657,7 @@ function confirmTrash(id){const p=PRIZE_BY[id];if(!p)return;stopSong();
      {label:'Keep it',cls:'green',fn:renderRoom}])}
 /* drag toys; drop on the chest to store, on the bin to throw away */
 let drag=null;
-$('#items').addEventListener('pointerdown',e=>{if(placing)return;const it=e.target.closest('.ritem');if(!it)return;e.preventDefault();try{it.setPointerCapture(e.pointerId)}catch(_){}drag={el:it,id:it.dataset.id,x0:e.clientX,y0:e.clientY,moved:false,pid:e.pointerId};const o=partnerOf(drag.id);if(o&&S.placed[o]&&!S.placed[o].on&&!S.placed[drag.id].on){const a=absPos(drag.id),b=absPos(o);drag.pe=document.querySelector(`.ritem[data-id="${o}"]`);drag.pdx=b.x-a.x;drag.pdy=b.y-a.y}});
+$('#items').addEventListener('pointerdown',e=>{if(placing)return;const it=e.target.closest('.ritem');if(!it)return;e.preventDefault();try{it.setPointerCapture(e.pointerId)}catch(_){}drag={el:it,id:it.dataset.id,x0:e.clientX,y0:e.clientY,moved:false,pid:e.pointerId};{const base=absPos(drag.id);const kids=[];const walk=(b,dp)=>{if(dp>4)return;S.owned.forEach(k=>{if(S.placed[k]&&S.placed[k].on===b){const a=absPos(k),el=document.querySelector(`.ritem[data-id="${k}"]`);if(el&&a)kids.push({el,dx:a.x-base.x,dy:a.y-base.y});walk(k,dp+1)}})};walk(drag.id,0);drag.kids=kids}const o=partnerOf(drag.id);if(o&&S.placed[o]&&!S.placed[o].on&&!S.placed[drag.id].on){const a=absPos(drag.id),b=absPos(o);drag.pe=document.querySelector(`.ritem[data-id="${o}"]`);drag.pdx=b.x-a.x;drag.pdy=b.y-a.y}});
 let cdrag=null;
 /* fingers: touch events, so the page never scrolls while a toy is being pulled out */
 let tdrag=null;
@@ -1650,7 +1673,7 @@ $('#chestRow').addEventListener('pointerdown',e=>{const b=e.target.closest('.cit
 addEventListener('pointermove',e=>{
   if(drag&&e.pointerId===drag.pid){if(!drag.moved&&Math.hypot(e.clientX-drag.x0,e.clientY-drag.y0)<8)return;
     if(!drag.moved){drag.moved=true;drag.el.classList.add('dragging');ac()}
-    const p=stagePt(e);drag.el.style.left=PX(Math.max(0,Math.min(ROOM_W,p.x)));drag.el.style.top=PY(Math.max(0,Math.min(ROOM_H,p.y)));drag.el.style.zIndex=3000;if(drag.pe){drag.pe.style.left=PX(Math.max(0,Math.min(ROOM_W,p.x+drag.pdx)));drag.pe.style.top=PY(Math.max(0,Math.min(ROOM_H,p.y+drag.pdy)));drag.pe.style.zIndex=2999;document.querySelectorAll('#items .pairb,#items .pairrug').forEach(x=>x.style.opacity=0)}
+    const p=stagePt(e);drag.el.style.left=PX(Math.max(0,Math.min(ROOM_W,p.x)));drag.el.style.top=PY(Math.max(0,Math.min(ROOM_H,p.y)));drag.el.style.zIndex=3000;(drag.kids||[]).forEach((k,n)=>{k.el.style.left=PX(Math.max(0,Math.min(ROOM_W,p.x+k.dx)));k.el.style.top=PY(Math.max(0,Math.min(ROOM_H,p.y+k.dy)));k.el.style.zIndex=3001+n});if(drag.pe){drag.pe.style.left=PX(Math.max(0,Math.min(ROOM_W,p.x+drag.pdx)));drag.pe.style.top=PY(Math.max(0,Math.min(ROOM_H,p.y+drag.pdy)));drag.pe.style.zIndex=2999;document.querySelectorAll('#items .pairb,#items .pairrug').forEach(x=>x.style.opacity=0)}
     $('#chestObj')?.classList.toggle('hot',overEl(e,'#chestObj'));return}
   if(cdrag&&e.pointerId===cdrag.pid){const dx=e.clientX-cdrag.x0,dy=e.clientY-cdrag.y0;
     if(!cdrag.ghost){if(Math.hypot(dx,dy)<9)return;const g=document.createElement('div');g.className='drag-ghost';g.innerHTML=prizeSVG(PRIZE_BY[cdrag.id],S.decor[cdrag.id]);document.body.appendChild(g);cdrag.ghost=g;g.innerHTML=cdrag.b.innerHTML;try{cdrag.b.setPointerCapture(e.pointerId)}catch(_){}ac()}
@@ -1811,7 +1834,7 @@ function drawItemPanel(id){stopSong();const p=PRIZE_BY[id],mate=partnerOf(id);
 
 /* rare treats: each milestone gives one bonus game, once */
 const MS_WHY={place5:'You put 5 toys in your room!',legend1:'You put a legendary prize in your room!',combo1:'You made your first pair!',master1:'A letter reached silver and you said it 3 times!',p25:'You won 25 prizes!',p50:'You won 50 prizes!'};
-function milestone(k){S.ms=S.ms||{};if(S.ms[k])return;S.ms[k]=Date.now();S.bonus=(S.bonus||0)+1;save();setTimeout(()=>{toast((MS_WHY[k]||'')+' You earned a bonus game!');say('surprise')},1200)}
+function milestone(k){S.ms=S.ms||{};if(S.ms[k])return;S.ms[k]=Date.now();S.bonus=(S.bonus||0)+1;save();setTimeout(()=>{toast((MS_WHY[k]||'')+' You earned a bonus game!');say(LINES['ms_'+k]?'ms_'+k:'surprise')},1200)}
 function checkMaster(){if(LETTERS.some(L=>tierOf(L)>=1&&((S.stats[L]||{}).s||0)>=3))milestone('master1')}
 /* ---------- BONUS GAMES (surprise mini-games that award a prize) ---------- */
 const GIFT_SVG=`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect x="14" y="40" width="72" height="52" rx="6" fill="#EE4B33" stroke="#B5321F" stroke-width="3"/><rect x="8" y="28" width="84" height="16" rx="5" fill="#FF6B5B" stroke="#B5321F" stroke-width="3"/><rect x="44" y="28" width="12" height="64" fill="#FFC21A"/><path d="M50 28 C38 6 18 14 30 26Z M50 28 C62 6 82 14 70 26Z" fill="#FFC21A" stroke="#C79000" stroke-width="3"/></svg>`;
@@ -1826,14 +1849,14 @@ function gameShell(title,body){$('#gameBox').innerHTML=`<h2 class="g-title">${ti
 const MEM_SIZES=[[3,2],[4,2],[5,2],[4,3]];
 function gMemory(){const w=S.memWins||0,lv=Math.min(1,Math.floor(w/2)),[a,b]=MEM_SIZES[lv],pairs=a*b/2;GM={done:false};
   const box=$('#gameBox'),portrait=innerHeight>innerWidth;const cols=portrait?Math.min(a,b):Math.max(a,b),rows=a*b/cols;
-  const picks=[];for(const p of shuffle(PRIZES.filter(p=>p.tier<=2).slice())){if(!picks.some(q=>q.key===p.key))picks.push(p);if(picks.length===pairs)break}
+  const picks=[];for(const p of shuffle(PRIZES.filter(p=>p.tier<=2&&!p.retired).slice())){if(!picks.some(q=>q.key===p.key))picks.push(p);if(picks.length===pairs)break}
   GM.cards=shuffle([...picks,...picks].map(p=>({p})));GM.open=[];GM.matched=new Set();GM.lock=false;say('memory');
   gameShell('Find the pairs!',`<div class="mem" id="memGrid" style="--mc:${cols}">${GM.cards.map((c,i)=>`<button class="mcard" data-i="${i}" aria-label="Card"><span class="back">?</span><span class="face">${prizeSVG(c.p)}</span></button>`).join('')}</div>`);
   const fit=()=>{const g=$('#memGrid');if(!g)return;const top=g.getBoundingClientRect().top,availH=innerHeight-top-24,availW=Math.min(box.clientWidth||innerWidth-32,560);const sz=Math.floor(Math.min((availW-(cols-1)*10)/cols,(availH-(rows-1)*10)/rows));g.style.width=(sz*cols+(cols-1)*10)+'px';g.style.gridTemplateColumns=`repeat(${cols},${sz}px)`};requestAnimationFrame(fit);
-  const flip=i=>{if(GM.lock||GM.done||GM.matched.has(i)||GM.open.includes(i))return;document.querySelector(`.mcard[data-i="${i}"]`).classList.add('up');sPop();GM.open.push(i);
+  const flip=i=>{if(GM.lock||GM.done)return;if(GM.reset){GM.reset=false;document.querySelectorAll('.mcard.up').forEach(c=>c.classList.remove('up'));GM.matched.clear();GM.open=[]}if(GM.matched.has(i)||GM.open.includes(i))return;document.querySelector(`.mcard[data-i="${i}"]`).classList.add('up');sPop();GM.open.push(i);
     if(GM.open.length<2)return;const [x,y]=GM.open;
     if(GM.cards[x].p.id===GM.cards[y].p.id){GM.matched.add(x);GM.matched.add(y);GM.open=[];tierSfx(1,0);if(GM.matched.size===GM.cards.length){S.memWins=w+1;bonusWin()}}
-    else{GM.lock=true;sOops();setTimeout(()=>{say('tryagain');document.querySelectorAll('.mcard.up').forEach(c=>c.classList.remove('up'));GM.matched.clear();GM.open=[];GM.lock=false},900)}};
+    else{sOops();GM.reset=true;GM.lock=true;setTimeout(()=>{GM.lock=false;say('tryagain')},450)}};
   document.querySelectorAll('.mcard').forEach(b=>b.onclick=()=>flip(+b.dataset.i))}
 /* maze, harder each win: 1) bigger maze with loops, drag the truck  2) bigger still  3-4) steer with arrow buttons  5+) plan a list of arrows, then press Go (like coding) */
 const MAZE_LV=[{n:7,mode:'drag'},{n:8,mode:'drag'},{n:7,mode:'arrows'},{n:8,mode:'arrows'},{n:5,mode:'code'},{n:6,mode:'code'},{n:7,mode:'code'}];
@@ -1998,12 +2021,20 @@ function nextSound(){const pool=practiceSet();const L=pick(pool.filter(x=>x!==SO
   $('#soPics').innerHTML=opts.map(o=>`<button class="socard" data-l="${o.L}" data-w="${slug(o.w[0])}" aria-label="${o.w[0]}"><span class="emo">${pic(o.w[1])}</span></button>`).join('');
   document.querySelectorAll('#soPics .socard').forEach(b=>b.onclick=()=>soundPick(b));
   say(['wh_'+L])}
-function soundPick(b){if(SO.busy)return;const x=b.dataset.l,w=b.dataset.w;
+function soundPick(b){if(SO.busy)return;const x=b.dataset.l,w=b.dataset.w;S.ostat=S.ostat||{};const os=S.ostat[SO.letter]||(S.ostat[SO.letter]={ok:0,n:0});os.n++;if(x===SO.letter)os.ok++;
   if(x===SO.letter){SO.busy=true;b.classList.add('right');sPop();tierSfx(1,0);SO.ok++;renderSoundHud();soundSave();
     say([vary('sayYes',4),'st_'+w]).then(()=>{if(cur!=='sound')return;if(SO.ok>=5){S.soundRun=null;S.pending++;lastGame='sound';save();sFan();confetti();const dk=vary('done',8);say(dk);ov(`<h2>${LINES[dk].replace(' You win a prize!','')}</h2><p>You win a prize!</p>`,[{label:'Pick my prize',cls:'yellow big',fn:()=>show('shop')}])}else setTimeout(nextSound,350)});return}
   SO.busy=true;b.classList.remove('shake');void b.offsetWidth;b.classList.add('shake','wrong');sOops();SO.strikes++;renderSoundHud();soundSave();
   say(['st_'+w]).then(()=>{if(cur!=='sound')return;if(SO.strikes>=3){S.soundRun=null;save();say('oops');ov(`<h2>Almost!</h2><p>Let's try again.</p>`,[{label:'Try again',cls:'green big',fn:()=>{SO={ok:0,strikes:0,last:null};renderSoundHud();nextSound()}}])}else setTimeout(nextSound,400)})}
 function showUnlock(){delete S.unlockPending;save();sFan();confetti();say('unlocked');ov(`<div class="big-prize t3">${prizeSVG(PRIZE_BY['xylo.purple.plain'])}</div><h2>You unlocked a new game!</h2><p>You found every letter. Now try <b>Sound It Out</b>: find the picture that starts with the letter.</p>`,[{label:'Play Sound It Out',cls:'green big',fn:startSound},{brk:1},homeBtn])}
+/* ---------- LETTER STATS (grown-ups) ---------- */
+function statRows(g){return LETTERS.map(L=>{let ok=0,n=0;if(g==='find'){const s=(S.fstat||{})[L];if(s){ok=s.h;n=s.h+s.m}}else if(g==='say'){const s=(S.sstat||{})[L];if(s){ok=s.ok;n=s.n}}else{const s=(S.ostat||{})[L];if(s){ok=s.ok;n=s.n}}return{L,ok,n,p:n?ok/n:null}}).filter(r=>r.n)}
+function showStats(g){const rows=statRows(g).sort((a,b)=>b.p-a.p||b.n-a.n);const solid=rows.filter(r=>r.n>=3);
+  const best=solid.filter(r=>r.p>=.8).slice(0,3).map(r=>r.L).join(', ')||'–',worst=solid.slice().reverse().filter(r=>r.p<.8).slice(0,3).map(r=>r.L).join(', ')||'–';
+  const tabs=[['find','Find It'],['say','Say It'],['sound','Sound It Out']].map(([k,t])=>`<button class="chip${k===g?' on':''}" data-g="${k}">${t}</button>`).join('');
+  const what={find:'Right taps out of all taps while hunting each letter.',say:'Letters said correctly out of all tries (the microphone sometimes mishears).',sound:'Right picture picked for each letter.'}[g];
+  ov(`<h2>Letter stats</h2><div class="chips stat-tabs">${tabs}</div><p class="note">${what}</p>`+(rows.length?`<p class="stat-sum"><b>Going great:</b> ${best}<br><b>Needs practice:</b> ${worst}</p><div class="stat-list">${rows.map(r=>{const pc=Math.round(r.p*100),c=pc>=80?'#2FA64A':pc>=50?'#E8B100':'#EE4B33';return `<div class="srow"><b>${disp(r.L)}</b><span class="sbar"><i style="width:${pc}%;background:${c}"></i></span><span class="spc">${pc}%</span><small>${r.ok}/${r.n}</small></div>`}).join('')}</div>`:`<p>No ${g==='find'?'Find It':g==='say'?'Say It':'Sound It Out'} data yet.</p>`),[{label:'Done',cls:'green'}]);
+  document.querySelectorAll('.stat-tabs .chip').forEach(b=>b.onclick=()=>showStats(b.dataset.g))}
 /* ---------- PLAYERS ---------- */
 const AVATARS=['bot.blue.plain','bot.red.stripes','antbot.teal.plain','jetbot.orange.plain','dog.purple.plain','monster.green.plain','ufo.pink.plain','dino.green.plain'];
 function avatarHTML(p){if(p.avatar?.type==='photo'&&p.avatar.data)return `<img src="${p.avatar.data}" alt="">`;return prizeSVG(PRIZE_BY[p.avatar?.prize]||PRIZE_BY[AVATARS[0]])}
@@ -2084,6 +2115,7 @@ function renderSettings(){
   const st=S.settings,el=$('#s-settings'),me=prof();
   el.innerHTML=`<h2>Grown-up Settings</h2>
   <p class="note">Settings below are for <b>${esc(me.name)}</b>. Each player has their own treasures, stars and settings.</p>
+  <div class="set-sec"><h3>How the letters are going</h3><p class="note">See which letters are easy and which need practice in each game.</p><button class="btn yellow" id="statsBtn">Letter stats</button></div>
   ${testTools()}
   <div class="set-sec"><h3>Players</h3>
     ${R.profiles.map(p=>`<div class="prow"><span class="av">${avatarHTML(p)}</span><span class="nm">${esc(p.name)}${p.kind==='test'?'<span class="testtag">TEST</span>':''}${p.id===me.id?' · playing now':''}</span>${p.id!==me.id?`<button class="btn green" data-play="${p.id}">Play as ${esc(p.name)}</button>`:''}${R.profiles.length>1?`<button class="btn ${delArmed===p.id?'red':'grey'}" data-del="${p.id}">${delArmed===p.id?'Tap again to delete':'Delete'}</button>`:''}</div>`).join('')}
@@ -2132,6 +2164,7 @@ function renderSettings(){
     if(delArmed!==id){delArmed=id;renderSettings();setTimeout(()=>{if(delArmed===id){delArmed=null;if(cur==='settings')renderSettings()}},4000);return}
     delArmed=null;R.profiles=R.profiles.filter(p=>p.id!==id);if(R.current===id){R.current=R.profiles[0].id;S=prof().data}save();toast('Player deleted');show('settings')});
   $('#addP').onclick=()=>show('newp');
+  $('#statsBtn').onclick=()=>showStats('find');
   el.querySelectorAll('[data-play]').forEach(b=>b.onclick=()=>usePlayer(b.dataset.play));
   $('#doneBtn').onclick=()=>show('home');
   $('#testVoice').onclick=()=>{ac();say(['is_T','find_T'])};
