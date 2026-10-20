@@ -117,7 +117,10 @@ p{margin:0}
 body.lower .tile,body.lower .bigletter,body.lower .chipL{padding-bottom:.16em;box-sizing:border-box}
 .tile.found{background:var(--tl);border-color:var(--tc);box-shadow:0 2px 0 var(--tc);transform:translateY(4px);animation:pop .35s}
 .tile.found::after{content:"★";position:absolute;top:2px;right:8px;font-size:clamp(16px,3vw,24px);color:var(--tc)}
-.tile.shake{animation:shake .4s;border-color:#F28C28}
+.tile.shake{animation:shake .4s,missflash .7s;border-color:#EE4B33}
+@keyframes missflash{0%,60%{background:#FFD6CF;box-shadow:0 0 0 5px #EE4B33}}
+.xs.on{animation:pop .35s,xbig .5s}
+@keyframes xbig{40%{transform:scale(1.6)}}
 @keyframes pop{40%{transform:scale(1.18)}}
 @keyframes shake{20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
 
@@ -558,6 +561,11 @@ label.btn{display:block;text-align:center}
 #board.nudge{animation:nudge .28s}
 @keyframes nudge{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
 #keptMove{cursor:pointer;width:100%;height:100%}
+
+.mic-gate{display:flex;flex-direction:column;align-items:center;gap:14px;margin-top:8vh;text-align:center}
+.big-mic{width:min(46vw,190px)!important;height:min(46vw,190px)!important}
+.big-mic svg{width:55%;height:55%}
+.sealb{position:absolute;transform:translate(-50%,-50%);font-size:clamp(10px,1.4vw,20px);z-index:2600;pointer-events:none;filter:drop-shadow(0 1px 1px rgba(0,0,0,.3));animation:twinkle 1.6s ease-in-out infinite}
 </style>
 
 <div id="app">
@@ -624,6 +632,7 @@ label.btn{display:block;text-align:center}
     </section>
 
     <section id="s-say" class="screen" hidden>
+      <div class="mic-gate" id="micGate" hidden><button class="mic big-mic" id="gateMic" aria-label="Turn on the microphone"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3" fill="#fff"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M8.5 21h7"/></svg></button><h2>Tap the microphone!</h2><p class="note" id="gateNote">Grown-ups: tap Allow if the phone asks to use the microphone.</p></div>
       <div class="hud"><div class="pips" id="sPips"></div><div class="strikes" id="sStrikes"></div></div>
       <div class="say-stage">
         <div class="letter-card" id="sayScreen"><div class="bigletter" id="sLetter">A</div><div class="wordhint" id="sWord"></div></div>
@@ -686,7 +695,7 @@ label.btn{display:block;text-align:center}
 <div id="ov" hidden><div class="ov-card" id="ovCard"></div></div>
 <div class="toast" id="toast" hidden></div>
 <canvas id="confetti"></canvas>
-<script>const VOICE_VER=17;document.write('<script src="voice.js?v='+VOICE_VER+'"><\/script>')</script>
+<script>const VOICE_VER=18;document.write('<script src="voice.js?v='+VOICE_VER+'"><\/script>')</script>
 <script>
 (function(){
 const $=s=>document.querySelector(s);
@@ -719,7 +728,7 @@ const VL={
     oops:'Oops, let\'s try that again.',batt:'Uh oh, the battery ran out! Let\'s try again.',nohear:'I didn\'t hear you. Let\'s try again!',
     pick:'Pick your prize!',bonus:'A bonus box! Pick your prize!',newprize:'Yay! A new prize!',newsticker:'A new sticker!',
     place:'Where should it go? Tap a spot in your room!',decorate:'Pick a sticker, then tap your prize to stick it on!',nostickers:'You can win stickers in the prize shop.',
-    surprise:'You earned a bonus game!',g_find:'Find it!',ll:'Letter Land!',letsplay:"Let's play!",speed:'Super speed!',g_say:'Say it!',g_sound:'Sound it out!',g_room:'Treasure room!',ms_place5:'You put five toys in your room! You earned a bonus game!',ms_legend1:'You put a legendary prize in your room! You earned a bonus game!',ms_combo1:'You made your first pair! You earned a bonus game!',ms_master1:'Great saying! You earned a bonus game!',ms_p25:'You won twenty-five prizes! You earned a bonus game!',ms_p50:'You won fifty prizes! You earned a bonus game!',which:'Which one starts with',soundgo:'Sound it out! Which picture starts with the letter?',unlocked:'Wow! You unlocked a new game!',gotall:'Good job! You got them all!',band:'Let\'s make some music!',memory:'Find the matching pairs!',maze:'Help the truck get to the treasure chest!',tryagain:'Let\'s try again!',bonuswin:'You did it! You win a bonus prize!'}
+    surprise:'You earned a bonus game!',g_find:'Find it!',ll:'Letter Land!',letsplay:"Let's play!",speed:'Super speed!',g_say:'Say it!',g_sound:'Sound it out!',g_room:'Treasure room!',ms_word:'You spelled a word! You earned a bonus game!',micgate:'Tap the microphone so I can hear you!',ms_place5:'You put five toys in your room! You earned a bonus game!',ms_legend1:'You put a legendary prize in your room! You earned a bonus game!',ms_combo1:'You made your first pair! You earned a bonus game!',ms_master1:'Great saying! You earned a bonus game!',ms_p25:'You won twenty-five prizes! You earned a bonus game!',ms_p50:'You won fifty prizes! You earned a bonus game!',which:'Which one starts with',soundgo:'Sound it out! Which picture starts with the letter?',unlocked:'Wow! You unlocked a new game!',gotall:'Good job! You got them all!',band:'Let\'s make some music!',memory:'Find the matching pairs!',maze:'Help the truck get to the treasure chest!',tryagain:'Let\'s try again!',bonuswin:'You did it! You win a bonus prize!'}
 };
 const PRIZE_WORDS={b_car:'Car',b_pickup:'Pickup Truck',b_dump:'Dump Truck',b_bus:'Bus',b_race:'Race Car',b_van:'Van',b_bot:'Little Robot',b_ball:'Bouncy Ball',b_balloon:'Balloon',b_star:'Happy Star',b_plant:'Plant',b_block:'Letter Block',b_teddy:'Teddy Bear',b_bunny:'Bunny',b_candyjar:'Candy Jar',
   b_fire:'Fire Truck',b_tractor:'Tractor',b_digger:'Digger',b_mixer:'Cement Mixer',b_antbot:'Beep Robot',b_rocket:'Rocket',b_lamp:'Lamp',b_flag:'Flag',b_drum:'Drum',b_plushpup:'Puppy Plush',
@@ -759,7 +768,7 @@ const HEAR={A:['a','ay','eh','hey','hay','aye'],B:['b','be','bee','bea'],C:['c',
 /* ---------- state ---------- */
 const KEY='letter-garage-v2',OLD_KEY='letter-garage-v1';
 const DEF={case:'upper',myVoice:true,timer:15,tiles:'auto',rounds:3,lookalikes:false,sayGoal:5,listen:'auto',voice:true,letters:LETTERS.join('')};
-function fixData(d){d=d||{};if(d.settings&&!d._v){d.settings.timer=15;d.settings.tiles='auto'}return{settings:{...DEF,...(d.settings||{})},owned:d.owned||[],pending:d.pending||0,prizeNo:d.prizeNo||0,stats:d.stats||{},pool:d.pool||null,placed:d.placed||{},decor:d.decor||{},stickers:d.stickers||{},flevel:d._v>=9?(d.flevel||{}):{},fstars:d.fstars||{},fstat:d.fstat||{},ostat:d.ostat||{},sstat:d.sstat||{},sayPool:d.sayPool||null,sayNewest:d.sayNewest||null,pairs:d.pairs||{},speedT:d.speedT||3000,speedRun:d.speedRun||0,slowPerfect:d.slowPerfect||0,sayRun:d.sayRun||null,bonus:d._v>=9?(d.bonus||0):Math.min(1,d.bonus||0),ms:d.ms||{},memLevel:d.memLevel||0,traceMode:d.traceMode||0,traceLevel:d.traceLevel||0,fround:d.fround||{},soundOn:d.soundOn||0,istate:d.istate||{},soundRun:d.soundRun||null,memWins:d.memWins!=null?d.memWins:(d.memLevel||0)*2,mazeLevel:d.mazeLevel||0,specialBox:d.specialBox||0,poolSpecial:d.poolSpecial||0,unlockPending:d.unlockPending||0,poolOpen:!!(d.pool&&d.poolOpen),_v:10}}
+function fixData(d){d=d||{};if(d.settings&&!d._v){d.settings.timer=15;d.settings.tiles='auto'}return{settings:{...DEF,...(d.settings||{})},owned:d.owned||[],pending:d.pending||0,prizeNo:d.prizeNo||0,stats:d.stats||{},pool:d.pool||null,placed:d.placed||{},decor:d.decor||{},stickers:d.stickers||{},flevel:d._v>=9?(d.flevel||{}):{},fstars:d.fstars||{},fstat:d.fstat||{},micGranted:d.micGranted||0,seals:d.seals||{},ostat:d.ostat||{},sstat:d.sstat||{},sayPool:d.sayPool||null,sayNewest:d.sayNewest||null,pairs:d.pairs||{},speedT:d.speedT||3000,speedRun:d.speedRun||0,slowPerfect:d.slowPerfect||0,sayRun:d.sayRun||null,bonus:d._v>=9?(d.bonus||0):Math.min(1,d.bonus||0),ms:d.ms||{},memLevel:d.memLevel||0,traceMode:d.traceMode||0,traceLevel:d.traceLevel||0,fround:d.fround||{},soundOn:d.soundOn||0,istate:d.istate||{},soundRun:d.soundRun||null,memWins:d.memWins!=null?d.memWins:(d.memLevel||0)*2,mazeLevel:d.mazeLevel||0,specialBox:d.specialBox||0,poolSpecial:d.poolSpecial||0,unlockPending:d.unlockPending||0,poolOpen:!!(d.pool&&d.poolOpen),_v:10}}
 function loadRoot(){
   try{const r=JSON.parse(localStorage.getItem(KEY)||'null');if(r&&r.profiles&&r.profiles.length){r.profiles.forEach(p=>p.data=fixData(p.data));if(!r.profiles.some(p=>p.id===r.current))r.current=r.profiles[0].id;return r}}catch(e){}
   let old=null;try{old=JSON.parse(localStorage.getItem(OLD_KEY)||'null')}catch(e){}
@@ -802,7 +811,8 @@ for(let i=0;i<4;i++){const e=new Audio();e.setAttribute('playsinline','');sfxPoo
 function tone(f,d,type='triangle',v=.14,w=0){const a=CT||live();if(!a){sfxCtx(()=>tone(f,d,type,v,w),d+w+.15);return}const t=a.currentTime+w,o=a.createOscillator(),g=a.createGain();o.type=type;o.frequency.setValueAtTime(f,t);g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.001,t+d);o.connect(g).connect(a.destination);o.start(t);o.stop(t+d+.02)}
 const sPop=()=>{tone(660,.09);tone(990,.12,'triangle',.12,.06)};
 const sOops=()=>tone(200,.18,'sine',.1);
-const sBuzz=()=>{sweep(230,170,.2,'square',.03,0,700);sweep(200,150,.18,'square',.025,.16,700)};
+const sBuzz=()=>{sweep(240,170,.22,'square',.055,0,800);sweep(210,140,.22,'square',.045,.18,800)};
+const sStrikeOut=()=>{[392,330,262].forEach((f,i)=>tone(f,.28,'triangle',.09,i*.22))};
 /* fun sound effects (synthesized) */
 function noise(d,f0,f1,q=1,v=.15,w=0){const a=CT||live();if(!a){sfxCtx(()=>noise(d,f0,f1,q,v,w),d+w+.15);return}const t=a.currentTime+w,len=Math.max(1,Math.floor(a.sampleRate*d)),buf=a.createBuffer(1,len,a.sampleRate),ch=buf.getChannelData(0);for(let i=0;i<len;i++)ch[i]=Math.random()*2-1;const src=a.createBufferSource();src.buffer=buf;const fl=a.createBiquadFilter();fl.type='bandpass';fl.Q.value=q;fl.frequency.setValueAtTime(f0,t);fl.frequency.exponentialRampToValueAtTime(f1,t+d);const g=a.createGain();g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(v,t+.03);g.gain.exponentialRampToValueAtTime(.0001,t+d);src.connect(fl).connect(g).connect(a.destination);src.start(t);src.stop(t+d+.05)}
 function sweep(f0,f1,d,type='sawtooth',v=.08,w=0,lp=2000){const a=CT||live();if(!a){sfxCtx(()=>sweep(f0,f1,d,type,v,w,lp),d+w+.15);return}const t=a.currentTime+w,o=a.createOscillator(),g=a.createGain(),f=a.createBiquadFilter();f.type='lowpass';f.frequency.value=lp;o.type=type;o.frequency.setValueAtTime(f0,t);o.frequency.exponentialRampToValueAtTime(f1,t+d);g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(v,t+.03);g.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(f).connect(g).connect(a.destination);o.start(t);o.stop(t+d+.05)}
@@ -843,7 +853,7 @@ const sFan=()=>[523,659,784,1047].forEach((f,i)=>tone(f,.22,'square',.07,i*.12))
 const clips=()=>window.VOICE_CLIPS||null;const CLIPS=clips();let playTok=0,voice=null;
 const SILENT='data:audio/mpeg;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjYwLjE2LjEwMAAAAAAAAAAAAAAA//OEwAAAAAAAAAAAAEluZm8AAAAPAAAACQAABCAARUVFRUVFRUVFRUVdXV1dXV1dXV1dXXR0dHR0dHR0dHR0i4uLi4uLi4uLi4uioqKioqKioqKiorq6urq6urq6urq60dHR0dHR0dHR0dHo6Ojo6Ojo6Ojo6P//////////////AAAAAExhdmM2MC4zMQAAAAAAAAAAAAAAACQD8AAAAAAAAAQgDeb0IwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//NExAAAAANIAAAAAExBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVTEFNRTMu//NExFMAAANIAAAAADEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVTEFNRTMu//NExKYAAANIAAAAADEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVTEFNRTMu//NExKwAAANIAAAAADEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVTEFNRTMu//NExKwAAANIAAAAADEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVTEFNRTMu//NExKwAAANIAAAAADEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVTEFNRTMu//NExKwAAANIAAAAADEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//NExKwAAANIAAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//NExKwAAANIAAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV';
 const vEl=new Audio();vEl.preload='auto';vEl.setAttribute('playsinline','');let vUnlocked=false;
-function unlockAudio(){try{if(navigator.audioSession)navigator.audioSession.type='playback'}catch(e){}
+function unlockAudio(){try{if(navigator.audioSession&&!rec)navigator.audioSession.type='playback'}catch(e){}
   /* iOS can hand back an engine that says "running" but is silent after another app had the sound,
      so after any trip away (or if its clock has stopped) build a fresh one inside this tap */
   const now=performance.now()/1000;let dead=false;if(actx&&actx.state==='running'&&ckW&&now-ckW>.6&&actx.currentTime-ckT<(now-ckW)*.3)dead=true;
@@ -1249,9 +1259,11 @@ function confetti(){if(matchMedia('(prefers-reduced-motion: reduce)').matches)re
 function tick(){cx.clearRect(0,0,cv.width,cv.height);parts=parts.filter(p=>p.life-->0);parts.forEach(p=>{p.vy+=.8*devicePixelRatio;p.x+=p.vx;p.y+=p.vy;p.vx*=.98;p.a+=.2;cx.save();cx.translate(p.x,p.y);cx.rotate(p.a);cx.fillStyle=p.c;cx.fillRect(-p.r/2,-p.r/4,p.r,p.r/2);cx.restore()});craf=parts.length?requestAnimationFrame(tick):(cx.clearRect(0,0,cv.width,cv.height),null)}
 
 /* ---------- home ---------- */
+const ART_FIND='<svg viewBox="0 0 100 100"><ellipse cx="50" cy="92" rx="30" ry="4" fill="#000" opacity=".15"/><path d="M60 60 L84 86" stroke="#8C5A30" stroke-width="12" stroke-linecap="round"/><path d="M60 60 L84 86" stroke="#B07444" stroke-width="7" stroke-linecap="round"/><circle cx="42" cy="42" r="28" fill="#DFF3FA" stroke="#FFC21A" stroke-width="8"/><circle cx="42" cy="42" r="28" fill="none" stroke="#C79000" stroke-width="2"/><path d="M28 32 Q34 22 46 22" stroke="#fff" stroke-width="5" fill="none" stroke-linecap="round"/><text x="42" y="54" text-anchor="middle" font-family="Andika,sans-serif" font-weight="700" font-size="32" fill="#2C67E0">A</text></svg>';
+const ART_SAY='<svg viewBox="0 0 100 100"><ellipse cx="44" cy="92" rx="30" ry="4" fill="#000" opacity=".15"/><path d="M12 46 Q44 30 76 46 Q72 80 44 82 Q16 80 12 46Z" fill="#7A1E2A" stroke="#C93A4E" stroke-width="5" stroke-linejoin="round"/><path d="M18 47 Q44 38 70 47 L68 53 Q44 47 20 53Z" fill="#fff"/><ellipse cx="44" cy="70" rx="17" ry="8" fill="#FF7FA0"/><path d="M12 46 Q28 36 44 40 Q60 36 76 46" stroke="#E5536A" stroke-width="7" fill="none" stroke-linecap="round"/><path d="M84 34 q7 12 0 24 M92 26 q11 20 0 40" stroke="#FFC21A" stroke-width="5" fill="none" stroke-linecap="round"/></svg>';
 const ART={find:PRIZE_BY['dump.yellow.plain'],say:PRIZE_BY['antbot.teal.plain'],room:PRIZE_BY['cup.gold.plain']};
 function renderHome(){
-  $('#art-find').innerHTML=prizeSVG(ART.find);$('#art-say').innerHTML=prizeSVG(ART.say);$('#art-room').innerHTML=prizeSVG(ART.room);
+  $('#art-find').innerHTML=ART_FIND;$('#art-say').innerHTML=ART_SAY;$('#art-room').innerHTML=prizeSVG(ART.room);
   $('#homeCount').textContent=`${S.owned.length} collected`;
   $('#hello').textContent=`Hi, ${prof().name}! Find letters, say letters, and fill your treasure room.`;
   const sb=$('#soundBtn');sb.hidden=!soundUnlocked();$('.m-find').hidden=soundUnlocked()&&allDone();sb.classList.toggle('locked',!soundUnlocked());$('#art-sound').innerHTML=soundUnlocked()?prizeSVG(PRIZE_BY['xylo.purple.plain']):'<svg viewBox="0 0 24 24" width="64" height="64" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><rect x="5" y="11" width="14" height="10" rx="2" fill="#fff" stroke="none"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';$('#soundSub').textContent=soundUnlocked()?'Find the picture for the letter':'Unlocks after Find It';
@@ -1320,7 +1332,7 @@ function perfectRound(){const dt=performance.now()-(F.t0||0),lim=S.speedT||3000,
   else{S.speedRun=0;S.slowPerfect=(S.slowPerfect||0)+1;if(S.slowPerfect>=4){S.speedT=Math.round(lim*1.1);S.slowPerfect=0}}save();
   if(F.mystery){F.letter=pickFresh(F.letter);setTarget()}sPop();tierSfx(fast?2:1,0);toast(fast?'Super speed! ⚡':'Perfect! ★');
   const keys=[fast?'speed':vary('cheer',6),F.mystery?'now_'+F.letter:'fa_'+F.letter];
-  if(F.mystery){/* new letter: let the voice name it before the board appears */$('#board').innerHTML='';say(keys).then(()=>{if(cur==='find'){F.fromIntro=true;newBoard()}})}
+  if(F.mystery){say(keys);setTimeout(()=>{if(cur==='find'){F.fromIntro=true;newBoard()}},350)}
   else{say(keys);setTimeout(()=>{if(cur==='find'){F.fromIntro=true;newBoard()}},650)}}
 function nextRound(left){if(F.mystery){F.letter=pickFresh(F.letter);setTarget()}
   sPop();const pk=vary('praise',12);say([pk,left<=4?'more'+(left-1):null,F.mystery?'next_'+F.letter:null].filter(Boolean));
@@ -1343,7 +1355,7 @@ function newBoard(prompt){
     const t=document.createElement('button');t.className='tile';t.style.setProperty('--tc',col);t.style.setProperty('--tl',mix(col,'#ffffff',.84));t.textContent=disp(L);t.setAttribute('aria-label',L);
     t.onclick=()=>{if(F.done||t.classList.contains('found'))return;S.fstat=S.fstat||{};const fs=S.fstat[F.letter]||(S.fstat[F.letter]={h:0,m:0});if(L===F.letter)fs.h++;else fs.m++;
       if(L===F.letter){t.classList.add('found');sPop();F.left--;if(F.left===0)findWin();else say('n_'+L);}
-      else{t.classList.remove('shake');void t.offsetWidth;t.classList.add('shake');sBuzz();try{navigator.vibrate&&navigator.vibrate(60)}catch(e){}const bd=$('#board');bd.classList.remove('nudge');void bd.offsetWidth;bd.classList.add('nudge');F.strikes++;renderStrikes();if(F.strikes>=3)strikeOut();else say('n_'+L)}};
+      else{t.classList.remove('shake');void t.offsetWidth;t.classList.add('shake');sBuzz();try{navigator.vibrate&&navigator.vibrate(60)}catch(e){}const bd=$('#board');bd.classList.remove('nudge');void bd.offsetWidth;bd.classList.add('nudge');F.strikes++;renderStrikes();if(F.strikes>=3)strikeOut(L);else say('n_'+L)}};
     bd.appendChild(t)});
   if(prompt)say(prompt);else if(!F.fromIntro)say(['find_'+F.letter]);F.fromIntro=false;
   startTimer();F.t0=performance.now();
@@ -1355,7 +1367,8 @@ function startTimer(){stopFind();const sec=S.settings.timer,bat=$('#battery'),ch
   fRAF=requestAnimationFrame(step)}
 function stopFind(){if(fRAF){cancelAnimationFrame(fRAF);fRAF=null}}
 $('#testWin').onclick=()=>{if(cur!=='find'||F.done||!$('#ov').hidden)return;document.querySelectorAll('#board .tile:not(.found)').forEach(t=>{if(t.getAttribute('aria-label')===F.letter)t.classList.add('found')});F.left=0;findWin()};
-function strikeOut(){F.done=true;stopFind();say(['tryagain','find_'+F.letter]);
+function strikeOut(tapped){F.done=true;stopFind();say(tapped?['n_'+tapped]:[]).then(()=>setTimeout(()=>{if(cur!=='find')return;sStrikeOut();setTimeout(()=>say(['tryagain','find_'+F.letter]),700);showStrikeOut()},350))}
+function showStrikeOut(){
   ov(`<h2>Almost!</h2><p>Let's try that again.</p><div class="next-up"><span>Find every</span><span class="chipL">${disp(F.letter)}</span></div>`,[{label:'Try again',cls:'green big',fn:()=>newBoard()}])}
 function findTimeout(){F.done=true;sOops();say(['batt',...promptKeys(F.letter)]);
   ov(`<h2>Out of power!</h2><p>The robot battery ran out. Let's try again.</p><div class="next-up"><span>Find every</span><span class="chipL">${disp(F.letter)}</span></div>`,[{label:'Try again',cls:'green big',fn:()=>newBoard()},{label:'New letter',cls:'grey',fn:()=>show('pick')}])}
@@ -1404,7 +1417,14 @@ const micOk=()=>!!SR&&!grownMode();
 function sayUI(){const m=micOk(),g=grownMode();$('#micBtn').hidden=!m;$('#grownBox').hidden=!g;$('#practice').hidden=m||g;$('#micOff').hidden=!!SR||g;
   $('#sStatus').textContent=micErr?`Microphone problem (${micErr}). Grown-ups: turn on Siri or Dictation in Settings, set Safari > Microphone to Allow, and play in a Safari tab.`:''}
 function renderSayStrikes(){$('#sStrikes').innerHTML=strikesOn()?[0,1,2].map(i=>`<span class="xs${i<Y.strikes?' on':''}">✕</span>`).join(''):''}
-function startSay(){const r=S.sayRun;Y={count:r?r.count:0,letter:null,strikes:r?r.strikes:0};micErr='';initSayPool();starRow($('#sPips'),S.settings.sayGoal,0);renderSayStrikes();nextSay()}
+function startSay(){const r=S.sayRun;Y={count:r?r.count:0,letter:null,strikes:r?r.strikes:0};micErr='';initSayPool();starRow($('#sPips'),S.settings.sayGoal,Y.count);renderSayStrikes();
+  if(micOk()&&!S.micGranted){showMicGate();return}$('#micGate').hidden=true;$('.say-stage').hidden=false;nextSay()}
+function showMicGate(){$('#micGate').hidden=false;$('.say-stage').hidden=true;say('micgate');
+  $('#gateMic').onclick=()=>{ac();stopVoice();let r;try{r=new SR();r.lang='en-US';r.interimResults=false}catch(e){$('#gateNote').textContent='This browser cannot listen. Open the game in Safari.';return}
+    $('#gateMic').classList.add('listening');
+    r.onstart=()=>{S.micGranted=1;save();try{r.abort()}catch(e){}$('#gateMic').classList.remove('listening');$('#micGate').hidden=true;$('.say-stage').hidden=false;Y.micOK=true;sPop();setTimeout(()=>{if(cur==='say')nextSay()},300)};
+    r.onerror=e=>{$('#gateMic').classList.remove('listening');if(e.error==='not-allowed'||e.error==='service-not-allowed')$('#gateNote').textContent='The microphone is blocked. Grown-ups: in Settings, turn on Siri & Dictation and allow the microphone for Safari, then try again.'};
+    try{micListenMode();r.start()}catch(e){$('#gateMic').classList.remove('listening')}}}
 function showWord(){const L=Y.letter;$('#sWord').innerHTML=`<span class="emo">${pic(WORDS[L][1])}</span><span><b>${disp(L)}</b> is for ${WORDS[L][0]}</span>`}
 function nextSay(same){stopListen();Y.letter=same&&Y.letter?Y.letter:pickSayLetter();Y.busy=false;Y.silent=0;
   $('#sLetter').textContent=disp(Y.letter);$('#sWord').innerHTML='';$('#sayScreen').classList.remove('ok','miss');sayUI();
@@ -1413,7 +1433,9 @@ function nextSay(same){stopListen();Y.letter=same&&Y.letter?Y.letter:pickSayLett
   const L=Y.letter;say(vary('ask',4)).then(()=>{if(cur==='say'&&!Y.busy&&!rec&&Y.letter===L)listen(true)})}
 function norm(s){return s.toLowerCase().replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim()}
 function heard(alts,L){const ok=HEAR[L];return alts.some(a=>{const n=norm(a);if(!n)return false;if(ok.includes(n))return true;if(L==='W'&&/double ?(you|u|yu)/.test(n))return true;const toks=n.split(' ');return toks.length<=3&&toks.some(t=>ok.includes(t))})}
-function listen(auto){if(!micOk()||rec||Y.busy)return;if(!auto)stopVoice();
+function micListenMode(){try{if(navigator.audioSession)navigator.audioSession.type='auto'}catch(e){}}
+function micDoneMode(){setTimeout(()=>{try{if(navigator.audioSession&&!rec)navigator.audioSession.type='playback'}catch(e){}},400)}
+function listen(auto){if(!micOk()||rec||Y.busy)return;if(!auto)stopVoice();micListenMode();
   try{rec=new SR();rec.lang='en-US';rec.interimResults=true;rec.maxAlternatives=5;rec.continuous=false}catch(e){micErr='not supported';sayUI();rec=null;return}
   const r=rec;let decided=false;
   $('#micBtn').classList.remove('invite');$('#micBtn').classList.add('listening');
@@ -1421,12 +1443,12 @@ function listen(auto){if(!micOk()||rec||Y.busy)return;if(!auto)stopVoice();
     if(heard(alts,Y.letter)){decided=true;stopListen();sayYes()}else if(e.results[e.results.length-1].isFinal){decided=true;stopListen();sayMiss()}};
   r.onerror=e=>{if(e.error==='no-speech'||e.error==='aborted')return;decided=true;if(!(auto&&!Y.micOK))micErr=e.error||'unknown';sayUI();$('#micBtn').classList.add('invite')};
   r.onstart=()=>{Y.micOK=true};
-  r.onend=()=>{if(rec===r)rec=null;$('#micBtn').classList.remove('listening');
+  r.onend=()=>{if(rec===r)rec=null;$('#micBtn').classList.remove('listening');micDoneMode();
     if(decided||cur!=='say'||Y.busy)return;
     Y.silent++;$('#micBtn').classList.add('invite');if(Y.silent<2){const L=Y.letter;say('nohear').then(()=>{if(cur==='say'&&!Y.busy&&!rec&&Y.letter===L&&Y.micOK)listen(true)})}else sayMiss()};
   try{r.start();if(!auto)micErr='';sayUI()}catch(e){rec=null;$('#micBtn').classList.remove('listening');$('#micBtn').classList.add('invite');if(!auto)micErr=e.name||'start failed';sayUI()}}
 function stopListen(){const r=rec;rec=null;if(r){try{r.abort()}catch(e){}}$('#micBtn')?.classList.remove('listening')}
-function sayYes(){if(Y.busy)return;Y.busy=true;stopListen();$('#micBtn').classList.remove('invite');Y.count++;bump(Y.letter,'s');sayRecord(Y.letter,true);S.sayRun={count:Y.count,strikes:Y.strikes};save();sPop();tierSfx(1);
+function sayYes(){if(Y.busy)return;Y.busy=true;stopListen();micErr='';sayUI();Y.micOK=true;S.micGranted=1;$('#micBtn').classList.remove('invite');Y.count++;bump(Y.letter,'s');sayRecord(Y.letter,true);S.sayRun={count:Y.count,strikes:Y.strikes};save();sPop();tierSfx(1);
   starRow($('#sPips'),S.settings.sayGoal,Y.count);showWord();$('#sayScreen').classList.add('ok');
   const ck=document.createElement('div');ck.className='check';ck.textContent='✓';$('#sayScreen').appendChild(ck);setTimeout(()=>ck.remove(),900);
   const L=Y.letter;
@@ -1445,6 +1467,12 @@ $('#gNo').onclick=()=>{ac();sayMiss()};
 $('#pHear').onclick=()=>{ac();say(['n_'+Y.letter,'is_'+Y.letter])};
 $('#pNext').onclick=()=>{ac();nextSay()};
 
+/* words a kid might stack from letter blocks (each block letter exists once, so no repeated letters) */
+const WORD_LIST=('bear cake fish frog goat hand jump king lion milk nest pink rain ship star toys wind bike blue boat cart corn duck farm girl home kite lamp maps mice nose park ring rock sand snow sock wave wolf yarn zero bird came cold dark dogs drum fire fork game gift gold hats help horn joke lake left lime love math name nice open palm pear play pond race road ruby salt shoe sing sled soap time trap tube vase warm hug cats bugs cups fans hens jams pigs pots rugs tops vans webs yums '+
+ 'baby? bath bean bell? belt best blow boys cave chin chip clay coat code cola comb cone cook? cozy crab crib cube cute dime dish dive dove draw drop dust each east face fact fair fast fawn feet? find flag flat flip flow foam fold fort four frye fuzz? gate gave glow glue grab gray grin grip grub gust hail half harp heat hide high hike hint hold hole hops hose hunt idea inch iron jail jar? jeans jest jogs just keys kids kind kiss? kits lamb land lane last leaf lick life lift like line lips list loaf lock loud luck lump made mail make mane mask mild mint mist mole most moth much mule nail near neck nuts oars okay once only oven pace pack page paid pail pain pair pale pans part past path pets pick pine pins plan plow plum pony pork post puck pump quiz rail ramp rays read rest ride rise robe rope rose rush safe sail same save seal shy? side sign silk sink size skip slip slow smog snap snug soft sold some song soup spin spot step stew stop such swim tack tail take tale tame tank taps team tent text tide tile tiny toad toes told tone tops tour town toys trip tuna turn twig vest view vine wake walk wand ward warm wavy weak wing wipe wise wish woke word work worm yard year yolk zinc zone '+
+ 'bread cloud plant train truck house mouse zebra tiger horse candy lemon mango shark snake juice world brick bunch chair chalk clamp climb cloth crown dance drink earth fairy flame float frost fruit ghost glove grape heart honey jumpy knife laugh light lucky magic march mouth night ocean paint party plate prize queen? quiet quilt reach river round scarf shirt slide smile snack speak sport stamp storm sugar table toast towel trick unity water? whale wheat witch young blanket dragon planet bright monkey pirate rocket? garden turkey cowboy jungle castle pencil spider'
+).split(/\s+/).map(w=>w.replace('?','')).filter(w=>w.length>=4&&new Set(w).size===w.length);
+const WORDSET=new Set(WORD_LIST.map(w=>w.toUpperCase()));
 /* ---------- PRIZE SHOP ---------- */
 let sel=null;
 function tierWeights(n){if(n%10===0)return[[0,78,21.16,.84],true];if(n%5===0)return[[40,52,7.16,.84],true];return[[77,20.16,2,.84],false]}
@@ -1550,7 +1578,10 @@ function buildRoomSVG(){
   s+=`<rect x="2000" y="100" width="380" height="18" rx="3" fill="#5A3A1E"/><rect x="2010" y="116" width="360" height="526" fill="#7A4A26"/><rect x="2030" y="124" width="320" height="504" fill="#3A2412"/><rect x="2030" y="300" width="320" height="10" fill="#8C5A30"/><rect x="2030" y="460" width="320" height="10" fill="#8C5A30"/>`;
   // rugs + warm light
   ['#B8463A','#E7B65A','#3F7D6E','#E9D9BE','#B8463A','#E7B65A'].forEach((c,i)=>{s+=`<ellipse cx="900" cy="842" rx="${440-i*64}" ry="${118-i*17}" fill="${c}"/>`});
-  s+=`<g><path d="M1612 812 v156 M1612 812 m0 0" stroke="none"/>${Array.from({length:14},(_,i)=>`<line x1="${1640+i*36}" y1="${808}" x2="${1640+i*36}" y2="${794}" stroke="#E6D3AE" stroke-width="5" stroke-linecap="round"/><line x1="${1640+i*36}" y1="${958}" x2="${1640+i*36}" y2="${972}" stroke="#E6D3AE" stroke-width="5" stroke-linecap="round"/>`).join('')}<rect x="1620" y="806" width="500" height="154" rx="10" fill="#F1E4C6" stroke="#CDB58A" stroke-width="4"/><rect x="1646" y="826" width="448" height="114" rx="6" fill="none" stroke="#B98F5E" stroke-width="5"/><rect x="1666" y="842" width="408" height="82" rx="4" fill="none" stroke="#D9C49A" stroke-width="3" stroke-dasharray="14 10"/><path d="M1870 852 L1900 883 L1870 914 L1840 883Z" fill="#E2B48A" opacity=".8"/></g>`;
+  {const T=[1690,2090,792],B=[1630,2150,880];const tr=(f)=>[T[0]+(B[0]-T[0])*f,T[1]+(B[1]-T[1])*f];
+   const quad=(i0,i1,yt,yb)=>`${T[0]+(B[0]-T[0])*i0+i0*0},${yt}`;
+   const poly=(inset)=>{const yt=T[2]+inset*.5,yb=B[2]-inset*.5,k=(yt-T[2])/(B[2]-T[2]),k2=(yb-T[2])/(B[2]-T[2]);const lx=f=>T[0]+(B[0]-T[0])*f+inset,rx=f=>T[1]+(B[1]-T[1])*f-inset;return `${lx(k)},${yt} ${rx(k)},${yt} ${rx(k2)},${yb} ${lx(k2)},${yb}`};
+   s+=`<g><polygon points="${poly(0)}" fill="#000" opacity=".08" transform="translate(0 6)"/><polygon points="${poly(0)}" fill="#F1E4C6" stroke="#CDB58A" stroke-width="4"/><polygon points="${poly(22)}" fill="none" stroke="#B98F5E" stroke-width="5"/><polygon points="${poly(40)}" fill="none" stroke="#D9C49A" stroke-width="3" stroke-dasharray="14 10"/><path d="M1890 818 L1922 836 L1890 854 L1858 836Z" fill="#E2B48A" opacity=".8"/>${Array.from({length:16},(_,n)=>{const f=n/15,x=1630+520*f;return `<line x1="${x}" y1="880" x2="${x}" y2="892" stroke="#E6D3AE" stroke-width="5" stroke-linecap="round"/>`}).join('')}</g>`;}
   s+=`<rect width="2400" height="1000" fill="url(#rWarm)"/></svg>`;
   return s}
 const CHEST_CLOSED=`<svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg"><ellipse cx="100" cy="152" rx="92" ry="7" fill="#000" opacity=".2"/><rect x="14" y="66" width="172" height="84" rx="8" fill="#9A6538" stroke="#4A2D16" stroke-width="4"/><path d="M16 92 H184 M16 120 H184" stroke="#7A4A26" stroke-width="3"/><path d="M10 72 Q10 22 100 22 Q190 22 190 72Z" fill="#B07444" stroke="#4A2D16" stroke-width="4"/><path d="M28 70 Q30 36 100 34 Q170 36 172 70" fill="none" stroke="#8C5A30" stroke-width="3"/><path d="M36 30 Q38 26 50 24 V150 H36Z M150 24 Q162 26 164 30 V150 H150Z" fill="#C99A4A" stroke="#8C6417" stroke-width="2"/><rect x="10" y="66" width="180" height="10" rx="3" fill="#C99A4A" stroke="#8C6417" stroke-width="2"/><rect x="85" y="58" width="30" height="32" rx="6" fill="#E8C060" stroke="#8C6417" stroke-width="3"/><circle cx="100" cy="72" r="4.5" fill="#4A2D16"/><rect x="98" y="72" width="4" height="9" fill="#4A2D16"/></svg>`;
@@ -1573,17 +1604,18 @@ function snapSpot(x,y){x=Math.round(Math.max(40,Math.min(ROOM_W-40,x)));
   if(best)return{x,y:best.y};
   if(y<=600){let below=null;SHELVES.forEach(([a,b,sy])=>{if(x>=a&&x<=b&&sy>=y&&(!below||sy<below))below=sy});if(below)return{x,y:below};return{x,y:660}}
   return{x,y:Math.round(Math.min(985,Math.max(652,y)))}}
-function absPos(id,depth=0){const p=S.placed[id];if(!p)return null;if(p.on&&depth<3){const b=absPos(p.on,depth+1),bp=PRIZE_BY[p.on];if(b&&bp&&S.owned.includes(p.on)){const top=STACK_TOP[bp.key]||.5;return{x:b.x+(p.dx||0),y:Math.round(b.y-isz(bp)*top*RY+(PRIZE_BY[id]?isz(PRIZE_BY[id])*RY*.03:0)),in:b.in,on:p.on}}}return p.on?{x:p.x||600,y:p.y||900}:p}
+function absPos(id,depth=0){const p=S.placed[id];if(!p)return null;if(p.on&&depth<10){const b=absPos(p.on,depth+1),bp=PRIZE_BY[p.on];if(b&&bp&&S.owned.includes(p.on)){const top=STACK_TOP[bp.key]||.5;return{x:b.x+(p.dx||0),y:Math.round(b.y-isz(bp)*top*RY+(PRIZE_BY[id]?isz(PRIZE_BY[id])*RY*.03:0)),in:b.in,on:p.on}}}return p.on?{x:p.x||600,y:p.y||900}:p}
 function shelfRange(pos){if(pos.in){const c=CONT_BY[pos.in];return[c.x+20,c.x+c.w-20]}const s=SHELVES.find(([a,b,sy])=>sy===pos.y&&pos.x>=a-1&&pos.x<=b+1);return s?[s[0]+20,s[1]-20]:[40,ROOM_W-40]}
 /* place a toy at (x,y): sit on a stackable toy, else snap to a surface; then slide sideways so it never hides another toy */
 function settle(id,x,y){const me=PRIZE_BY[id];
-  for(const o of S.owned){if(o===id||!S.placed[o]||S.placed[o].on)continue;const op=PRIZE_BY[o];const top=STACK_TOP[op.key];if(top==null)continue;const b=absPos(o);if(b.in&&!OPEN[b.in])continue;
+  for(const o of S.owned){if(o===id||!S.placed[o]||(S.placed[o].on&&PRIZE_BY[o].key!=='block')||isAbove(o,id))continue;const op=PRIZE_BY[o];const top=STACK_TOP[op.key];if(top==null)continue;const b=absPos(o);if(b.in&&!OPEN[b.in])continue;
     const sz=isz(op),ty=b.y-sz*top*RY;if(Math.abs(x-b.x)<sz*.42&&y>ty-70&&y<b.y-sz*top*RY*.3){const kids=S.owned.filter(k=>S.placed[k]&&S.placed[k].on===o&&k!==id);if(!kids.length)return{on:o,dx:Math.round(Math.max(-sz*.25,Math.min(sz*.25,x-b.x)))}}}
   const pos=snapSpot(x,y);const [lo,hi]=shelfRange(pos);const w=IW(me);
   const others=S.owned.filter(o=>o!==id&&S.placed[o]&&!S.placed[o].on).map(o=>({o,p:absPos(o),w:IW(PRIZE_BY[o])})).filter(q=>(q.p.in||'')===(pos.in||'')&&(pos.y>=650?Math.abs(q.p.y-pos.y)<55:q.p.y===pos.y));
   const clash=xx=>others.some(q=>Math.abs(q.p.x-xx)<(q.w+w)/2*.8);
   if(clash(pos.x)){for(let k=1;k<40;k++){for(const sgn of[1,-1]){const xx=pos.x+sgn*k*14;if(xx>=lo&&xx<=hi&&!clash(xx)){pos.x=Math.round(xx);return pos}}}}
   return pos}
+function isAbove(a,b){let k=a,n=0;while(S.placed[k]&&S.placed[k].on&&n++<12){if(S.placed[k].on===b)return true;k=S.placed[k].on}return false}
 function dropChildren(id){S.owned.forEach(k=>{const p=S.placed[k];if(p&&p.on===id){const a=absPos(k);delete S.placed[k];S.placed[k]=settle(k,a.x,a.y+20)}})}
 function freeSpot(){const placed=Object.keys(S.placed).map(absPos).filter(Boolean);for(let i=0;i<80;i++){let x,y;if(Math.random()<.5){const sh=pick(SHELVES);x=sh[0]+40+Math.random()*(sh[1]-sh[0]-80);y=sh[2]}else{x=90+Math.random()*2220;y=670+Math.random()*300}
   if(x<420&&y>880)continue;
@@ -1600,7 +1632,7 @@ function zoomAt(z,fx,fy,px,py){const v=$('#roomView');rz=z;layoutRoom();const W=
 function viewFocus(cx,cy){const v=$('#roomView'),r=v.getBoundingClientRect(),sr=$('#stage').getBoundingClientRect();return{fx:(cx-sr.left)/sr.width,fy:(cy-sr.top)/sr.height,px:cx-r.left,py:cy-r.top}}
 function stagePt(e){const r=$('#stage').getBoundingClientRect();return{x:(e.clientX-r.left)/r.width*ROOM_W,y:(e.clientY-r.top)/r.height*ROOM_H,inside:e.clientX>=r.left&&e.clientX<=r.right&&e.clientY>=r.top&&e.clientY<=r.bottom}}
 const overEl=(e,sel)=>{const c=$(sel);if(!c)return false;const r=c.getBoundingClientRect();return e.clientX>=r.left&&e.clientX<=r.right&&e.clientY>=r.top-6&&e.clientY<=r.bottom};
-function zOf(id,d=0){const p=S.placed[id];if(p&&p.on&&d<4&&S.placed[p.on])return zOf(p.on,d+1)+1;const a=absPos(id);return a?(a.y|0):1}
+function zOf(id,d=0){const p=S.placed[id];if(p&&p.on&&d<10&&S.placed[p.on])return zOf(p.on,d+1)+1;const a=absPos(id);return a?(a.y|0):1}
 function itemHTML(p){const pos=absPos(p.id),sz=isz(p);const hid=pos.in&&!OPEN[pos.in];let gk=p.key==='plant'?growK(p.id):1;if(pos.in&&CONT_BY[pos.in]&&CONT_BY[pos.in].kind==='drawer')gk=Math.min(gk,74/sz);return `<button class="ritem t${p.tier}${p.id===lastNew?' new':''}${hid?' inside':''}${S.placed[p.id].on?' stacked':''}${toyClasses(p.id,p.key)}" data-id="${p.id}" style="left:${PX(pos.x)};top:${PY(pos.y)};width:${PX(sz*gk)};z-index:${zOf(p.id)}" aria-label="${esc(p.name)}">${prizeSVG(p,S.decor[p.id])}</button>`}
 function partnerOf(id){for(const k of Object.keys(S.pairs||{})){const [a,b]=k.split('|');if(a===id&&S.owned.includes(b))return b;if(b===id&&S.owned.includes(a))return a}return null}
 function pairBadges(){let h='';const seen=new Set();for(const k of Object.keys(S.pairs||{})){const [a,b]=k.split('|');if(seen.has(a)||seen.has(b))continue;if(!S.placed[a]||!S.placed[b]||S.placed[a].on||S.placed[b].on||!S.owned.includes(a)||!S.owned.includes(b))continue;const pa=absPos(a),pb=absPos(b);if((pa.in&&!OPEN[pa.in])||(pb.in&&!OPEN[pb.in]))continue;
@@ -1620,13 +1652,23 @@ function renderRoom(){if(!ROOM_SVG)ROOM_SVG=buildRoomSVG();const st=$('#stage');
   if(!$('#chestObj'))st.insertAdjacentHTML('beforeend',`<button class="chest-obj" id="chestObj" aria-label="Toy chest"></button>`);
   $('#roomTitle').textContent=`${prof().name}'s Treasure Room`;
   const placed=S.owned.filter(id=>S.placed[id]&&PRIZE_BY[id]);
-  $('#items').innerHTML=CONTAINERS.map(contHTML).join('')+placed.map(id=>itemHTML(PRIZE_BY[id])).join('')+pairBadges()+roomFX()+(placed.length||S.owned.length?'':'<div class="room-empty">Win prizes to fill your room!</div>');
+  $('#items').innerHTML=CONTAINERS.map(contHTML).join('')+placed.map(id=>itemHTML(PRIZE_BY[id])).join('')+pairBadges()+sealBadges()+roomFX()+(placed.length||S.owned.length?'':'<div class="room-empty">Win prizes to fill your room!</div>');
   renderChest();updatePlaceBar();layoutRoom();
   const n=$('#items .ritem.new');if(n&&rz>minZoom()+.01){const pos=absPos(n.dataset.id);const v=$('#roomView'),W=baseW*rz;panX=v.clientWidth/2-pos.x/ROOM_W*W;applyPan()}
   lastNew=null}
 function startPlacing(id){placing=id;if(!chestOpen){chestOpen=true;sCreak()}renderChest();layoutRoom();updatePlaceBar();say('place')}
 function placeAt(id,x,y){S.placed[id]=settle(id,x,y);lastNew=id;placing=null;if(partnerOf(id)){if(S.placed[id].on)S.placed[id]=snapSpot(x,y);placePartner(id)}else checkCombo(id);afterPlace(id);save();prizeSfx(PRIZE_BY[id]);if(!comboJust)say(vary('placed',4));comboJust=false;if(!unplaced().length&&chestOpen){chestOpen=false;setTimeout(sThud,500)}renderRoom()}
-function afterPlace(id){const n=Object.keys(S.placed).filter(k=>S.owned.includes(k)).length;if(n>=5)milestone('place5');if(PRIZE_BY[id].tier===3)milestone('legend1')}
+/* letter-block words, read top to bottom */
+function blockStacks(){const isB=k=>PRIZE_BY[k]&&PRIZE_BY[k].key==='block'&&PRIZE_BY[k].L&&S.placed[k];const tops=S.owned.filter(k=>isB(k)&&!S.owned.some(o=>S.placed[o]&&S.placed[o].on===k&&isB(o)));
+  return tops.map(t=>{const ch=[t];let k=t;while(S.placed[k].on&&isB(S.placed[k].on)){k=S.placed[k].on;ch.push(k)}return ch}).filter(c=>c.length>=4)}
+function checkWords(){for(const ch of blockStacks()){const L=ch.map(k=>PRIZE_BY[k].L).join('');let found=null;
+    for(let len=ch.length;len>=4&&!found;len--)for(let i=0;i+len<=ch.length;i++){const w=L.slice(i,i+len);if(WORDSET.has(w)){found={w,ids:ch.slice(i,i+len)};break}}
+    if(!found)continue;const key=found.ids.slice().sort().join('|');S.seals=S.seals||{};if(S.seals[key])continue;
+    S.seals[key]=found.w;S.bonus=(S.bonus||0)+1;save();setTimeout(()=>{sFan();confetti();toast(`You spelled ${found.w}! You earned a bonus game!`,6000);say(['ms_word',...found.w.split('').map(c=>'n_'+c)])},500);renderRoom()}}
+const sealOf=id=>Object.keys(S.seals||{}).find(k=>k.split('|').includes(id));
+function sealBadges(){let h='';for(const k of Object.keys(S.seals||{})){const ids=k.split('|').filter(i=>S.placed[i]&&S.owned.includes(i));if(ids.length<4)continue;const ps=ids.map(absPos);if(ps.some(p=>!p||(p.in&&!OPEN[p.in])))continue;
+    const x=Math.max(...ps.map(p=>p.x))+isz(PRIZE_BY[ids[0]])*.42,y=(Math.min(...ps.map(p=>p.y))+Math.max(...ps.map(p=>p.y)))/2-isz(PRIZE_BY[ids[0]])*RY*.35;h+=`<span class="sealb" style="left:${PX(x)};top:${PY(y)}">💛</span>`}return h}
+function afterPlace(id){checkWords();const n=Object.keys(S.placed).filter(k=>S.owned.includes(k)).length;if(n>=5)milestone('place5');if(PRIZE_BY[id].tier===3)milestone('legend1')}
 function toggleCont(id){OPEN[id]=!OPEN[id];if(OPEN[id])sDoor();else sClick();renderRoom()}
 $('#placeCancel').onclick=()=>{placing=null;renderChest();updatePlaceBar()};
 $('#stage').addEventListener('click',e=>{ac();
@@ -1666,7 +1708,7 @@ function confirmTrash(id){const p=PRIZE_BY[id];if(!p)return;stopSong();
      {label:'Keep it',cls:'green',fn:renderRoom}])}
 /* drag toys; drop on the chest to store, on the bin to throw away */
 let drag=null;
-$('#items').addEventListener('pointerdown',e=>{if(placing)return;const it=e.target.closest('.ritem');if(!it)return;e.preventDefault();try{it.setPointerCapture(e.pointerId)}catch(_){}drag={el:it,id:it.dataset.id,x0:e.clientX,y0:e.clientY,moved:false,pid:e.pointerId};{const base=absPos(drag.id);const kids=[];const walk=(b,dp)=>{if(dp>4)return;S.owned.forEach(k=>{if(S.placed[k]&&S.placed[k].on===b){const a=absPos(k),el=document.querySelector(`.ritem[data-id="${k}"]`);if(el&&a)kids.push({el,dx:a.x-base.x,dy:a.y-base.y});walk(k,dp+1)}})};walk(drag.id,0);drag.kids=kids}const o=partnerOf(drag.id);if(o&&S.placed[o]&&!S.placed[o].on&&!S.placed[drag.id].on){const a=absPos(drag.id),b=absPos(o);drag.pe=document.querySelector(`.ritem[data-id="${o}"]`);drag.pdx=b.x-a.x;drag.pdy=b.y-a.y}});
+$('#items').addEventListener('pointerdown',e=>{if(placing)return;let it=e.target.closest('.ritem');if(!it)return;{const sk=sealOf(it.dataset.id);if(sk){const ids=sk.split('|');let b=ids.find(i=>!ids.includes((S.placed[i]||{}).on));const be=b&&document.querySelector(`.ritem[data-id="${b}"]`);if(be)it=be}}e.preventDefault();try{it.setPointerCapture(e.pointerId)}catch(_){}drag={el:it,id:it.dataset.id,x0:e.clientX,y0:e.clientY,moved:false,pid:e.pointerId};{const base=absPos(drag.id);const kids=[];const walk=(b,dp)=>{if(dp>10)return;S.owned.forEach(k=>{if(S.placed[k]&&S.placed[k].on===b){const a=absPos(k),el=document.querySelector(`.ritem[data-id="${k}"]`);if(el&&a)kids.push({el,dx:a.x-base.x,dy:a.y-base.y});walk(k,dp+1)}})};walk(drag.id,0);drag.kids=kids}const o=partnerOf(drag.id);if(o&&S.placed[o]&&!S.placed[o].on&&!S.placed[drag.id].on){const a=absPos(drag.id),b=absPos(o);drag.pe=document.querySelector(`.ritem[data-id="${o}"]`);drag.pdx=b.x-a.x;drag.pdy=b.y-a.y}});
 let cdrag=null;
 /* fingers: touch events, so the page never scrolls while a toy is being pulled out */
 let tdrag=null;
@@ -2182,7 +2224,7 @@ function renderSettings(){
 
 window.__LG={ev:c=>eval(c),PRIZES,STK_LIST,LINES,games:{gMemory,gMaze,gTrace},show:id=>show(id),S:()=>S,settle:(i,x,y)=>settle(i,x,y),absPos:i=>absPos(i)};
 
-show('splash');setTimeout(()=>{if(cur!=='splash')return;const on=()=>{LL_SAID=true;vEl.removeEventListener('playing',on)};vEl.addEventListener('playing',on);const c=clips();if(c&&c.ll&&S.settings.voice)playSrc('data:audio/mpeg;base64,'+c.ll,playTok)},600);
+show('splash');setTimeout(()=>{if(cur!=='splash')return;const c=clips();if(c&&c.ll&&S.settings.voice){const t0=performance.now();playSrc('data:audio/mpeg;base64,'+c.ll,playTok).then(ok=>{if(ok&&performance.now()-t0>700)LL_SAID=true})}},600);
 })();
 </script>
 </body></html>
