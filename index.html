@@ -598,7 +598,7 @@ label.btn{display:block;text-align:center}
 .pet .pt-all{transform-origin:50% 100%}.pet .pt-head{transform-origin:50% 100%}.pet .pt-arml{transform-origin:85% 12%}.pet .pt-armr{transform-origin:15% 12%}.pet .pt-legl,.pet .pt-legr{transform-origin:50% 0}
 .pet .pt-flame{opacity:0;transition:opacity .2s}.pet .pt-shut,.pet .pt-mouth{display:none}
 .pet .pt-eyes{transform-origin:center;animation:sbBlink 4.5s infinite}.pet .pt-glow{animation:sbGlow 1.4s ease-in-out infinite}
-.pet:not(.off):not(.p-walk):not(.p-dance):not(.p-jump):not(.p-leg) .pt-all{animation:pidle 2.4s ease-in-out infinite}@keyframes pidle{50%{transform:translateY(-2px)}}
+.pet:not(.off):not(.p-walk):not(.p-dance):not(.p-jump):not(.p-leg):not(.p-hand):not(.p-wake):not(.p-hi):not(.p-flex):not(.p-toss) .pt-all{animation:pidle 2.4s ease-in-out infinite}@keyframes pidle{50%{transform:translateY(-2px)}}
 .pet.off svg{filter:saturate(.25) brightness(.85)}.pet.off .pt-head{transform:translate(3px,7px) rotate(16deg)}.pet.off .pt-arml{transform:rotate(-40deg)}.pet.off .pt-armr{transform:rotate(40deg)}.pet.off .pt-body{transform:translateY(3px)}
 .pet.off .pt-eyes,.pet.off .pt-smile{display:none}.pet.off .pt-shut{display:inline}.pet.off .pt-glow,.pet.off .pt-bulb,.pet.off .pt-l1,.pet.off .pt-l2,.pet.off .pt-bolt{opacity:.15}
 .pet.flipx svg{transform:scaleX(-1)}
@@ -695,6 +695,24 @@ label.btn{display:block;text-align:center}
 
 .maze-code svg{max-height:calc(100dvh - 610px)!important}.maze-arrows svg{max-height:calc(100dvh - 430px)!important}.maze svg{width:auto!important;max-width:100%;margin-inline:auto}
 @media (min-width:700px) and (orientation:landscape){#s-home .mode{min-height:0!important}#s-home .mode .art{width:110px!important;height:110px!important}#s-home .mode .art svg{width:92px!important;height:92px!important}}
+
+/* round 25 */
+.pet{transform:translate(-50%,-83%)!important;pointer-events:none!important}.pet svg *{pointer-events:visiblePainted}.pet .pt-sh,.pet .pt-flame,.pet .pt-g1,.pet .pt-g2{pointer-events:none}
+.pet.p-hand .pt-all{transform-origin:50% 50%!important;animation:pcart 3s ease-in-out!important}
+@keyframes pcart{0%{transform:none}22%{transform:translate(26px,-6px) rotate(90deg)}42%,62%{transform:translate(40px,-30px) rotate(180deg)}82%{transform:translate(26px,-6px) rotate(90deg)}100%{transform:none}}
+.pet.p-hand .pt-legl{transform:rotate(-24deg)}.pet.p-hand .pt-legr{transform:rotate(24deg)}
+.pet.p-sing .pt-head{animation:psinghead .55s ease-in-out 5 alternate}@keyframes psinghead{from{transform:rotate(-9deg)}to{transform:rotate(9deg) translateY(-2px)}}
+.ritem.onrail{transform:translate(-50%,-88%)!important}
+.pet-bar{padding:8px 10px;gap:6px;border-radius:16px}.pb-top{gap:8px}.pb-meter{flex:0 0 96px;height:16px;border-width:2px}.pb-n{font-size:14px}
+.pb-cmds{grid-template-columns:repeat(auto-fill,minmax(60px,1fr));gap:6px}.pcmd{padding:4px 2px;font-size:11px;border-radius:12px;box-shadow:0 3px 0 #127575}.pcmd span{font-size:22px}
+.home-fab{position:fixed;left:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));width:64px;height:64px;border-radius:18px;border:0;background:#1B2838;display:grid;place-items:center;z-index:900;box-shadow:0 5px 0 #0A1119,0 8px 18px rgba(0,0,0,.25)}
+.home-fab svg{width:34px;height:34px}.home-fab:active{transform:translateY(3px);box-shadow:0 2px 0 #0A1119}
+body.fab #main{padding-bottom:96px!important}#roomHome{display:none!important}
+@media (min-width:700px){
+  #s-home .modes{gap:16px!important}#s-home .mode{min-height:0!important;padding:14px 12px!important}#s-home .mode .art{width:112px!important;height:112px!important}#s-home .mode .art svg{width:92px!important;height:92px!important}#s-home .mode b{font-size:32px!important}
+  .cards.burst .pcard svg{max-width:min(180px,15vh)!important}.burst-chest,.cards.burst.has-sel~.burst-chest{width:min(110px,9vh)!important}.cards.burst{gap:16px 20px!important}
+  #defCv{height:calc(100dvh - 470px)!important;min-height:300px}#defPad .mdraw-wrap{height:250px;min-height:0!important}
+}
 </style>
 
 <div id="app">
@@ -829,11 +847,12 @@ label.btn{display:block;text-align:center}
 
     <section id="s-settings" class="screen set" hidden></section>
   </main>
+<button class="home-fab" id="homeFab" aria-label="Home" hidden><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v9.5h5v-5.5h3v5.5h5V10" fill="#FFC21A" stroke="#fff"/></svg></button>
 </div>
 <div id="ov" hidden><div class="ov-card" id="ovCard"></div></div>
 <div class="toast" id="toast" hidden></div>
 <canvas id="confetti"></canvas>
-<script>const VOICE_VER=24;document.write('<script src="voice.js?v='+VOICE_VER+'"><\/script>')</script>
+<script>const VOICE_VER=25;document.write('<script src="voice.js?v='+VOICE_VER+'"><\/script>')</script>
 <script>
 (function(){
 const $=s=>document.querySelector(s);
@@ -867,7 +886,7 @@ const VL={
     oops:'Oops, let\'s try that again.',batt:'Time\'s up! Let\'s try again.',nohear:'I didn\'t hear you. Let\'s try again!',
     pick:'Pick your prize!',bonus:'A bonus box! Pick your prize!',newprize:'Yay! A new prize!',newsticker:'A new sticker!',
     place:'Where should it go? Tap a spot in your room!',decorate:'Pick a sticker, then tap your prize to stick it on!',nostickers:'You can win stickers in the prize shop.',
-    surprise:'You earned a bonus game!',g_find:'Find it!',ll:'Letter Land!',letsplay:"Let's play!",speed:'Super speed!',g_say:'Say it!',g_sound:'Sound it out!',g_room:'Treasure room!',trk3:'Three train tracks!',unlock2:'You unlocked a new game! You can find it on the main menu!',ms_done5:'You finished five more letters! You earned a bonus game!',g_mad:'Mad Math Minute!',g_def:'Number Defender!',m_go:'Ready, set, go!',m_time:"Time's up!",m_inmin:'right in one minute!',m_defover:'Great defending! You stopped',m_problems:'problems!',m_ok0:'Correct!',m_ok1:'Nice!',m_ok2:'Great!',m_ok3:'Right!',m_ok4:'Yes!',m_ok5:'Super!',num_0:'Zero!',num_1:'One!',num_2:'Two!',num_3:'Three!',num_4:'Four!',num_5:'Five!',num_6:'Six!',num_7:'Seven!',num_8:'Eight!',num_9:'Nine!',num_10:'Ten!',num_11:'Eleven!',num_12:'Twelve!',num_13:'Thirteen!',num_14:'Fourteen!',num_15:'Fifteen!',num_16:'Sixteen!',num_17:'Seventeen!',num_18:'Eighteen!',num_19:'Nineteen!',num_20:'Twenty!',num_21:'Twenty-one!',num_22:'Twenty-two!',num_23:'Twenty-three!',num_24:'Twenty-four!',num_25:'Twenty-five!',num_26:'Twenty-six!',num_27:'Twenty-seven!',num_28:'Twenty-eight!',num_29:'Twenty-nine!',num_30:'Thirty!',num_31:'Thirty-one!',num_32:'Thirty-two!',num_33:'Thirty-three!',num_34:'Thirty-four!',num_35:'Thirty-five!',num_36:'Thirty-six!',num_37:'Thirty-seven!',num_38:'Thirty-eight!',num_39:'Thirty-nine!',num_40:'Forty!',unlock_def:'You unlocked Number Defender! You can find it on the main menu!',ms_mad15:'Fifteen right in one minute! You earned a bonus game!',ms_def25:'You stopped twenty-five problems! You earned a bonus game!',ms_math10:'You reached double-digit numbers! You earned a bonus game!',keepgo:'Keep going!',pet_need:'Your robot needs batteries! Win robot batteries in a treasure chest.',pet_give:'Drag robot batteries onto your robot!',pet_on:'Beep boop! Your robot is awake!',pet_low:'Your robot\'s battery is getting low!',pet_empty:'Oh no! Your robot ran out of power. It needs new batteries.',pet_learn:'Your robot learned a new trick!',pzbat:'Robot batteries!',ms_loop1:'You built a whole train loop! You earned a bonus game!',ms_word:'You spelled a word! You earned a bonus game!',micgate:'Tap the microphone so I can hear you!',ms_place5:'You put five toys in your room! You earned a bonus game!',ms_legend1:'You put a legendary prize in your room! You earned a bonus game!',ms_combo1:'You made your first pair! You earned a bonus game!',ms_master1:'Great saying! You earned a bonus game!',ms_p25:'You won twenty-five prizes! You earned a bonus game!',ms_p50:'You won fifty prizes! You earned a bonus game!',which:'Which one starts with',soundgo:'Sound it out! Which picture starts with the letter?',unlocked:'Wow! You unlocked a new game!',gotall:'Good job! You got them all!',band:'Let\'s make some music!',memory:'Find the matching pairs!',maze:'Help the truck get to the treasure chest!',tryagain:'Let\'s try again!',bonuswin:'You did it! You win a bonus prize!'}
+    surprise:'You earned a bonus game!',g_find:'Find it!',ll:'Letter Land!',letsplay:"Let's play!",speed:'Super speed!',g_say:'Say it!',g_sound:'Sound it out!',g_room:'Treasure room!',trk3:'Three train tracks!',unlock2:'You unlocked a new game! You can find it on the main menu!',ms_done5:'You finished five more letters! You earned a bonus game!',g_mad:'Mad Math Minute!',g_def:'Number Defender!',m_go:'Ready, set, go!',m_time:"Time's up!",m_inmin:'right in one minute!',m_defover:'Great defending! You stopped',m_problems:'equations!',m_ok0:'Correct!',m_ok1:'Nice!',m_ok2:'Great!',m_ok3:'Right!',m_ok4:'Yes!',m_ok5:'Super!',num_0:'Zero!',num_1:'One!',num_2:'Two!',num_3:'Three!',num_4:'Four!',num_5:'Five!',num_6:'Six!',num_7:'Seven!',num_8:'Eight!',num_9:'Nine!',num_10:'Ten!',num_11:'Eleven!',num_12:'Twelve!',num_13:'Thirteen!',num_14:'Fourteen!',num_15:'Fifteen!',num_16:'Sixteen!',num_17:'Seventeen!',num_18:'Eighteen!',num_19:'Nineteen!',num_20:'Twenty!',num_21:'Twenty-one!',num_22:'Twenty-two!',num_23:'Twenty-three!',num_24:'Twenty-four!',num_25:'Twenty-five!',num_26:'Twenty-six!',num_27:'Twenty-seven!',num_28:'Twenty-eight!',num_29:'Twenty-nine!',num_30:'Thirty!',num_31:'Thirty-one!',num_32:'Thirty-two!',num_33:'Thirty-three!',num_34:'Thirty-four!',num_35:'Thirty-five!',num_36:'Thirty-six!',num_37:'Thirty-seven!',num_38:'Thirty-eight!',num_39:'Thirty-nine!',num_40:'Forty!',num_41:'Forty-one!',num_42:'Forty-two!',num_43:'Forty-three!',num_44:'Forty-four!',num_45:'Forty-five!',num_46:'Forty-six!',num_47:'Forty-seven!',num_48:'Forty-eight!',num_49:'Forty-nine!',num_50:'Fifty!',num_51:'Fifty-one!',num_52:'Fifty-two!',num_53:'Fifty-three!',num_54:'Fifty-four!',num_55:'Fifty-five!',num_56:'Fifty-six!',num_57:'Fifty-seven!',num_58:'Fifty-eight!',num_59:'Fifty-nine!',num_60:'Sixty!',num_61:'Sixty-one!',num_62:'Sixty-two!',num_63:'Sixty-three!',num_64:'Sixty-four!',num_65:'Sixty-five!',num_66:'Sixty-six!',num_67:'Sixty-seven!',num_68:'Sixty-eight!',num_69:'Sixty-nine!',num_70:'Seventy!',num_71:'Seventy-one!',num_72:'Seventy-two!',num_73:'Seventy-three!',num_74:'Seventy-four!',num_75:'Seventy-five!',num_76:'Seventy-six!',num_77:'Seventy-seven!',num_78:'Seventy-eight!',num_79:'Seventy-nine!',num_80:'Eighty!',num_81:'Eighty-one!',num_82:'Eighty-two!',num_83:'Eighty-three!',num_84:'Eighty-four!',num_85:'Eighty-five!',num_86:'Eighty-six!',num_87:'Eighty-seven!',num_88:'Eighty-eight!',num_89:'Eighty-nine!',num_90:'Ninety!',num_91:'Ninety-one!',num_92:'Ninety-two!',num_93:'Ninety-three!',num_94:'Ninety-four!',num_95:'Ninety-five!',num_96:'Ninety-six!',num_97:'Ninety-seven!',num_98:'Ninety-eight!',num_99:'Ninety-nine!',num_100:'One hundred!',num_101:'One hundred one!',num_102:'One hundred two!',num_103:'One hundred three!',num_104:'One hundred four!',num_105:'One hundred five!',num_106:'One hundred six!',num_107:'One hundred seven!',num_108:'One hundred eight!',num_109:'One hundred nine!',num_110:'One hundred ten!',num_111:'One hundred eleven!',num_112:'One hundred twelve!',num_113:'One hundred thirteen!',num_114:'One hundred fourteen!',num_115:'One hundred fifteen!',num_116:'One hundred sixteen!',num_117:'One hundred seventeen!',num_118:'One hundred eighteen!',num_119:'One hundred nineteen!',num_120:'One hundred twenty!',unlock_def:'You unlocked Number Defender! You can find it on the main menu!',ms_mad15:'Fifteen right in one minute! You earned a bonus game!',ms_def25:'You stopped twenty-five equations! You earned a bonus game!',ms_math10:'You reached double-digit numbers! You earned a bonus game!',keepgo:'Keep going!',pet_need:'Your robot needs batteries! Win robot batteries in a treasure chest.',pet_give:'Drag robot batteries onto your robot!',pet_on:'Beep boop! Your robot is awake!',pet_low:'Your robot\'s battery is getting low!',pet_empty:'Oh no! Your robot ran out of power. It needs new batteries.',pet_learn:'Your robot learned a new trick!',pzbat:'Robot batteries!',ms_loop1:'You built a whole train loop! You earned a bonus game!',ms_word:'You spelled a word! You earned a bonus game!',micgate:'Tap the microphone so I can hear you!',ms_place5:'You put five toys in your room! You earned a bonus game!',ms_legend1:'You put a legendary prize in your room! You earned a bonus game!',ms_combo1:'You made your first pair! You earned a bonus game!',ms_master1:'Great saying! You earned a bonus game!',ms_p25:'You won twenty-five prizes! You earned a bonus game!',ms_p50:'You won fifty prizes! You earned a bonus game!',which:'Which one starts with',soundgo:'Sound it out! Which picture starts with the letter?',unlocked:'Wow! You unlocked a new game!',gotall:'Good job! You got them all!',band:'Let\'s make some music!',memory:'Find the matching pairs!',maze:'Help the truck get to the treasure chest!',tryagain:'Let\'s try again!',bonuswin:'You did it! You win a bonus prize!'}
 };
 const PRIZE_WORDS={b_car:'Car',b_pickup:'Pickup Truck',b_dump:'Dump Truck',b_bus:'Bus',b_race:'Race Car',b_van:'Van',b_bot:'Little Robot',b_ball:'Bouncy Ball',b_balloon:'Balloon',b_star:'Happy Star',b_plant:'Plant',b_block:'Letter Block',b_teddy:'Teddy Bear',b_bunny:'Bunny',b_candyjar:'Candy Jar',
   b_fire:'Fire Truck',b_tractor:'Tractor',b_digger:'Digger',b_mixer:'Cement Mixer',b_antbot:'Beep Robot',b_rocket:'Rocket',b_lamp:'Lamp',b_flag:'Flag',b_drum:'Drum',b_plushpup:'Puppy Plush',
@@ -906,8 +925,8 @@ const HEAR={A:['a','ay','eh','hey','hay','aye'],B:['b','be','bee','bea'],C:['c',
 
 /* ---------- state ---------- */
 const KEY='letter-garage-v2',OLD_KEY='letter-garage-v1';
-const DEF={focus:'both',mathInput:'draw',case:'upper',myVoice:true,timer:20,tiles:'auto',rounds:3,lookalikes:false,sayGoal:5,listen:'auto',voice:true,letters:LETTERS.join('')};
-function fixData(d){d=d||{};if(d.settings&&!d._v){d.settings.timer=15;d.settings.tiles='auto'}if(d.settings&&!d.t5&&d.settings.timer){d.settings.timer=d.settings.timer+5;d.t5=1}if(d.settings&&!d.f2){d.settings.focus='both';if(d.settings.mathInput==='both')d.settings.mathInput='draw';d.f2=1}return{settings:{...DEF,...(d.settings||{})},owned:d.owned||[],pending:d.pending||0,prizeNo:d.prizeNo||0,stats:d.stats||{},pool:d.pool||null,placed:d.placed||{},decor:d.decor||{},stickers:d.stickers||{},flevel:d._v>=9?(d.flevel||{}):{},fstars:d.fstars||{},fstat:d.fstat||{},micGranted:d.micGranted||0,seals:d.seals||{},ostat:d.ostat||{},sstat:d.sstat||{},sayPool:d.sayPool||null,sayNewest:d.sayNewest||null,pairs:d.pairs||{},speedT:d.speedT||3000,speedRun:d.speedRun||0,slowPerfect:d.slowPerfect||0,sayRun:d.sayRun||null,bonus:d._v>=9?(d.bonus||0):Math.min(1,d.bonus||0),ms:d.ms||{},memLevel:d.memLevel||0,traceMode:d.traceMode||0,traceLevel:d.traceLevel||0,fround:d.fround||{},soundOn:d.soundOn||0,istate:d.istate||{},soundRun:d.soundRun||null,memWins:d.memWins!=null?d.memWins:(d.memLevel||0)*2,mazeLevel:d.mazeLevel||0,specialBox:d.specialBox||0,poolSpecial:d.poolSpecial||0,unlockPending:d.unlockPending||0,poolOpen:!!(d.pool&&d.poolOpen),math:d.math||null,hw:d.hw||null,pet:d.pet||null,batteries:d.batteries||0,tbundle:d.tbundle||{},tgrp:d.tgrp||{},tlead:d.tlead||{},bonusKind:d.bonusKind||null,doneOrder:d.doneOrder||null,soPool:d.soPool||null,soHist:d.soHist||[],soSince:d.soSince||0,owstat:d.owstat||{},everPlaced:d.everPlaced||Object.fromEntries(Object.keys(d.placed||{}).map(k=>[k,1])),t5:1,f2:1,defOn:d.defOn||0,unlockDef:d.unlockDef||0,_v:10}}
+const DEF={defMode:'kids',focus:'both',mathInput:'draw',case:'upper',myVoice:true,timer:20,tiles:'auto',rounds:3,lookalikes:false,sayGoal:5,listen:'auto',voice:true,letters:LETTERS.join('')};
+function fixData(d){d=d||{};if(d.settings&&!d._v){d.settings.timer=15;d.settings.tiles='auto'}if(d.settings&&!d.t5&&d.settings.timer){d.settings.timer=d.settings.timer+5;d.t5=1}if(d.settings&&!d.f2){d.settings.focus='both';if(d.settings.mathInput==='both')d.settings.mathInput='draw';d.f2=1}return{settings:{...DEF,...(d.settings||{})},owned:d.owned||[],pending:d.pending||0,prizeNo:d.prizeNo||0,stats:d.stats||{},pool:d.pool||null,placed:d.placed||{},decor:d.decor||{},stickers:d.stickers||{},flevel:d._v>=9?(d.flevel||{}):{},fstars:d.fstars||{},fstat:d.fstat||{},micGranted:d.micGranted||0,seals:d.seals||{},ostat:d.ostat||{},sstat:d.sstat||{},sayPool:d.sayPool||null,sayNewest:d.sayNewest||null,pairs:d.pairs||{},speedT:d.speedT||3000,speedRun:d.speedRun||0,slowPerfect:d.slowPerfect||0,sayRun:d.sayRun||null,bonus:d._v>=9?(d.bonus||0):Math.min(1,d.bonus||0),ms:d.ms||{},memLevel:d.memLevel||0,traceMode:d.traceMode||0,traceLevel:d.traceLevel||0,fround:d.fround||{},soundOn:d.soundOn||0,istate:d.istate||{},soundRun:d.soundRun||null,memWins:d.memWins!=null?d.memWins:(d.memLevel||0)*2,mazeLevel:d.mazeLevel||0,specialBox:d.specialBox||0,poolSpecial:d.poolSpecial||0,unlockPending:d.unlockPending||0,poolOpen:!!(d.pool&&d.poolOpen),fwins:d.fwins,math:d.math||null,hw:d.hw||null,pet:d.pet||null,batteries:d.batteries||0,tbundle:d.tbundle||{},tgrp:d.tgrp||{},tlead:d.tlead||{},bonusKind:d.bonusKind||null,doneOrder:d.doneOrder||null,soPool:d.soPool||null,soHist:d.soHist||[],soSince:d.soSince||0,owstat:d.owstat||{},everPlaced:d.everPlaced||Object.fromEntries(Object.keys(d.placed||{}).map(k=>[k,1])),t5:1,f2:1,defOn:d.defOn||0,unlockDef:d.unlockDef||0,_v:10}}
 function loadRoot(){
   try{const r=JSON.parse(localStorage.getItem(KEY)||'null');if(r&&r.profiles&&r.profiles.length){r.profiles.forEach(p=>p.data=fixData(p.data));if(!r.profiles.some(p=>p.id===r.current))r.current=r.profiles[0].id;return r}}catch(e){}
   let old=null;try{old=JSON.parse(localStorage.getItem(OLD_KEY)||'null')}catch(e){}
@@ -934,9 +953,9 @@ function healAudio(){if(!actx)return;if(actx.state==='closed'){actx=null;return}
 let audioStale=false,ckW=0,ckT=0;
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden'){audioStale=true;pauseTimer();if(cur==='say'){Y.away=true;stopListen();stopVoice()}}else{vUnlocked=false;resumeTimer();if(cur==='say'&&Y.away){Y.away=false;Y.busy=false;Y.micOK=false;setTimeout(()=>{if(cur==='say')nextSay(true)},500)}}});
 addEventListener('pageshow',()=>{audioStale=true;vUnlocked=false});addEventListener('blur',()=>{audioStale=true});
-function ac(){if(!actx){try{actx=new (window.AudioContext||window.webkitAudioContext)()}catch(e){}}if(actx&&actx.state!=='running'){try{actx.resume()}catch(e){}}return actx}
+function ac(){if(!actx){try{actx=new (window.AudioContext||window.webkitAudioContext)();actx._born=performance.now()}catch(e){}}if(actx&&actx.state!=='running'){try{actx.resume()}catch(e){}}return actx}
 let CT=null;const sfxPool=[];
-function live(){if(!audioStale&&actx&&actx.state==='running')return actx;try{if(actx)actx.resume()}catch(e){}return null}
+function live(){if(!audioStale&&actx&&(actx.state==='running'||(actx._born&&performance.now()-actx._born<1500)))return actx;try{if(actx)actx.resume()}catch(e){}return null}
 function encodeWav(ch,rate){const n=ch.length,dv=new DataView(new ArrayBuffer(44+n*2));const w=(o,str)=>{for(let i=0;i<str.length;i++)dv.setUint8(o+i,str.charCodeAt(i))};
   w(0,'RIFF');dv.setUint32(4,36+n*2,true);w(8,'WAVE');w(12,'fmt ');dv.setUint32(16,16,true);dv.setUint16(20,1,true);dv.setUint16(22,1,true);dv.setUint32(24,rate,true);dv.setUint32(28,rate*2,true);dv.setUint16(32,2,true);dv.setUint16(34,16,true);w(36,'data');dv.setUint32(40,n*2,true);
   for(let i=0;i<n;i++)dv.setInt16(44+i*2,Math.max(-1,Math.min(1,ch[i]))*32767,true);return new Blob([dv],{type:'audio/wav'})}
@@ -947,7 +966,7 @@ function sfxCtx(fn,dur=1){const a=CT||live();if(a){const prev=CT;CT=a;try{fn(a)}
   const done=buf=>{try{const url=URL.createObjectURL(encodeWav(buf.getChannelData(0),24000));const el=sfxPool.find(e=>e.paused||e.ended)||sfxPool[0];if(!el)return;el.src=url;el.play().catch(()=>{});setTimeout(()=>URL.revokeObjectURL(url),(dur+2)*1000)}catch(e){}};
   try{const pr=off.startRendering();if(pr&&pr.then)pr.then(done);else off.oncomplete=e=>done(e.renderedBuffer)}catch(e){}}
 for(let i=0;i<4;i++){const e=new Audio();e.setAttribute('playsinline','');sfxPool.push(e)}
-function tone(f,d,type='triangle',v=.14,w=0){const a=CT||live();if(!a){sfxCtx(()=>tone(f,d,type,v,w),d+w+.15);return}const t=a.currentTime+w,o=a.createOscillator(),g=a.createGain();o.type=type;o.frequency.setValueAtTime(f,t);g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.001,t+d);o.connect(g).connect(a.destination);o.start(t);o.stop(t+d+.02)}
+function tone(f,d,type='triangle',v=.14,w=0){const a=CT||live();if(!a){sfxCtx(()=>tone(f,d,type,v,w),d+w+.15);return}const t=a.currentTime+w+(a.currentTime<.4?.06:.004),o=a.createOscillator(),g=a.createGain();o.type=type;o.frequency.setValueAtTime(f,t);g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(v,t+.006);g.gain.exponentialRampToValueAtTime(.001,t+d);o.connect(g).connect(a.destination);o.start(t);o.stop(t+d+.02)}
 const sPop=()=>{tone(660,.09);tone(990,.12,'triangle',.12,.06)};
 const sOops=()=>tone(200,.18,'sine',.1);
 const sBuzz=()=>{sweep(240,170,.2,'square',.075,0,900);sweep(205,140,.22,'square',.06,.16,900)};
@@ -971,7 +990,7 @@ function tierSfx(t,w=.28){const N=[523,659,784,1047,1319,1568,2093];
   if(t===1)[0,2,4].forEach((n,i)=>tone(N[n],.18,'triangle',.07,w+i*.08));
   if(t===2)[0,1,2,3,4].forEach((n,i)=>tone(N[n],.2,'triangle',.07,w+i*.07));
   if(t===3){[0,2,4,6].forEach((n,i)=>tone(N[n],.3,'square',.045,w+i*.12));[N[3],N[4],N[5]].forEach(f=>tone(f,1,'triangle',.05,w+.5))}}
-function prizeSfx(p){try{SFX[catOf(p.key)]();tierSfx(p.tier)}catch(e){}}
+function prizeSfx(p){if(!p){robotBeep('hi');return}try{SFX[catOf(p.key)]();tierSfx(p.tier)}catch(e){}}
 function stickerSfx(st){tone(1568,.1,'triangle',.08);tone(2093,.16,'triangle',.07,.07);if(st.tier>=2)tierSfx(st.tier,.2)}
 function creakBuf(d,lo,hi,seed,a){if(!a)return null;const sr=a.sampleRate,n=Math.floor(sr*d),buf=a.createBuffer(1,n,sr),ch=buf.getChannelData(0);let ph=0;
   for(let i=0;i<n;i++){const u=i/n;const rate=lo+(hi-lo)*u+18*Math.sin(u*(9+seed)*Math.PI)+(Math.random()-.5)*14;ph+=rate/sr;if(ph>=1){ph-=1;ch[i]=.8+.4*Math.random()}}
@@ -1406,19 +1425,20 @@ function show(id){
   const leftSay=cur==='say'&&id!=='say';if(id!=='room')petOpen=false;stopFind();stopListen();stopVoice();document.body.classList.toggle('lower',S.settings.case==='lower');if(id==='room')rz=0;
   document.querySelectorAll('.screen').forEach(s=>s.hidden=s.id!=='s-'+id);
   cur=id;if(leftSay)restoreSpeaker();$('#title').textContent=TITLES[id];
-  $('#back').hidden=id==='home';
+  $('#back').hidden=id==='home';{const nf=['home','splash','who','newp','settings','studio'].includes(id);$('#homeFab').hidden=nf;document.body.classList.toggle('fab',!nf)}
   const p=prof();$('#who').hidden=id==='who'||id==='newp';$('#who').innerHTML=avatarHTML(p)+'<span class="ring"></span>';$('#who').setAttribute('aria-label',`Playing as ${p.name}. Switch player`);
   $('#testTag').hidden=p.kind!=='test';$('#testWin').hidden=p.kind!=='test';
   $('#main').scrollTop=0;
   ({studio:renderStudio,splash:()=>{$('#splashArt').innerHTML=SPLASH_BOT;$('#who').hidden=true;$('#back').hidden=true},home:renderHome,who:renderWho,newp:renderNewp,pick:renderPick,room:renderRoom,settings:renderSettings,shop:renderShop})[id]?.();
 }
 $('#back').onclick=()=>{closeOv();show('home')};
+$('#homeFab').onclick=()=>{ac();closeOv();show('home')};
 $('#roomHome').onclick=()=>{ac();closeOv();show('home')};
 (function whoHold(){const w=$('#who');let t0=0,raf=null;const HOLD=1000;const stop=()=>{if(raf)cancelAnimationFrame(raf);raf=null;w.style.setProperty('--p',0)};
   w.addEventListener('pointerdown',e=>{ac();t0=performance.now();const step=now=>{const p=Math.min(1,(now-t0)/HOLD);w.style.setProperty('--p',p);if(p>=1){stop();closeOv();show('who');return}raf=requestAnimationFrame(step)};raf=requestAnimationFrame(step)});
   ['pointerup','pointerleave','pointercancel'].forEach(ev=>w.addEventListener(ev,()=>{if(raf&&performance.now()-t0<HOLD-50)toast('Press and hold to switch players');stop()}));
   w.addEventListener('contextmenu',e=>e.preventDefault());w.addEventListener('keydown',e=>{if(e.key==='Enter')show('who')})})();
-document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{ac();const g=b.dataset.go;introKey={pick:'g_find',say:'g_say',sound:'g_sound'}[g]||null;if(g==='mad')startMad();else if(g==='def'){if(S.defOn)startDef();else toast('Number Defender unlocks after 6 right in Mad Math Minute')}else if(g==='pick'&&F&&F.letter&&!F.done&&F.tLeft!=null){show('find');resumeTimer()}else if(g==='say'){show('say');startSay()}else if(g==='sound'){if(soundUnlocked())startSound();else toast('Sound It Out unlocks after every letter reaches gold in Find It')}else show(g)});
+document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{ac();const g=b.dataset.go;introKey={pick:'g_find',say:'g_say',sound:'g_sound'}[g]||null;if(g==='mad')startMad();else if(g==='def'){if(S.defOn)startDef();else toast('Number Defender unlocks after 6 right in Mad Math Minute')}else if(g==='pick'&&F&&F.letter&&!F.done&&F.tLeft!=null){show('find');resumeTimer()}else if(g==='say'){show('say');startSay()}else if(g==='sound'){if(soundUnlocked())startSound();else toast('Sound It Out unlocks after 15 Find It rounds')}else show(g)});
 
 /* ---------- overlay / toast ---------- */
 function ov(html,btns){const c=$('#ovCard');c.innerHTML=html+'<div class="ov-btns"></div>';const row=c.querySelector('.ov-btns');(btns||[]).forEach(b=>{const e=document.createElement('button');e.className='btn '+(b.cls||'');if(b.brk){const d=document.createElement('div');d.className='brk';row.appendChild(d);return}if(b.html)e.innerHTML=b.html;else e.textContent=b.label;if(b.aria)e.setAttribute('aria-label',b.aria);e.onclick=()=>{closeOv();b.fn&&b.fn()};row.appendChild(e)});$('#ov').hidden=false}
@@ -1442,7 +1462,7 @@ const SPLASH_BOT=`<svg viewBox="0 0 100 104" xmlns="http://www.w3.org/2000/svg">
 <rect x="25" y="17" width="50" height="22" rx="10" fill="#13202E"/><rect x="27" y="19" width="46" height="18" rx="8.5" fill="none" stroke="#2FE0D6" stroke-width="1" opacity=".35"/>
 <g class="sb-eyes"><rect x="34" y="21.5" width="9" height="9" rx="4.5" fill="#7DF3E6"/><rect x="57" y="21.5" width="9" height="9" rx="4.5" fill="#7DF3E6"/><circle cx="40.5" cy="24" r="1.6" fill="#fff"/><circle cx="63.5" cy="24" r="1.6" fill="#fff"/></g>
 <path d="M41 32.5 Q50 38.5 59 32.5" stroke="#7DF3E6" stroke-width="2.6" fill="none" stroke-linecap="round"/><circle cx="30" cy="32" r="2.3" fill="#FF8FAB" opacity=".75"/><circle cx="70" cy="32" r="2.3" fill="#FF8FAB" opacity=".75"/>
-<g class="wave-arm"><path d="M70 52 L93 47" stroke="#127575" stroke-width="7" stroke-linecap="round"/><circle cx="97" cy="45" r="6.5" fill="#FFC21A" stroke="#C79000" stroke-width="2"/><path d="M93 39 l-1.5 -4 M97.5 37.5 v-4.5 M102 39 l1.5 -4" stroke="#C79000" stroke-width="2" stroke-linecap="round"/></g>
+<g class="wave-arm"><path d="M70 52 L93 47" stroke="#127575" stroke-width="7" stroke-linecap="round"/><circle cx="97" cy="45" r="6.5" fill="#FFC21A" stroke="#C79000" stroke-width="2"/></g>
 </svg>`;
 const homeBtn={html:'<span class="hb">'+HOUSE_SVG+'</span>',cls:'home-btn',aria:'Home',fn:()=>show('home')};
 let lastGame='find';
@@ -1463,7 +1483,7 @@ function renderHome(){
   {const fo=S.settings.focus||'both',rd=fo!=='math',mt=fo!=='reading';$('.m-find').hidden=!rd;$('.m-say').hidden=!rd;$('.m-mad').hidden=!mt;$('.m-def').hidden=!mt;const db=$('#defBtn');db.classList.toggle('locked',!S.defOn);$('#art-def').innerHTML=S.defOn?ART_DEF:LOCK_SVG;$('#defSub').textContent=S.defOn?'Save the city with math':'Unlocks after 6 right in Mad Math Minute';if(S.defOn&&S.unlockDef)setTimeout(()=>{if(cur==='home'&&S.unlockDef&&$('#ov').hidden)showUnlockDef()},800)}$('#art-room').innerHTML=prizeSVG(ART.room);
   $('#homeCount').textContent=`${S.owned.length} collected`;
   $('#hello').textContent=`Hi, ${prof().name}! Find letters, say letters, and fill your treasure room.`;
-  const sb=$('#soundBtn');sb.hidden=!soundUnlocked()||(S.settings.focus||'both')==='math';sb.classList.toggle('locked',!soundUnlocked());$('#art-sound').innerHTML=soundUnlocked()?ART_SOUND:'<svg viewBox="0 0 24 24" width="64" height="64" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><rect x="5" y="11" width="14" height="10" rx="2" fill="#fff" stroke="none"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';$('#soundSub').textContent=soundUnlocked()?'Find the picture for the letter':'Unlocks as you learn more letters';checkSoundUnlock();if(S.soundOn&&S.unlockPending)setTimeout(()=>{if(cur==='home'&&S.unlockPending&&$('#ov').hidden)showUnlock()},700);
+  const sb=$('#soundBtn');sb.hidden=(S.settings.focus||'both')==='math';sb.classList.toggle('locked',!soundUnlocked());$('#art-sound').innerHTML=soundUnlocked()?ART_SOUND:LOCK_SVG;$('#soundSub').textContent=soundUnlocked()?'Find the picture for the letter':'Unlocks after 15 Find It rounds';checkSoundUnlock();if(S.soundOn&&S.unlockPending)setTimeout(()=>{if(cur==='home'&&S.unlockPending&&$('#ov').hidden)showUnlock()},700);
   const bb=$('#bonusBtn');bb.hidden=!(S.bonus>0);bb.querySelector('.gift').innerHTML=GIFT_SVG;
   const pb=$('#pendingBtn');pb.hidden=S.pending<=0;pb.textContent=S.pending>1?`🎁 Pick your prizes! (${S.pending})`:'🎁 Pick your prize!';
   const row=$('#miniRow');const recent=S.owned.filter(id=>!(S.tgrp||{})[id]).slice(0,8).map(id=>PRIZE_BY[id]).filter(Boolean);
@@ -1535,7 +1555,7 @@ function startFind(L){const mystery=L==='?',key=mystery?'?':L;F={mystery,key,let
 function introFind(){const L=F.letter,w=wordFor(L);
   ov(`<div class="letter-card"><div class="bigletter">${disp(L)}</div><div class="wordhint"><span class="emo">${pic(w[1])}</span><span><b>${disp(L)}</b> is for ${w[0]}</span></div></div><h2>Find every ${disp(L)}!</h2>`,[{label:'Go!',cls:'green big',fn:()=>{F.fromIntro=true;newBoard()}}]);
   say(promptKeys(L))}
-function findWin(){F.done=true;stopFind();bump(F.letter,'f');lastGame='find';const R=S.settings.rounds,key=F.key;
+function findWin(){F.done=true;stopFind();S.fwins=(S.fwins==null?0:S.fwins)+1;checkSoundUnlock();bump(F.letter,'f');lastGame='find';const R=S.settings.rounds,key=F.key;
   if(F.practice){F.pw++;starsRow($('#fPips'),R,F.pw);
     if(F.pw>=R){save();sFan();confetti();say('gotall');
       ov(`<div class="done-check">${CHECK_SVG}</div><h2>Good job, you got them all!</h2><p>${key==='?'?'Every mystery level':disp(F.letter)+' is all'} done. Keep practicing anytime.</p>`,[{label:'Find a new letter',cls:'green big',fn:()=>show('pick')},{brk:1},homeBtn]);return}
@@ -1748,7 +1768,7 @@ function renderShop(){
 }
 $('#keepBtn').onclick=()=>{if(!sel)return;const id=sel;S.pending=Math.max(0,S.pending-1);if(!S.poolSpecial)S.prizeNo++;S.pool=null;S.poolOpen=false;S.poolSpecial=0;sFan();confetti();
   if(S.prizeNo>=25)milestone('p25');if(S.prizeNo>=50)milestone('p50');
-  const again=lastGame==='mad'?{label:'Play again',cls:'green big',fn:()=>startMad(true)}:lastGame==='def'?{label:'Play again',cls:'green big',fn:()=>startDef(true)}:lastGame==='sound'?{label:'Play Sound It Out again',cls:'green big',fn:()=>{show('sound');startSound()}}:lastGame==='say'?{label:'Play Say It again',cls:'green big',fn:()=>{show('say');startSay()}}:lastGame==='find'?{label:'Find a new letter',cls:'green big',fn:()=>show('pick')}:null;const tail=again?[{brk:1},again,{brk:1},homeBtn]:[{brk:1},homeBtn];
+  const again=lastGame==='mad'?{label:'Play again',cls:'green big',fn:()=>startMad(true,true)}:lastGame==='def'?{label:'Play again',cls:'green big',fn:()=>startDef(true,true)}:lastGame==='sound'?{label:'Play Sound It Out again',cls:'green big',fn:()=>{show('sound');startSound()}}:lastGame==='say'?{label:'Play Say It again',cls:'green big',fn:()=>{show('say');startSay()}}:lastGame==='find'?{label:'Find a new letter',cls:'green big',fn:()=>show('pick')}:null;const tail=again?[{brk:1},again,{brk:1},homeBtn]:[{brk:1},homeBtn];
   const more={label:'Pick another prize',cls:'yellow big',fn:()=>show('shop')};
   if(id==='bat'){const bid=newBat();S.owned.unshift(bid);save();say(['newprize','pzbat']);robotBeep('hi');ov(`<div class="big-prize t1">${BAT_SVG}</div><h2>Robot Batteries</h2><p>Give them to your robot in the treasure room!</p>`,S.pending>0?[more]:[{label:'Go to my robot',cls:'yellow big',fn:()=>{show('room');startPlacing(bid)}},...tail]);return}
   if(id.startsWith('st:')){const st=STK_BY[id.slice(3)],n=STK_AMT[st.tier];S.stickers[st.id]=(S.stickers[st.id]||0)+n;save();say(['newsticker','s_'+st.id]);
@@ -1863,7 +1883,7 @@ function placeAll(){const spots=[];SHELVES.forEach(([a,b,y])=>{for(let x=a+50;x<
       const clash=S.owned.some(o=>o!==id&&S.placed[o]&&!S.placed[o].on&&(S.placed[o].in||'')===(p.in||'')&&Math.abs(absPos(o).y-p.y)<50&&Math.abs(absPos(o).x-p.x)<(w+IW(PRIZE_BY[o]))/2*.8);if(!clash){S.placed[id]=p;done=true;break}}
     if(!done)S.placed[id]=freeSpot()}}
 function unplaced(){return S.owned.filter(id=>!S.placed[id]&&PRIZE_BY[id])}
-function roomGeom(){const v=$('#roomView'),vw=v.clientWidth||360,top=v.getBoundingClientRect().top||160;const below=['#petBar','#chest','#roomHome'].map(q=>$(q)).filter(e=>e&&!e.hidden).reduce((a,e)=>a+e.offsetHeight+10,0);const fitH=Math.max(240,Math.min(innerHeight-top-below-14,vw*1.6));return{vw,fitH,baseW:fitH*2.4}}
+function roomGeom(){const v=$('#roomView'),vw=v.clientWidth||360,top=v.getBoundingClientRect().top||160;const below=['#petBar','#chest'].map(q=>$(q)).filter(e=>e&&!e.hidden).reduce((a,e)=>a+e.offsetHeight+10,0);const fitH=Math.max(240,Math.min(innerHeight-top-below-14-90,vw*1.6));return{vw,fitH,baseW:fitH*2.4}}
 function minZoom(){const g=roomGeom();return Math.min(1,g.vw/g.baseW)}
 /* the room opens tall enough to fill the screen (whole height of the room showing), and you can slide side to side */
 function layoutRoom(){const g=roomGeom();baseW=g.baseW;const first=rz<=0;if(first)rz=1/1.5;rz=Math.max(minZoom(),Math.min(3,rz));const st=$('#stage');st.style.width=(baseW*rz)+'px';$('#roomView').style.height=Math.round(g.fitH)+'px';if(first){panX=0;panY=0}applyPan()}
@@ -1886,9 +1906,10 @@ function renderChest(){const un=unplaced();const c=$('#chestObj');
   if(c){c.innerHTML=(chestOpen?CHEST_OPEN:CHEST_CLOSED)+(!chestOpen&&un.length?`<span class="badge">${un.length}</span>`:'');c.classList.toggle('open',chestOpen)}
   $('#chest').hidden=!chestOpen;$('#chestN').textContent=un.length===1?'1 toy':un.length+' toys';
   const seen=new Set(),groups=[];const TB=S.tbundle||{};Object.keys(TB).forEach(l=>{if(un.includes(l))TB[l].forEach(m=>{if(un.includes(m))seen.add(m)})});for(const id of un){if(seen.has(id))continue;if(TB[id]){groups.push([id,...TB[id].filter(m=>un.includes(m))]);continue}const o=partnerOf(id);if(o&&un.includes(o)){groups.push([id,o]);seen.add(o)}else groups.push([id])}
-  $('#chestRow').innerHTML=un.length?groups.map(g=>`<button class="citem${g.length>1&&!TB[g[0]]?' pair':''}${placing===g[0]?' on':''}" data-id="${g[0]}" aria-label="${esc(g.map(k=>PRIZE_BY[k].name).join(' and '))}">${TB[g[0]]?trackBundleSVG(PRIZE_BY[g[0]]):g.map(k=>prizeSVG(PRIZE_BY[k],S.decor[k])).join('<span class="cheart">💛</span>')}</button>`).join(''):'<p class="chest-empty">The toy chest is empty. Win more prizes!</p>'}
+  const petIn=S.pet&&S.pet.chest;
+  $('#chestRow').innerHTML=(petIn?'<button class="citem" data-id="__pet" aria-label="Your robot">'+PET_SVG+'</button>':'')+(un.length||petIn?'':'<p class="chest-empty">The toy chest is empty. Win more prizes!</p>')+(!un.length?'':groups.map(g=>`<button class="citem${g.length>1&&!TB[g[0]]?' pair':''}${placing===g[0]?' on':''}" data-id="${g[0]}" aria-label="${esc(g.map(k=>PRIZE_BY[k].name).join(' and '))}">${TB[g[0]]?trackBundleSVG(PRIZE_BY[g[0]]):g.map(k=>prizeSVG(PRIZE_BY[k],S.decor[k])).join('<span class="cheart">💛</span>')}</button>`).join(''))}
 function setChest(open){if(open===chestOpen)return;chestOpen=open;if(open)sCreak();else{sThud();placing=null;updatePlaceBar()}renderChest();layoutRoom()}
-function updatePlaceBar(){const b=$('#placeBar');b.hidden=!placing;$('#stage').classList.toggle('placing',!!placing);if(placing){const p=PRIZE_BY[placing];$('#placePv').innerHTML=prizeSVG(p,S.decor[p.id]);$('#placeTxt').textContent=`Tap a spot for the ${p.name}`}}
+function updatePlaceBar(){const b=$('#placeBar');b.hidden=!placing;$('#stage').classList.toggle('placing',!!placing);if(placing==='__pet'){$('#placePv').innerHTML=PET_SVG;$('#placeTxt').textContent='Tap a spot for your robot'}else if(placing){const p=PRIZE_BY[placing];$('#placePv').innerHTML=prizeSVG(p,S.decor[p.id]);$('#placeTxt').textContent=`Tap a spot for the ${p.name}`}}
 function renderRoom(){if(!ROOM_SVG)ROOM_SVG=buildRoomSVG();S.owned.forEach(i=>{const q=S.placed[i];if(q&&isTrack(i)&&(!q.cell||!inGrid(q.cell[0],q.cell[1])))delete S.placed[i];if(q&&q.rail&&!inGrid(q.rail.c,q.rail.r))delete q.rail});const st=$('#stage');if(!$('#stage .room-bg'))st.insertAdjacentHTML('afterbegin',ROOM_SVG);
   if(!$('#chestObj'))st.insertAdjacentHTML('beforeend',`<button class="chest-obj" id="chestObj" aria-label="Toy chest"></button>`);
   $('#roomTitle').textContent=`${prof().name}'s Treasure Room`;
@@ -1898,7 +1919,7 @@ function renderRoom(){if(!ROOM_SVG)ROOM_SVG=buildRoomSVG();S.owned.forEach(i=>{c
   const n=$('#items .ritem.new');if(n&&rz>minZoom()+.01){const pos=absPos(n.dataset.id);const v=$('#roomView'),W=baseW*rz;panX=v.clientWidth/2-pos.x/ROOM_W*W;applyPan()}
   lastNew=null;startRails();renderPetBar()}
 function startPlacing(id){placing=id;if(!chestOpen){chestOpen=true;sCreak()}renderChest();layoutRoom();updatePlaceBar();say('place')}
-function placeAt(id,x,y){if(isBat(id)&&onPet(x,y)){placing=null;feedBattery(id);return}S.placed[id]=railDrop(id,x,y)||settle(id,x,y);if(S.tbundle&&S.tbundle[id]){const ld=S.placed[id];S.tbundle[id].forEach((m,k)=>{if(!S.placed[m])S.placed[m]=snapTrack(m,ld.x+TK*2*(k+1),ld.y,true)});delete S.tbundle[id]}lastNew=id;placing=null;if(partnerOf(id)){if(S.placed[id].on)S.placed[id]=snapSpot(x,y);placePartner(id)}else if(!S.placed[id].rail)checkCombo(id);afterPlace(id);save();prizeSfx(PRIZE_BY[id]);if(!comboJust&&!(S.everPlaced||{})[id])say(vary('placed',4));(S.everPlaced=S.everPlaced||{})[id]=1;comboJust=false;if(!unplaced().length&&chestOpen){chestOpen=false;setTimeout(sThud,500)}renderRoom()}
+function placeAt(id,x,y){if(id==='__pet'){const p=pet(),spot=snapSpot(x,y);p.x=spot.x;p.y=spot.y;if(spot.in)p.in=spot.in;else delete p.in;delete p.chest;placing=null;save();sPop();renderRoom();return}if(isBat(id)&&onPet(x,y)){placing=null;feedBattery(id);return}S.placed[id]=railDrop(id,x,y)||settle(id,x,y);if(S.tbundle&&S.tbundle[id]){const ld=S.placed[id];S.tbundle[id].forEach((m,k)=>{if(!S.placed[m])S.placed[m]=snapTrack(m,ld.x+TK*2*(k+1),ld.y,true)});delete S.tbundle[id]}lastNew=id;placing=null;if(partnerOf(id)){if(S.placed[id].on)S.placed[id]=snapSpot(x,y);placePartner(id)}else if(!S.placed[id].rail)checkCombo(id);afterPlace(id);save();prizeSfx(PRIZE_BY[id]);if(!comboJust&&!(S.everPlaced||{})[id])say(vary('placed',4));(S.everPlaced=S.everPlaced||{})[id]=1;comboJust=false;if(!unplaced().length&&chestOpen){chestOpen=false;setTimeout(sThud,500)}renderRoom()}
 /* ---------- train tracks in the room ---------- */
 const isTrack=id=>!!(PRIZE_BY[id]&&TRK_ENDS[PRIZE_BY[id].key]);
 const RAIL_CARS=['car','pickup','dump','bus','race','van','tractor','digger','mixer','monster','crane','flamemt','fire'];
@@ -1964,7 +1985,7 @@ function startRails(){if(!railRAF){railLast=0;railRAF=requestAnimationFrame(rail
 
 /* ---------- ROBOT PET: lives in the treasure room, runs on robot batteries (30 moves per battery) ---------- */
 const PET_SVG=`<svg viewBox="0 0 100 112" overflow="visible" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="ptB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3DD6D0"/><stop offset="1" stop-color="#138A8A"/></linearGradient><linearGradient id="ptH" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5BE8E0"/><stop offset=".6" stop-color="#1FA3A3"/><stop offset="1" stop-color="#127575"/></linearGradient><radialGradient id="ptG"><stop offset="0" stop-color="#FFF6B0"/><stop offset=".45" stop-color="#FFC21A"/><stop offset="1" stop-color="#FFC21A" stop-opacity="0"/></radialGradient><linearGradient id="ptF" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFF3A0"/><stop offset=".5" stop-color="#FF9A1F"/><stop offset="1" stop-color="#EE4B33" stop-opacity="0"/></linearGradient></defs>
-<ellipse class="pt-sh" cx="50" cy="108" rx="26" ry="3.5" fill="#000" opacity=".18"/>
+<ellipse class="pt-sh" cx="50" cy="92.5" rx="24" ry="3" fill="#000" opacity=".2"/>
 <g class="pt-all">
 <g class="pt-flame"><path d="M36 92 Q40 112 44 92Z" fill="url(#ptF)"/><path d="M56 92 Q60 112 64 92Z" fill="url(#ptF)"/></g>
 <g class="pt-legl"><rect x="34" y="74" width="12" height="13" rx="3" fill="#2A3442"/><rect x="32" y="85" width="16" height="7" rx="3" fill="#FFC21A" stroke="#C79000" stroke-width="1.2"/></g>
@@ -2003,20 +2024,20 @@ const PET_CMDS=[['left','⬅️','Left',0],['right','➡️','Right',0],['back',
 function pet(){S.pet=S.pet||{x:700,y:945,e:0,packs:0,pose:''};return S.pet}
 const PET_W=420;
 const petKnows=c=>pet().packs>=c[3];
-function petHTML(){const p=pet();return `<div class="pet${p.e<=0?' off':''}${p.pose?' p-'+p.pose:''}" id="pet" style="left:${PX(p.x)};top:${PY(p.y)};width:${PX(PET_W)};z-index:${(p.y|0)+2}" role="button" aria-label="Your robot">${PET_SVG}</div>`}
+function petHTML(){const p=pet();if(p.chest||(p.in&&!OPEN[p.in]))return '';return `<div class="pet${p.e<=0?' off':''}${p.pose?' p-'+p.pose:''}" id="pet" style="left:${PX(p.x)};top:${PY(p.y)};width:${PX(PET_W)};z-index:${(p.y|0)+2}" role="button" aria-label="Your robot">${PET_SVG}</div>`}
 /* chest lights: green glows while he has plenty of power; under 10 moves the red one glows, brighter the closer he gets to empty */
 function petLights(){const el=$('#pet');if(!el)return;const p=pet(),g1=el.querySelector('.pt-g1'),g2=el.querySelector('.pt-g2');if(!g1)return;
   if(p.e>10){g2.setAttribute('opacity','.55');g1.setAttribute('opacity','0')}else if(p.e>0){const k=(11-p.e)/10;g2.setAttribute('opacity','0');g1.setAttribute('opacity',(.25+.7*k).toFixed(2))}else{g1.setAttribute('opacity','0');g2.setAttribute('opacity','0')}}
 function petRefresh(){const el=$('#pet');if(!el)return;const p=pet();el.classList.toggle('off',p.e<=0);petLights();renderPetBar()}
 let petOpen=false,petBusy=0;
-function openPet(){petOpen=true;renderPetBar();const p=pet();if(p.e<=0){say(batCount()>0?'pet_give':'pet_need')}else robotBeep('hi');layoutRoom()}
-function closePet(){petOpen=false;renderPetBar();layoutRoom()}
+function openPet(){petOpen=true;rz=0;renderPetBar();const p=pet();if(p.e<=0){say(batCount()>0?'pet_give':'pet_need')}else robotBeep('hi');layoutRoom()}
+function closePet(){petOpen=false;rz=0;renderPetBar();layoutRoom()}
 function renderPetBar(){const bar=$('#petBar');if(!bar)return;bar.hidden=!petOpen||cur!=='room';if(bar.hidden)return;const p=pet(),nb=batCount(),on=p.e>0;
-  bar.innerHTML=`<div class="pb-top"><span class="pb-meter${p.e<=10?' low':''}"><i style="width:${Math.round(p.e/PET_MAX*100)}%"></i></span><span class="pb-n">${on?p.e+' moves left':'No power'}</span><span class="pb-tip">${nb?'🔋 Drag robot batteries onto him':'Win robot batteries in treasure chests'}</span></div>
+  bar.innerHTML=`<div class="pb-top"><span class="pb-meter${p.e<=10?' low':''}"><i style="width:${Math.round(p.e/PET_MAX*100)}%"></i></span><span class="pb-n">${on?p.e+' moves left':'No power'}</span></div>
     <div class="pb-cmds">${PET_CMDS.map(c=>petKnows(c)?`<button class="pcmd" data-c="${c[0]}" ${on?'':'disabled'}><span>${c[1]}</span>${c[2]}</button>`:`<button class="pcmd lock" disabled><span>🔒</span>?</button>`).join('')}</div>`;
   bar.querySelectorAll('.pcmd[data-c]').forEach(b=>b.onclick=()=>{ac();petDo(b.dataset.c)})}
 /* a battery pack dropped on the robot */
-function onPet(x,y){const p=pet(),hy=PET_W*1.12/1.5;return Math.abs(x-p.x)<PET_W*.36&&y<p.y+30&&y>p.y-hy*.95}
+function onPet(x,y){const p=pet(),hy=PET_W*1.12/1.5;return !p.chest&&Math.abs(x-p.x)<PET_W*.36&&y<p.y+30&&y>p.y-hy*.85}
 function feedBattery(id){S.owned=S.owned.filter(x=>x!==id);delete S.placed[id];giveBatteries();renderRoom()}
 function giveBatteries(){const p=pet();const before=PET_CMDS.filter(petKnows).length;p.e=PET_MAX;p.packs=(p.packs||0)+1;p.pose='';save();
   const el=$('#pet');if(el){el.classList.remove('off','p-sit','p-sleep');el.classList.add('p-wake');setTimeout(()=>el.classList.remove('p-wake'),1600)}
@@ -2037,7 +2058,7 @@ function petDo(c){const p=pet();if(p.e<=0){say('pet_need');return}if(petBusy)ret
 function petToss(el,p){const cand=S.owned.filter(i=>{const q=S.placed[i],pr=PRIZE_BY[i];return q&&pr&&!q.on&&!q.in&&!q.rail&&!q.cell&&q.y>=650&&pr.tier<=2&&!isTrack(i)&&!isBat(i)&&!S.owned.some(k=>S.placed[k]&&S.placed[k].on===i)}).sort((a,b)=>Math.abs(S.placed[a].x-p.x)-Math.abs(S.placed[b].x-p.x));
   const toy=cand[0];if(!toy){el.classList.add('p-dance');robotBeep('dance');return 2200}
   const tq=S.placed[toy];p.x=Math.max(160,Math.min(2240,tq.x-170));p.y=Math.max(720,Math.min(975,tq.y));el.style.left=PX(p.x);el.style.top=PY(p.y);el.style.zIndex=(p.y|0)+2;el.classList.add('p-walk');robotBeep('walk');
-  const te=document.querySelector(`.ritem[data-id="${toy}"]`);const hy=PET_W*1.12/1.5,L={x:p.x-PET_W*.32,y:p.y-hy*.42},Rr={x:p.x+PET_W*.32,y:p.y-hy*.42},top={x:p.x,y:p.y-hy*1.9},down={x:Math.min(2300,p.x+PET_W*.45),y:p.y};
+  const te=document.querySelector(`.ritem[data-id="${toy}"]`);const hy=PET_W*1.12/1.5,L={x:p.x-PET_W*.32,y:p.y-hy*.2},Rr={x:p.x+PET_W*.32,y:p.y-hy*.2},top={x:p.x,y:p.y-hy*1.7},down={x:Math.min(2300,p.x+PET_W*.45),y:p.y};
   const T=(x,y,r)=>({left:PX(x),top:PY(y),transform:`translate(-50%,-92%) rotate(${r}deg)`});
   setTimeout(()=>{el.classList.remove('p-walk');el.classList.add('p-toss');if(!te)return;te.style.zIndex=3500;te.animate([T(tq.x,tq.y,0),T(L.x,L.y,0)],{duration:350,fill:'forwards',easing:'ease-out'})},1300);
   setTimeout(()=>{if(!te)return;sweep(400,900,.5,'sine',.04);te.animate([T(L.x,L.y,0),T(top.x,top.y,360),T(Rr.x,Rr.y,720)],{duration:1200,fill:'forwards',easing:'ease-in-out'})},1700);
@@ -2052,6 +2073,7 @@ document.addEventListener('pointerdown',e=>{const el=e.target.closest&&e.target.
 addEventListener('pointermove',e=>{if(!pdrag||e.pointerId!==pdrag.pid)return;if(!pdrag.moved&&Math.hypot(e.clientX-pdrag.x0,e.clientY-pdrag.y0)<10)return;if(petBusy)return;pdrag.moved=true;const sp=stagePt(e),el=pdrag.el;el.style.transition='none';el.style.left=PX(sp.x);el.style.top=PY(sp.y+60);el.style.zIndex=3200},true);
 addEventListener('pointerup',e=>{if(!pdrag||e.pointerId!==pdrag.pid)return;const d=pdrag;pdrag=null;const el=d.el;el.style.transition='';
   if(!d.moved){if(petOpen){robotBeep('hi');el.classList.remove('p-hi');void el.offsetWidth;el.classList.add('p-hi')}else openPet();return}
+  if(overEl(e,'#chestObj')){const p=pet();p.chest=1;delete p.in;petOpen=false;save();sThud();renderRoom();return}
   const sp=stagePt(e),p=pet(),spot=snapSpot(sp.x,sp.y+60);p.x=spot.x;p.y=spot.y;if(spot.in)p.in=spot.in;else delete p.in;p.pose='';save();sPop();renderRoom()},true);
 /* letter-block words, read top to bottom */
 function blockStacks(){const isB=k=>PRIZE_BY[k]&&PRIZE_BY[k].key==='block'&&PRIZE_BY[k].L&&S.placed[k];const tops=S.owned.filter(k=>isB(k)&&!S.owned.some(o=>S.placed[o]&&S.placed[o].on===k&&isB(o)));
@@ -2091,7 +2113,7 @@ let comboJust=false;
 const comboOf=(k1,k2)=>COMBOS.find(c=>(c.a.includes(k1)&&c.b.includes(k2))||(c.a.includes(k2)&&c.b.includes(k1)));
 function checkCombo(id){const p=PRIZE_BY[id];if(!S.placed[id]||S.placed[id].on)return;const pos=S.placed[id];let best=null;
   for(const o of S.owned){if(o===id||!S.placed[o]||S.placed[o].on||partnerOf(o))continue;const q=S.placed[o];if((q.in||'')!==(pos.in||''))continue;const d=Math.hypot(q.x-pos.x,(q.y-pos.y)*1.5);
-    if(d<270){const c=comboOf(p.key,PRIZE_BY[o].key);if(c&&(!best||d<best.d))best={o,c,d}}}
+    if(d<185){const c=comboOf(p.key,PRIZE_BY[o].key);if(c&&(!best||d<best.d))best={o,c,d}}}
   if(!best||partnerOf(id))return;const q=S.placed[best.o];const gap=(isz(p)+isz(PRIZE_BY[best.o]))*.4+46;
   pos.x=Math.round(Math.max(40,Math.min(ROOM_W-40,q.x+(pos.x>=q.x?gap:-gap))));pos.y=q.y;if(q.in)pos.in=q.in;else delete pos.in;S.placed[id]=pos;
   const key=[id,best.o].sort().join('|');S.pairs=S.pairs||{};S.pairs[key]=best.c.name;comboJust=true;milestone('combo1');
@@ -2125,7 +2147,7 @@ addEventListener('pointermove',e=>{
     const p=stagePt(e);drag.el.style.left=PX(Math.max(0,Math.min(ROOM_W,p.x)));drag.el.style.top=PY(Math.max(0,Math.min(ROOM_H,p.y)));drag.el.style.zIndex=3000;(drag.kids||[]).forEach((k,n)=>{k.el.style.left=PX(Math.max(0,Math.min(ROOM_W,p.x+k.dx)));k.el.style.top=PY(Math.max(0,Math.min(ROOM_H,p.y+k.dy)));k.el.style.zIndex=3001+n});if(drag.pe){drag.pe.style.left=PX(Math.max(0,Math.min(ROOM_W,p.x+drag.pdx)));drag.pe.style.top=PY(Math.max(0,Math.min(ROOM_H,p.y+drag.pdy)));drag.pe.style.zIndex=2999;document.querySelectorAll('#items .pairb,#items .pairrug').forEach(x=>x.style.opacity=0)}
     $('#chestObj')?.classList.toggle('hot',overEl(e,'#chestObj'));return}
   if(cdrag&&e.pointerId===cdrag.pid){const dx=e.clientX-cdrag.x0,dy=e.clientY-cdrag.y0;
-    if(!cdrag.ghost){if(Math.hypot(dx,dy)<9)return;const g=document.createElement('div');g.className='drag-ghost';g.innerHTML=prizeSVG(PRIZE_BY[cdrag.id],S.decor[cdrag.id]);document.body.appendChild(g);cdrag.ghost=g;g.innerHTML=cdrag.b.innerHTML;try{cdrag.b.setPointerCapture(e.pointerId)}catch(_){}ac()}
+    if(!cdrag.ghost){if(Math.hypot(dx,dy)<9)return;const g=document.createElement('div');g.className='drag-ghost';g.innerHTML=PRIZE_BY[cdrag.id]?prizeSVG(PRIZE_BY[cdrag.id],S.decor[cdrag.id]):'';document.body.appendChild(g);cdrag.ghost=g;g.innerHTML=cdrag.b.innerHTML;try{cdrag.b.setPointerCapture(e.pointerId)}catch(_){}ac()}
     cdrag.ghost.style.left=e.clientX+'px';cdrag.ghost.style.top=e.clientY+'px'}});
 function endDrag(e,cancel){
   if(drag&&e.pointerId===drag.pid){const d=drag;drag=null;d.el.classList.remove('dragging');$('#chestObj')?.classList.remove('hot');
@@ -2351,15 +2373,26 @@ function hwGroups(strokes,H){const ss=strokes.filter(s=>s.length>1).map(s=>{let 
   const gs=[];for(const o of ss){const g=gs.find(g=>{const ov=Math.min(g.b,o.b)-Math.max(g.a,o.a),nw=Math.min(g.b-g.a,o.b-o.a),oc=(o.a+o.b)/2,gc=(g.a+g.b)/2;return (oc>=g.a-H*.02&&oc<=g.b+H*.02&&nw<(g.b-g.a)*1.01)||(gc>=o.a&&gc<=o.b)||ov>Math.max(H*.06,nw*.35)});if(g){g.ss.push(o.s);g.a=Math.min(g.a,o.a);g.b=Math.max(g.b,o.b)}else gs.push({ss:[o.s],a:o.a,b:o.b})}
   return gs.sort((x,y)=>x.a-y.a).map(g=>g.ss)}
 /* read the box: per digit scores, the best reading, and whether a wanted answer fits well enough */
-function hwRead(strokes,H){const gs=hwGroups(strokes,H);const per=gs.map(hwScore);return{per,best:per.map(p=>p.ranked[0][0]).join('')}}
-const HW_RATIO=1.22,HW_MAX=3.4;
-function hwFits(read,want){if(read.per.length!==want.length)return false;return read.per.every((p,i)=>{const b=p.ranked[0][1],d=p.best[want[i]];return d!=null&&d<=HW_MAX&&d<=b*HW_RATIO+.02})}
+function hwRead(strokes,H){const gs=hwGroups(strokes,H);const per=gs.map(g=>{const r=hwScore(g);r.ss=g;return r});return{per,best:per.map(p=>p.ranked[0][0]).join('')}}
+const HW_RATIO=1.12,HW_MAX=3.1;
+/* a 5 only counts when its flat top line is there */
+function hwTopBar(ss){let a=1e9,b=-1e9,t=1e9,u=-1e9;ss.forEach(s=>s.forEach(p=>{a=Math.min(a,p[0]);b=Math.max(b,p[0]);t=Math.min(t,p[1]);u=Math.max(u,p[1])}));const w=b-a||1,h=u-t||1;
+  const straight=(s,i,j)=>{const L=Math.hypot(s[j][0]-s[i][0],s[j][1]-s[i][1])||1;for(let k=i;k<=j;k++){if(s[k][1]>t+h*.38)return false;if(Math.abs((s[j][0]-s[i][0])*(s[i][1]-s[k][1])-(s[i][0]-s[k][0])*(s[j][1]-s[i][1]))/L>Math.max(3,h*.045))return false}return true};
+  const ang=(v1,v2)=>{const d=(v1[0]*v2[0]+v1[1]*v2[1])/((Math.hypot(...v1)*Math.hypot(...v2))||1);return Math.acos(Math.max(-1,Math.min(1,d)))*180/Math.PI};
+  for(const s of ss)for(let i=0;i<s.length;i++)for(let j=i+2;j<s.length;j++){const dx=Math.abs(s[j][0]-s[i][0]),dy=Math.abs(s[j][1]-s[i][1]);if(!(dx>w*.4&&dy<dx*.3&&Math.max(s[i][1],s[j][1])<t+h*.3&&straight(s,i,j)))continue;
+    /* a bar drawn on its own, or a bar that turns a corner down into the 5's stem */
+    if(i<=1&&j>=s.length-2)return true;
+    const bar=[s[j][0]-s[i][0],s[j][1]-s[i][1]];
+    if(j+3<s.length){const nx=s[j+3],v=[nx[0]-s[j][0],nx[1]-s[j][1]];if(ang(bar,v)>70&&v[1]>0)return true}
+    if(i-3>=0){const pv=s[i-3],v=[pv[0]-s[i][0],pv[1]-s[i][1]];if(ang([-bar[0],-bar[1]],v)>70&&v[1]>0)return true}}
+  return false}
+function hwFits(read,want){if(read.per.length!==want.length)return false;return read.per.every((p,i)=>{const b=p.ranked[0][1],d=p.best[want[i]];return d!=null&&d<=HW_MAX&&d<=b*HW_RATIO+.02&&(want[i]!=='5'||!p.ss||hwTopBar(p.ss))})}
 function hwLearn(read,want){S.hw=S.hw||{t:[]};read.per.forEach((p,i)=>{S.hw.t.push({d:want[i],c:p.cloud});const same=S.hw.t.filter(t=>t.d===want[i]);if(same.length>8)S.hw.t.splice(S.hw.t.indexOf(same[0]),1)})}
 
 /* ---------- MATH: answer pad (write with a finger, or type) ---------- */
 /* opts: wants() -> list of answers that would count right now; right(str,how); wrong(str,how); locked() -> true while answers are ignored */
 function makePad(host,opts){const mode=S.settings.mathInput==='keys'?'keys':'draw';
-  host.innerHTML=`<div class="mswitch" role="tablist"><button class="${mode==='draw'?'on':''}" data-m="draw">✏️ Write</button><button class="${mode==='keys'?'on':''}" data-m="keys">🔢 Numbers</button></div><div class="mpad m-${mode}">${mode==='draw'?`<div class="mdraw-wrap"><canvas class="mdraw"></canvas><span class="mhint">Write the answer here</span><span class="mseen"></span><button class="mclear" aria-label="Clear">🧽 Clear</button></div>`:''}
+  host.innerHTML=`<div class="mpad m-${mode}">${mode==='draw'?`<div class="mdraw-wrap"><canvas class="mdraw"></canvas><span class="mhint">Write the answer here</span><span class="mseen"></span><button class="mclear" aria-label="Clear">🧽 Clear</button></div>`:''}
     ${mode==='keys'?`<div class="mkeys"><div class="mtyped" aria-live="polite"></div>${[1,2,3,4,5,6,7,8,9].map(n=>`<button class="mk" data-k="${n}">${n}</button>`).join('')}<button class="mk mk-del" data-k="del" aria-label="Delete">⌫</button><button class="mk" data-k="0">0</button><button class="mk mk-go" data-k="go" aria-label="Enter">✓</button></div>`:''}</div>`;
   const P={strokes:[],cur:null,timer:null,typed:''};
   const cv=host.querySelector('.mdraw');let g=null,W=0,H=0;
@@ -2387,7 +2420,7 @@ function makePad(host,opts){const mode=S.settings.mathInput==='keys'?'keys':'dra
     if(k==='del'){P.typed=P.typed.slice(0,-1);showTyped();return}
     const ws=opts.wants().map(String);
     if(k==='go'){if(!P.typed)return;if(ws.includes(P.typed))accept(P.typed,'keys');else reject(P.typed,'keys');return}
-    if(P.typed.length>=3)return;P.typed+=k;showTyped();
+    if(P.typed.length>=5)return;P.typed+=k;showTyped();
     if(ws.includes(P.typed)&&!ws.some(w=>w!==P.typed&&w.startsWith(P.typed)))accept(P.typed,'keys');
     else if(!ws.some(w=>w.startsWith(P.typed)))reject(P.typed,'keys')});
   host.querySelectorAll('.mswitch button').forEach(b=>b.onpointerdown=e=>{e.preventDefault();ac();if(b.dataset.m===mode)return;sPop();S.settings.mathInput=b.dataset.m;save();clearTimeout(P.timer);removeEventListener('resize',fit);makePad(host,opts)});
@@ -2400,7 +2433,7 @@ function makePad(host,opts){const mode=S.settings.mathInput==='keys'?'keys':'dra
    Once 20 is in and going well, subtraction starts again from 0-3 and climbs the same way; it is mixed with addition (mostly subtraction at first). */
 function M(){S.math=S.math||{pool:[0,1,2,3],since:0,hist:[],facts:{},nums:{},mm:{best:0,games:0,scores:[]},df:{best:0,games:0,scores:[]},wrongRun:0,last:null};const m=S.math;m.sub=m.sub||null;return m}
 const mfk=(a,b,op='+')=>op==='-'?a+'-'+b:Math.min(a,b)+'+'+Math.max(a,b);
-const mAns=q=>q.op==='-'?q.a-q.b:q.a+q.b;
+const mAns=q=>q.op==='-'?q.a-q.b:q.op==='*'?q.a*q.b:q.op==='/'?q.a/q.b:q.a+q.b;
 function mRecent(s){const h=(s&&s.h)||[];return h.length?h.reduce((x,y)=>x+y,0)/h.length:null}
 function mMedTime(){const ts=Object.values(M().facts).map(f=>f.tn?f.ts/f.tn:null).filter(x=>x);ts.sort((a,b)=>a-b);return ts.length?ts[ts.length>>1]:4000}
 function mWeight(a,b,op,pool){const m=M(),k=mfk(a,b,op),s=m.facts[k];if(k===m.last)return 0;let w=1;const newest=Math.max(...pool);if(a===newest||b===newest)w*=1.5;
@@ -2419,16 +2452,18 @@ function mRecord(q,ok,ms){const m=M(),{a,b,op}=q,k=mfk(a,b,op),s=m.facts[k]||(m.
   if(good){const nx=Math.max(...T.pool)+1;if(nx<=20){T.pool.push(nx);T.since=0;added=(op==='-'?'minus ':'')+nx;if(op==='+'&&nx===10)milestone('math10')}
     else if(op==='+'&&!m.sub){m.sub={pool:[0,1,2,3],since:0,hist:[]};added='take-away'}}
   save();return added}
-function mOpSym(op){return op==='-'?'−':'+'}
+function mOpSym(op){return op==='-'?'−':op==='*'?'×':op==='/'?'÷':'+'}
+/* grown-up Number Defender: times and division (always comes out to a whole number) */
+function adultProb(x){const r=(a,b)=>a+Math.floor(Math.random()*(b-a+1));if(Math.random()<.5)return x?{a:r(1,99),b:r(1,99),op:'*'}:{a:r(5,25),b:r(5,25),op:'*'};const top=x?1000:500,d=x?(Math.random()<.8?r(2,50):r(51,400)):r(2,20),q=r(2,Math.max(2,Math.floor(top/d)));return{a:d*q,b:d,op:'/'}}
 const ART_MAD='<svg viewBox="0 0 100 100"><ellipse cx="50" cy="93" rx="30" ry="4" fill="#000" opacity=".15"/><rect x="44" y="6" width="12" height="10" rx="3" fill="#C99A2E"/><circle cx="50" cy="54" r="36" fill="#fff" stroke="#EE4B33" stroke-width="7"/><path d="M50 54 L50 18 A36 36 0 0 1 81 36Z" fill="#FFB3A7"/>'+Array.from({length:12},(_,i)=>{const a=i*Math.PI/6;return `<line x1="${50+29*Math.sin(a)}" y1="${54-29*Math.cos(a)}" x2="${50+33*Math.sin(a)}" y2="${54-33*Math.cos(a)}" stroke="#1B2838" stroke-width="${i%3?2:3.5}" stroke-linecap="round"/>`}).join('')+'<path d="M50 54 L50 30 M50 54 L66 62" stroke="#1B2838" stroke-width="4.5" stroke-linecap="round"/><circle cx="50" cy="54" r="4" fill="#EE4B33"/></svg>';
 const ART_DEF='<svg viewBox="0 0 100 100"><ellipse cx="50" cy="94" rx="36" ry="4" fill="#000" opacity=".15"/><rect x="10" y="62" width="14" height="30" fill="#7A4FD0"/><rect x="26" y="48" width="16" height="44" fill="#2C67E0"/><rect x="44" y="56" width="14" height="36" fill="#16A39B"/><rect x="60" y="42" width="16" height="50" fill="#E0731A"/><rect x="78" y="58" width="12" height="34" fill="#D9418C"/>'+[[14,68],[30,54],[36,64],[48,62],[64,48],[70,60],[82,64]].map(([x,y])=>`<rect x="${x}" y="${y}" width="4" height="5" fill="#FFE680"/>`).join('')+'<rect x="20" y="8" width="26" height="15" rx="7" fill="#fff" stroke="#1B2838" stroke-width="2"/><text x="33" y="19.5" text-anchor="middle" font-family="Andika,sans-serif" font-weight="700" font-size="10" fill="#1B2838">2+5</text><path d="M66 46 L62 26" stroke="#FFC21A" stroke-width="3" stroke-dasharray="3 3"/><path d="M60 22 l4 -8 l4 8z" fill="#EE4B33"/><g fill="#FFC21A"><circle cx="70" cy="12" r="3"/><circle cx="78" cy="16" r="2"/><circle cx="74" cy="6" r="2"/></g></svg>';
 function mProblemHTML(q){return `<span>${q.a}</span><span class="op">${mOpSym(q.op)}</span><span>${q.b}</span><span class="op">=</span><span class="q">?</span>`}
 
 /* ---------- MAD MATH MINUTE: as many as you can in one minute (leaving keeps your place) ---------- */
 let MM={};
-function startMad(fresh){M();if(!fresh&&MM.active&&!MM.over){show('mad');madResume();return}
+function startMad(fresh,go){M();if(!fresh&&MM.active&&!MM.over){show('mad');madResume();return}
   show('mad');MM={on:false,active:false,score:0,q:null,t0:0,miss:0,end:0};$('#madProb').innerHTML='';$('#madScore').textContent='0';drawClock(0);$('#madPad').innerHTML='';
-  ov(`<div class="big-prize">${ART_MAD}</div><h2>Mad Math Minute</h2><p>Answer as many as you can in one minute!</p>`,[{label:'Go!',cls:'green big',fn:goMad}]);say('g_mad')}
+  if(go){closeOv();goMad();return}ov(`<div class="big-prize">${ART_MAD}</div><h2>Mad Math Minute</h2><p>Answer as many as you can in one minute!</p>`,[{label:'Go!',cls:'green big',fn:goMad}]);say('g_mad')}
 function goMad(){MM.on=true;MM.active=true;MM.end=performance.now()+60000;MM.pad=makePad($('#madPad'),{wants:()=>[mAns(MM.q)],right:madRight,wrong:madWrong});nextMad();say('m_go');madLoop()}
 function madLoop(){const tick=now=>{if(!MM.on||cur!=='mad')return;const f=1-(MM.end-now)/60000;drawClock(Math.min(1,f));if(f>=1){madEnd();return}MM.raf=requestAnimationFrame(tick)};MM.raf=requestAnimationFrame(tick)}
 function madPause(){if(MM.on){MM.on=false;MM.paused=performance.now();cancelAnimationFrame(MM.raf)}}
@@ -2442,28 +2477,28 @@ function madWrong(){if(!MM.on)return;sBuzz();try{navigator.vibrate&&navigator.vi
   if(MM.miss===0)mRecord(MM.q,false,0);MM.miss++;
   if(MM.miss>=2){pb.querySelector('.q').textContent=mAns(MM.q);pb.classList.add('show');setTimeout(()=>{pb.classList.remove('show');if(MM.on)nextMad()},1300)}}
 function madEnd(){MM.on=false;MM.over=true;MM.active=false;cancelAnimationFrame(MM.raf);const m=M(),n=MM.score,best=n>(m.mm.best||0);m.mm.games++;m.mm.scores=(m.mm.scores||[]).concat(n).slice(-30);if(best)m.mm.best=n;
-  const win=n>=3;if(win){S.pending++;lastGame='mad'}if(n>=6&&!S.defOn){S.defOn=1;S.unlockDef=1}save();sFan();if(win)confetti();say(['m_time','num_'+Math.min(n,40),'m_inmin']);
+  const win=n>=3;if(win){S.pending++;lastGame='mad'}if(n>=6&&!S.defOn){S.defOn=1;S.unlockDef=1}save();sFan();if(win)confetti();say(['m_time','num_'+Math.min(n,120),'m_inmin']);
   ov(`<div class="big-prize">${ART_MAD}</div><h2>Time's up!</h2><p class="mm-score"><b>${n}</b> right in one minute!</p>${best&&m.mm.games>1?'<p class="lvlup">⭐ Your best ever!</p>':`<p>Best: ${m.mm.best}</p>`}${win?'<p>You win a prize!</p>':''}`,
-    win?[{label:'Pick my prize',cls:'yellow big',fn:()=>show('shop')},{brk:1},{label:'Play again',cls:'green',fn:()=>startMad(true)},homeBtn]:[{label:'Play again',cls:'green big',fn:()=>startMad(true)},{brk:1},homeBtn])}
+    win?[{label:'Pick my prize',cls:'yellow big',fn:()=>show('shop')},{brk:1},{label:'Play again',cls:'green',fn:()=>startMad(true,true)},homeBtn]:[{label:'Play again',cls:'green big',fn:()=>startMad(true,true)},{brk:1},homeBtn])}
 /* bonus games for big math moments */
-function mathBonus(k){S.bonus=(S.bonus||0)+1;save();const why={mad15:'Fifteen right in one minute!',def25:'You stopped 25 problems!'}[k];setTimeout(()=>{toast(why+' You earned a bonus game!',6000);sFan();say('ms_'+k)},400)}
+function mathBonus(k){S.bonus=(S.bonus||0)+1;save();const why={mad15:'Fifteen right in one minute!',def25:'You stopped 25 equations!'}[k];setTimeout(()=>{toast(why+' You earned a bonus game!',6000);sFan();say('ms_'+k)},400)}
 /* ---------- NUMBER DEFENDER: stop the falling problems before they reach the city ---------- */
 let DF={};
 const DF_COLS=7;
-function startDef(fresh){M();if(!fresh&&DF.active&&!DF.over){show('def');defResume();return}show('def');DF={on:false};$('#defPad').innerHTML='';
+function startDef(fresh,go){M();if(!fresh&&DF.active&&!DF.over){show('def');defResume();return}show('def');DF={on:false};$('#defPad').innerHTML='';if(go){closeOv();goDef();return}
   ov(`<div class="big-prize">${ART_DEF}</div><h2>Number Defender</h2><p>Write the answer to a falling problem to launch a rocket at it. Protect the city!</p>`,[{label:'Go!',cls:'green big',fn:goDef}]);say('g_def')}
-function goDef(){const cv=$('#defCv');DF={on:true,active:true,eqs:[],shots:[],booms:[],city:Array(DF_COLS).fill(1),stopped:0,missed:0,jam:0,last:performance.now(),next:performance.now()+500,gap:3300,speed:.075,t0:performance.now()};
+function goDef(){const cv=$('#defCv');const dm=S.settings.defMode||'kids';DF={adult:dm!=='kids',on:true,active:true,eqs:[],shots:[],booms:[],city:Array(DF_COLS).fill(1),stopped:0,missed:0,jam:0,last:performance.now(),next:performance.now()+500,gap:dm==='kids'?3300:3600,speed:dm==='kids'?.075:dm==='adult'?.085:.09,t0:performance.now()};
   DF.pad=makePad($('#defPad'),{wants:()=>DF.eqs.filter(q=>!q.hit).map(mAns),right:defRight,wrong:defWrong,locked:()=>performance.now()<DF.jam});
   defFit();addEventListener('resize',defFit);say('m_go');DF.raf=requestAnimationFrame(defTick)}
 function defPause(){if(DF.on){DF.on=false;DF.paused=performance.now();cancelAnimationFrame(DF.raf)}}
 function defResume(){if(!DF.active||DF.over)return;const d=DF.paused?performance.now()-DF.paused:0;DF.paused=0;DF.next+=d;DF.jam+=d;DF.eqs.forEach(q=>q.t0+=d);DF.last=performance.now();DF.on=true;defFit();DF.raf=requestAnimationFrame(defTick)}
 function defFit(){const cv=$('#defCv');if(!cv)return;const r=cv.getBoundingClientRect(),d=devicePixelRatio||1;cv.width=r.width*d;cv.height=r.height*d;DF.W=r.width;DF.H=r.height;DF.g=cv.getContext('2d');DF.g.setTransform(d,0,0,d,0,0)}
 function defSpawn(){const alive=DF.city.map((v,i)=>v?i:-1).filter(i=>i>=0);if(!alive.length)return;const busy=new Set(DF.eqs.filter(q=>q.y<DF.H*.35).map(q=>q.col));let opts=alive.filter(i=>!busy.has(i));if(!opts.length)opts=alive;
-  const col=pick(opts),pq=mPick();const w=DF.W/DF_COLS;DF.eqs.push({a:pq.a,b:pq.b,op:pq.op,col,x:w*(col+.5)+(Math.random()-.5)*w*.3,y:-10,t0:performance.now()})}
-const defBH=(i,H)=>H*.2+H*.02+((i*37)%5)*H*.025;
+  const dm=S.settings.defMode||'kids',col=pick(opts),pq=dm==='kids'?mPick():adultProb(dm==='adultx');const w=DF.W/DF_COLS;DF.eqs.push({a:pq.a,b:pq.b,op:pq.op,col,x:w*(col+.5)+(Math.random()-.5)*w*.3,y:-10,t0:performance.now()})}
+const defBH=(i,H)=>H*.11+H*.015+((i*37)%5)*H*.017;
 function defTick(now){if(!DF.on||cur!=='def')return;const dt=Math.min(.05,(now-DF.last)/1000);DF.last=now;const H=DF.H,W=DF.W,cityTop=H*.8;
   if(now>DF.next&&DF.eqs.length<4){defSpawn();DF.next=now+DF.gap*(0.75+Math.random()*.5)}
-  const fsz=Math.max(20,Math.min(40,W*.05));for(const q of DF.eqs){if(!q.hit)q.y+=H*DF.speed*dt;const top=DF.city[q.col]?H-defBH(q.col,H):H-14;if(!q.hit&&q.y+fsz*.7>=top){q.dead=true;if(DF.city[q.col]){DF.city[q.col]=0;sThud()}DF.missed++;mRecord(q,false,0);DF.booms.push({x:q.x,y:top,t:now,big:1})}}
+  const fsz=Math.max(20,Math.min(40,W*.05));for(const q of DF.eqs){q.y+=H*DF.speed*dt;const top=DF.city[q.col]?H-defBH(q.col,H):H-14;if(!q.hit&&q.y+fsz*.7>=top){q.dead=true;if(DF.city[q.col]){DF.city[q.col]=0;sThud()}DF.missed++;if(!DF.adult)mRecord(q,false,0);DF.booms.push({x:q.x,y:top,t:now,big:1})}}
   for(const s of DF.shots){const k=Math.min(1,(now-s.t)/420);s.x=s.x0+(s.q.x-s.x0)*k;s.y=s.y0+(s.q.y-s.y0)*k;if(k>=1&&!s.done){s.done=true;s.q.dead=true;DF.booms.push({x:s.q.x,y:s.q.y,t:now});tone(988,.1,'triangle',.06);tone(1319,.12,'triangle',.05,.06)}}
   DF.eqs=DF.eqs.filter(q=>!q.dead);DF.shots=DF.shots.filter(s=>!s.done);DF.booms=DF.booms.filter(b=>now-b.t<600);
   defDraw(now);if(!DF.city.some(Boolean)){defEnd();return}DF.raf=requestAnimationFrame(defTick)}
@@ -2481,13 +2516,13 @@ function defDraw(now){const g=DF.g,W=DF.W,H=DF.H,cityTop=H*.8,w=W/DF_COLS;g.clea
   for(const b of DF.booms){const k=(now-b.t)/600;g.globalAlpha=1-k;g.fillStyle=b.big?'#888':'#FFC21A';for(let i=0;i<8;i++){const a=i*Math.PI/4;g.beginPath();g.arc(b.x+Math.cos(a)*k*40,b.y+Math.sin(a)*k*40,5*(1-k)+2,0,7);g.fill()}g.globalAlpha=1}
   g.fillStyle='#fff';g.font=`700 ${Math.round(fs*.8)}px Andika, sans-serif`;g.textAlign='left';g.fillText('⭐ '+DF.stopped,12,fs*.7)}
 function defRight(str){const now=performance.now();if(now<DF.jam)return;const tgt=DF.eqs.filter(q=>!q.hit&&String(mAns(q))===str).sort((x,y)=>y.y-x.y)[0];if(!tgt)return;tgt.hit=true;
-  DF.shots.push({q:tgt,x0:DF.W/2,y0:DF.H-36,x:DF.W/2,y:DF.H-36,t:now});sweep(300,900,.3,'triangle',.06);DF.stopped++;mRecord(tgt,true,now-tgt.t0);say(vary('m_ok',6));if(DF.stopped===25)mathBonus('def25');
+  DF.shots.push({q:tgt,x0:DF.W/2,y0:DF.H-36,x:DF.W/2,y:DF.H-36,t:now});sweep(300,900,.3,'triangle',.06);DF.stopped++;if(!DF.adult)mRecord(tgt,true,now-tgt.t0);say(vary('m_ok',6));if(DF.stopped===25)mathBonus('def25');
   if(DF.stopped%4===0){DF.speed*=1.08;DF.gap=Math.max(1500,DF.gap*.92)}}
 function defWrong(){DF.jam=performance.now()+2000;sBuzz();try{navigator.vibrate&&navigator.vibrate(60)}catch(e){}}
 function defEnd(){DF.on=false;DF.over=true;DF.active=false;cancelAnimationFrame(DF.raf);removeEventListener('resize',defFit);const m=M(),n=DF.stopped,best=n>(m.df.best||0);m.df.games++;m.df.scores=(m.df.scores||[]).concat(n).slice(-30);if(best)m.df.best=n;
-  const win=n>=6;if(win){S.pending++;lastGame='def'}save();sFan();if(win)confetti();say(['m_defover','num_'+Math.min(n,40),'m_problems']);
-  ov(`<div class="big-prize">${ART_DEF}</div><h2>Great defending!</h2><p class="mm-score">You stopped <b>${n}</b> problems!</p><p>Best: ${m.df.best}</p>${win?'<p>You win a prize!</p>':''}`,
-    win?[{label:'Pick my prize',cls:'yellow big',fn:()=>show('shop')},{brk:1},{label:'Play again',cls:'green',fn:()=>startDef(true)},homeBtn]:[{label:'Play again',cls:'green big',fn:()=>startDef(true)},{brk:1},homeBtn])}
+  const win=n>=6;if(win){S.pending++;lastGame='def'}save();sFan();if(win)confetti();say(['m_defover','num_'+Math.min(n,120),'m_problems']);
+  ov(`<div class="big-prize">${ART_DEF}</div><h2>Great defending!</h2><p class="mm-score">You stopped <b>${n}</b> equations!</p><p>Best: ${m.df.best}</p>${win?'<p>You win a prize!</p>':''}`,
+    win?[{label:'Pick my prize',cls:'yellow big',fn:()=>show('shop')},{brk:1},{label:'Play again',cls:'green',fn:()=>startDef(true,true)},homeBtn]:[{label:'Play again',cls:'green big',fn:()=>startDef(true,true)},{brk:1},homeBtn])}
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden'){madPause();defPause()}else{if(cur==='mad'&&MM.active)madResume();if(cur==='def'&&DF.active&&$('#ov').hidden)defResume()}});
 function showMathStats(){const m=M();const rows=Object.entries(m.nums).sort((a,b)=>+a[0]-+b[0]).map(([k,q])=>`<tr><td><b>${k}</b></td><td>${q.n?Math.round(q.ok/q.n*100)+'%':'–'}</td><td>${q.tn?(q.ts/q.tn/1000).toFixed(1)+' s':'–'}</td><td>${q.n}</td></tr>`).join('');
   const facts=Object.entries(m.facts).filter(([k,f])=>f.n>=2);const hard=facts.slice().sort((a,b)=>a[1].ok/a[1].n-b[1].ok/b[1].n).slice(0,5).map(([k,f])=>`${k} (${Math.round(f.ok/f.n*100)}%)`).join(', ')||'–';
@@ -2566,20 +2601,29 @@ const TRACE_SHAPES=[
   t=>[30+t*340,150+90*Math.sin(t*Math.PI*6)*(1-t*.4)],
   t=>{const a=t*Math.PI*6,r=20+t*110;return[200+r*Math.cos(a),150+r*Math.sin(a)]}];
 /* three lines per game, each a little harder; the next game starts one step harder */
-function gTrace(rd=0){const base=S.traceLevel||0,lv=base+rd;GM={done:false};const f=TRACE_SHAPES[Math.min(lv,TRACE_SHAPES.length-1)];const N=Math.min(160,60+lv*8),tol=Math.max(24,32-Math.max(0,lv-TRACE_SHAPES.length)*2);
+/* bigger levels: a long, smooth, winding path through a big picture that scrolls along with the finger */
+function traceGen(k){const sc=1.5+Math.min(1.5,k*.22),Wd=Math.round(400*sc),Hd=Math.round(300*sc),m=60;let x=m+20,y=Hd*(.3+Math.random()*.4),ang=(Math.random()-.5)*.6;const P=[[x,y]];const n=7+Math.min(9,k),step=Math.min(Wd,Hd)*.24;
+  for(let i=0;i<n;i++){ang+=(Math.random()-.5)*1.5;let nx=x+Math.cos(ang)*step,ny=y+Math.sin(ang)*step;if(nx<m||nx>Wd-m){ang=Math.PI-ang;nx=x+Math.cos(ang)*step}if(ny<m||ny>Hd-m){ang=-ang;ny=y+Math.sin(ang)*step}x=Math.max(m,Math.min(Wd-m,nx));y=Math.max(m,Math.min(Hd-m,ny));P.push([x,y])}
+  const cr=(p0,p1,p2,p3,t)=>{const t2=t*t,t3=t2*t;return[0,1].map(j=>.5*((2*p1[j])+(-p0[j]+p2[j])*t+(2*p0[j]-5*p1[j]+4*p2[j]-p3[j])*t2+(-p0[j]+3*p1[j]-3*p2[j]+p3[j])*t3))};
+  const f=t=>{const seg=P.length-1,u=Math.min(seg-1e-6,t*seg),i=Math.floor(u);return cr(P[Math.max(0,i-1)],P[i],P[i+1],P[Math.min(P.length-1,i+2)],u-i)};
+  return{f,W:Wd,H:Hd}}
+function gTrace(rd=0){const base=S.traceLevel||0,lv=base+rd;GM={done:false};const big=lv>=TRACE_SHAPES.length;const G=big?traceGen(lv-TRACE_SHAPES.length):{f:TRACE_SHAPES[lv],W:400,H:300};const f=G.f,WW=G.W,HH=G.H;
+  const N=big?Math.min(420,Math.round(140+WW*.35)):Math.min(160,60+lv*8),tol=big?28:Math.max(24,32-Math.max(0,lv-TRACE_SHAPES.length)*2);
   let pts=Array.from({length:N+1},(_,i)=>f(i/N));GM.k=0;const closed=Math.hypot(pts[0][0]-pts[N][0],pts[0][1]-pts[N][1])<6;let dirSet=!closed;
   const d='M'+pts.map(p=>p[0].toFixed(1)+' '+p[1].toFixed(1)).join(' L');
-  gameShell(`Trace the line! <small class="rnd">${rd+1} of 3</small>`,`<div class="trace"><svg viewBox="0 0 400 300" id="trSvg"><rect width="400" height="300" rx="18" fill="#FFF4D6"/><path d="${d}" stroke="#D9C59A" stroke-width="${tol}" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="${d}" stroke="#8C5A30" stroke-width="4" stroke-dasharray="2 12" stroke-linecap="round" fill="none"/><path id="trDone" d="" stroke="#2FA64A" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="${pts[0][0]}" cy="${pts[0][1]}" r="16" fill="#2FA64A"/><polygon points="${starPts(pts[N][0],pts[N][1],20,9)}" fill="#FFC21A" stroke="#C79000" stroke-width="3"/><circle id="trDot" cx="${pts[0][0]}" cy="${pts[0][1]}" r="12" fill="#fff" stroke="#2FA64A" stroke-width="5"/></svg></div>`);
-  if(!rd)say('trace0');const svg=$('#trSvg');let dn=false;
-  const at=e=>{const r=svg.getBoundingClientRect();return[(e.clientX-r.left)*400/r.width,(e.clientY-r.top)*300/r.height]};
-  const drawDone=()=>{$('#trDone').setAttribute('d',GM.k?'M'+pts.slice(0,GM.k+1).map(p=>p[0].toFixed(1)+' '+p[1].toFixed(1)).join(' L'):'');$('#trDot').setAttribute('cx',pts[GM.k][0]);$('#trDot').setAttribute('cy',pts[GM.k][1])};
-  const reset=()=>{GM.k=0;dn=false;dirSet=!closed;drawDone();sOops();say('tryagain')};
+  gameShell(`Trace the line! <small class="rnd">${rd+1} of 3</small>`,`<div class="trace"><svg viewBox="0 0 400 300" id="trSvg"><rect width="${WW}" height="${HH}" rx="18" fill="#FFF4D6"/>${big?`<g opacity=".35">${Array.from({length:Math.round(WW*HH/9000)},()=>`<circle cx="${(Math.random()*WW).toFixed(0)}" cy="${(Math.random()*HH).toFixed(0)}" r="${(2+Math.random()*4).toFixed(1)}" fill="#E8C98E"/>`).join('')}</g>`:''}<path d="${d}" stroke="#D9C59A" stroke-width="${tol}" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="${d}" stroke="#8C5A30" stroke-width="4" stroke-dasharray="2 12" stroke-linecap="round" fill="none"/><path id="trDone" d="" stroke="#2FA64A" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="${pts[0][0]}" cy="${pts[0][1]}" r="16" fill="#2FA64A"/><polygon points="${starPts(pts[N][0],pts[N][1],20,9)}" fill="#FFC21A" stroke="#C79000" stroke-width="3"/><circle id="trDot" cx="${pts[0][0]}" cy="${pts[0][1]}" r="12" fill="#fff" stroke="#2FA64A" stroke-width="5"/></svg></div>`);
+  if(!rd)say('trace0');const svg=$('#trSvg');let dn=false;const cam={x:0,y:0};
+  const setCam=(tx,ty,snap)=>{const nx=Math.max(0,Math.min(WW-400,tx-200)),ny=Math.max(0,Math.min(HH-300,ty-150));cam.x=snap?nx:cam.x+(nx-cam.x)*.25;cam.y=snap?ny:cam.y+(ny-cam.y)*.25;svg.setAttribute('viewBox',`${cam.x.toFixed(1)} ${cam.y.toFixed(1)} 400 300`)};
+  setCam(pts[0][0],pts[0][1],true);
+  const at=e=>{const r=svg.getBoundingClientRect();return[(e.clientX-r.left)*400/r.width+cam.x,(e.clientY-r.top)*300/r.height+cam.y]};
+  const drawDone=()=>{$('#trDone').setAttribute('d',GM.k?'M'+pts.slice(0,GM.k+1).map(p=>p[0].toFixed(1)+' '+p[1].toFixed(1)).join(' L'):'');$('#trDot').setAttribute('cx',pts[GM.k][0]);$('#trDot').setAttribute('cy',pts[GM.k][1]);if(big){const ah=pts[Math.min(N,GM.k+12)];setCam(ah[0],ah[1])}};
+  const reset=()=>{GM.k=0;dn=false;dirSet=!closed;drawDone();if(big)setCam(pts[0][0],pts[0][1],true);sOops();say('tryagain')};
   const adv=e=>{const [x,y]=at(e);let moved=false;
     if(GM.k>0){let near=1e9;for(let i=Math.max(0,GM.k-4);i<=Math.min(N,GM.k+8);i++)near=Math.min(near,Math.hypot(pts[i][0]-x,pts[i][1]-y));if(near>tol*1.15){reset();return}}
-    if(!dirSet&&GM.k===0){const fw=Math.min(...[2,4,6].map(i=>Math.hypot(pts[i][0]-x,pts[i][1]-y))),bw=Math.min(...[2,4,6].map(i=>Math.hypot(pts[N-i][0]-x,pts[N-i][1]-y)));if(Math.hypot(pts[0][0]-x,pts[0][1]-y)>10){const cands=[pts,pts.slice().reverse()];for(let j=3;j<N-2;j++)if(Math.hypot(pts[j][0]-pts[0][0],pts[j][1]-pts[0][1])<3){const rot=pts.slice(j).concat(pts.slice(1,j+1));cands.push(rot,rot.slice().reverse())}
+    if(!dirSet&&GM.k===0){if(Math.hypot(pts[0][0]-x,pts[0][1]-y)>10){const cands=[pts,pts.slice().reverse()];for(let j=3;j<N-2;j++)if(Math.hypot(pts[j][0]-pts[0][0],pts[j][1]-pts[0][1])<3){const rot=pts.slice(j).concat(pts.slice(1,j+1));cands.push(rot,rot.slice().reverse())}
       let best=pts,bd=1e9;cands.forEach(c=>{const dd=Math.min(...[2,4,6].map(i=>Math.hypot(c[i][0]-x,c[i][1]-y)));if(dd<bd){bd=dd;best=c}});pts=best;dirSet=true}}
     while(GM.k<N&&Math.hypot(pts[GM.k+1][0]-x,pts[GM.k+1][1]-y)<tol){GM.k++;moved=true}
-    if(moved){drawDone();if(GM.k%8===0)tone(520+GM.k*6,.05,'triangle',.05)}
+    if(moved){drawDone();if(GM.k%8===0)tone(520+(GM.k%60)*6,.05,'triangle',.05)}
     if(GM.k>=N){if(rd<2){GM.done=true;sPop();tierSfx(1,0);say(vary('cheer',6));setTimeout(()=>{if(cur==='game')gTrace(rd+1)},1300)}else{S.traceLevel=base+3;bonusWin()}}};
   svg.onpointerdown=e=>{const [x,y]=at(e);if(GM.k===0&&Math.hypot(pts[0][0]-x,pts[0][1]-y)>40)return;dn=true;svg.setPointerCapture(e.pointerId);adv(e)};
   svg.onpointermove=e=>{if(dn&&!GM.done)adv(e)};svg.onpointerup=()=>{if(dn&&GM.k>0&&GM.k<N)reset();dn=false}}
@@ -2675,7 +2719,7 @@ const SND_GROUP={C:'CKQ',K:'CKQ',Q:'CKQ'};
 let SO={};
 function soundUnlocked(){return !!S.soundOn}
 function doneCount(){return LETTERS.filter(doneL).length}
-function checkSoundUnlock(){if(S.soundOn)return;if(doneCount()>=4||(S.sayPool||[]).length>=9){S.soundOn=1;S.unlockPending=1;save()}}
+function checkSoundUnlock(){if(S.soundOn)return;if(S.fwins==null)S.fwins=LETTERS.concat('?').reduce((a,L)=>a+tierOf(L)*3+starCount(L),0);if(doneCount()>=4||S.fwins>=15){S.soundOn=1;S.unlockPending=1;save()}}
 function soundSave(){S.soundRun={ok:SO.ok,strikes:SO.strikes};save()}
 const lProgress=L=>tierOf(L)*3+starCount(L);
 function soInit(){if(S.soPool&&S.soPool.length)return;const order=(S.doneOrder||[]).filter(L=>LETTERS.includes(L));
@@ -2709,7 +2753,7 @@ function soundPick(b){if(SO.busy||b.classList.contains('wrong'))return;const x=b
     say([vary('sayYes',4),'st_'+w]).then(()=>{if(cur!=='sound')return;if(SO.ok>=5){S.soundRun=null;S.pending++;lastGame='sound';save();sFan();confetti();const dk=vary('done',8);say(dk);ov(`<h2>${LINES[dk].replace(' You win a prize!','')}</h2><p>You win a prize!</p>`,[{label:'Pick my prize',cls:'yellow big',fn:()=>show('shop')}])}else setTimeout(nextSound,350)});return}
   SO.busy=true;b.classList.remove('shake');void b.offsetWidth;b.classList.add('shake','wrong');sBuzz();SO.strikes++;renderSoundHud();soundSave();
   say(['st_'+w]).then(()=>{if(cur!=='sound')return;if(SO.strikes>=3){S.soundRun=null;save();const fk=vary('fail',3);say(fk);ov(`<h2>${LINES[fk]}</h2>`,[{label:'Try again',cls:'green',fn:()=>{SO={ok:0,strikes:0,last:null};renderSoundHud();nextSound()}}])}else SO.busy=false})}
-function showUnlockDef(){delete S.unlockDef;save();sFan();confetti();say('unlock_def');ov(`<div class="big-prize t3">${ART_DEF}</div><h2>You unlocked a new game!</h2><p>You can find it on the main menu.</p><p class="lvlup"><b>Number Defender</b></p>`,[{label:'Play Number Defender',cls:'green big',fn:()=>startDef(true)},{brk:1},{label:'OK',cls:'grey',fn:renderHome}])}
+function showUnlockDef(){delete S.unlockDef;save();sFan();confetti();say('unlock_def');ov(`<div class="big-prize t3">${ART_DEF}</div><h2>You unlocked a new game!</h2><p>You can find it on the main menu.</p><p class="lvlup"><b>Number Defender</b></p>`,[{label:'Play Number Defender',cls:'green big',fn:()=>startDef(true,true)},{brk:1},{label:'OK',cls:'grey',fn:renderHome}])}
 function showUnlock(){delete S.unlockPending;save();sFan();confetti();say('unlock2');ov(`<div class="big-prize t3 unlock-art">${ART_SOUND}</div><h2>You unlocked a new game!</h2><p>You can find it on the main menu.</p><p class="lvlup"><b>Sound It Out</b></p>`,[{label:'Play Sound It Out',cls:'green big',fn:()=>{closeOv();show('sound');startSound()}},{brk:1},{label:'OK',cls:'grey',fn:renderHome}])}
 /* ---------- LETTER STATS (grown-ups) ---------- */
 function statRows(g){return LETTERS.map(L=>{let ok=0,n=0;if(g==='find'){const s=(S.fstat||{})[L];if(s){ok=s.h;n=s.h+s.m}}else if(g==='say'){const s=(S.sstat||{})[L];if(s){ok=s.ok;n=s.n}}else{const s=(S.ostat||{})[L];if(s){ok=s.ok;n=s.n}}return{L,ok,n,p:n?ok/n:null}}).filter(r=>r.n)}
@@ -2827,7 +2871,7 @@ function renderSettings(){
     ${R.profiles.map(p=>`<div class="prow"><span class="av">${avatarHTML(p)}</span><span class="nm">${esc(p.name)}${p.kind==='test'?'<span class="testtag">TEST</span>':''}${p.id===me.id?' · playing now':''}</span>${p.id!==me.id?`<button class="btn green" data-play="${p.id}">Play as ${esc(p.name)}</button>`:''}${R.profiles.length>1?`<button class="btn ${delArmed===p.id?'red':'grey'}" data-del="${p.id}">${delArmed===p.id?'Tap again to delete':'Delete'}</button>`:''}</div>`).join('')}
     <button class="btn" id="addP">Add player</button>
   </div>
-  <div class="set-sec"><h3>Games</h3>${seg('focus',[['reading','Reading'],['math','Math'],['both','Both']],'Learning focus','Reading: Find It, Say It, Sound It Out. Math: Mad Minute, Number Defender.')}${seg('mathInput',[['draw','Write'],['keys','Number keys']],'How math answers start (kids can switch in the game)')}<button class="btn yellow" id="mathStatsBtn">Math stats</button></div>
+  <div class="set-sec"><h3>Games</h3>${seg('focus',[['reading','Reading'],['math','Math'],['both','Both']],'Learning focus','Reading: Find It, Say It, Sound It Out. Math: Mad Minute, Number Defender.')}${seg('mathInput',[['draw','Write'],['keys','Number keys']],'How math answers are given')}${seg('defMode',[['kids','Kids'],['adult','Adult'],['adultx','Adult extra']],'Number Defender mode','Adult: × with 5–25 and ÷ up to 500 by 1–20. Adult extra: × with 1–99 and ÷ up to 1000. Grown-up games do not change the child’s math stats.')}<button class="btn yellow" id="mathStatsBtn">Math stats</button></div>
   <div class="set-sec"><h3>Letters</h3>
     ${seg('case',[['upper','Capital ABC'],['lower','Lowercase abc']],'Letter style')}
     ${seg('myVoice',[['true','My recordings'],['false','Built-in only']],'Voice to use','My recordings play wherever you have recorded a line; everything else uses the built-in voice.')}
