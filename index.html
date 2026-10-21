@@ -598,7 +598,7 @@ label.btn{display:block;text-align:center}
 .pet .pt-all{transform-origin:50% 100%}.pet .pt-head{transform-origin:50% 100%}.pet .pt-arml{transform-origin:85% 12%}.pet .pt-armr{transform-origin:15% 12%}.pet .pt-legl,.pet .pt-legr{transform-origin:50% 0}
 .pet .pt-flame{opacity:0;transition:opacity .2s}.pet .pt-shut,.pet .pt-mouth{display:none}
 .pet .pt-eyes{transform-origin:center;animation:sbBlink 4.5s infinite}.pet .pt-glow{animation:sbGlow 1.4s ease-in-out infinite}
-.pet:not(.off):not(.p-walk):not(.p-dance):not(.p-jump):not(.p-leg):not(.p-hand):not(.p-wake):not(.p-hi):not(.p-flex):not(.p-toss) .pt-all{animation:pidle 2.4s ease-in-out infinite}@keyframes pidle{50%{transform:translateY(-2px)}}
+.pet:not(.off):not(.p-walk):not(.p-dance):not(.p-jump):not(.p-leg):not(.p-hand):not(.p-cartR):not(.p-cartL):not(.p-wake):not(.p-hi):not(.p-flex):not(.p-toss) .pt-all{animation:pidle 2.4s ease-in-out infinite}@keyframes pidle{50%{transform:translateY(-2px)}}
 .pet.off svg{filter:saturate(.25) brightness(.85)}.pet.off .pt-head{transform:translate(3px,7px) rotate(16deg)}.pet.off .pt-arml{transform:rotate(-40deg)}.pet.off .pt-armr{transform:rotate(40deg)}.pet.off .pt-body{transform:translateY(3px)}
 .pet.off .pt-eyes,.pet.off .pt-smile{display:none}.pet.off .pt-shut{display:inline}.pet.off .pt-glow,.pet.off .pt-bulb,.pet.off .pt-l1,.pet.off .pt-l2,.pet.off .pt-bolt{opacity:.15}
 .pet.flipx svg{transform:scaleX(-1)}
@@ -705,7 +705,7 @@ label.btn{display:block;text-align:center}
 .ritem.onrail{transform:translate(-50%,-88%)!important}
 .pet-bar{padding:8px 10px;gap:6px;border-radius:16px}.pb-top{gap:8px}.pb-meter{flex:0 0 96px;height:16px;border-width:2px}.pb-n{font-size:14px}
 .pb-cmds{grid-template-columns:repeat(auto-fill,minmax(60px,1fr));gap:6px}.pcmd{padding:4px 2px;font-size:11px;border-radius:12px;box-shadow:0 3px 0 #127575}.pcmd span{font-size:22px}
-.home-fab{position:fixed;left:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));width:64px;height:64px;border-radius:18px;border:0;background:#1B2838;display:grid;place-items:center;z-index:900;box-shadow:0 5px 0 #0A1119,0 8px 18px rgba(0,0,0,.25)}
+.home-fab{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));width:64px;height:64px;border-radius:18px;border:0;background:#1B2838;display:grid;place-items:center;z-index:900;box-shadow:0 5px 0 #0A1119,0 8px 18px rgba(0,0,0,.25)}
 .home-fab svg{width:34px;height:34px}.home-fab:active{transform:translateY(3px);box-shadow:0 2px 0 #0A1119}
 body.fab #main{padding-bottom:96px!important}#roomHome{display:none!important}
 @media (min-width:700px){
@@ -713,6 +713,13 @@ body.fab #main{padding-bottom:96px!important}#roomHome{display:none!important}
   .cards.burst .pcard svg{max-width:min(180px,15vh)!important}.burst-chest,.cards.burst.has-sel~.burst-chest{width:min(110px,9vh)!important}.cards.burst{gap:16px 20px!important}
   #defCv{height:calc(100dvh - 470px)!important;min-height:300px}#defPad .mdraw-wrap{height:250px;min-height:0!important}
 }
+
+.pet .pt-hflame{opacity:0;transition:opacity .2s;pointer-events:none!important}.pet.p-cartR .pt-hflame,.pet.p-cartL .pt-hflame,.pet.p-cartR .pt-flame,.pet.p-cartL .pt-flame{opacity:1}
+.pet.p-cartR .pt-all,.pet.p-cartL .pt-all{transform-origin:50% 55%!important}
+.pet.p-cartR .pt-all{animation:pcartR 2.2s ease-in-out forwards!important}.pet.p-cartL .pt-all{animation:pcartL 2.2s ease-in-out forwards!important}
+@keyframes pcartR{0%{transform:none}15%{transform:translate(0,-4px)}50%{transform:translate(35px,-34px) rotate(180deg)}85%{transform:translate(70px,-4px) rotate(360deg)}100%{transform:translate(70px,0) rotate(360deg)}}
+@keyframes pcartL{0%{transform:none}15%{transform:translate(0,-4px)}50%{transform:translate(-35px,-34px) rotate(-180deg)}85%{transform:translate(-70px,-4px) rotate(-360deg)}100%{transform:translate(-70px,0) rotate(-360deg)}}
+.pet.p-cartR .pt-arml,.pet.p-cartL .pt-arml{transform:rotate(100deg)}.pet.p-cartR .pt-armr,.pet.p-cartL .pt-armr{transform:rotate(-100deg)}
 </style>
 
 <div id="app">
@@ -1246,7 +1253,7 @@ Object.assign(BASES,{
   <rect x="6" y="78" width="88" height="5" fill="${d}" stroke="${OL}" stroke-width="1.5"/><path d="M12 83 V94 M88 83 V94" stroke="#E2B13C" stroke-width="4.5" stroke-linecap="round"/><path d="M46 84 v6 M54 84 v6" stroke="#E2B13C" stroke-width="2.5"/><polygon points="${starPts(18,10,5,2)}" fill="#FFD23F"/><polygon points="${starPts(96,30,4,1.6)}" fill="#FFF3A0"/>`]
 });
 /* some prizes are big */
-const SIZEK={lion:1.35,piano:1.2,harp:1.1,drumkit:1.5,giantbear:1.1,elephant:1.2,giraffe:1.25,unicorn:1.3,bigdragon:1.3,pegasus:1.3,phoenix:1.3,candycastle:1.25,swirlpop:1.1};
+const SIZEK={lion:1.35,piano:1.2,harp:1.1,drumkit:1.5,giantbear:1.1,elephant:1.2,giraffe:1.25,unicorn:1.3,bigdragon:1.3,pegasus:1.3,phoenix:1.3,candycastle:1.5,swirlpop:1.1};
 /* ---------- animals and treats ---------- */
 const EYE=(x,y,r=2.8)=>`<circle cx="${x}" cy="${y}" r="${r}" fill="${OL}"/><circle cx="${x+r*.35}" cy="${y-r*.35}" r="${(r*.36).toFixed(2)}" fill="#fff"/>`;
 const BLUSH=(x,y,r=3)=>`<circle cx="${x}" cy="${y}" r="${r}" fill="#FF8FAB" opacity=".5"/>`;
@@ -1289,7 +1296,20 @@ Object.assign(BASES,{
  chocolate:[1,'Chocolate Bar',(b,c,l,d)=>`${SH}<g transform="rotate(-12 50 54)"><rect x="28" y="14" width="44" height="34" rx="3" fill="#6B3E20" stroke="#3E220F" stroke-width="2"/><path d="M28 26 H72 M28 37 H72 M43 14 V48 M57 14 V48" stroke="#4E2C15" stroke-width="2"/><rect x="26" y="44" width="48" height="46" rx="3" ${S2(b,d)}/><path d="M26 44 L32 50 L38 44 L44 50 L50 44 L56 50 L62 44 L68 50 L74 44" fill="none" stroke="${d}" stroke-width="2"/><rect x="34" y="60" width="32" height="14" rx="7" fill="#fff" opacity=".8"/><path d="M40 67 h20" stroke="${d}" stroke-width="3" stroke-linecap="round"/></g>`,{treat:1}],
  cottoncandy:[2,'Cotton Candy',(b,c,l,d)=>`${SH}<path d="M44 52 L50 94 L56 52Z" fill="#F7F4EA" stroke="#C7CED6" stroke-width="1.6"/><g fill="${l}" stroke="${b}" stroke-width="2">${[[50,36,20],[34,44,13],[66,44,13],[38,24,12],[62,24,12],[50,16,11]].map(([x,y,r])=>`<circle cx="${x}" cy="${y}" r="${r}"/>`).join('')}</g><g fill="${l}">${[[50,36,18],[34,44,11],[66,44,11],[38,24,10],[62,24,10],[50,16,9]].map(([x,y,r])=>`<circle cx="${x}" cy="${y}" r="${r}"/>`).join('')}</g><path d="M40 30 Q46 22 56 26 M52 44 Q60 38 66 42" stroke="#fff" stroke-width="2.4" fill="none" opacity=".8" stroke-linecap="round"/>`,{treat:1}],
  bdaycake:[2,'Birthday Cake',(b,c,l,d)=>`${SH}<rect x="16" y="58" width="68" height="30" rx="4" ${S2(b,d)}/><rect x="26" y="36" width="48" height="24" rx="4" fill="${l}" stroke="${d}" stroke-width="2"/><path d="M16 62 Q22 70 28 62 Q34 70 40 62 Q46 70 52 62 Q58 70 64 62 Q70 70 76 62 Q80 68 84 62" fill="#fff" stroke="none"/><path d="M26 40 Q32 46 38 40 Q44 46 50 40 Q56 46 62 40 Q68 46 74 40" fill="#fff"/>${[34,50,66].map((x,i)=>`<rect x="${x-2}" y="20" width="4" height="16" rx="1" fill="${RB[i*2]}"/><path d="M${x} 10 Q${x+4} 16 ${x} 20 Q${x-4} 16 ${x} 10Z" fill="#FFC21A"/>`).join('')}${[[24,76,'#FFC21A'],[40,80,'#2C67E0'],[58,76,'#3FBF5A'],[74,80,'#7A4FD0']].map(([x,y,k])=>`<circle cx="${x}" cy="${y}" r="2.2" fill="${k}"/>`).join('')}`,{treat:1}],
- candycastle:[3,'Candy Castle',(b,c,l,d)=>`${SH}<rect x="22" y="44" width="56" height="46" ${S2(b,d)}/><path d="M22 44 h8 v-6 h8 v6 h8 v-6 h8 v6 h8 v-6 h8 v6 h6" fill="none" stroke="${d}" stroke-width="2"/><path d="M42 90 V72 Q50 62 58 72 V90Z" fill="#8C5A30" stroke="${OL}" stroke-width="1.5"/>${[[14,34],[86,34]].map(([x,y])=>`<rect x="${x-8}" y="${y}" width="16" height="56" fill="${l}" stroke="${d}" stroke-width="2"/><path d="M${x-10} ${y} Q${x} ${y-22} ${x+10} ${y}Z" fill="#FF8FB8" stroke="#D9558A" stroke-width="2"/><circle cx="${x}" cy="${y-16}" r="3" fill="#FFC21A"/>`).join('')}<rect x="48" y="10" width="4" height="30" fill="#F7F4EA"/><circle cx="50" cy="14" r="9" fill="#FFC21A" stroke="#C79000" stroke-width="1.6"/><path d="M50 14 m-2 0 a2 2 0 1 1 4 0 a5 5 0 1 1 -10 0" stroke="#fff" stroke-width="1.8" fill="none"/>${[[30,52],[70,52],[30,74],[70,74]].map(([x,y],i)=>`<circle cx="${x}" cy="${y}" r="4" fill="${CANDYC[i]}"/>`).join('')}`,{treat:1}]
+ candycastle:[3,'Candy Castle',(b,c,l,d)=>`${SH}
+<rect x="16" y="50" width="68" height="40" rx="3" fill="${b}" stroke="${d}" stroke-width="2"/>
+<path d="M16 60 H84 M16 70 H84 M16 80 H84 M27 50 V90 M38 50 V90 M62 50 V90 M73 50 V90" stroke="${d}" stroke-width=".8" opacity=".35"/>
+${[20,30,40,50,60,70,80].map((x,i)=>`<path d="M${x-5} 50 Q${x-5} 42 ${x} 42 Q${x+5} 42 ${x+5} 50Z" fill="${['#FF5DA2','#FFC21A','#3FBF5A','#2C67E0','#7A4FD0','#FF8C42','#16A39B'][i]}" stroke="rgba(0,0,0,.25)" stroke-width="1"/><circle cx="${x-1.5}" cy="45" r="1.1" fill="#fff" opacity=".8"/>`).join('')}
+<path d="M16 50 Q19 56 22 51 Q25 58 28 51 Q31 55 34 51 Q37 57 40 51 Q43 55 46 51 Q49 58 52 51 Q55 55 58 51 Q61 57 64 51 Q67 55 70 51 Q73 58 76 51 Q79 55 84 50Z" fill="#FFF8F0"/>
+${[[24,62,'#EE4B33'],[44,66,'#2C67E0'],[58,60,'#FFC21A'],[74,66,'#3FBF5A'],[30,80,'#7A4FD0'],[70,82,'#FF5DA2'],[22,74,'#16A39B'],[78,74,'#FFC21A']].map(([x,y,k])=>`<rect x="${x-2}" y="${y-.8}" width="4" height="1.6" rx=".8" fill="${k}" transform="rotate(${(x*7)%60-30} ${x} ${y})"/>`).join('')}
+<path d="M40 90 V72 Q50 60 60 72 V90Z" fill="#6B3E20" stroke="#3E220F" stroke-width="1.5"/><path d="M40 90 V72 Q50 60 60 72 V90" fill="none" stroke="#fff" stroke-width="3"/><path d="M40 90 V72 Q50 60 60 72 V90" fill="none" stroke="#EE4B33" stroke-width="3" stroke-dasharray="3 3"/><circle cx="56" cy="80" r="1.4" fill="#FFC21A"/>
+${[[4,24],[96,24]].map(([x],k)=>{const s=k?-1:1,x0=k?78:6;return `<rect x="${x0}" y="32" width="16" height="58" rx="2" fill="#fff" stroke="${d}" stroke-width="1.6"/>${[0,1,2,3,4,5,6].map(i=>`<path d="M${x0} ${36+i*8} L${x0+16} ${30+i*8} L${x0+16} ${33+i*8} L${x0} ${39+i*8}Z" fill="#EE4B33"/>`).join('')}<path d="M${x0-2} 32 L${x0+8} 8 L${x0+18} 32Z" fill="#FF8FB8" stroke="#D9558A" stroke-width="1.5"/>${[0,1,2].map(i=>`<circle cx="${x0+5+i*3}" cy="${26-i*6}" r="1.1" fill="${['#fff','#FFC21A','#2C67E0'][i]}"/>`).join('')}<line x1="${x0+8}" y1="8" x2="${x0+8}" y2="0" stroke="#8C5A30" stroke-width="1.2"/><path d="M${x0+8} 0 l${s*7} 2.5 l${-s*7} 2.5Z" fill="#FFC21A"/>`}).join('')}
+<rect x="38" y="24" width="24" height="27" rx="2" fill="${l}" stroke="${d}" stroke-width="1.8"/>
+<path d="M50 38 C46 33 41 37 45 41 L50 45 L55 41 C59 37 54 33 50 38Z" fill="#FF5DA2" stroke="#C93A7C" stroke-width="1"/>
+<path d="M38 24 L50 4 L62 24Z" fill="#E7B66A" stroke="#A8763A" stroke-width="1.5"/><path d="M41 20 L56 10 M44 24 L59 14 M46 14 L58 22 M42 18 L55 24" stroke="#A8763A" stroke-width=".9"/>
+<circle cx="50" cy="5" r="7" fill="#FFB3D1" stroke="#E07AA4" stroke-width="1.3"/><circle cx="50" cy="-3" r="3" fill="#E5402B"/><path d="M50 -6 Q53 -11 57 -10" stroke="#3FA34D" stroke-width="1.3" fill="none"/>
+<line x1="3" y1="90" x2="3" y2="66" stroke="#F7F4EA" stroke-width="2.4"/><circle cx="3" cy="62" r="6" fill="#7A4FD0"/><path d="M3 62 m-3 0 a3 3 0 1 1 6 0 a1.6 1.6 0 1 1 -3 0" stroke="#fff" stroke-width="1.1" fill="none"/>
+<line x1="97" y1="90" x2="97" y2="66" stroke="#F7F4EA" stroke-width="2.4"/><circle cx="97" cy="62" r="6" fill="#16A39B"/><path d="M97 62 m-3 0 a3 3 0 1 1 6 0 a1.6 1.6 0 1 1 -3 0" stroke="#fff" stroke-width="1.1" fill="none"/>`,{treat:1}],
 });
 /* ---------- train track pieces (snap to a floor grid; cars drive on them) ---------- */
 const TRK_ENDS={track_h:['W','E'],track_v:['N','S'],track_ne:['N','E'],track_nw:['N','W'],track_se:['S','E'],track_sw:['S','W']};
@@ -1323,7 +1343,7 @@ for(const [key,[tier,name]] of Object.entries(BASES)){
     const nm=(o.plain?[PATS[p],name]:[col[1],PATS[p],name]).filter(Boolean).join(' ');
     const pr={id,key,tier,ci,pat:p,name:nm,retired:key==='block'};PRIZES.push(pr);PRIZE_BY[id]=pr;LINES['pz_'+id]=nm.replace(/\bMech\b/,'Meck')+'.';})});
 }
-PRIZES.forEach(p=>{if(p.key==='drum')p.retired=true});
+PRIZES.forEach(p=>{if(p.key==='drum'||p.key==='laser')p.retired=true});
 /* lots of copies of each track shape so a piece can always be turned */
 PRIZES.filter(p=>TRK_ENDS[p.key]&&p.pat==='plain').forEach(p=>{for(let k=2;k<=12;k++){const id=`${p.key}.${COLORS[p.ci][0]}.c${k}`;const pr={...p,id};PRIZES.push(pr);PRIZE_BY[id]=pr;LINES['pz_'+id]=LINES['pz_'+p.id]}}); /* the simple drum is no longer given out */
 let pid=0;
@@ -1994,7 +2014,7 @@ const PET_SVG=`<svg viewBox="0 0 100 112" overflow="visible" xmlns="http://www.w
 <rect x="28" y="46" width="44" height="31" rx="11" fill="url(#ptB)" stroke="#0F6464" stroke-width="2"/><path d="M33 51 Q50 47 67 51" stroke="#fff" stroke-width="2.5" fill="none" opacity=".45" stroke-linecap="round"/>
 <rect x="37" y="55" width="26" height="15" rx="4" fill="#13202E"/><path class="pt-bolt" d="M50 57.5 L45.5 63.5 H49.5 L47.5 68 L54.5 61.5 H50.5 L53 57.5Z" fill="#FFC21A"/><circle class="pt-g1" cx="41" cy="62.5" r="5.5" fill="#FF5A44" opacity="0"/><circle class="pt-g2" cx="59" cy="62.5" r="5.5" fill="#5BFF9A" opacity="0"/><circle class="pt-l1" cx="41" cy="62.5" r="2.3" fill="#EE4B33"/><circle class="pt-l2" cx="59" cy="62.5" r="2.3" fill="#2FE07A"/>
 </g>
-<g class="pt-arml"><path d="M30 52 L19 65" stroke="#127575" stroke-width="7" stroke-linecap="round"/><circle cx="18" cy="67" r="5.5" fill="#FFC21A" stroke="#C79000" stroke-width="2"/></g>
+<g class="pt-arml"><path class="pt-hflame" d="M14 70 Q18 86 22 70Z" fill="url(#ptF)"/><path d="M30 52 L19 65" stroke="#127575" stroke-width="7" stroke-linecap="round"/><circle cx="18" cy="67" r="5.5" fill="#FFC21A" stroke="#C79000" stroke-width="2"/></g>
 <g class="pt-head">
 <rect x="44" y="41" width="12" height="7" rx="2" fill="#2A3442"/>
 <line x1="50" y1="12" x2="50" y2="4.5" stroke="#2A3442" stroke-width="2.5"/><circle class="pt-glow" cx="50" cy="4" r="6" fill="url(#ptG)"/><circle class="pt-bulb" cx="50" cy="4" r="2.6" fill="#FFF6B0"/>
@@ -2007,7 +2027,7 @@ const PET_SVG=`<svg viewBox="0 0 100 112" overflow="visible" xmlns="http://www.w
 <ellipse class="pt-mouth" cx="50" cy="34" rx="4.5" ry="3.5" fill="#7DF3E6"/>
 <circle cx="30" cy="32" r="2.3" fill="#FF8FAB" opacity=".75"/><circle cx="70" cy="32" r="2.3" fill="#FF8FAB" opacity=".75"/>
 </g>
-<g class="pt-armr"><path d="M70 52 L81 65" stroke="#127575" stroke-width="7" stroke-linecap="round"/><circle cx="82" cy="67" r="5.5" fill="#FFC21A" stroke="#C79000" stroke-width="2"/></g></g></svg>`;
+<g class="pt-armr"><path class="pt-hflame" d="M78 70 Q82 86 86 70Z" fill="url(#ptF)"/><path d="M70 52 L81 65" stroke="#127575" stroke-width="7" stroke-linecap="round"/><circle cx="82" cy="67" r="5.5" fill="#FFC21A" stroke="#C79000" stroke-width="2"/></g></g></svg>`;
 const BAT_SVG=`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><ellipse cx="50" cy="88" rx="38" ry="5" fill="#000" opacity=".12"/>${[0,1].map(i=>`<g transform="translate(0 ${i*28})"><rect x="14" y="26" width="64" height="24" rx="6" fill="${i?'#2C67E0':'#2FA64A'}" stroke="#1B2838" stroke-width="2.5"/><rect x="78" y="32" width="8" height="12" rx="2" fill="#C7CED5" stroke="#1B2838" stroke-width="2"/><rect x="14" y="26" width="18" height="24" rx="6" fill="#1B2838"/><path d="M50 29 L42 39 H49 L46 47 L56 36 H49 L53 29Z" fill="#FFC21A"/><path d="M62 38 h8 M66 34 v8" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/></g>`).join('')}</svg>`;
 const BAT={id:'bat',tier:1,name:'Robot Batteries'};
 /* each battery pack is its own toy: it sits in the chest or the room until it is dragged onto the robot */
@@ -2020,7 +2040,7 @@ R.profiles.forEach(pf=>{const d=pf.data;(d.owned||[]).forEach(i=>{if(i.startsWit
 const PET_MAX=30;
 /* tricks: the first ones work right away; one new trick is learned with each new battery */
 const PET_CMDS=[['left','⬅️','Left',0],['right','➡️','Right',0],['back','⬆️','Back',0],['front','⬇️','Front',0],['wave','👋','Wave',0],['dance','💃','Dance',0],['sit','🪑','Sit',0],['leg','🦩','One leg',0],
-  ['jump','🦘','Jump',2],['spin','🌀','Spin',3],['sing','🎵','Sing',4],['toss','🤹','Toss',5],['sleep','😴','Sleep',6],['hand','🤸','Handstand',7]];
+  ['jump','🦘','Jump',2],['spin','🌀','Spin',3],['sing','🎵','Sing',4],['toss','🤹','Toss',5],['sleep','😴','Sleep',6],['hand','🤸','Cartwheel',7]];
 function pet(){S.pet=S.pet||{x:700,y:945,e:0,packs:0,pose:''};return S.pet}
 const PET_W=420;
 const petKnows=c=>pet().packs>=c[3];
@@ -2031,7 +2051,7 @@ function petLights(){const el=$('#pet');if(!el)return;const p=pet(),g1=el.queryS
 function petRefresh(){const el=$('#pet');if(!el)return;const p=pet();el.classList.toggle('off',p.e<=0);petLights();renderPetBar()}
 let petOpen=false,petBusy=0;
 function openPet(){petOpen=true;rz=0;renderPetBar();const p=pet();if(p.e<=0){say(batCount()>0?'pet_give':'pet_need')}else robotBeep('hi');layoutRoom()}
-function closePet(){petOpen=false;rz=0;renderPetBar();layoutRoom()}
+function closePet(){petOpen=false;rz=.0001;renderPetBar();layoutRoom()}
 function renderPetBar(){const bar=$('#petBar');if(!bar)return;bar.hidden=!petOpen||cur!=='room';if(bar.hidden)return;const p=pet(),nb=batCount(),on=p.e>0;
   bar.innerHTML=`<div class="pb-top"><span class="pb-meter${p.e<=10?' low':''}"><i style="width:${Math.round(p.e/PET_MAX*100)}%"></i></span><span class="pb-n">${on?p.e+' moves left':'No power'}</span></div>
     <div class="pb-cmds">${PET_CMDS.map(c=>petKnows(c)?`<button class="pcmd" data-c="${c[0]}" ${on?'':'disabled'}><span>${c[1]}</span>${c[2]}</button>`:`<button class="pcmd lock" disabled><span>🔒</span>?</button>`).join('')}</div>`;
@@ -2048,10 +2068,11 @@ function robotBeep(kind){const seq={toss:[523,784,1047,1319,1047],hand:[392,523,
 function petDo(c){const p=pet();if(p.e<=0){say('pet_need');return}if(petBusy)return;const el=$('#pet');if(!el)return;
   if(p.y<700||p.in){/* up on a shelf or in a cupboard: hop down to the floor first */delete p.in;p.y=935;petBusy=1;el.classList.add('p-jump');el.style.top=PY(p.y);el.style.zIndex=(p.y|0)+2;robotBeep('jump');save();setTimeout(()=>{el.classList.remove('p-jump');petBusy=0;petDo(c)},1000);return}
   p.e--;const mv={left:[-230,0],right:[230,0],back:[0,-70],front:[0,70]}[c];let dur=2200;
-  el.classList.remove('p-sit','p-sleep','p-wave','p-dance','p-leg','p-jump','p-spin','p-sing','p-toss','p-hand','p-walk','flipx');
+  el.classList.remove('p-sit','p-sleep','p-wave','p-dance','p-leg','p-jump','p-spin','p-sing','p-toss','p-hand','p-cartR','p-cartL','p-walk','flipx');
   if(mv){p.x=Math.max(130,Math.min(2270,p.x+mv[0]));p.y=Math.max(720,Math.min(975,p.y+mv[1]));if(mv[0])el.classList.toggle('flipx',mv[0]<0);el.classList.add('p-walk');el.style.left=PX(p.x);el.style.top=PY(p.y);el.style.zIndex=(p.y|0)+2;robotBeep('walk');dur=1300;p.pose=''}
   else if(c==='toss'){dur=petToss(el,p);p.pose=''}
-  else{void el.offsetWidth;el.classList.add('p-'+c);robotBeep(c);p.pose=(c==='sit'||c==='sleep')?c:'';if(c==='hand')dur=2800}
+  else if(c==='hand'){const dir=p.x>1900?-1:1;el.classList.add(dir>0?'p-cartR':'p-cartL');robotBeep('hand');dur=2300;p.pose='';setTimeout(()=>{el.style.transition='none';p.x=Math.max(130,Math.min(2270,p.x+dir*PET_W*.7));el.style.left=PX(p.x);el.classList.remove('p-cartR','p-cartL');void el.offsetWidth;el.style.transition='';save()},2200)}
+  else{void el.offsetWidth;el.classList.add('p-'+c);robotBeep(c);p.pose=(c==='sit'||c==='sleep')?c:''}
   petBusy=1;setTimeout(()=>{petBusy=0;el.classList.remove('p-walk');if(!p.pose)el.classList.remove('p-'+c)},dur);
   save();if(p.e===10){setTimeout(()=>{robotBeep('low');say('pet_low')},dur-600)}if(p.e===0){setTimeout(()=>{el.classList.remove('p-'+c);p.pose='';save();el.classList.add('off');say('pet_empty');petRefresh()},dur)}petRefresh()}
 /* toss: walk to a small toy on the floor, pick it up, throw it up spinning, catch it in the other hand, set it down */
@@ -2374,7 +2395,7 @@ function hwGroups(strokes,H){const ss=strokes.filter(s=>s.length>1).map(s=>{let 
   return gs.sort((x,y)=>x.a-y.a).map(g=>g.ss)}
 /* read the box: per digit scores, the best reading, and whether a wanted answer fits well enough */
 function hwRead(strokes,H){const gs=hwGroups(strokes,H);const per=gs.map(g=>{const r=hwScore(g);r.ss=g;return r});return{per,best:per.map(p=>p.ranked[0][0]).join('')}}
-const HW_RATIO=1.12,HW_MAX=3.1;
+const HW_RATIO=1.2,HW_MAX=3.3;
 /* a 5 only counts when its flat top line is there */
 function hwTopBar(ss){let a=1e9,b=-1e9,t=1e9,u=-1e9;ss.forEach(s=>s.forEach(p=>{a=Math.min(a,p[0]);b=Math.max(b,p[0]);t=Math.min(t,p[1]);u=Math.max(u,p[1])}));const w=b-a||1,h=u-t||1;
   const straight=(s,i,j)=>{const L=Math.hypot(s[j][0]-s[i][0],s[j][1]-s[i][1])||1;for(let k=i;k<=j;k++){if(s[k][1]>t+h*.38)return false;if(Math.abs((s[j][0]-s[i][0])*(s[i][1]-s[k][1])-(s[i][0]-s[k][0])*(s[j][1]-s[i][1]))/L>Math.max(3,h*.045))return false}return true};
@@ -2391,7 +2412,7 @@ function hwLearn(read,want){S.hw=S.hw||{t:[]};read.per.forEach((p,i)=>{S.hw.t.pu
 
 /* ---------- MATH: answer pad (write with a finger, or type) ---------- */
 /* opts: wants() -> list of answers that would count right now; right(str,how); wrong(str,how); locked() -> true while answers are ignored */
-function makePad(host,opts){const mode=S.settings.mathInput==='keys'?'keys':'draw';
+function makePad(host,opts){const mode=opts.mode||(S.settings.mathInput==='keys'?'keys':'draw');
   host.innerHTML=`<div class="mpad m-${mode}">${mode==='draw'?`<div class="mdraw-wrap"><canvas class="mdraw"></canvas><span class="mhint">Write the answer here</span><span class="mseen"></span><button class="mclear" aria-label="Clear">🧽 Clear</button></div>`:''}
     ${mode==='keys'?`<div class="mkeys"><div class="mtyped" aria-live="polite"></div>${[1,2,3,4,5,6,7,8,9].map(n=>`<button class="mk" data-k="${n}">${n}</button>`).join('')}<button class="mk mk-del" data-k="del" aria-label="Delete">⌫</button><button class="mk" data-k="0">0</button><button class="mk mk-go" data-k="go" aria-label="Enter">✓</button></div>`:''}</div>`;
   const P={strokes:[],cur:null,timer:null,typed:''};
@@ -2487,8 +2508,8 @@ let DF={};
 const DF_COLS=7;
 function startDef(fresh,go){M();if(!fresh&&DF.active&&!DF.over){show('def');defResume();return}show('def');DF={on:false};$('#defPad').innerHTML='';if(go){closeOv();goDef();return}
   ov(`<div class="big-prize">${ART_DEF}</div><h2>Number Defender</h2><p>Write the answer to a falling problem to launch a rocket at it. Protect the city!</p>`,[{label:'Go!',cls:'green big',fn:goDef}]);say('g_def')}
-function goDef(){const cv=$('#defCv');const dm=S.settings.defMode||'kids';DF={adult:dm!=='kids',on:true,active:true,eqs:[],shots:[],booms:[],city:Array(DF_COLS).fill(1),stopped:0,missed:0,jam:0,last:performance.now(),next:performance.now()+500,gap:dm==='kids'?3300:3600,speed:dm==='kids'?.075:dm==='adult'?.085:.09,t0:performance.now()};
-  DF.pad=makePad($('#defPad'),{wants:()=>DF.eqs.filter(q=>!q.hit).map(mAns),right:defRight,wrong:defWrong,locked:()=>performance.now()<DF.jam});
+function goDef(){const cv=$('#defCv');const dm=S.settings.defMode||'kids';DF={adult:dm!=='kids',on:true,active:true,eqs:[],shots:[],booms:[],city:Array(DF_COLS).fill(1),stopped:0,missed:0,jam:0,last:performance.now(),next:performance.now()+500,gap:dm==='kids'?3300:3600,speed:dm==='kids'?.06:dm==='adult'?.068:.072,t0:performance.now()};
+  DF.pad=makePad($('#defPad'),{mode:DF.adult?'keys':null,wants:()=>DF.eqs.filter(q=>!q.hit).map(mAns),right:defRight,wrong:defWrong,locked:()=>performance.now()<DF.jam});
   defFit();addEventListener('resize',defFit);say('m_go');DF.raf=requestAnimationFrame(defTick)}
 function defPause(){if(DF.on){DF.on=false;DF.paused=performance.now();cancelAnimationFrame(DF.raf)}}
 function defResume(){if(!DF.active||DF.over)return;const d=DF.paused?performance.now()-DF.paused:0;DF.paused=0;DF.next+=d;DF.jam+=d;DF.eqs.forEach(q=>q.t0+=d);DF.last=performance.now();DF.on=true;defFit();DF.raf=requestAnimationFrame(defTick)}
@@ -2511,13 +2532,13 @@ function defDraw(now){const g=DF.g,W=DF.W,H=DF.H,cityTop=H*.8,w=W/DF_COLS;g.clea
   const jam=now<DF.jam,lx=W/2,ly=H-6;g.fillStyle=jam?'#888':'#EE4B33';g.beginPath();g.moveTo(lx-22,ly);g.lineTo(lx,ly-34);g.lineTo(lx+22,ly);g.fill();
   if(jam){g.fillStyle='#FFC21A';g.font=`700 ${Math.round(H*.05)}px Andika, sans-serif`;g.textAlign='center';g.fillText('⚡ '+Math.ceil((DF.jam-now)/1000),lx,ly-44)}
   const fs=Math.max(20,Math.min(40,W*.05));g.font=`700 ${fs}px Andika, sans-serif`;g.textAlign='center';g.textBaseline='middle';
-  for(const q of DF.eqs){const t=`${q.a}${mOpSym(q.op)}${q.b}`,tw=g.measureText(t).width+fs*.9;g.fillStyle='rgba(255,255,255,.95)';const rr=fs*.6;g.beginPath();g.roundRect?g.roundRect(q.x-tw/2,q.y-fs*.7,tw,fs*1.4,rr):g.rect(q.x-tw/2,q.y-fs*.7,tw,fs*1.4);g.fill();g.strokeStyle='#FFC21A';g.lineWidth=3;g.stroke();g.fillStyle='#1B2838';g.fillText(t,q.x,q.y+1)}
+  for(const q of DF.eqs){const t=`${q.a}${mOpSym(q.op)}${q.b}`,tw=g.measureText(t).width+fs*.9;q.x=Math.max(tw/2+6,Math.min(W-tw/2-6,q.x));g.fillStyle='rgba(255,255,255,.95)';const rr=fs*.6;g.beginPath();g.roundRect?g.roundRect(q.x-tw/2,q.y-fs*.7,tw,fs*1.4,rr):g.rect(q.x-tw/2,q.y-fs*.7,tw,fs*1.4);g.fill();g.strokeStyle='#FFC21A';g.lineWidth=3;g.stroke();g.fillStyle='#1B2838';g.fillText(t,q.x,q.y+1)}
   for(const s of DF.shots){g.strokeStyle='rgba(255,194,26,.8)';g.lineWidth=3;g.beginPath();g.moveTo(s.x0,s.y0);g.lineTo(s.x,s.y);g.stroke();g.fillStyle='#fff';g.beginPath();g.arc(s.x,s.y,6,0,7);g.fill()}
   for(const b of DF.booms){const k=(now-b.t)/600;g.globalAlpha=1-k;g.fillStyle=b.big?'#888':'#FFC21A';for(let i=0;i<8;i++){const a=i*Math.PI/4;g.beginPath();g.arc(b.x+Math.cos(a)*k*40,b.y+Math.sin(a)*k*40,5*(1-k)+2,0,7);g.fill()}g.globalAlpha=1}
   g.fillStyle='#fff';g.font=`700 ${Math.round(fs*.8)}px Andika, sans-serif`;g.textAlign='left';g.fillText('⭐ '+DF.stopped,12,fs*.7)}
 function defRight(str){const now=performance.now();if(now<DF.jam)return;const tgt=DF.eqs.filter(q=>!q.hit&&String(mAns(q))===str).sort((x,y)=>y.y-x.y)[0];if(!tgt)return;tgt.hit=true;
   DF.shots.push({q:tgt,x0:DF.W/2,y0:DF.H-36,x:DF.W/2,y:DF.H-36,t:now});sweep(300,900,.3,'triangle',.06);DF.stopped++;if(!DF.adult)mRecord(tgt,true,now-tgt.t0);say(vary('m_ok',6));if(DF.stopped===25)mathBonus('def25');
-  if(DF.stopped%4===0){DF.speed*=1.08;DF.gap=Math.max(1500,DF.gap*.92)}}
+  if(DF.stopped%4===0){DF.speed*=1.05;DF.gap=Math.max(1500,DF.gap*.92)}}
 function defWrong(){DF.jam=performance.now()+2000;sBuzz();try{navigator.vibrate&&navigator.vibrate(60)}catch(e){}}
 function defEnd(){DF.on=false;DF.over=true;DF.active=false;cancelAnimationFrame(DF.raf);removeEventListener('resize',defFit);const m=M(),n=DF.stopped,best=n>(m.df.best||0);m.df.games++;m.df.scores=(m.df.scores||[]).concat(n).slice(-30);if(best)m.df.best=n;
   const win=n>=6;if(win){S.pending++;lastGame='def'}save();sFan();if(win)confetti();say(['m_defover','num_'+Math.min(n,120),'m_problems']);
@@ -2607,8 +2628,27 @@ function traceGen(k){const sc=1.5+Math.min(1.5,k*.22),Wd=Math.round(400*sc),Hd=M
   const cr=(p0,p1,p2,p3,t)=>{const t2=t*t,t3=t2*t;return[0,1].map(j=>.5*((2*p1[j])+(-p0[j]+p2[j])*t+(2*p0[j]-5*p1[j]+4*p2[j]-p3[j])*t2+(-p0[j]+3*p1[j]-3*p2[j]+p3[j])*t3))};
   const f=t=>{const seg=P.length-1,u=Math.min(seg-1e-6,t*seg),i=Math.floor(u);return cr(P[Math.max(0,i-1)],P[i],P[i+1],P[Math.min(P.length-1,i+2)],u-i)};
   return{f,W:Wd,H:Hd}}
-function gTrace(rd=0){const base=S.traceLevel||0,lv=base+rd;GM={done:false};const big=lv>=TRACE_SHAPES.length;const G=big?traceGen(lv-TRACE_SHAPES.length):{f:TRACE_SHAPES[lv],W:400,H:300};const f=G.f,WW=G.W,HH=G.H;
-  const N=big?Math.min(420,Math.round(140+WW*.35)):Math.min(160,60+lv*8),tol=big?28:Math.max(24,32-Math.max(0,lv-TRACE_SHAPES.length)*2);
+/* later trace levels: a parade of pretty one-line designs that fit on the screen */
+const TRACE_DESIGNS=[
+  t=>{const a=t*Math.PI*2;return[16*Math.sin(a)**3,-(13*Math.cos(a)-5*Math.cos(2*a)-2*Math.cos(3*a)-Math.cos(4*a))]},             /* heart */
+  t=>{const a=t*Math.PI,r=Math.cos(3*a);return[r*Math.cos(a),r*Math.sin(a)]},                                                        /* 3-petal flower */
+  t=>{const k=Math.min(9,Math.floor(t*10)),u=t*10-k,P=i=>{const a=-Math.PI/2+i*Math.PI/5,r=i%2?.42:1;return[r*Math.cos(a),r*Math.sin(a)]},p=P(k),q=P(k+1);return[p[0]+(q[0]-p[0])*u,p[1]+(q[1]-p[1])*u]}, /* star */
+  t=>{const f=t*Math.PI*10;return[t*30-Math.sin(f)*2.6,-Math.cos(f)*2.6]},                                                            /* loop-de-loops */
+  t=>{const a=t*Math.PI*2,r=1+.22*Math.cos(6*a);return[r*Math.cos(a),r*Math.sin(a)]},                                                /* daisy cloud */
+  t=>{const a=t*Math.PI*2;return[Math.sin(a)+2*Math.sin(2*a),Math.cos(a)-2*Math.cos(2*a)]},                                           /* trefoil knot */
+  t=>{const a=t*Math.PI*2,r=1+.38*Math.cos(5*a);return[r*Math.sin(a),-r*Math.cos(a)]},                                               /* puffy star */
+  t=>{const a=t*Math.PI*2,r=1-Math.cos(a);return[r*Math.sin(a),-r*Math.cos(a)]},                                                      /* cardioid */
+  t=>{const a=t*Math.PI*2;return[Math.sin(a)*(Math.exp(Math.cos(a))-2*Math.cos(4*a)),-Math.cos(a)*(Math.exp(Math.cos(a))-2*Math.cos(4*a))]}, /* butterfly */
+  t=>{const a=t*Math.PI*2,r=Math.cos(2*a);return[r*Math.cos(a),r*Math.sin(a)]},                                                      /* 4-leaf clover */
+  t=>{const a=t*Math.PI*2;return[Math.cos(a)+.45*Math.cos(6*a),Math.sin(a)-.45*Math.sin(6*a)]}, /* swirly wheel */
+  t=>{const f=t*Math.PI*7;return[t*26,Math.sin(f)*3]},                                                           /* ocean waves */
+  t=>{const a=t*Math.PI*4,r=1+.5*Math.cos(2.5*a);return[r*Math.cos(a),r*Math.sin(a)]}];                                              /* 5-petal ribbon */
+/* fit any design neatly inside the 400 x 300 board */
+function traceDesign(i){const f=TRACE_DESIGNS[i%TRACE_DESIGNS.length],flip=Math.floor(i/TRACE_DESIGNS.length)%2?-1:1;const S2=Array.from({length:400},(_,k)=>f(k/399));let a=1e9,b=-1e9,c=1e9,d=-1e9;S2.forEach(([x,y])=>{a=Math.min(a,x);b=Math.max(b,x);c=Math.min(c,y);d=Math.max(d,y)});
+  const sc=Math.min(320/((b-a)||1),220/((d-c)||1)),cx=(a+b)/2,cy=(c+d)/2;return t=>{const [x,y]=f(t);return[200+flip*(x-cx)*sc,150+(y-cy)*sc]}}
+
+function gTrace(rd=0){const base=S.traceLevel||0,lv=base+rd;GM={done:false};const big=false;const G=lv>=TRACE_SHAPES.length?{f:traceDesign(lv-TRACE_SHAPES.length),W:400,H:300}:{f:TRACE_SHAPES[lv],W:400,H:300};const f=G.f,WW=G.W,HH=G.H;
+  const N=lv>=TRACE_SHAPES.length?260:Math.min(160,60+lv*8),tol=lv>=TRACE_SHAPES.length?Math.max(24,30-Math.floor((lv-TRACE_SHAPES.length)/TRACE_DESIGNS.length)*2):Math.max(24,32-Math.max(0,lv-TRACE_SHAPES.length)*2);
   let pts=Array.from({length:N+1},(_,i)=>f(i/N));GM.k=0;const closed=Math.hypot(pts[0][0]-pts[N][0],pts[0][1]-pts[N][1])<6;let dirSet=!closed;
   const d='M'+pts.map(p=>p[0].toFixed(1)+' '+p[1].toFixed(1)).join(' L');
   gameShell(`Trace the line! <small class="rnd">${rd+1} of 3</small>`,`<div class="trace"><svg viewBox="0 0 400 300" id="trSvg"><rect width="${WW}" height="${HH}" rx="18" fill="#FFF4D6"/>${big?`<g opacity=".35">${Array.from({length:Math.round(WW*HH/9000)},()=>`<circle cx="${(Math.random()*WW).toFixed(0)}" cy="${(Math.random()*HH).toFixed(0)}" r="${(2+Math.random()*4).toFixed(1)}" fill="#E8C98E"/>`).join('')}</g>`:''}<path d="${d}" stroke="#D9C59A" stroke-width="${tol}" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="${d}" stroke="#8C5A30" stroke-width="4" stroke-dasharray="2 12" stroke-linecap="round" fill="none"/><path id="trDone" d="" stroke="#2FA64A" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="${pts[0][0]}" cy="${pts[0][1]}" r="16" fill="#2FA64A"/><polygon points="${starPts(pts[N][0],pts[N][1],20,9)}" fill="#FFC21A" stroke="#C79000" stroke-width="3"/><circle id="trDot" cx="${pts[0][0]}" cy="${pts[0][1]}" r="12" fill="#fff" stroke="#2FA64A" stroke-width="5"/></svg></div>`);
