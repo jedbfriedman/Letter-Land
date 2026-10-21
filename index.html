@@ -641,6 +641,34 @@ label.btn{display:block;text-align:center}
   .maze-arrows svg,.maze-code svg{max-height:50vh}
   .arrows{grid-template-columns:repeat(3,88px)!important;grid-template-rows:repeat(2,88px)!important;gap:12px!important}.abtn{font-size:44px!important}
 }
+
+/* ---- math ---- */
+.m-mad{background:#E5533D;--sh:#A8321F}.m-def{background:#1D2B53;--sh:#0E1730}
+#who{position:relative}#who .ring{position:absolute;inset:-4px;border-radius:50%;background:conic-gradient(var(--hazard) calc(var(--p,0)*1turn),transparent 0);mask:radial-gradient(circle,transparent 62%,#000 64%);-webkit-mask:radial-gradient(circle,transparent 62%,#000 64%);pointer-events:none}
+.mad-screen{gap:14px}.mm-top{display:flex;align-items:center;justify-content:space-between}
+.mclock{width:clamp(80px,14vw,120px);aspect-ratio:1;border-radius:50%;background:conic-gradient(#EE4B33 var(--f,0deg),#fff 0);border:6px solid #1B2838;box-shadow:0 4px 0 rgba(0,0,0,.15)}
+.mm-sc{font:700 clamp(32px,6vw,48px) var(--display);color:var(--ink)}
+.mprob{display:flex;justify-content:center;align-items:center;gap:.3em;font:700 clamp(54px,11vw,110px)/1 var(--letter);background:#fff;border-radius:26px;padding:16px;box-shadow:0 6px 0 #C5D0D8}
+.mprob .op{color:#EE4B33}.mprob .q{color:#2C67E0;min-width:1.3em;text-align:center}.mprob.pop{animation:pop .3s}.mprob.shake{animation:shake .4s}.mprob.show .q{color:#2FA64A}
+.padhost{display:flex;flex-direction:column}.mpad{display:flex;gap:16px;align-items:stretch;flex:1}
+.mdraw-wrap{position:relative;flex:1 1 60%;min-height:min(40vh,420px);background:#fff;border:5px dashed #2C67E0;border-radius:24px;overflow:hidden;box-sizing:border-box}
+.mdraw{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none}
+.mhint{position:absolute;inset:0;display:grid;place-items:center;color:#AAB8C2;font-size:22px;pointer-events:none;transition:opacity .2s}
+.mseen{position:absolute;left:14px;bottom:8px;font-size:14px;color:#8A97A6;pointer-events:none}
+.mclear{position:absolute;top:8px;right:8px;width:54px;height:54px;border-radius:50%;border:0;background:#F1F4F6;font-size:22px;color:#56657A}
+.mdraw-wrap.ok{border-color:#2FA64A;border-style:solid}.mdraw-wrap.no{animation:shake .4s;border-color:#EE4B33}
+.mkeys{flex:0 0 min(36%,300px);display:grid;grid-template-columns:repeat(3,1fr);gap:10px;align-content:center}
+.m-keys .mkeys{flex:1 1 100%;max-width:420px;margin:0 auto}
+.mtyped{grid-column:1/-1;height:64px;background:#fff;border-radius:16px;font:700 44px/64px var(--letter);text-align:center;box-shadow:inset 0 0 0 3px #CBD5DD}
+.mtyped.ok{box-shadow:inset 0 0 0 4px #2FA64A}.mtyped.no{animation:shake .4s}
+.mk{border:0;border-radius:16px;background:#fff;box-shadow:0 5px 0 #C5D0D8;font:700 34px var(--letter);aspect-ratio:1.3;touch-action:manipulation;color:var(--ink)}
+.mk:active{transform:translateY(3px);box-shadow:0 2px 0 #C5D0D8}.mk-go{background:#2FA64A;color:#fff;box-shadow:0 5px 0 #1E7A34}.mk-del{background:#F1F4F6}
+.def-screen{max-width:900px;gap:12px}#defCv{width:100%;height:50vh;border-radius:20px;display:block;touch-action:none}
+#defPad .mdraw-wrap{min-height:min(30vh,300px)}
+.mm-score{font-size:24px}.mm-score b{font-size:48px;color:#2C67E0}
+.mtab{width:100%;border-collapse:collapse;font-size:15px}.mtab td,.mtab th{padding:4px 6px;border-bottom:1px solid #E1E7EC;text-align:center}
+#s-mad .mkeys{flex:0 0 min(34%,280px)}
+@media (min-width:700px){#s-mad,#s-def{justify-content:flex-start!important}#s-mad .mdraw-wrap{min-height:46vh}.mk{font-size:42px}}
 </style>
 
 <div id="app">
@@ -670,6 +698,8 @@ label.btn{display:block;text-align:center}
         <button class="mode m-find" data-go="pick"><span class="art" id="art-find"></span><span class="txt"><b>Find It</b><small>Tap every matching letter</small></span></button>
         <button class="mode m-say" data-go="say"><span class="art" id="art-say"></span><span class="txt"><b>Say It</b><small>Say the letter on the screen</small></span></button>
         <button class="mode m-sound" id="soundBtn" data-go="sound"><span class="art" id="art-sound"></span><span class="txt"><b>Sound It Out</b><small id="soundSub">Find the picture for the letter</small></span></button>
+        <button class="mode m-mad" data-go="mad"><span class="art" id="art-mad"></span><span class="txt"><b>Mad Minute</b><small>Add fast before time runs out</small></span></button>
+        <button class="mode m-def" data-go="def"><span class="art" id="art-def"></span><span class="txt"><b>Number Defender</b><small>Save the city with math</small></span></button>
         <button class="mode m-room" data-go="room"><span class="art" id="art-room"></span><span class="txt"><b>Treasure Room</b><small id="homeCount">0 collected</small></span></button>
       </div>
       <div class="mini-shelf"><h3>Newest treasures</h3><div class="mini-row" id="miniRow"></div></div>
@@ -746,6 +776,12 @@ label.btn{display:block;text-align:center}
       <div class="letter-card so-card"><div class="bigletter" id="soLetter">A</div></div>
       <div class="so-pics" id="soPics"></div>
     </section>
+    <section id="s-mad" class="screen mad-screen" hidden>
+      <div class="mm-top"><div class="mclock" id="madClock" aria-label="Timer"></div><div class="mm-sc">⭐ <b id="madScore">0</b></div></div>
+      <div class="mprob" id="madProb"></div>
+      <div id="madPad" class="padhost"></div>
+    </section>
+    <section id="s-def" class="screen def-screen" hidden><canvas id="defCv"></canvas><div id="defPad" class="padhost"></div></section>
     <section id="s-game" class="screen" hidden><div id="gameBox" class="game-box"></div></section>
 
     <section id="s-studio" class="screen studio" hidden>
@@ -771,7 +807,7 @@ label.btn{display:block;text-align:center}
 <div id="ov" hidden><div class="ov-card" id="ovCard"></div></div>
 <div class="toast" id="toast" hidden></div>
 <canvas id="confetti"></canvas>
-<script>const VOICE_VER=22;document.write('<script src="voice.js?v='+VOICE_VER+'"><\/script>')</script>
+<script>const VOICE_VER=23;document.write('<script src="voice.js?v='+VOICE_VER+'"><\/script>')</script>
 <script>
 (function(){
 const $=s=>document.querySelector(s);
@@ -805,7 +841,7 @@ const VL={
     oops:'Oops, let\'s try that again.',batt:'Time\'s up! Let\'s try again.',nohear:'I didn\'t hear you. Let\'s try again!',
     pick:'Pick your prize!',bonus:'A bonus box! Pick your prize!',newprize:'Yay! A new prize!',newsticker:'A new sticker!',
     place:'Where should it go? Tap a spot in your room!',decorate:'Pick a sticker, then tap your prize to stick it on!',nostickers:'You can win stickers in the prize shop.',
-    surprise:'You earned a bonus game!',g_find:'Find it!',ll:'Letter Land!',letsplay:"Let's play!",speed:'Super speed!',g_say:'Say it!',g_sound:'Sound it out!',g_room:'Treasure room!',trk3:'Three train tracks!',unlock2:'You unlocked a new game! You can find it on the main menu!',ms_done5:'You finished five more letters! You earned a bonus game!',pet_need:'Your robot needs batteries! Win robot batteries in a treasure chest.',pet_give:'Give your robot some batteries!',pet_on:'Beep boop! Your robot is awake!',pet_low:'Your robot\'s battery is getting low!',pet_empty:'Oh no! Your robot ran out of power. It needs new batteries.',pet_learn:'Your robot learned a new trick!',pzbat:'Robot batteries!',ms_loop1:'You built a whole train loop! You earned a bonus game!',ms_word:'You spelled a word! You earned a bonus game!',micgate:'Tap the microphone so I can hear you!',ms_place5:'You put five toys in your room! You earned a bonus game!',ms_legend1:'You put a legendary prize in your room! You earned a bonus game!',ms_combo1:'You made your first pair! You earned a bonus game!',ms_master1:'Great saying! You earned a bonus game!',ms_p25:'You won twenty-five prizes! You earned a bonus game!',ms_p50:'You won fifty prizes! You earned a bonus game!',which:'Which one starts with',soundgo:'Sound it out! Which picture starts with the letter?',unlocked:'Wow! You unlocked a new game!',gotall:'Good job! You got them all!',band:'Let\'s make some music!',memory:'Find the matching pairs!',maze:'Help the truck get to the treasure chest!',tryagain:'Let\'s try again!',bonuswin:'You did it! You win a bonus prize!'}
+    surprise:'You earned a bonus game!',g_find:'Find it!',ll:'Letter Land!',letsplay:"Let's play!",speed:'Super speed!',g_say:'Say it!',g_sound:'Sound it out!',g_room:'Treasure room!',trk3:'Three train tracks!',unlock2:'You unlocked a new game! You can find it on the main menu!',ms_done5:'You finished five more letters! You earned a bonus game!',g_mad:'Mad Minute!',g_def:'Number Defender!',m_go:'Ready, set, go!',m_time:"Time's up!",m_inmin:'right in one minute!',m_defover:'Great defending! You stopped',m_problems:'problems!',m_ok0:'Correct!',m_ok1:'Nice!',m_ok2:'Great!',m_ok3:'Right!',m_ok4:'Yes!',m_ok5:'Super!',num_0:'Zero!',num_1:'One!',num_2:'Two!',num_3:'Three!',num_4:'Four!',num_5:'Five!',num_6:'Six!',num_7:'Seven!',num_8:'Eight!',num_9:'Nine!',num_10:'Ten!',num_11:'Eleven!',num_12:'Twelve!',num_13:'Thirteen!',num_14:'Fourteen!',num_15:'Fifteen!',num_16:'Sixteen!',num_17:'Seventeen!',num_18:'Eighteen!',num_19:'Nineteen!',num_20:'Twenty!',num_21:'Twenty-one!',num_22:'Twenty-two!',num_23:'Twenty-three!',num_24:'Twenty-four!',num_25:'Twenty-five!',num_26:'Twenty-six!',num_27:'Twenty-seven!',num_28:'Twenty-eight!',num_29:'Twenty-nine!',num_30:'Thirty!',num_31:'Thirty-one!',num_32:'Thirty-two!',num_33:'Thirty-three!',num_34:'Thirty-four!',num_35:'Thirty-five!',num_36:'Thirty-six!',num_37:'Thirty-seven!',num_38:'Thirty-eight!',num_39:'Thirty-nine!',num_40:'Forty!',pet_need:'Your robot needs batteries! Win robot batteries in a treasure chest.',pet_give:'Give your robot some batteries!',pet_on:'Beep boop! Your robot is awake!',pet_low:'Your robot\'s battery is getting low!',pet_empty:'Oh no! Your robot ran out of power. It needs new batteries.',pet_learn:'Your robot learned a new trick!',pzbat:'Robot batteries!',ms_loop1:'You built a whole train loop! You earned a bonus game!',ms_word:'You spelled a word! You earned a bonus game!',micgate:'Tap the microphone so I can hear you!',ms_place5:'You put five toys in your room! You earned a bonus game!',ms_legend1:'You put a legendary prize in your room! You earned a bonus game!',ms_combo1:'You made your first pair! You earned a bonus game!',ms_master1:'Great saying! You earned a bonus game!',ms_p25:'You won twenty-five prizes! You earned a bonus game!',ms_p50:'You won fifty prizes! You earned a bonus game!',which:'Which one starts with',soundgo:'Sound it out! Which picture starts with the letter?',unlocked:'Wow! You unlocked a new game!',gotall:'Good job! You got them all!',band:'Let\'s make some music!',memory:'Find the matching pairs!',maze:'Help the truck get to the treasure chest!',tryagain:'Let\'s try again!',bonuswin:'You did it! You win a bonus prize!'}
 };
 const PRIZE_WORDS={b_car:'Car',b_pickup:'Pickup Truck',b_dump:'Dump Truck',b_bus:'Bus',b_race:'Race Car',b_van:'Van',b_bot:'Little Robot',b_ball:'Bouncy Ball',b_balloon:'Balloon',b_star:'Happy Star',b_plant:'Plant',b_block:'Letter Block',b_teddy:'Teddy Bear',b_bunny:'Bunny',b_candyjar:'Candy Jar',
   b_fire:'Fire Truck',b_tractor:'Tractor',b_digger:'Digger',b_mixer:'Cement Mixer',b_antbot:'Beep Robot',b_rocket:'Rocket',b_lamp:'Lamp',b_flag:'Flag',b_drum:'Drum',b_plushpup:'Puppy Plush',
@@ -844,8 +880,8 @@ const HEAR={A:['a','ay','eh','hey','hay','aye'],B:['b','be','bee','bea'],C:['c',
 
 /* ---------- state ---------- */
 const KEY='letter-garage-v2',OLD_KEY='letter-garage-v1';
-const DEF={case:'upper',myVoice:true,timer:20,tiles:'auto',rounds:3,lookalikes:false,sayGoal:5,listen:'auto',voice:true,letters:LETTERS.join('')};
-function fixData(d){d=d||{};if(d.settings&&!d._v){d.settings.timer=15;d.settings.tiles='auto'}if(d.settings&&!d.t5&&d.settings.timer){d.settings.timer=d.settings.timer+5;d.t5=1}return{settings:{...DEF,...(d.settings||{})},owned:d.owned||[],pending:d.pending||0,prizeNo:d.prizeNo||0,stats:d.stats||{},pool:d.pool||null,placed:d.placed||{},decor:d.decor||{},stickers:d.stickers||{},flevel:d._v>=9?(d.flevel||{}):{},fstars:d.fstars||{},fstat:d.fstat||{},micGranted:d.micGranted||0,seals:d.seals||{},ostat:d.ostat||{},sstat:d.sstat||{},sayPool:d.sayPool||null,sayNewest:d.sayNewest||null,pairs:d.pairs||{},speedT:d.speedT||3000,speedRun:d.speedRun||0,slowPerfect:d.slowPerfect||0,sayRun:d.sayRun||null,bonus:d._v>=9?(d.bonus||0):Math.min(1,d.bonus||0),ms:d.ms||{},memLevel:d.memLevel||0,traceMode:d.traceMode||0,traceLevel:d.traceLevel||0,fround:d.fround||{},soundOn:d.soundOn||0,istate:d.istate||{},soundRun:d.soundRun||null,memWins:d.memWins!=null?d.memWins:(d.memLevel||0)*2,mazeLevel:d.mazeLevel||0,specialBox:d.specialBox||0,poolSpecial:d.poolSpecial||0,unlockPending:d.unlockPending||0,poolOpen:!!(d.pool&&d.poolOpen),pet:d.pet||null,batteries:d.batteries||0,tbundle:d.tbundle||{},tgrp:d.tgrp||{},tlead:d.tlead||{},bonusKind:d.bonusKind||null,doneOrder:d.doneOrder||null,soPool:d.soPool||null,soHist:d.soHist||[],soSince:d.soSince||0,owstat:d.owstat||{},everPlaced:d.everPlaced||Object.fromEntries(Object.keys(d.placed||{}).map(k=>[k,1])),t5:1,_v:10}}
+const DEF={focus:'reading',mathInput:'both',case:'upper',myVoice:true,timer:20,tiles:'auto',rounds:3,lookalikes:false,sayGoal:5,listen:'auto',voice:true,letters:LETTERS.join('')};
+function fixData(d){d=d||{};if(d.settings&&!d._v){d.settings.timer=15;d.settings.tiles='auto'}if(d.settings&&!d.t5&&d.settings.timer){d.settings.timer=d.settings.timer+5;d.t5=1}return{settings:{...DEF,...(d.settings||{})},owned:d.owned||[],pending:d.pending||0,prizeNo:d.prizeNo||0,stats:d.stats||{},pool:d.pool||null,placed:d.placed||{},decor:d.decor||{},stickers:d.stickers||{},flevel:d._v>=9?(d.flevel||{}):{},fstars:d.fstars||{},fstat:d.fstat||{},micGranted:d.micGranted||0,seals:d.seals||{},ostat:d.ostat||{},sstat:d.sstat||{},sayPool:d.sayPool||null,sayNewest:d.sayNewest||null,pairs:d.pairs||{},speedT:d.speedT||3000,speedRun:d.speedRun||0,slowPerfect:d.slowPerfect||0,sayRun:d.sayRun||null,bonus:d._v>=9?(d.bonus||0):Math.min(1,d.bonus||0),ms:d.ms||{},memLevel:d.memLevel||0,traceMode:d.traceMode||0,traceLevel:d.traceLevel||0,fround:d.fround||{},soundOn:d.soundOn||0,istate:d.istate||{},soundRun:d.soundRun||null,memWins:d.memWins!=null?d.memWins:(d.memLevel||0)*2,mazeLevel:d.mazeLevel||0,specialBox:d.specialBox||0,poolSpecial:d.poolSpecial||0,unlockPending:d.unlockPending||0,poolOpen:!!(d.pool&&d.poolOpen),math:d.math||null,hw:d.hw||null,pet:d.pet||null,batteries:d.batteries||0,tbundle:d.tbundle||{},tgrp:d.tgrp||{},tlead:d.tlead||{},bonusKind:d.bonusKind||null,doneOrder:d.doneOrder||null,soPool:d.soPool||null,soHist:d.soHist||[],soSince:d.soSince||0,owstat:d.owstat||{},everPlaced:d.everPlaced||Object.fromEntries(Object.keys(d.placed||{}).map(k=>[k,1])),t5:1,_v:10}}
 function loadRoot(){
   try{const r=JSON.parse(localStorage.getItem(KEY)||'null');if(r&&r.profiles&&r.profiles.length){r.profiles.forEach(p=>p.data=fixData(p.data));if(!r.profiles.some(p=>p.id===r.current))r.current=r.profiles[0].id;return r}}catch(e){}
   let old=null;try{old=JSON.parse(localStorage.getItem(OLD_KEY)||'null')}catch(e){}
@@ -1334,22 +1370,26 @@ function prizeSVG(pr,dec){
 }
 
 /* ---------- navigation ---------- */
-const TITLES={splash:'Letter Land',home:'Letter Land',game:'Bonus Game',sound:'Sound It Out',studio:'Voice Studio',who:'Players',newp:'New Player',pick:'Find It',find:'Find It',say:'Say It',shop:'Prize Shop',room:'Treasure Room',settings:'Grown-up Settings'};
+const TITLES={mad:'Mad Minute',def:'Number Defender',splash:'Letter Land',home:'Letter Land',game:'Bonus Game',sound:'Sound It Out',studio:'Voice Studio',who:'Players',newp:'New Player',pick:'Find It',find:'Find It',say:'Say It',shop:'Prize Shop',room:'Treasure Room',settings:'Grown-up Settings'};
 let cur='home';
 function show(id){
+  if(id!=='mad'&&typeof MM!=='undefined'&&MM.on){MM.on=false;cancelAnimationFrame(MM.raf)}if(id!=='def'&&typeof DF!=='undefined'&&DF.on){DF.on=false;cancelAnimationFrame(DF.raf)}
   const leftSay=cur==='say'&&id!=='say';if(id!=='room')petOpen=false;stopFind();stopListen();stopVoice();document.body.classList.toggle('lower',S.settings.case==='lower');if(id==='room')rz=0;
   document.querySelectorAll('.screen').forEach(s=>s.hidden=s.id!=='s-'+id);
   cur=id;if(leftSay)restoreSpeaker();$('#title').textContent=TITLES[id];
   $('#back').hidden=id==='home';
-  const p=prof();$('#who').hidden=id==='who'||id==='newp';$('#who').innerHTML=avatarHTML(p);$('#who').setAttribute('aria-label',`Playing as ${p.name}. Switch player`);
+  const p=prof();$('#who').hidden=id==='who'||id==='newp';$('#who').innerHTML=avatarHTML(p)+'<span class="ring"></span>';$('#who').setAttribute('aria-label',`Playing as ${p.name}. Switch player`);
   $('#testTag').hidden=p.kind!=='test';$('#testWin').hidden=p.kind!=='test';
   $('#main').scrollTop=0;
   ({studio:renderStudio,splash:()=>{$('#splashArt').innerHTML=SPLASH_BOT;$('#who').hidden=true;$('#back').hidden=true},home:renderHome,who:renderWho,newp:renderNewp,pick:renderPick,room:renderRoom,settings:renderSettings,shop:renderShop})[id]?.();
 }
 $('#back').onclick=()=>{closeOv();show('home')};
 $('#roomHome').onclick=()=>{ac();closeOv();show('home')};
-$('#who').onclick=()=>{ac();show('who')};
-document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{ac();const g=b.dataset.go;introKey={pick:'g_find',say:'g_say',sound:'g_sound'}[g]||null;if(g==='say'){show('say');startSay()}else if(g==='sound'){if(soundUnlocked())startSound();else toast('Sound It Out unlocks after every letter reaches gold in Find It')}else show(g)});
+(function whoHold(){const w=$('#who');let t0=0,raf=null;const HOLD=1000;const stop=()=>{if(raf)cancelAnimationFrame(raf);raf=null;w.style.setProperty('--p',0)};
+  w.addEventListener('pointerdown',e=>{ac();t0=performance.now();const step=now=>{const p=Math.min(1,(now-t0)/HOLD);w.style.setProperty('--p',p);if(p>=1){stop();closeOv();show('who');return}raf=requestAnimationFrame(step)};raf=requestAnimationFrame(step)});
+  ['pointerup','pointerleave','pointercancel'].forEach(ev=>w.addEventListener(ev,()=>{if(raf&&performance.now()-t0<HOLD-50)toast('Press and hold to switch players');stop()}));
+  w.addEventListener('contextmenu',e=>e.preventDefault());w.addEventListener('keydown',e=>{if(e.key==='Enter')show('who')})})();
+document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{ac();const g=b.dataset.go;introKey={pick:'g_find',say:'g_say',sound:'g_sound'}[g]||null;if(g==='mad')startMad();else if(g==='def')startDef();else if(g==='say'){show('say');startSay()}else if(g==='sound'){if(soundUnlocked())startSound();else toast('Sound It Out unlocks after every letter reaches gold in Find It')}else show(g)});
 
 /* ---------- overlay / toast ---------- */
 function ov(html,btns){const c=$('#ovCard');c.innerHTML=html+'<div class="ov-btns"></div>';const row=c.querySelector('.ov-btns');(btns||[]).forEach(b=>{const e=document.createElement('button');e.className='btn '+(b.cls||'');if(b.brk){const d=document.createElement('div');d.className='brk';row.appendChild(d);return}if(b.html)e.innerHTML=b.html;else e.textContent=b.label;if(b.aria)e.setAttribute('aria-label',b.aria);e.onclick=()=>{closeOv();b.fn&&b.fn()};row.appendChild(e)});$('#ov').hidden=false}
@@ -1389,10 +1429,11 @@ const ART_SAY='<svg viewBox="0 0 100 100"><ellipse cx="44" cy="92" rx="30" ry="4
 const ART_SOUND='<svg viewBox="0 0 100 100"><ellipse cx="44" cy="92" rx="28" ry="4" fill="#000" opacity=".15"/><path d="M24 42 Q24 10 50 10 Q76 10 76 38 Q76 52 64 60 Q56 65 56 75 Q56 88 42 88 Q28 88 28 76 Q28 66 24 58Z" fill="#F4BE96" stroke="#C47F5A" stroke-width="5" stroke-linejoin="round"/><path d="M38 42 Q38 23 51 23 Q64 23 64 38 Q64 47 55 51 Q49 54 48 61" stroke="#C47F5A" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M47 41 Q50 34 56 38" stroke="#C47F5A" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M30 20 Q40 12 50 14" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round" opacity=".6"/><path d="M84 34 q7 12 0 24 M92 26 q11 20 0 40" stroke="#FFC21A" stroke-width="5" fill="none" stroke-linecap="round"/></svg>';
 const ART={find:PRIZE_BY['dump.yellow.plain'],say:PRIZE_BY['antbot.teal.plain'],room:PRIZE_BY['cup.gold.plain']};
 function renderHome(){
-  $('#art-find').innerHTML=ART_FIND;$('#art-say').innerHTML=ART_SAY;$('#art-room').innerHTML=prizeSVG(ART.room);
+  $('#art-find').innerHTML=ART_FIND;$('#art-say').innerHTML=ART_SAY;$('#art-mad').innerHTML=ART_MAD;$('#art-def').innerHTML=ART_DEF;
+  {const fo=S.settings.focus||'reading',rd=fo!=='math',mt=fo!=='reading';$('.m-find').hidden=!rd;$('.m-say').hidden=!rd;$('.m-mad').hidden=!mt;$('.m-def').hidden=!mt}$('#art-room').innerHTML=prizeSVG(ART.room);
   $('#homeCount').textContent=`${S.owned.length} collected`;
   $('#hello').textContent=`Hi, ${prof().name}! Find letters, say letters, and fill your treasure room.`;
-  const sb=$('#soundBtn');sb.hidden=!soundUnlocked();sb.classList.toggle('locked',!soundUnlocked());$('#art-sound').innerHTML=soundUnlocked()?ART_SOUND:'<svg viewBox="0 0 24 24" width="64" height="64" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><rect x="5" y="11" width="14" height="10" rx="2" fill="#fff" stroke="none"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';$('#soundSub').textContent=soundUnlocked()?'Find the picture for the letter':'Unlocks after Find It';checkSoundUnlock();if(S.soundOn&&S.unlockPending)setTimeout(()=>{if(cur==='home'&&S.unlockPending&&$('#ov').hidden)showUnlock()},700);
+  const sb=$('#soundBtn');sb.hidden=!soundUnlocked()||(S.settings.focus||'reading')==='math';sb.classList.toggle('locked',!soundUnlocked());$('#art-sound').innerHTML=soundUnlocked()?ART_SOUND:'<svg viewBox="0 0 24 24" width="64" height="64" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><rect x="5" y="11" width="14" height="10" rx="2" fill="#fff" stroke="none"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';$('#soundSub').textContent=soundUnlocked()?'Find the picture for the letter':'Unlocks after Find It';checkSoundUnlock();if(S.soundOn&&S.unlockPending)setTimeout(()=>{if(cur==='home'&&S.unlockPending&&$('#ov').hidden)showUnlock()},700);
   const bb=$('#bonusBtn');bb.hidden=!(S.bonus>0);bb.querySelector('.gift').innerHTML=GIFT_SVG;
   const pb=$('#pendingBtn');pb.hidden=S.pending<=0;pb.textContent=S.pending>1?`🎁 Pick your prizes! (${S.pending})`:'🎁 Pick your prize!';
   const row=$('#miniRow');const recent=S.owned.filter(id=>!(S.tgrp||{})[id]).slice(0,8).map(id=>PRIZE_BY[id]).filter(Boolean);
@@ -1677,7 +1718,7 @@ function renderShop(){
 }
 $('#keepBtn').onclick=()=>{if(!sel)return;const id=sel;S.pending=Math.max(0,S.pending-1);if(!S.poolSpecial)S.prizeNo++;S.pool=null;S.poolOpen=false;S.poolSpecial=0;sFan();confetti();
   if(S.prizeNo>=25)milestone('p25');if(S.prizeNo>=50)milestone('p50');
-  const again=lastGame==='sound'?{label:'Play Sound It Out again',cls:'green big',fn:()=>{show('sound');startSound()}}:lastGame==='say'?{label:'Play Say It again',cls:'green big',fn:()=>{show('say');startSay()}}:lastGame==='find'?{label:'Find a new letter',cls:'green big',fn:()=>show('pick')}:null;const tail=again?[{brk:1},again,{brk:1},homeBtn]:[{brk:1},homeBtn];
+  const again=lastGame==='mad'?{label:'Play Mad Minute again',cls:'green big',fn:startMad}:lastGame==='def'?{label:'Play Number Defender again',cls:'green big',fn:startDef}:lastGame==='sound'?{label:'Play Sound It Out again',cls:'green big',fn:()=>{show('sound');startSound()}}:lastGame==='say'?{label:'Play Say It again',cls:'green big',fn:()=>{show('say');startSay()}}:lastGame==='find'?{label:'Find a new letter',cls:'green big',fn:()=>show('pick')}:null;const tail=again?[{brk:1},again,{brk:1},homeBtn]:[{brk:1},homeBtn];
   const more={label:'Pick another prize',cls:'yellow big',fn:()=>show('shop')};
   if(id==='bat'){S.batteries=(S.batteries||0)+1;save();say(['newprize','pzbat']);robotBeep('hi');ov(`<div class="big-prize t1">${BAT_SVG}</div><h2>Robot Batteries</h2><p>Give them to your robot in the treasure room!</p>`,S.pending>0?[more]:[{label:'Go to my robot',cls:'yellow big',fn:()=>{show('room');setTimeout(openPet,350)}},...tail]);return}
   if(id.startsWith('st:')){const st=STK_BY[id.slice(3)],n=STK_AMT[st.tier];S.stickers[st.id]=(S.stickers[st.id]||0)+n;save();say(['newsticker','s_'+st.id]);
@@ -2206,6 +2247,173 @@ function milestone(k){S.ms=S.ms||{};if(S.ms[k])return;S.ms[k]=Date.now();S.bonus
 function letterDone(L){S.doneOrder=S.doneOrder||LETTERS.filter(x=>x!==L&&doneL(x));if(S.doneOrder.includes(L))return;S.doneOrder.push(L);
   if(S.doneOrder.length%5===0){S.bonus=(S.bonus||0)+1;save();setTimeout(()=>{toast('You finished five more letters! You earned a bonus game!',6000);say('ms_done5')},2600)}}
 function checkMaster(){if(LETTERS.some(L=>tierOf(L)>=1&&((S.stats[L]||{}).s||0)>=3))milestone('master1')}
+/* ===== MATH ===== */
+/* ---------- HANDWRITTEN NUMBERS: a point-cloud matcher ($P) that also learns each child's own way of writing ---------- */
+const HWN=32;
+function hwBez(pts){const steps=14;/* pts: list of segments: ['M',x,y] ['L',x,y] ['C',x1,y1,x2,y2,x,y] ['E',cx,cy,rx,ry] */const out=[];let cx=0,cy=0;
+  for(const s of pts){if(s[0]==='M'){cx=s[1];cy=s[2];out.push([cx,cy])}else if(s[0]==='L'){for(let i=1;i<=6;i++)out.push([cx+(s[1]-cx)*i/6,cy+(s[2]-cy)*i/6]);cx=s[1];cy=s[2]}
+    else if(s[0]==='C'){const [,x1,y1,x2,y2,x,y]=s;for(let i=1;i<=steps;i++){const t=i/steps,u=1-t;out.push([u*u*u*cx+3*u*u*t*x1+3*u*t*t*x2+t*t*t*x,u*u*u*cy+3*u*u*t*y1+3*u*t*t*y2+t*t*t*y])}cx=s[5];cy=s[6]}
+    else if(s[0]==='E'){const [,ex,ey,rx,ry]=s;for(let i=0;i<=28;i++){const a=-Math.PI/2-i/28*Math.PI*2;out.push([ex+rx*Math.cos(a),ey+ry*Math.sin(a)])}}}return out}
+/* built-in shapes for each digit (several ways kids write them) */
+const HW_BASE={
+ '0':[[[['E',50,50,28,44]]],[[['E',50,50,20,44]]],[[['E',50,50,34,40]]]],
+ '1':[[[['M',50,5],['L',50,95]]],[[['M',32,24],['L',52,5],['L',52,95]]],[[['M',34,22],['L',52,5],['L',52,95]],[['M',32,95],['L',72,95]]],[[['M',55,5],['L',45,95]]]],
+ '2':[[[['M',20,28],['C',22,0,80,0,78,30],['C',76,52,40,70,18,94],['L',84,94]]],[[['M',22,22],['C',40,0,82,10,72,40],['L',20,92],['L',82,92]]],[[['M',18,30],['C',25,2,85,5,75,38],['C',65,62,20,80,22,92],['C',30,80,60,85,85,92]]]],
+ '3':[[[['M',20,16],['C',45,-4,85,10,72,32],['C',66,44,52,48,42,48],['C',70,48,90,62,80,82],['C',70,100,32,100,18,84]]],[[['M',18,10],['L',80,10],['L',46,44],['C',92,46,84,100,46,96],['C',30,95,22,90,18,84]]],[[['M',22,20],['C',42,2,80,6,74,28],['C',70,42,55,46,45,47],['M',45,47],['C',72,50,88,62,78,82],['C',68,100,30,98,20,86]]]],
+ '4':[[[['M',48,5],['L',14,62],['L',86,62]],[['M',66,28],['L',66,96]]],[[['M',66,96],['L',66,5],['L',14,64],['L',86,64]]],[[['M',20,5],['L',18,58],['L',84,58]],[['M',68,8],['L',68,96]]]],
+ '5':[[[['M',76,8],['L',30,8],['L',26,46],['C',56,32,92,50,80,78],['C',70,100,34,98,20,86]]],[[['M',30,8],['L',26,46],['C',56,32,92,50,80,78],['C',70,100,34,98,20,86]],[['M',30,8],['L',78,8]]],[[['M',28,6],['L',24,44],['C',60,34,88,54,78,80],['C',66,100,30,96,20,84]],[['M',24,8],['L',80,4]]]],
+ '6':[[[['M',70,8],['C',40,16,20,48,24,74],['C',28,100,76,100,76,72],['C',76,48,40,46,26,66]]],[[['M',66,6],['C',30,30,18,60,30,84],['C',44,102,82,90,74,66],['C',64,46,34,56,28,72]]]],
+ '7':[[[['M',14,10],['L',86,10],['L',40,96]]],[[['M',14,10],['L',86,10],['L',40,96]],[['M',34,54],['L',72,54]]],[[['M',16,18],['L',16,8],['L',84,8],['C',62,40,52,66,46,96]]]],
+ '8':[[[['M',50,48],['C',10,40,16,4,50,5],['C',84,4,90,40,50,48],['C',6,58,10,96,50,96],['C',90,96,94,58,50,48]]],[[['E',50,27,22,22]],[['E',50,72,27,24]]],[[['M',66,14],['C',50,0,20,8,28,28],['C',36,46,78,52,76,76],['C',74,100,24,100,24,76],['C',24,56,62,44,70,26],['C',74,14,70,10,66,14]]]],
+ '9':[[[['M',74,30],['C',74,4,24,4,24,30],['C',24,54,70,54,74,30],['L',72,96]]],[[['M',74,30],['C',74,4,24,4,24,30],['C',24,54,70,54,74,30],['C',76,70,62,96,32,92]]],[[['E',48,28,24,22]],[['M',72,24],['L',70,96]]]]};
+function hwPts(strokes){const P=[];strokes.forEach((s,i)=>s.forEach(p=>P.push([p[0],p[1],i])));return P}
+function hwNormalize(P){P=hwResample(P,HWN);let minX=1e9,minY=1e9,maxX=-1e9,maxY=-1e9;P.forEach(p=>{minX=Math.min(minX,p[0]);maxX=Math.max(maxX,p[0]);minY=Math.min(minY,p[1]);maxY=Math.max(maxY,p[1])});
+  const sc=Math.max(maxX-minX,maxY-minY)||1;let cx=0,cy=0;P=P.map(p=>[(p[0]-minX)/sc,(p[1]-minY)/sc,p[2]]);P.forEach(p=>{cx+=p[0];cy+=p[1]});cx/=P.length;cy/=P.length;return P.map(p=>[+(p[0]-cx).toFixed(3),+(p[1]-cy).toFixed(3)])}
+function hwResample(P,n){const L=(()=>{let d=0;for(let i=1;i<P.length;i++)if(P[i][2]===P[i-1][2])d+=Math.hypot(P[i][0]-P[i-1][0],P[i][1]-P[i-1][1]);return d})();const I=L/(n-1);let D=0;const pts=P.map(p=>p.slice()),out=[pts[0].slice()];
+  for(let i=1;i<pts.length;i++){if(pts[i][2]!==pts[i-1][2])continue;const d=Math.hypot(pts[i][0]-pts[i-1][0],pts[i][1]-pts[i-1][1]);if(D+d>=I&&d>0){const t=(I-D)/d,q=[pts[i-1][0]+t*(pts[i][0]-pts[i-1][0]),pts[i-1][1]+t*(pts[i][1]-pts[i-1][1]),pts[i][2]];out.push(q);pts.splice(i,0,q);D=0}else D+=d}
+  while(out.length<n)out.push(pts[pts.length-1].slice());return out.slice(0,n)}
+function hwCloud(a,b,start){const n=a.length,used=new Uint8Array(n);let sum=0,i=start;do{let min=1e9,idx=0;for(let j=0;j<n;j++)if(!used[j]){const d=(a[i][0]-b[j][0])**2+(a[i][1]-b[j][1])**2;if(d<min){min=d;idx=j}}used[idx]=1;sum+=(1-((i-start+n)%n)/n)*Math.sqrt(min);i=(i+1)%n}while(i!==start);return sum}
+function hwDist(a,b){const n=a.length,step=Math.floor(Math.sqrt(n));let m=1e9;for(let i=0;i<n;i+=step)m=Math.min(m,hwCloud(a,b,i),hwCloud(b,a,i));return m}
+let HW_T=null;
+function hwTemplates(){if(!HW_T){HW_T=[];for(const [d,vs] of Object.entries(HW_BASE))vs.forEach(v=>HW_T.push({d,c:hwNormalize(hwPts(v.map(hwBez))),base:1}))}
+  const mine=((S.hw||{}).t||[]);return HW_T.concat(mine.map(m=>({d:m.d,c:m.c})))}
+/* score one written digit against every shape: best distance per digit */
+function hwScore(strokes){const c=hwNormalize(hwPts(strokes));const best={};for(const t of hwTemplates()){const d=hwDist(c,t.c);if(best[t.d]==null||d<best[t.d])best[t.d]=d}
+  const ranked=Object.entries(best).sort((a,b)=>a[1]-b[1]);return{cloud:c,ranked,best}}
+/* split the strokes into digits (left to right) by how much they overlap side to side */
+function hwGroups(strokes,H){const ss=strokes.filter(s=>s.length>1).map(s=>{let a=1e9,b=-1e9,t=1e9,u=-1e9;s.forEach(p=>{a=Math.min(a,p[0]);b=Math.max(b,p[0]);t=Math.min(t,p[1]);u=Math.max(u,p[1])});return{s,a,b,t,u,len:Math.max(b-a,u-t)}}).filter(o=>o.len>H*.04).sort((x,y)=>(x.a+x.b)-(y.a+y.b));
+  const gs=[];for(const o of ss){const g=gs.find(g=>{const ov=Math.min(g.b,o.b)-Math.max(g.a,o.a),nw=Math.min(g.b-g.a,o.b-o.a),oc=(o.a+o.b)/2,gc=(g.a+g.b)/2;return (oc>=g.a-H*.02&&oc<=g.b+H*.02&&nw<(g.b-g.a)*1.01)||(gc>=o.a&&gc<=o.b)||ov>Math.max(H*.06,nw*.35)});if(g){g.ss.push(o.s);g.a=Math.min(g.a,o.a);g.b=Math.max(g.b,o.b)}else gs.push({ss:[o.s],a:o.a,b:o.b})}
+  return gs.sort((x,y)=>x.a-y.a).map(g=>g.ss)}
+/* read the box: per digit scores, the best reading, and whether a wanted answer fits well enough */
+function hwRead(strokes,H){const gs=hwGroups(strokes,H);const per=gs.map(hwScore);return{per,best:per.map(p=>p.ranked[0][0]).join('')}}
+const HW_RATIO=1.15,HW_MAX=3.4;
+function hwFits(read,want){if(read.per.length!==want.length)return false;return read.per.every((p,i)=>{const b=p.ranked[0][1],d=p.best[want[i]];return d!=null&&d<=HW_MAX&&d<=b*HW_RATIO+.02})}
+function hwLearn(read,want){S.hw=S.hw||{t:[]};read.per.forEach((p,i)=>{S.hw.t.push({d:want[i],c:p.cloud});const same=S.hw.t.filter(t=>t.d===want[i]);if(same.length>8)S.hw.t.splice(S.hw.t.indexOf(same[0]),1)})}
+
+/* ---------- MATH: answer pad (write with a finger, or type) ---------- */
+/* opts: wants() -> list of answers that would count right now; right(str,how); wrong(str,how); locked() -> true while answers are ignored */
+function makePad(host,opts){const mode=S.settings.mathInput||'both';
+  host.innerHTML=`<div class="mpad m-${mode}">${mode!=='keys'?`<div class="mdraw-wrap"><canvas class="mdraw"></canvas><span class="mhint">Write the answer here</span><span class="mseen"></span><button class="mclear" aria-label="Clear">✕</button></div>`:''}
+    ${mode!=='draw'?`<div class="mkeys"><div class="mtyped" aria-live="polite"></div>${[1,2,3,4,5,6,7,8,9].map(n=>`<button class="mk" data-k="${n}">${n}</button>`).join('')}<button class="mk mk-del" data-k="del" aria-label="Delete">⌫</button><button class="mk" data-k="0">0</button><button class="mk mk-go" data-k="go" aria-label="Enter">✓</button></div>`:''}</div>`;
+  const P={strokes:[],cur:null,timer:null,typed:''};
+  const cv=host.querySelector('.mdraw');let g=null,W=0,H=0;
+  const fit=()=>{if(!cv)return;const r=cv.getBoundingClientRect();if(!r.width)return;const dpr=devicePixelRatio||1;W=r.width;H=r.height;cv.width=W*dpr;cv.height=H*dpr;g=cv.getContext('2d');g.setTransform(dpr,0,0,dpr,0,0);redraw()};
+  const redraw=(col)=>{if(!g)return;g.clearRect(0,0,W,H);g.lineCap='round';g.lineJoin='round';g.lineWidth=Math.max(7,H*.045);g.strokeStyle=col||'#1B2838';
+    for(const s of P.strokes.concat(P.cur?[P.cur]:[])){g.beginPath();s.forEach((p,i)=>i?g.lineTo(p[0],p[1]):g.moveTo(p[0],p[1]));if(s.length===1)g.lineTo(s[0][0]+.1,s[0][1]);g.stroke()}
+    const hint=host.querySelector('.mhint');if(hint)hint.style.opacity=P.strokes.length||P.cur?0:1};
+  const clearDraw=()=>{P.strokes=[];P.cur=null;clearTimeout(P.timer);P.timer=null;const sn=host.querySelector('.mseen');if(sn)sn.textContent='';redraw()};
+  const flash=(ok)=>{const w=host.querySelector('.mdraw-wrap')||host.querySelector('.mtyped');if(!w)return;w.classList.remove('ok','no');void w.offsetWidth;w.classList.add(ok?'ok':'no');clearTimeout(w._ft);w._ft=setTimeout(()=>w.classList.remove('ok','no'),600)};
+  const accept=(str,how,read)=>{if(how==='draw'&&read)hwLearn(read,str);flash(true);if(how==='draw'){redraw('#2FA64A');setTimeout(clearDraw,160)}else{P.typed='';showTyped()}opts.right(str,how)};
+  const reject=(str,how)=>{flash(false);if(how==='draw')setTimeout(clearDraw,250);else{P.typed='';showTyped()}opts.wrong(str,how)};
+  const check=(final)=>{if(!P.strokes.length)return;if(opts.locked&&opts.locked()){clearDraw();return}const read=hwRead(P.strokes,H);const sn=host.querySelector('.mseen');if(sn)sn.textContent=read.best?'I see '+read.best:'';
+    const ws=opts.wants().map(String);const hit=ws.find(w=>hwFits(read,w));if(hit){accept(hit,'draw',read);return}
+    if(final){reject(read.best||'?','draw');return}
+    /* still writing? wait longer if what is there could be the start of an answer */
+    const maybe=ws.some(w=>w.length>read.per.length);clearTimeout(P.timer);P.timer=setTimeout(()=>check(true),maybe?3200:2400)};
+  if(cv){fit();addEventListener('resize',fit);
+    cv.addEventListener('pointerdown',e=>{e.preventDefault();ac();clearTimeout(P.timer);try{cv.setPointerCapture(e.pointerId)}catch(_){}const r=cv.getBoundingClientRect();P.cur=[[e.clientX-r.left,e.clientY-r.top]];P.pid=e.pointerId;redraw()});
+    cv.addEventListener('pointermove',e=>{if(!P.cur||e.pointerId!==P.pid)return;const r=cv.getBoundingClientRect();const evs=e.getCoalescedEvents?e.getCoalescedEvents():[e];evs.forEach(ev=>P.cur.push([ev.clientX-r.left,ev.clientY-r.top]));redraw()});
+    const up=e=>{if(!P.cur||e.pointerId!==P.pid)return;P.strokes.push(P.cur);P.cur=null;redraw();check(false)};
+    cv.addEventListener('pointerup',up);cv.addEventListener('pointercancel',up);
+    host.querySelector('.mclear').onclick=()=>{ac();clearDraw()}}
+  const showTyped=()=>{const t=host.querySelector('.mtyped');if(t)t.textContent=P.typed};
+  host.querySelectorAll('.mk').forEach(b=>b.onpointerdown=e=>{e.preventDefault();ac();const k=b.dataset.k;if(opts.locked&&opts.locked())return;sPop();
+    if(k==='del'){P.typed=P.typed.slice(0,-1);showTyped();return}
+    const ws=opts.wants().map(String);
+    if(k==='go'){if(!P.typed)return;if(ws.includes(P.typed))accept(P.typed,'keys');else reject(P.typed,'keys');return}
+    if(P.typed.length>=3)return;P.typed+=k;showTyped();
+    if(ws.includes(P.typed)&&!ws.some(w=>w!==P.typed&&w.startsWith(P.typed)))accept(P.typed,'keys');
+    else if(!ws.some(w=>w.startsWith(P.typed)))reject(P.typed,'keys')});
+  return{clear(){clearDraw();P.typed='';showTyped()},fit}}
+
+/* ---------- MATH: which facts to ask (adaptive) ----------
+   Starts with 0-3. Each fact (like 3+4) keeps its hit rate and its speed; each number keeps a total too.
+   Facts he/she knows cold come up less (never zero); missed or slow ones come up more. After two misses in a row, an easy one comes next.
+   When 85%+ of the last 20 answers are right, the next number joins (4, then 5 ... up to 12). */
+function M(){S.math=S.math||{pool:[0,1,2,3],since:0,hist:[],facts:{},nums:{},mm:{best:0,games:0,scores:[]},df:{best:0,games:0,scores:[]},wrongRun:0,last:null};return S.math}
+const mfk=(a,b)=>Math.min(a,b)+'+'+Math.max(a,b);
+function mRecent(s){const h=(s&&s.h)||[];return h.length?h.reduce((x,y)=>x+y,0)/h.length:null}
+function mMedTime(){const ts=Object.values(M().facts).map(f=>f.tn?f.ts/f.tn:null).filter(x=>x);ts.sort((a,b)=>a-b);return ts.length?ts[ts.length>>1]:4000}
+function mWeight(a,b){const m=M(),k=mfk(a,b),s=m.facts[k];if(k===m.last)return 0;let w=1;const newest=Math.max(...m.pool);if(a===newest||b===newest)w*=1.5;
+  if(s&&s.n>=4){const r=mRecent(s),t=s.tn?s.ts/s.tn:0,med=mMedTime();if(s.n>=8&&r>=.95&&t&&t<med)w*=.35;else if(s.n>=6&&r>=.9)w*=.6;if(r<.5)w*=2;else if(r<.75)w*=1.5;if(t&&t>med*1.6)w*=1.4}
+  return w}
+function mPick(){const m=M(),pool=m.pool,all=[];pool.forEach(a=>pool.forEach(b=>{if(a<=b)all.push([a,b])}));
+  let cands=all;if(m.wrongRun>=2){const easy=all.filter(([a,b])=>{const s=m.facts[mfk(a,b)];return (s&&s.n>=3&&mRecent(s)>=.9)||Math.min(a,b)<=1});if(easy.length)cands=easy}
+  const ws=cands.map(([a,b])=>m.wrongRun>=2?(mfk(a,b)===m.last?0:1):mWeight(a,b));let r=Math.random()*ws.reduce((x,y)=>x+y,0)||0,pk=cands[0];for(let i=0;i<cands.length;i++){r-=ws[i];if(r<=0){pk=cands[i];break}}
+  m.last=mfk(pk[0],pk[1]);return Math.random()<.5?[pk[0],pk[1]]:[pk[1],pk[0]]}
+/* record the first try at a fact; returns a newly added number, if one joined */
+function mRecord(a,b,ok,ms){const m=M(),k=mfk(a,b),s=m.facts[k]||(m.facts[k]={n:0,ok:0,h:[],ts:0,tn:0});s.n++;if(ok)s.ok++;s.h=(s.h||[]).concat(ok?1:0).slice(-8);if(ok&&ms){s.ts+=Math.min(ms,20000);s.tn++}
+  [a,b].forEach(x=>{const q=m.nums[x]||(m.nums[x]={n:0,ok:0,ts:0,tn:0});q.n++;if(ok)q.ok++;if(ok&&ms){q.ts+=Math.min(ms,20000);q.tn++}});
+  m.hist=(m.hist||[]).concat(ok?1:0).slice(-30);m.since=(m.since||0)+1;m.wrongRun=ok?0:(m.wrongRun||0)+1;
+  let added=null;const last=m.hist.slice(-20);if(m.since>=20&&last.length>=20&&last.reduce((x,y)=>x+y,0)/20>=.85){const nx=Math.max(...m.pool)+1;if(nx<=12){m.pool.push(nx);m.since=0;added=nx}}
+  save();return added}
+const ART_MAD='<svg viewBox="0 0 100 100"><ellipse cx="50" cy="93" rx="30" ry="4" fill="#000" opacity=".15"/><rect x="44" y="6" width="12" height="10" rx="3" fill="#C99A2E"/><circle cx="50" cy="54" r="36" fill="#fff" stroke="#EE4B33" stroke-width="7"/><path d="M50 54 L50 18 A36 36 0 0 1 81 36Z" fill="#FFB3A7"/>'+Array.from({length:12},(_,i)=>{const a=i*Math.PI/6;return `<line x1="${50+29*Math.sin(a)}" y1="${54-29*Math.cos(a)}" x2="${50+33*Math.sin(a)}" y2="${54-33*Math.cos(a)}" stroke="#1B2838" stroke-width="${i%3?2:3.5}" stroke-linecap="round"/>`}).join('')+'<path d="M50 54 L50 30 M50 54 L66 62" stroke="#1B2838" stroke-width="4.5" stroke-linecap="round"/><circle cx="50" cy="54" r="4" fill="#EE4B33"/><text x="50" y="80" text-anchor="middle" font-family="Andika,sans-serif" font-weight="700" font-size="13" fill="#2C67E0">1+2</text></svg>';
+const ART_DEF='<svg viewBox="0 0 100 100"><ellipse cx="50" cy="94" rx="36" ry="4" fill="#000" opacity=".15"/><rect x="10" y="62" width="14" height="30" fill="#7A4FD0"/><rect x="26" y="48" width="16" height="44" fill="#2C67E0"/><rect x="44" y="56" width="14" height="36" fill="#16A39B"/><rect x="60" y="42" width="16" height="50" fill="#E0731A"/><rect x="78" y="58" width="12" height="34" fill="#D9418C"/>'+[[14,68],[30,54],[36,64],[48,62],[64,48],[70,60],[82,64]].map(([x,y])=>`<rect x="${x}" y="${y}" width="4" height="5" fill="#FFE680"/>`).join('')+'<rect x="20" y="8" width="26" height="15" rx="7" fill="#fff" stroke="#1B2838" stroke-width="2"/><text x="33" y="19.5" text-anchor="middle" font-family="Andika,sans-serif" font-weight="700" font-size="10" fill="#1B2838">2+5</text><path d="M66 46 L62 26" stroke="#FFC21A" stroke-width="3" stroke-dasharray="3 3"/><path d="M60 22 l4 -8 l4 8z" fill="#EE4B33"/><g fill="#FFC21A"><circle cx="70" cy="12" r="3"/><circle cx="78" cy="16" r="2"/><circle cx="74" cy="6" r="2"/></g></svg>';
+function mProblemHTML(a,b){return `<span>${a}</span><span class="op">+</span><span>${b}</span><span class="op">=</span><span class="q">?</span>`}
+
+/* ---------- MAD MINUTE: as many as you can in one minute ---------- */
+let MM={};
+function startMad(){M();show('mad');MM={on:false,score:0,a:0,b:0,t0:0,miss:0,end:0};$('#madProb').innerHTML='';$('#madScore').textContent='0';drawClock(0);
+  ov(`<div class="big-prize">${ART_MAD}</div><h2>Mad Minute</h2><p>Answer as many as you can in one minute!</p>`,[{label:'Go!',cls:'green big',fn:goMad}]);say('g_mad')}
+function goMad(){MM.on=true;MM.end=performance.now()+60000;MM.pad=makePad($('#madPad'),{wants:()=>[MM.a+MM.b],right:madRight,wrong:madWrong});nextMad();say('m_go');
+  const tick=now=>{if(!MM.on||cur!=='mad')return;const f=1-(MM.end-now)/60000;drawClock(Math.min(1,f));if(f>=1){madEnd();return}MM.raf=requestAnimationFrame(tick)};MM.raf=requestAnimationFrame(tick)}
+function drawClock(f){const c=$('#madClock');if(c)c.style.setProperty('--f',(f*360).toFixed(2)+'deg')}
+function nextMad(){const [a,b]=mPick();MM.a=a;MM.b=b;MM.t0=performance.now();MM.miss=0;$('#madProb').innerHTML=mProblemHTML(a,b);$('#madProb').classList.remove('pop');void $('#madProb').offsetWidth;$('#madProb').classList.add('pop')}
+function madRight(){if(!MM.on)return;const ms=performance.now()-MM.t0;const add=mRecord(MM.a,MM.b,MM.miss===0,MM.miss===0?ms:0);MM.score++;$('#madScore').textContent=MM.score;tierSfx(1,0);say(vary('m_ok',6));
+  $('#madProb').querySelector('.q').textContent=MM.a+MM.b;if(add!=null)setTimeout(()=>{toast(`New number: ${add}!`,3000)},200);setTimeout(()=>{if(MM.on)nextMad()},260)}
+function madWrong(){if(!MM.on)return;sBuzz();try{navigator.vibrate&&navigator.vibrate(60)}catch(e){}const pb=$('#madProb');pb.classList.remove('shake');void pb.offsetWidth;pb.classList.add('shake');
+  if(MM.miss===0)mRecord(MM.a,MM.b,false,0);MM.miss++;
+  if(MM.miss>=2){pb.querySelector('.q').textContent=MM.a+MM.b;pb.classList.add('show');setTimeout(()=>{pb.classList.remove('show');if(MM.on)nextMad()},1300)}}
+function madEnd(){MM.on=false;cancelAnimationFrame(MM.raf);const m=M(),n=MM.score,best=n>(m.mm.best||0);m.mm.games++;m.mm.scores=(m.mm.scores||[]).concat(n).slice(-30);if(best)m.mm.best=n;
+  const win=n>=3;if(win){S.pending++;lastGame='mad'}save();sFan();if(win)confetti();say(['m_time','num_'+Math.min(n,40),'m_inmin']);
+  ov(`<div class="big-prize">${ART_MAD}</div><h2>Time's up!</h2><p class="mm-score"><b>${n}</b> right in one minute!</p>${best&&m.mm.games>1?'<p class="lvlup">⭐ Your best ever!</p>':`<p>Best: ${m.mm.best}</p>`}${win?'<p>You win a prize!</p>':''}`,
+    win?[{label:'Pick my prize',cls:'yellow big',fn:()=>show('shop')},{brk:1},{label:'Play again',cls:'green',fn:startMad},homeBtn]:[{label:'Play again',cls:'green big',fn:startMad},{brk:1},homeBtn])}
+
+/* ---------- NUMBER DEFENDER: stop the falling problems before they reach the city ---------- */
+let DF={};
+const DF_COLS=7;
+function startDef(){M();show('def');DF={on:false};const cv=$('#defCv');const r=cv.getBoundingClientRect();
+  ov(`<div class="big-prize">${ART_DEF}</div><h2>Number Defender</h2><p>Write the answer to a falling problem to launch a rocket at it. Protect the city!</p>`,[{label:'Go!',cls:'green big',fn:goDef}]);say('g_def')}
+function goDef(){const cv=$('#defCv');DF={on:true,eqs:[],shots:[],booms:[],city:Array(DF_COLS).fill(1),stopped:0,missed:0,jam:0,last:performance.now(),next:performance.now()+600,gap:3600,speed:.05,t0:performance.now()};
+  DF.pad=makePad($('#defPad'),{wants:()=>DF.eqs.filter(q=>!q.hit).map(q=>q.a+q.b),right:defRight,wrong:defWrong,locked:()=>performance.now()<DF.jam});
+  defFit();addEventListener('resize',defFit);say('m_go');DF.raf=requestAnimationFrame(defTick)}
+function defFit(){const cv=$('#defCv');if(!cv)return;const r=cv.getBoundingClientRect(),d=devicePixelRatio||1;cv.width=r.width*d;cv.height=r.height*d;DF.W=r.width;DF.H=r.height;DF.g=cv.getContext('2d');DF.g.setTransform(d,0,0,d,0,0)}
+function defSpawn(){const alive=DF.city.map((v,i)=>v?i:-1).filter(i=>i>=0);if(!alive.length)return;const busy=new Set(DF.eqs.filter(q=>q.y<DF.H*.35).map(q=>q.col));let opts=alive.filter(i=>!busy.has(i));if(!opts.length)opts=alive;
+  const col=pick(opts),[a,b]=mPick();const w=DF.W/DF_COLS;DF.eqs.push({a,b,col,x:w*(col+.5)+(Math.random()-.5)*w*.3,y:-10,t0:performance.now()})}
+function defTick(now){if(!DF.on||cur!=='def')return;const dt=Math.min(.05,(now-DF.last)/1000);DF.last=now;const H=DF.H,W=DF.W,cityTop=H*.8;
+  if(now>DF.next&&DF.eqs.length<4){defSpawn();DF.next=now+DF.gap*(0.75+Math.random()*.5)}
+  for(const q of DF.eqs){if(!q.hit)q.y+=H*DF.speed*dt;if(!q.hit&&q.y>=cityTop-10){q.dead=true;if(DF.city[q.col]){DF.city[q.col]=0;sThud()}DF.missed++;mRecord(q.a,q.b,false,0);DF.booms.push({x:q.x,y:cityTop,t:now,big:1})}}
+  for(const s of DF.shots){const k=Math.min(1,(now-s.t)/420);s.x=s.x0+(s.q.x-s.x0)*k;s.y=s.y0+(s.q.y-s.y0)*k;if(k>=1&&!s.done){s.done=true;s.q.dead=true;DF.booms.push({x:s.q.x,y:s.q.y,t:now});tone(988,.1,'triangle',.06);tone(1319,.12,'triangle',.05,.06)}}
+  DF.eqs=DF.eqs.filter(q=>!q.dead);DF.shots=DF.shots.filter(s=>!s.done);DF.booms=DF.booms.filter(b=>now-b.t<600);
+  defDraw(now);if(!DF.city.some(Boolean)){defEnd();return}DF.raf=requestAnimationFrame(defTick)}
+function defDraw(now){const g=DF.g,W=DF.W,H=DF.H,cityTop=H*.8,w=W/DF_COLS;g.clearRect(0,0,W,H);
+  const sky=g.createLinearGradient(0,0,0,H);sky.addColorStop(0,'#1D2B53');sky.addColorStop(1,'#5B6FB0');g.fillStyle=sky;g.fillRect(0,0,W,H);
+  g.fillStyle='rgba(255,255,255,.7)';for(let i=0;i<30;i++){g.fillRect((i*97)%W,(i*53)%(H*.6),2,2)}
+  const cols=['#7A4FD0','#2C67E0','#16A39B','#E0731A','#D9418C','#2FA64A','#E8B100'];
+  for(let i=0;i<DF_COLS;i++){const x=i*w+w*.08,bw=w*.84,bh=(H-cityTop)+H*.02+((i*37)%5)*H*.025;if(DF.city[i]){g.fillStyle=cols[i%cols.length];g.fillRect(x,H-bh,bw,bh);g.fillStyle='#FFE680';for(let yy=H-bh+8;yy<H-12;yy+=16)for(let xx=x+6;xx<x+bw-8;xx+=14)g.fillRect(xx,yy,6,8)}
+    else{g.fillStyle='#55505A';g.beginPath();g.moveTo(x,H);g.lineTo(x+bw*.2,H-14);g.lineTo(x+bw*.45,H-6);g.lineTo(x+bw*.7,H-18);g.lineTo(x+bw,H);g.fill()}}
+  const jam=now<DF.jam,lx=W/2,ly=H-6;g.fillStyle=jam?'#888':'#EE4B33';g.beginPath();g.moveTo(lx-22,ly);g.lineTo(lx,ly-34);g.lineTo(lx+22,ly);g.fill();
+  if(jam){g.fillStyle='#FFC21A';g.font=`700 ${Math.round(H*.05)}px Andika, sans-serif`;g.textAlign='center';g.fillText('⚡ '+Math.ceil((DF.jam-now)/1000),lx,ly-44)}
+  const fs=Math.max(20,Math.min(40,W*.05));g.font=`700 ${fs}px Andika, sans-serif`;g.textAlign='center';g.textBaseline='middle';
+  for(const q of DF.eqs){const t=`${q.a}+${q.b}`,tw=g.measureText(t).width+fs*.9;g.fillStyle='rgba(255,255,255,.95)';const rr=fs*.6;g.beginPath();g.roundRect?g.roundRect(q.x-tw/2,q.y-fs*.7,tw,fs*1.4,rr):g.rect(q.x-tw/2,q.y-fs*.7,tw,fs*1.4);g.fill();g.strokeStyle='#FFC21A';g.lineWidth=3;g.stroke();g.fillStyle='#1B2838';g.fillText(t,q.x,q.y+1)}
+  for(const s of DF.shots){g.strokeStyle='rgba(255,194,26,.8)';g.lineWidth=3;g.beginPath();g.moveTo(s.x0,s.y0);g.lineTo(s.x,s.y);g.stroke();g.fillStyle='#fff';g.beginPath();g.arc(s.x,s.y,6,0,7);g.fill()}
+  for(const b of DF.booms){const k=(now-b.t)/600;g.globalAlpha=1-k;g.fillStyle=b.big?'#888':'#FFC21A';for(let i=0;i<8;i++){const a=i*Math.PI/4;g.beginPath();g.arc(b.x+Math.cos(a)*k*40,b.y+Math.sin(a)*k*40,5*(1-k)+2,0,7);g.fill()}g.globalAlpha=1}
+  g.fillStyle='#fff';g.font=`700 ${Math.round(fs*.8)}px Andika, sans-serif`;g.textAlign='left';g.fillText('⭐ '+DF.stopped,12,fs*.7)}
+function defRight(str){const now=performance.now();if(now<DF.jam)return;const tgt=DF.eqs.filter(q=>!q.hit&&String(q.a+q.b)===str).sort((x,y)=>y.y-x.y)[0];if(!tgt)return;tgt.hit=true;
+  DF.shots.push({q:tgt,x0:DF.W/2,y0:DF.H-36,x:DF.W/2,y:DF.H-36,t:now});sweep(300,900,.3,'triangle',.06);DF.stopped++;mRecord(tgt.a,tgt.b,true,now-tgt.t0);say(vary('m_ok',6));
+  if(DF.stopped%4===0){DF.speed*=1.08;DF.gap=Math.max(1500,DF.gap*.92)}}
+function defWrong(){DF.jam=performance.now()+2000;sBuzz();try{navigator.vibrate&&navigator.vibrate(60)}catch(e){}}
+function defEnd(){DF.on=false;cancelAnimationFrame(DF.raf);removeEventListener('resize',defFit);const m=M(),n=DF.stopped,best=n>(m.df.best||0);m.df.games++;m.df.scores=(m.df.scores||[]).concat(n).slice(-30);if(best)m.df.best=n;
+  const win=n>=6;if(win){S.pending++;lastGame='def'}save();sFan();if(win)confetti();say(['m_defover','num_'+Math.min(n,40),'m_problems']);
+  ov(`<div class="big-prize">${ART_DEF}</div><h2>Great defending!</h2><p class="mm-score">You stopped <b>${n}</b> problems!</p><p>Best: ${m.df.best}</p>${win?'<p>You win a prize!</p>':''}`,
+    win?[{label:'Pick my prize',cls:'yellow big',fn:()=>show('shop')},{brk:1},{label:'Play again',cls:'green',fn:startDef},homeBtn]:[{label:'Play again',cls:'green big',fn:startDef},{brk:1},homeBtn])}
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden'){if(DF.on){DF.paused=performance.now()}if(MM.on){MM.paused=performance.now()}}else{if(DF.on&&DF.paused){const d=performance.now()-DF.paused;DF.jam+=0;DF.next+=d;DF.last=performance.now();DF.paused=0}if(MM.on&&MM.paused){MM.end+=performance.now()-MM.paused;MM.paused=0}}});
+function showMathStats(){const m=M();const rows=Object.entries(m.nums).sort((a,b)=>+a[0]-+b[0]).map(([k,q])=>`<tr><td><b>${k}</b></td><td>${q.n?Math.round(q.ok/q.n*100)+'%':'–'}</td><td>${q.tn?(q.ts/q.tn/1000).toFixed(1)+' s':'–'}</td><td>${q.n}</td></tr>`).join('');
+  const facts=Object.entries(m.facts).filter(([k,f])=>f.n>=2);const hard=facts.slice().sort((a,b)=>a[1].ok/a[1].n-b[1].ok/b[1].n).slice(0,5).map(([k,f])=>`${k} (${Math.round(f.ok/f.n*100)}%)`).join(', ')||'–';
+  const slow=facts.filter(([k,f])=>f.tn).sort((a,b)=>b[1].ts/b[1].tn-a[1].ts/a[1].tn).slice(0,5).map(([k,f])=>`${k} (${(f.ts/f.tn/1000).toFixed(1)} s)`).join(', ')||'–';
+  ov(`<h2>Math progress</h2><p style="text-align:left;font-size:15px">Numbers in play: <b>${m.pool.join(', ')}</b><br>Mad Minute: best ${m.mm.best||0}, last ${(m.mm.scores||[]).slice(-5).join(', ')||'–'}<br>Number Defender: best ${m.df.best||0}, last ${(m.df.scores||[]).slice(-5).join(', ')||'–'}<br>Hardest facts: ${hard}<br>Slowest facts: ${slow}</p>
+    <table class="mtab"><tr><th>Number</th><th>Right</th><th>Avg time</th><th>Tries</th></tr>${rows||'<tr><td colspan=4>No answers yet</td></tr>'}</table>`,[{label:'OK',cls:'green'}])}
+
 /* ---------- BONUS GAMES (surprise mini-games that award a prize) ---------- */
 const GIFT_SVG=`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect x="14" y="40" width="72" height="52" rx="6" fill="#EE4B33" stroke="#B5321F" stroke-width="3"/><rect x="8" y="28" width="84" height="16" rx="5" fill="#FF6B5B" stroke="#B5321F" stroke-width="3"/><rect x="44" y="28" width="12" height="64" fill="#FFC21A"/><path d="M50 28 C38 6 18 14 30 26Z M50 28 C62 6 82 14 70 26Z" fill="#FFC21A" stroke="#C79000" stroke-width="3"/></svg>`;
 const ANIMALS0=[['cat','🐱'],['dog','🐶'],['cow','🐮'],['pig','🐷'],['duck','🦆'],['lion','🦁'],['fish','🐟'],['horse','🐴'],['frog','🐸'],['bear','🐻']];
@@ -2484,6 +2692,10 @@ function testTools(){if(prof().kind!=='test')return '';
     <button class="btn" data-t="placeall">Put every toy in the room</button>
     <button class="btn yellow" data-t="tracks">Add 10 train tracks</button>
     <button class="btn yellow" data-t="bat3">Give 3 robot batteries</button>
+    <button class="btn" data-t="gmad">Play Mad Minute</button>
+    <button class="btn" data-t="gdef">Play Number Defender</button>
+    <button class="btn" data-t="mathup">Math: add the next number</button>
+    <button class="btn grey" data-t="mathreset">Reset math progress and handwriting</button>
     <button class="btn grey" data-t="petreset">Robot back to sleep (0 batteries)</button>
     <button class="btn" data-t="gmem">Play Memory</button>
     <button class="btn" data-t="gmaze">Play Maze</button>
@@ -2495,6 +2707,9 @@ function testTools(){if(prof().kind!=='test')return '';
     <button class="btn grey" data-t="soundstats">Show Sound It Out letters</button>
   </div></div>`}
 function runTool(t){const owned=new Set(S.owned);const add=p=>{if(p&&!owned.has(p.id)){S.owned.unshift(p.id);owned.add(p.id)}};
+  if(t==='gmad'){startMad();return}if(t==='gdef'){startDef();return}
+  if(t==='mathup'){const m=M();const nx=Math.max(...m.pool)+1;if(nx<=12)m.pool.push(nx)}
+  if(t==='mathreset'){S.math=null;S.hw=null}
   if(t==='gmem'||t==='gmaze'||t==='gtrace'){show('game');({gmem:gMemory,gmaze:gMaze,gtrace:gTrace})[t]();return}
   if(t==='tracks')[['track_h',4],['track_v',2],['track_ne',1],['track_nw',1],['track_se',1],['track_sw',1]].forEach(([k,n])=>{for(let i=0;i<n;i++)add(PRIZES.find(p=>p.key===k&&!owned.has(p.id)))});
   if(t==='soundstats'){soInit();const f=L=>{const o=(S.ostat||{})[L]||{},h=o.hist||[];return `${L}: ${o.n?Math.round(o.ok/o.n*100)+'%':'–'} (${o.n||0}), recent ${h.length?Math.round(recentOf(h)*100)+'%':'–'}, weight ${soLetterW(L).toFixed(2)}`};
@@ -2518,7 +2733,7 @@ function runTool(t){const owned=new Set(S.owned);const add=p=>{if(p&&!owned.has(
   if(t==='lvl')LETTERS.forEach(L=>{S.flevel[L]=Math.min(2,(S.flevel[L]||0)+1);S.fstars[L]=0});
   if(t==='stk')STK_LIST.forEach(st=>S.stickers[st[0]]=(S.stickers[st[0]]||0)+5);
   if(t==='placeall')placeAll();
-  save();toast({p1:'1 prize waiting on the home screen',p5:'5 prizes waiting on the home screen',bonus:'The next prize pick is a bonus box',tiers:'Added one of each tier',fill:'Added 25 trophies',stars:'Every letter has 2 stars',clearstars:'Letter stars cleared',clearroom:'Treasure room emptied',clearp:'Waiting prizes cleared',sayreset:'Say It letters reset',stk:'5 of every sticker added',bonus1:'A bonus game is on the home screen',sound1:'Sound It Out unlocked. Go to the home screen to see the banner.',tracks:'Added 10 train tracks to the toy chest',bat3:'3 robot batteries added. Tap the robot in the treasure room.',petreset:'The robot is asleep with no batteries.',lvl:'Every letter moved up one board size',placeall:'Every toy is in the room'}[t]);renderSettings()}
+  save();toast({p1:'1 prize waiting on the home screen',p5:'5 prizes waiting on the home screen',bonus:'The next prize pick is a bonus box',tiers:'Added one of each tier',fill:'Added 25 trophies',stars:'Every letter has 2 stars',clearstars:'Letter stars cleared',clearroom:'Treasure room emptied',clearp:'Waiting prizes cleared',sayreset:'Say It letters reset',stk:'5 of every sticker added',bonus1:'A bonus game is on the home screen',sound1:'Sound It Out unlocked. Go to the home screen to see the banner.',tracks:'Added 10 train tracks to the toy chest',mathup:'Added the next number to math',mathreset:'Math progress cleared',bat3:'3 robot batteries added. Tap the robot in the treasure room.',petreset:'The robot is asleep with no batteries.',lvl:'Every letter moved up one board size',placeall:'Every toy is in the room'}[t]);renderSettings()}
 function renderSettings(){
   const st=S.settings,el=$('#s-settings'),me=prof();
   el.innerHTML=`<h2>Grown-up Settings</h2>
@@ -2529,6 +2744,7 @@ function renderSettings(){
     ${R.profiles.map(p=>`<div class="prow"><span class="av">${avatarHTML(p)}</span><span class="nm">${esc(p.name)}${p.kind==='test'?'<span class="testtag">TEST</span>':''}${p.id===me.id?' · playing now':''}</span>${p.id!==me.id?`<button class="btn green" data-play="${p.id}">Play as ${esc(p.name)}</button>`:''}${R.profiles.length>1?`<button class="btn ${delArmed===p.id?'red':'grey'}" data-del="${p.id}">${delArmed===p.id?'Tap again to delete':'Delete'}</button>`:''}</div>`).join('')}
     <button class="btn" id="addP">Add player</button>
   </div>
+  <div class="set-sec"><h3>Games</h3>${seg('focus',[['reading','Reading'],['math','Math'],['both','Both']],'Learning focus','Reading: Find It, Say It, Sound It Out. Math: Mad Minute, Number Defender.')}${seg('mathInput',[['both','Write + keypad'],['draw','Write only'],['keys','Keypad only']],'How math answers are given')}<button class="btn yellow" id="mathStatsBtn">Math stats</button></div>
   <div class="set-sec"><h3>Letters</h3>
     ${seg('case',[['upper','Capital ABC'],['lower','Lowercase abc']],'Letter style')}
     ${seg('myVoice',[['true','My recordings'],['false','Built-in only']],'Voice to use','My recordings play wherever you have recorded a line; everything else uses the built-in voice.')}
@@ -2572,7 +2788,7 @@ function renderSettings(){
     if(delArmed!==id){delArmed=id;renderSettings();setTimeout(()=>{if(delArmed===id){delArmed=null;if(cur==='settings')renderSettings()}},4000);return}
     delArmed=null;R.profiles=R.profiles.filter(p=>p.id!==id);if(R.current===id){R.current=R.profiles[0].id;S=prof().data}save();toast('Player deleted');show('settings')});
   $('#addP').onclick=()=>show('newp');
-  $('#statsBtn').onclick=()=>showStats('find');
+  $('#statsBtn').onclick=()=>showStats('find');{const mb=$('#mathStatsBtn');if(mb)mb.onclick=showMathStats}
   el.querySelectorAll('[data-play]').forEach(b=>b.onclick=()=>usePlayer(b.dataset.play));
   $('#doneBtn').onclick=()=>show('home');
   $('#testVoice').onclick=()=>{ac();say(['is_T','find_T'])};
