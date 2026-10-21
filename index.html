@@ -721,7 +721,7 @@ body.fab #main{padding-bottom:96px!important}#roomHome{display:none!important}
 @keyframes pcartL{0%{transform:none}15%{transform:translate(0,-4px)}50%{transform:translate(-35px,-34px) rotate(-180deg)}85%{transform:translate(-70px,-4px) rotate(-360deg)}100%{transform:translate(-70px,0) rotate(-360deg)}}
 .pet.p-cartR .pt-arml,.pet.p-cartL .pt-arml{transform:rotate(100deg)}.pet.p-cartR .pt-armr,.pet.p-cartL .pt-armr{transform:rotate(-100deg)}
 
-.def-screen{gap:8px!important}#s-def .mkeys{grid-template-columns:repeat(6,1fr)!important;flex:1 1 100%!important;max-width:none!important;gap:6px!important}#s-def .mk{aspect-ratio:auto!important;height:clamp(40px,6.2vh,64px);font-size:clamp(22px,3.6vh,34px)!important}#s-def .mtyped{height:clamp(40px,6vh,60px);line-height:clamp(40px,6vh,60px);font-size:clamp(28px,4.5vh,44px)}
+.def-screen{gap:8px!important}#s-def .mkeys{grid-template-columns:repeat(3,1fr)!important;flex:1 1 100%!important;max-width:min(100%,460px)!important;margin:0 auto;gap:8px!important}#s-def .mk{aspect-ratio:auto!important;height:clamp(44px,5.6vh,66px);font-size:clamp(24px,3.2vh,36px)!important}#s-def .mtyped{height:clamp(42px,5.4vh,62px);line-height:clamp(42px,5.4vh,62px);font-size:clamp(28px,4vh,44px)}
 #defCv{height:calc(100dvh - 72px - 96px - 24px - var(--padH,250px))!important;min-height:200px}
 #s-def .mdraw-wrap{height:var(--padH,250px)!important;min-height:0!important}
 #s-def{--padH:clamp(150px,24vh,260px)}#s-def:has(.m-keys){--padH:clamp(130px,21vh,220px)}
@@ -2521,7 +2521,7 @@ function goDef(){const cv=$('#defCv');const dm=S.settings.defMode||'kids';DF={ad
   defFit();addEventListener('resize',defFit);say('m_go');DF.raf=requestAnimationFrame(defTick)}
 function defPause(){if(DF.on){DF.on=false;DF.paused=performance.now();cancelAnimationFrame(DF.raf)}}
 function defResume(){if(!DF.active||DF.over)return;const d=DF.paused?performance.now()-DF.paused:0;DF.paused=0;DF.next+=d;DF.jam+=d;DF.eqs.forEach(q=>q.t0+=d);DF.last=performance.now();DF.on=true;defFit();DF.raf=requestAnimationFrame(defTick)}
-function defFit(){const cv=$('#defCv');if(!cv)return;const r=cv.getBoundingClientRect(),d=devicePixelRatio||1;cv.width=r.width*d;cv.height=r.height*d;DF.W=r.width;DF.H=r.height;DF.g=cv.getContext('2d');DF.g.setTransform(d,0,0,d,0,0)}
+function defFit(){const cv=$('#defCv');if(!cv)return;{/* the sky gets whatever room is left above the answer pad, so nothing needs scrolling */const pad=$('#defPad'),top=cv.getBoundingClientRect().top,ph=pad?pad.getBoundingClientRect().height:0,fab=document.body.classList.contains('fab')?92:0;cv.style.setProperty('height',Math.max(180,innerHeight-top-ph-fab-22)+'px','important')}const r=cv.getBoundingClientRect(),d=devicePixelRatio||1;cv.width=r.width*d;cv.height=r.height*d;DF.W=r.width;DF.H=r.height;DF.g=cv.getContext('2d');DF.g.setTransform(d,0,0,d,0,0)}
 function defSpawn(){const alive=DF.city.map((v,i)=>v?i:-1).filter(i=>i>=0);if(!alive.length)return;const busy=new Set(DF.eqs.filter(q=>q.y<DF.H*.35).map(q=>q.col));let opts=alive.filter(i=>!busy.has(i));if(!opts.length)opts=alive;
   const dm=S.settings.defMode||'kids',col=pick(opts),pq=dm==='kids'?mPick():adultProb(dm==='adultx');const w=DF.W/DF_COLS;DF.eqs.push({a:pq.a,b:pq.b,op:pq.op,col,x:w*(col+.5)+(Math.random()-.5)*w*.3,y:-10,t0:performance.now()})}
 const defBH=(i,H)=>H*.11+H*.015+((i*37)%5)*H*.017;
