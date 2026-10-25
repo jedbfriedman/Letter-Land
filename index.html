@@ -727,6 +727,19 @@ body.fab #main{padding-bottom:96px!important}#roomHome{display:none!important}
 #s-def{--padH:clamp(150px,24vh,260px)}#s-def:has(.m-keys){--padH:clamp(130px,21vh,220px)}
 
 #s-def,#s-mad{min-height:0!important}
+
+/* round 28 */
+body.lockscroll #main{overflow:hidden!important;overscroll-behavior:none;touch-action:none}body.lockscroll #main button,body.lockscroll #main .mdraw{touch-action:manipulation}
+#roomView .chest,#roomView .pet-bar{position:absolute;left:8px;right:8px;top:8px;z-index:4000;margin:0;opacity:.96;box-shadow:0 6px 18px rgba(0,0,0,.35)}
+#roomView .chest{padding:6px 8px 6px}#roomView .chest-h{font-size:14px}#roomView .chest-h .hint{display:none}
+#roomView .chest-row{flex-wrap:nowrap!important;overflow-x:auto;overflow-y:hidden;max-height:none!important;height:84px;gap:6px}
+#roomView .chest-row .citem{flex:0 0 auto;height:76px;width:76px}#roomView .chest-row .citem.pair{width:150px}#roomView .chest-row .citem svg{height:100%;width:auto}
+#roomView .pet-bar{padding:6px 8px}.pb-cmds{grid-template-columns:repeat(7,1fr)!important;gap:5px!important}.pcmd{padding:3px 1px!important;font-size:10px!important}.pcmd span{font-size:20px!important}
+.store-obj{position:absolute;transform:translate(-50%,-100%);border:0;background:none;padding:0;aspect-ratio:200/160;filter:hue-rotate(185deg) saturate(.8);cursor:pointer}
+.store-obj svg{width:100%;height:100%;display:block}.store-obj .badge{position:absolute;top:0;right:4%;min-width:1.5em;height:1.5em;border-radius:999px;background:var(--signal);color:#fff;display:grid;place-items:center;font:700 clamp(9px,1.3vw,16px)/1 var(--display);filter:hue-rotate(-185deg)}
+.store-obj .slabel{position:absolute;left:50%;bottom:-1.4em;transform:translateX(-50%);font:700 clamp(8px,1.1vw,14px)/1 var(--body,sans-serif);color:#fff;background:rgba(0,0,0,.45);padding:2px 6px;border-radius:999px;white-space:nowrap;filter:hue-rotate(-185deg)}
+.store-list{max-height:55vh;overflow:auto;text-align:left;display:flex;flex-direction:column;gap:10px}.sgroup h3{margin:0 0 4px;font-size:18px}.sgroup small{color:var(--ink-soft)}
+.srow2{display:flex;flex-wrap:wrap;gap:6px}.sitem{width:64px;height:64px;border:0;border-radius:12px;background:#F4F7F9;padding:4px}.sitem svg{width:100%;height:100%}
 </style>
 
 <div id="app">
@@ -940,7 +953,7 @@ const HEAR={A:['a','ay','eh','hey','hay','aye'],B:['b','be','bee','bea'],C:['c',
 /* ---------- state ---------- */
 const KEY='letter-garage-v2',OLD_KEY='letter-garage-v1';
 const DEF={defMode:'kids',focus:'both',mathInput:'draw',case:'upper',myVoice:true,timer:20,tiles:'auto',rounds:3,lookalikes:false,sayGoal:5,listen:'auto',voice:true,letters:LETTERS.join('')};
-function fixData(d){d=d||{};if(d.settings&&!d._v){d.settings.timer=15;d.settings.tiles='auto'}if(d.settings&&!d.t5&&d.settings.timer){d.settings.timer=d.settings.timer+5;d.t5=1}if(d.settings&&!d.f2){d.settings.focus='both';if(d.settings.mathInput==='both')d.settings.mathInput='draw';d.f2=1}return{settings:{...DEF,...(d.settings||{})},owned:d.owned||[],pending:d.pending||0,prizeNo:d.prizeNo||0,stats:d.stats||{},pool:d.pool||null,placed:d.placed||{},decor:d.decor||{},stickers:d.stickers||{},flevel:d._v>=9?(d.flevel||{}):{},fstars:d.fstars||{},fstat:d.fstat||{},micGranted:d.micGranted||0,seals:d.seals||{},ostat:d.ostat||{},sstat:d.sstat||{},sayPool:d.sayPool||null,sayNewest:d.sayNewest||null,pairs:d.pairs||{},speedT:d.speedT||3000,speedRun:d.speedRun||0,slowPerfect:d.slowPerfect||0,sayRun:d.sayRun||null,bonus:d._v>=9?(d.bonus||0):Math.min(1,d.bonus||0),ms:d.ms||{},memLevel:d.memLevel||0,traceMode:d.traceMode||0,traceLevel:d.traceLevel||0,fround:d.fround||{},soundOn:d.soundOn||0,istate:d.istate||{},soundRun:d.soundRun||null,memWins:d.memWins!=null?d.memWins:(d.memLevel||0)*2,mazeLevel:d.mazeLevel||0,specialBox:d.specialBox||0,poolSpecial:d.poolSpecial||0,unlockPending:d.unlockPending||0,poolOpen:!!(d.pool&&d.poolOpen),chestOrder:d.chestOrder||[],fwins:d.fwins,math:d.math||null,hw:d.hw||null,pet:d.pet||null,batteries:d.batteries||0,tbundle:d.tbundle||{},tgrp:d.tgrp||{},tlead:d.tlead||{},bonusKind:d.bonusKind||null,doneOrder:d.doneOrder||null,soPool:d.soPool||null,soHist:d.soHist||[],soSince:d.soSince||0,owstat:d.owstat||{},everPlaced:d.everPlaced||Object.fromEntries(Object.keys(d.placed||{}).map(k=>[k,1])),t5:1,f2:1,defOn:d.defOn||0,unlockDef:d.unlockDef||0,_v:10}}
+function fixData(d){d=d||{};if(d.settings&&!d._v){d.settings.timer=15;d.settings.tiles='auto'}if(d.settings&&!d.t5&&d.settings.timer){d.settings.timer=d.settings.timer+5;d.t5=1}if(d.settings&&!d.f2){d.settings.focus='both';if(d.settings.mathInput==='both')d.settings.mathInput='draw';d.f2=1}return{settings:{...DEF,...(d.settings||{})},owned:d.owned||[],pending:d.pending||0,prizeNo:d.prizeNo||0,stats:d.stats||{},pool:d.pool||null,placed:d.placed||{},decor:d.decor||{},stickers:d.stickers||{},flevel:d._v>=9?(d.flevel||{}):{},fstars:d.fstars||{},fstat:d.fstat||{},micGranted:d.micGranted||0,seals:d.seals||{},ostat:d.ostat||{},sstat:d.sstat||{},sayPool:d.sayPool||null,sayNewest:d.sayNewest||null,pairs:d.pairs||{},speedT:d.speedT||3000,speedRun:d.speedRun||0,slowPerfect:d.slowPerfect||0,sayRun:d.sayRun||null,bonus:d._v>=9?(d.bonus||0):Math.min(1,d.bonus||0),ms:d.ms||{},memLevel:d.memLevel||0,traceMode:d.traceMode||0,traceLevel:d.traceLevel||0,fround:d.fround||{},soundOn:d.soundOn||0,istate:d.istate||{},soundRun:d.soundRun||null,memWins:d.memWins!=null?d.memWins:(d.memLevel||0)*2,mazeLevel:d.mazeLevel||0,specialBox:d.specialBox||0,poolSpecial:d.poolSpecial||0,unlockPending:d.unlockPending||0,poolOpen:!!(d.pool&&d.poolOpen),stored:d.stored||[],chestOrder:d.chestOrder||[],fwins:d.fwins,math:d.math||null,hw:d.hw||null,pet:d.pet||null,batteries:d.batteries||0,tbundle:d.tbundle||{},tgrp:d.tgrp||{},tlead:d.tlead||{},bonusKind:d.bonusKind||null,doneOrder:d.doneOrder||null,soPool:d.soPool||null,soHist:d.soHist||[],soSince:d.soSince||0,owstat:d.owstat||{},everPlaced:d.everPlaced||Object.fromEntries(Object.keys(d.placed||{}).map(k=>[k,1])),t5:1,f2:1,defOn:d.defOn||0,unlockDef:d.unlockDef||0,_v:10}}
 function loadRoot(){
   try{const r=JSON.parse(localStorage.getItem(KEY)||'null');if(r&&r.profiles&&r.profiles.length){r.profiles.forEach(p=>p.data=fixData(p.data));if(!r.profiles.some(p=>p.id===r.current))r.current=r.profiles[0].id;return r}}catch(e){}
   let old=null;try{old=JSON.parse(localStorage.getItem(OLD_KEY)||'null')}catch(e){}
@@ -1452,7 +1465,7 @@ function show(id){
   const leftSay=cur==='say'&&id!=='say';if(id!=='room')petOpen=false;stopFind();stopListen();stopVoice();document.body.classList.toggle('lower',S.settings.case==='lower');if(id==='room')rz=0;
   document.querySelectorAll('.screen').forEach(s=>s.hidden=s.id!=='s-'+id);
   cur=id;if(leftSay)restoreSpeaker();$('#title').textContent=TITLES[id];
-  $('#back').hidden=id==='home';{const nf=['home','splash','who','newp','settings','studio'].includes(id);$('#homeFab').hidden=nf;document.body.classList.toggle('fab',!nf)}
+  $('#back').hidden=id==='home';document.body.classList.toggle('lockscroll',['game','mad','def'].includes(id));{const nf=['home','splash','who','newp','settings','studio'].includes(id);$('#homeFab').hidden=nf;document.body.classList.toggle('fab',!nf)}
   const p=prof();$('#who').hidden=id==='who'||id==='newp';$('#who').innerHTML=avatarHTML(p)+'<span class="ring"></span>';$('#who').setAttribute('aria-label',`Playing as ${p.name}. Switch player`);
   $('#testTag').hidden=p.kind!=='test';$('#testWin').hidden=p.kind!=='test';
   $('#main').scrollTop=0;
@@ -1909,12 +1922,12 @@ function placeAll(){const spots=[];SHELVES.forEach(([a,b,y])=>{for(let x=a+50;x<
   CONTAINERS.forEach(c=>{});for(const id of S.owned){if(S.placed[id]||!PRIZE_BY[id])continue;let done=false;for(const [x,y] of shuffle(spots.slice())){const p=settle(id,x,y);if(p.on)continue;const w=IW(PRIZE_BY[id]);
       const clash=S.owned.some(o=>o!==id&&S.placed[o]&&!S.placed[o].on&&(S.placed[o].in||'')===(p.in||'')&&Math.abs(absPos(o).y-p.y)<50&&Math.abs(absPos(o).x-p.x)<(w+IW(PRIZE_BY[o]))/2*.8);if(!clash){S.placed[id]=p;done=true;break}}
     if(!done)S.placed[id]=freeSpot()}}
-function unplaced(){const un=S.owned.filter(id=>!S.placed[id]&&PRIZE_BY[id]),ev=S.everPlaced||{};S.chestOrder=(S.chestOrder||[]).filter(id=>un.includes(id));
+function unplaced(){const un=S.owned.filter(id=>!S.placed[id]&&PRIZE_BY[id]&&!isStored(id)),ev=S.everPlaced||{};S.chestOrder=(S.chestOrder||[]).filter(id=>un.includes(id));
   un.forEach(id=>{if(ev[id]&&!S.chestOrder.includes(id))S.chestOrder.push(id)});const back=S.chestOrder.slice();return back.concat(un.filter(id=>!back.includes(id)))}
-function roomGeom(){const v=$('#roomView'),vw=v.clientWidth||360,top=v.getBoundingClientRect().top||160;const below=['#petBar','#chest'].map(q=>$(q)).filter(e=>e&&!e.hidden).reduce((a,e)=>a+e.offsetHeight+10,0);const fitH=Math.max(240,Math.min(innerHeight-top-below-14-90,vw*1.6));return{vw,fitH,baseW:fitH*2.4}}
+function roomGeom(){const v=$('#roomView'),vw=v.clientWidth||360,top=v.getBoundingClientRect().top||160;const below=[].map(q=>$(q)).filter(e=>e&&!e.hidden).reduce((a,e)=>a+e.offsetHeight+10,0);const fitH=Math.max(240,Math.min(innerHeight-top-below-14-90,vw*1.6));return{vw,fitH,baseW:fitH*2.4}}
 function minZoom(){const g=roomGeom();return Math.min(1,g.vw/g.baseW)}
 /* the room opens tall enough to fill the screen (whole height of the room showing), and you can slide side to side */
-function layoutRoom(){const g=roomGeom();baseW=g.baseW;const first=rz<=0;if(first)rz=1/1.5;rz=Math.max(minZoom(),Math.min(3,rz));const st=$('#stage');st.style.width=(baseW*rz)+'px';$('#roomView').style.height=Math.round(g.fitH)+'px';if(first){panX=0;panY=0}applyPan()}
+function layoutRoom(){const g=roomGeom();baseW=g.baseW;const first=rz<=0;if(first)rz=.0001;rz=Math.max(minZoom(),Math.min(3,rz));const st=$('#stage');st.style.width=(baseW*rz)+'px';$('#roomView').style.height=Math.round(g.fitH)+'px';if(first){panX=0;panY=0}applyPan()}
 function zoomAt(z,fx,fy,px,py){const v=$('#roomView');rz=z;layoutRoom();const W=baseW*rz,H=W/1.6;if(px==null){px=v.clientWidth/2;py=v.clientHeight/2}panX=px-fx*W;panY=py-fy*H;applyPan()}
 function viewFocus(cx,cy){const v=$('#roomView'),r=v.getBoundingClientRect(),sr=$('#stage').getBoundingClientRect();return{fx:(cx-sr.left)/sr.width,fy:(cy-sr.top)/sr.height,px:cx-r.left,py:cy-r.top}}
 function stagePt(e){const r=$('#stage').getBoundingClientRect();return{x:(e.clientX-r.left)/r.width*ROOM_W,y:(e.clientY-r.top)/r.height*ROOM_H,inside:e.clientX>=r.left&&e.clientX<=r.right&&e.clientY>=r.top&&e.clientY<=r.bottom}}
@@ -1942,12 +1955,12 @@ function renderRoom(){if(!ROOM_SVG)ROOM_SVG=buildRoomSVG();{const ev=S.everPlace
   if(!$('#chestObj'))st.insertAdjacentHTML('beforeend',`<button class="chest-obj" id="chestObj" aria-label="Toy chest"></button>`);
   $('#roomTitle').textContent=`${prof().name}'s Treasure Room`;
   const placed=S.owned.filter(id=>S.placed[id]&&PRIZE_BY[id]);
-  $('#items').innerHTML=CONTAINERS.map(contHTML).join('')+placed.map(id=>itemHTML(PRIZE_BY[id])).join('')+pairBadges()+sealBadges()+roomFX()+petHTML()+(placed.length||S.owned.length?'':'<div class="room-empty">Win prizes to fill your room!</div>');
+  $('#items').innerHTML=CONTAINERS.map(contHTML).join('')+placed.map(id=>itemHTML(PRIZE_BY[id])).join('')+pairBadges()+sealBadges()+roomFX()+petHTML()+storeHTML()+(placed.length||S.owned.length?'':'<div class="room-empty">Win prizes to fill your room!</div>');
   renderChest();updatePlaceBar();layoutRoom();
   const n=$('#items .ritem.new');if(n&&rz>minZoom()+.01){const pos=absPos(n.dataset.id);const v=$('#roomView'),W=baseW*rz;panX=v.clientWidth/2-pos.x/ROOM_W*W;applyPan()}
   lastNew=null;startRails();renderPetBar()}
 function startPlacing(id){placing=id;if(!chestOpen){chestOpen=true;sCreak()}renderChest();layoutRoom();updatePlaceBar();say('place')}
-function placeAt(id,x,y){if(id==='__pet'){const p=pet(),spot=snapSpot(x,y);p.x=spot.x;p.y=spot.y;if(spot.in)p.in=spot.in;else delete p.in;delete p.chest;placing=null;save();sPop();renderRoom();return}if(isBat(id)&&onPet(x,y)){placing=null;feedBattery(id);return}S.placed[id]=railDrop(id,x,y)||settle(id,x,y);if(S.tbundle&&S.tbundle[id]){const ld=S.placed[id];S.tbundle[id].forEach((m,k)=>{if(!S.placed[m])S.placed[m]=snapTrack(m,ld.x+TK*2*(k+1),ld.y,true)});delete S.tbundle[id]}lastNew=id;placing=null;if(partnerOf(id)){if(S.placed[id].on)S.placed[id]=snapSpot(x,y);placePartner(id)}else if(!S.placed[id].rail)checkCombo(id);afterPlace(id);save();prizeSfx(PRIZE_BY[id]);if(!comboJust&&!(S.everPlaced||{})[id])say(vary('placed',4));(S.everPlaced=S.everPlaced||{})[id]=1;comboJust=false;if(!unplaced().length&&chestOpen){chestOpen=false;setTimeout(sThud,500)}renderRoom()}
+function placeAt(id,x,y){if(storeHit(x,y)&&id!=='__pet'){placing=null;storeItem(id);renderRoom();return}if(id==='__pet'){const p=pet(),spot=snapSpot(x,y);p.x=spot.x;p.y=spot.y;if(spot.in)p.in=spot.in;else delete p.in;delete p.chest;placing=null;save();sPop();renderRoom();return}if(isBat(id)&&onPet(x,y)){placing=null;feedBattery(id);return}S.placed[id]=railDrop(id,x,y)||settle(id,x,y);if(S.tbundle&&S.tbundle[id]){const ld=S.placed[id];S.tbundle[id].forEach((m,k)=>{if(!S.placed[m])S.placed[m]=snapTrack(m,ld.x+TK*2*(k+1),ld.y,true)});delete S.tbundle[id]}lastNew=id;placing=null;if(partnerOf(id)){if(S.placed[id].on)S.placed[id]=snapSpot(x,y);placePartner(id)}else if(!S.placed[id].rail)checkCombo(id);afterPlace(id);save();prizeSfx(PRIZE_BY[id]);if(!comboJust&&!(S.everPlaced||{})[id])say(vary('placed',4));(S.everPlaced=S.everPlaced||{})[id]=1;comboJust=false;if(!unplaced().length&&chestOpen){chestOpen=false;setTimeout(sThud,500)}renderRoom()}
 /* ---------- train tracks in the room ---------- */
 const isTrack=id=>!!(PRIZE_BY[id]&&TRK_ENDS[PRIZE_BY[id].key]);
 const RAIL_CARS=['car','pickup','dump','bus','race','van','tractor','digger','mixer','monster','crane','flamemt','fire'];
@@ -2045,7 +2058,7 @@ const newBat=()=>ensureBat('bat.'+Date.now().toString(36)+Math.random().toString
 const isBat=id=>!!(PRIZE_BY[id]&&PRIZE_BY[id].key==='batt');
 const batCount=()=>S.owned.filter(isBat).length;
 R.profiles.forEach(pf=>{const d=pf.data;(d.owned||[]).forEach(i=>{if(i.startsWith('bat.'))ensureBat(i)});while((d.batteries||0)>0){d.batteries--;d.owned.unshift(ensureBat('bat.'+Date.now().toString(36)+d.batteries))}});
-const PET_MAX=30;
+const PET_MAX=20;
 /* tricks: the first ones work right away; one new trick is learned with each new battery */
 const PET_CMDS=[['left','⬅️','Left',0],['right','➡️','Right',0],['back','⬆️','Back',0],['front','⬇️','Front',0],['wave','👋','Wave',0],['dance','💃','Dance',0],['sit','🪑','Sit',0],['leg','🦩','One leg',0],
   ['jump','🦘','Jump',2],['spin','🌀','Spin',3],['sing','🎵','Sing',4],['toss','🤹','Toss',5],['sleep','😴','Sleep',6],['hand','🤸','Cartwheel',7]];
@@ -2058,8 +2071,8 @@ function petLights(){const el=$('#pet');if(!el)return;const p=pet(),g1=el.queryS
   if(p.e>10){g2.setAttribute('opacity','.55');g1.setAttribute('opacity','0')}else if(p.e>0){const k=(11-p.e)/10;g2.setAttribute('opacity','0');g1.setAttribute('opacity',(.25+.7*k).toFixed(2))}else{g1.setAttribute('opacity','0');g2.setAttribute('opacity','0')}}
 function petRefresh(){const el=$('#pet');if(!el)return;const p=pet();el.classList.toggle('off',p.e<=0);petLights();renderPetBar()}
 let petOpen=false,petBusy=0;
-function openPet(){petOpen=true;rz=0;renderPetBar();const p=pet();if(p.e<=0){say(batCount()>0?'pet_give':'pet_need')}else robotBeep('hi');layoutRoom()}
-function closePet(){petOpen=false;rz=.0001;renderPetBar();layoutRoom()}
+function openPet(){petOpen=true;renderPetBar();const p=pet();if(p.e<=0){say(batCount()>0?'pet_give':'pet_need')}else robotBeep('hi')}
+function closePet(){petOpen=false;renderPetBar()}
 function renderPetBar(){const bar=$('#petBar');if(!bar)return;bar.hidden=!petOpen||cur!=='room';if(bar.hidden)return;const p=pet(),nb=batCount(),on=p.e>0;
   bar.innerHTML=`<div class="pb-top"><span class="pb-meter${p.e<=10?' low':''}"><i style="width:${Math.round(p.e/PET_MAX*100)}%"></i></span><span class="pb-n">${on?p.e+' moves left':'No power'}</span></div>
     <div class="pb-cmds">${PET_CMDS.map(c=>petKnows(c)?`<button class="pcmd" data-c="${c[0]}" ${on?'':'disabled'}><span>${c[1]}</span>${c[2]}</button>`:`<button class="pcmd lock" disabled><span>🔒</span>?</button>`).join('')}</div>`;
@@ -2074,7 +2087,7 @@ function giveBatteries(){const p=pet();const before=PET_CMDS.filter(petKnows).le
 function robotBeep(kind){const seq={toss:[523,784,1047,1319,1047],hand:[392,523,659,784,659,523],hi:[880,1175],walk:[523,587],wave:[784,988,784],dance:[523,659,784,659,880,784],sit:[440,330],leg:[660,880,1100],jump:[392,784,1175],spin:[523,698,880,1047,1397],sing:[523,587,659,698,784,880,988,1047],flex:[330,262,392],sleep:[392,330,262],low:[440,330,440,330]}[kind]||[700];
   seq.forEach((f,i)=>tone(f,.09,'square',.035,i*.11))}
 function petDo(c){const p=pet();if(p.e<=0){say('pet_need');return}if(petBusy)return;const el=$('#pet');if(!el)return;
-  if(p.y<700||p.in){/* up on a shelf or in a cupboard: hop down to the floor first */delete p.in;p.y=935;petBusy=1;el.classList.add('p-jump');el.style.top=PY(p.y);el.style.zIndex=(p.y|0)+2;robotBeep('jump');save();setTimeout(()=>{el.classList.remove('p-jump');petBusy=0;petDo(c)},1000);return}
+  if(p.y<700||p.in){/* up on a shelf or in a cupboard: hop down to the floor first */delete p.in;p.y=735;petBusy=1;el.classList.add('p-jump');el.style.top=PY(p.y);el.style.zIndex=(p.y|0)+2;robotBeep('jump');save();setTimeout(()=>{el.classList.remove('p-jump');petBusy=0;petDo(c)},1000);return}
   p.e--;const mv={left:[-230,0],right:[230,0],back:[0,-70],front:[0,70]}[c];let dur=2200;
   el.classList.remove('p-sit','p-sleep','p-wave','p-dance','p-leg','p-jump','p-spin','p-sing','p-toss','p-hand','p-cartR','p-cartL','p-walk','flipx');
   if(mv){p.x=Math.max(130,Math.min(2270,p.x+mv[0]));p.y=Math.max(720,Math.min(975,p.y+mv[1]));if(mv[0])el.classList.toggle('flipx',mv[0]<0);el.classList.add('p-walk');el.style.left=PX(p.x);el.style.top=PY(p.y);el.style.zIndex=(p.y|0)+2;robotBeep('walk');dur=1300;p.pose=''}
@@ -2104,6 +2117,22 @@ addEventListener('pointerup',e=>{if(!pdrag||e.pointerId!==pdrag.pid)return;const
   if(!d.moved){if(petOpen){robotBeep('hi');el.classList.remove('p-hi');void el.offsetWidth;el.classList.add('p-hi')}else openPet();return}
   if(overEl(e,'#chestObj')){const p=pet();p.chest=1;delete p.in;petOpen=false;save();sThud();renderRoom();return}
   const sp=stagePt(e),p=pet(),spot=snapSpot(sp.x,sp.y+60);p.x=spot.x;p.y=spot.y;if(spot.in)p.in=spot.in;else delete p.in;p.pose='';save();sPop();renderRoom()},true);
+/* ---------- STORAGE CHEST: lives in the big closet; holds extra treasures, sorted into groups ---------- */
+const STORE={x:2190,y:628,w:150};
+const STORE_GROUPS=[['vroom','🚗 Vehicles'],['beep','🤖 Robots'],['whoosh','🚀 Flying'],['animal','🐾 Animals'],['squeak','🧸 Plush toys'],['music','🎵 Instruments'],['candy','🍭 Treats'],['block','🔤 Letter blocks'],['track','🛤️ Train tracks'],['batt','🔋 Batteries'],['other','✨ Other treasures']];
+const storeGroupOf=k=>k==='block'?'block':TRK_ENDS[k]?'track':k==='batt'?'batt':(Object.keys(SFX_CAT).find(g=>SFX_CAT[g].includes(k))||'other');
+const isStored=id=>(S.stored||[]).includes(id);
+function storeHTML(){if(!OPEN.ward)return '';const n=(S.stored||[]).filter(i=>PRIZE_BY[i]).length;
+  return `<button class="store-obj" id="storeObj" style="left:${PX(STORE.x)};top:${PY(STORE.y)};width:${PX(STORE.w)};z-index:${STORE.y+5}" aria-label="Storage chest">${CHEST_CLOSED}${n?`<span class="badge">${n}</span>`:''}<span class="slabel">Storage</span></button>`}
+function storeHit(x,y){return !!OPEN.ward&&Math.abs(x-STORE.x)<STORE.w*.75&&y>STORE.y-STORE.w*.9&&y<STORE.y+40}
+function storeItem(id){if(!PRIZE_BY[id]||id==='__pet')return false;S.stored=S.stored||[];if(unsealToChest&&sealOf(id)){const k=sealOf(id);delete S.seals[k]}dropChildren(id);delete S.placed[id];if(!S.stored.includes(id))S.stored.push(id);
+  Object.keys(S.pairs||{}).forEach(k=>{if(k.split('|').includes(id))delete S.pairs[k]});save();sThud();toast(`${PRIZE_BY[id].name} is in the storage chest`,2200);return true}
+function openStorage(){const ids=(S.stored||[]).filter(i=>PRIZE_BY[i]);sCreak();
+  const groups=STORE_GROUPS.map(([g,label])=>{const its=ids.filter(i=>storeGroupOf(PRIZE_BY[i].key)===g).sort((a,b)=>PRIZE_BY[a].key.localeCompare(PRIZE_BY[b].key)||PRIZE_BY[a].tier-PRIZE_BY[b].tier);return its.length?`<div class="sgroup"><h3>${label} <small>${its.length}</small></h3><div class="srow2">${its.map(i=>`<button class="sitem t${PRIZE_BY[i].tier}" data-id="${i}" aria-label="${esc(PRIZE_BY[i].name)}">${prizeSVG(PRIZE_BY[i],S.decor[i])}</button>`).join('')}</div></div>`:''}).join('');
+  ov(`<h2>Storage chest</h2><p class="note">${ids.length?'Tap a treasure to move it back to your toy chest.':'Empty! Drag extra treasures onto the storage chest in the closet to keep them here.'}</p><div class="store-list">${groups}</div>`,[{label:'Done',cls:'green',fn:renderRoom}]);
+  document.querySelectorAll('#ovCard .sitem').forEach(b=>b.onclick=()=>{ac();const id=b.dataset.id;S.stored=S.stored.filter(x=>x!==id);save();sPop();b.remove();toast(`${PRIZE_BY[id].name} is back in the toy chest`,2000)})}
+document.addEventListener('pointerdown',e=>{const so=e.target.closest&&e.target.closest('#storeObj');if(!so||placing)return;e.stopPropagation();ac();openStorage()},true);
+
 /* letter-block words, read top to bottom */
 function blockStacks(){const isB=k=>PRIZE_BY[k]&&PRIZE_BY[k].key==='block'&&PRIZE_BY[k].L&&S.placed[k];const tops=S.owned.filter(k=>isB(k)&&!S.owned.some(o=>S.placed[o]&&S.placed[o].on===k&&isB(o)));
   return tops.map(t=>{const ch=[t];let k=t;while(S.placed[k].on&&isB(S.placed[k].on)){k=S.placed[k].on;ch.push(k)}return ch}).filter(c=>c.length>=4)}
@@ -2184,7 +2213,7 @@ function endDrag(e,cancel){
     if(!d.moved){openItem(d.id);return}
     if(d.group){groupDrop(d,e);return}
     if(overEl(e,'#chestObj')){if(unsealToChest(d.id)){save();sThud();renderRoom();return}[d.id,partnerOf(d.id)].filter(Boolean).forEach(k=>{dropChildren(k);delete S.placed[k]});save();sThud();renderRoom();return}
-    const p=stagePt(e);if(isBat(d.id)&&onPet(p.x,p.y)){feedBattery(d.id);return}const kids=S.owned.filter(k=>S.placed[k]&&S.placed[k].on===d.id);delete S.placed[d.id];S.placed[d.id]=railDrop(d.id,p.x,p.y)||settle(d.id,p.x,p.y);if(S.placed[d.id].on&&(d.pe||(kids.length&&PRIZE_BY[S.placed[d.id].on].key!=='block'))){S.placed[d.id]=snapSpot(p.x,p.y)}if(d.pe)placePartner(d.id,d.pdx<0?-1:1);else if(!S.placed[d.id].rail)checkCombo(d.id);afterPlace(d.id);save();sPop();comboJust=false;renderRoom();return}
+    const p=stagePt(e);if(storeHit(p.x,p.y)){storeItem(d.id);renderRoom();return}if(isBat(d.id)&&onPet(p.x,p.y)){feedBattery(d.id);return}const kids=S.owned.filter(k=>S.placed[k]&&S.placed[k].on===d.id);delete S.placed[d.id];S.placed[d.id]=railDrop(d.id,p.x,p.y)||settle(d.id,p.x,p.y);if(S.placed[d.id].on&&(d.pe||(kids.length&&PRIZE_BY[S.placed[d.id].on].key!=='block'))){S.placed[d.id]=snapSpot(p.x,p.y)}if(d.pe)placePartner(d.id,d.pdx<0?-1:1);else if(!S.placed[d.id].rail)checkCombo(d.id);afterPlace(d.id);save();sPop();comboJust=false;renderRoom();return}
   if(cdrag&&e.pointerId===cdrag.pid){const c=cdrag;cdrag=null;
     if(c.ghost){c.ghost.remove();const p=stagePt(e);if(!cancel&&p.inside)placeAt(c.id,p.x,p.y);return}
     if(cancel)return;
@@ -2198,7 +2227,8 @@ function clampPan(){const v=$('#roomView'),vw=v.clientWidth,vh=v.clientHeight,W=
 function applyPan(){clampPan();const st=$('#stage');st.style.left=panX.toFixed(1)+'px';st.style.top=panY.toFixed(1)+'px'}
 const rv=$('#roomView'),ptrs=new Map();let pan=null,pinch=null;
 rv.addEventListener('gesturestart',e=>e.preventDefault());
-rv.addEventListener('pointerdown',e=>{ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});
+rv.appendChild($('#chest'));rv.appendChild($('#petBar'));
+rv.addEventListener('pointerdown',e=>{if(e.target.closest('.chest,.pet-bar'))return;ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});
   if(ptrs.size===2){const [a,b]=[...ptrs.values()];if(drag){drag.el.classList.remove('dragging');drag=null;renderRoom()}pan=null;
     const r=rv.getBoundingClientRect(),mx=(a.x+b.x)/2-r.left,my=(a.y+b.y)/2-r.top,W=baseW*rz;
     pinch={d0:Math.max(20,Math.hypot(a.x-b.x,a.y-b.y)),z0:rz,fx:(mx-panX)/W,fy:(my-panY)/(W/1.6),z:rz,px:mx,py:my};const st=$('#stage');st.style.transformOrigin='0 0';st.style.willChange='transform';return}
