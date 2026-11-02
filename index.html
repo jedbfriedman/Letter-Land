@@ -563,7 +563,7 @@ label.btn{display:block;text-align:center}
 .drag-ghost{display:flex;align-items:center}
 .drag-ghost svg{width:90px;height:90px}
 .fxheart{position:absolute;bottom:35%;pointer-events:none;animation:fxheart 1.8s ease-out forwards;z-index:5;opacity:0}
-@keyframes fxheart{0%{transform:translateY(0) scale(.6);opacity:0}15%{opacity:1}100%{transform:translateY(-130px) scale(1.1);opacity:0}}
+@keyframes fxheart{0%{transform:translate(-50%,0) scale(.6);opacity:0}15%{opacity:1}100%{transform:translate(-50%,-130px) scale(1.1);opacity:0}}
 .dmove.act-pet{animation:aPet .9s ease}
 @keyframes aPet{25%{transform:translateY(-6%)}50%{transform:translateY(0)}70%{transform:translateY(-3%)}}
 
@@ -823,6 +823,9 @@ body.lockscroll #main{overflow:hidden!important;overscroll-behavior:none;touch-a
 /* round 34 */
 .dg-tail,.dg-wingsL,.dg-feet,.dg-belly,.dg-spikes,.dg-fire{display:none}
 .dge1 .dg-shell{display:none}.dge1 .dg-feet{display:inline}.dge2 .dg-spikes{display:inline}.dge3 .dg-wingsS{display:none}.dge3 .dg-wingsL{display:inline}.dge4 .dg-tail{display:inline}.dge5 .dg-belly{display:inline}.dge6 .dg-fire{display:inline}
+
+/* round 35 */
+body.reloading #main{opacity:.4;transition:opacity .2s}
 </style>
 
 <div id="app">
@@ -997,7 +1000,7 @@ const VL={
   fail:['Let\'s try again!','Not quite! Let\'s try again!','Let\'s have another go!'],
   cheer:['Awesome!','Great job!','Nice work!','Congrats!','Way to go!','You did it!'],
   trace:['Trace the line with your finger! Stay inside the lines!','Trace the line with your finger!'],
-  misc:{sup_all:'Wow! You found every single letter! That is amazing!',sup_tele:'Here is a super special Mythic treasure. The Magic Telescope!',sup_50:'Wow! You earned fifty Sound It Out treasures!',sup_box:'Here is a super special Mythic treasure. The Magic Music Box!',so_max:'Great job! You already earned every Sound It Out treasure. Try another game for more prizes!',wt_trace:'Trace the letter',store_n:'Storage chest!',store_empty:'This is your storage chest. Drag extra toys here to keep them safe!',wt_start:'Start at the green dot!',askw0:'Can you read this word?',askw1:'What word is this?',askw2:'Read this word out loud!',swsays:'That word says',sw_intro:'Wow! You know all your letters! Now let\'s read some words!',swup:'Great reading! Here come some new words!',tele_look:'Look through the telescope! Connect the stars to make a letter!',sup_words:'Wow! You can read all the words!',sup_parrot:'Here is a super special Mythic treasure. The Rainbow Parrot!',sup_bonus:'Wow! You mastered every bonus game!',sup_egg:'Here is a super special Mythic treasure. A Dragon Egg! Tap it to see what happens!',sup_leg:'Wow! You collected every legendary treasure!',sup_castle:'Here is a super special Mythic treasure. The Crystal Castle!',sup_tricks:'Wow! Your robot knows every trick!',sup_crown:'Here is a super special Mythic treasure. The Robot Crown! Give it to your robot!',egg_tap1:'Something is moving inside!',egg_tap2:'Crack! Almost there!',egg_hatch:'It hatched! A baby dragon!',crown_on:'Your robot is a king now!',dragon_eat:'Yum yum! Your dragon is growing!',dragon_full:'Wow! Your dragon is all grown up!',dragon_hungry:'Your dragon is hungry! Win some dragon food!',pzfood:'Dragon food! Feed it to your dragon!',cap_max:'Great job! You earned every treasure in this game. Try another game for more prizes!',sup_w50:'Wow! You earned fifty Write It treasures!',sup_quill:'Here is a super special Mythic treasure. The Magic Quill!',sup_m50:'Wow! You earned fifty Mad Math Minute treasures!',sup_glass:'Here is a super special Mythic treasure. The Magic Hourglass!',sup_d50:'Wow! You earned fifty Number Defender treasures!',sup_rocket:'Here is a super special Mythic treasure. The Guardian Rocket!',welcome:'Welcome to Letter Land!',hi:'Hi there! Let\'s play!',who:'Who\'s playing?',pickletter:'Pick a letter to find!',
+  misc:{sup_all:'Wow! You found every single letter! That is amazing!',sup_tele:'Here is a super special Mythic treasure. The Magic Telescope!',sup_50:'Wow! You earned fifty Sound It Out treasures!',sup_box:'Here is a super special Mythic treasure. The Magic Music Box!',so_max:'Great job! You already earned every Sound It Out treasure. Try another game for more prizes!',wt_trace:'Trace the letter',store_n:'Storage chest!',store_empty:'This is your storage chest. Drag extra toys here to keep them safe!',wt_start:'Start at the green dot!',wt_start1:'Start at number one!',wt_startb:'Start at the blue dot!',sayagain:'Can you say that again?',askw0:'Can you read this word?',askw1:'What word is this?',askw2:'Read this word out loud!',swsays:'That word says',sw_intro:'Wow! You know all your letters! Now let\'s read some words!',swup:'Great reading! Here come some new words!',tele_look:'Look through the telescope! Connect the stars to make a letter!',sup_words:'Wow! You can read all the words!',sup_parrot:'Here is a super special Mythic treasure. The Rainbow Parrot!',sup_bonus:'Wow! You mastered every bonus game!',sup_egg:'Here is a super special Mythic treasure. A Dragon Egg! Tap it to see what happens!',sup_leg:'Wow! You collected every legendary treasure!',sup_castle:'Here is a super special Mythic treasure. The Crystal Castle!',sup_tricks:'Wow! Your robot knows every trick!',sup_crown:'Here is a super special Mythic treasure. The Robot Crown! Give it to your robot!',egg_tap1:'Something is moving inside!',egg_tap2:'Crack! Almost there!',egg_hatch:'It hatched! A baby dragon!',crown_on:'Your robot is a king now!',dragon_eat:'Yum yum! Your dragon is growing!',dragon_full:'Wow! Your dragon is all grown up!',dragon_hungry:'Your dragon is hungry! Win some dragon food!',pzfood:'Dragon food! Feed it to your dragon!',cap_max:'Great job! You earned every treasure in this game. Try another game for more prizes!',sup_w50:'Wow! You earned fifty Write It treasures!',sup_quill:'Here is a super special Mythic treasure. The Magic Quill!',sup_m50:'Wow! You earned fifty Mad Math Minute treasures!',sup_glass:'Here is a super special Mythic treasure. The Magic Hourglass!',sup_d50:'Wow! You earned fifty Number Defender treasures!',sup_rocket:'Here is a super special Mythic treasure. The Guardian Rocket!',welcome:'Welcome to Letter Land!',hi:'Hi there! Let\'s play!',who:'Who\'s playing?',pickletter:'Pick a letter to find!',
     oops:'Oops, let\'s try that again.',batt:'Time\'s up! Let\'s try again.',nohear:'I didn\'t hear you. Let\'s try again!',
     pick:'Pick your prize!',bonus:'A bonus box! Pick your prize!',newprize:'Yay! A new prize!',newsticker:'A new sticker!',
     place:'Where should it go? Tap a spot in your room!',decorate:'Pick a sticker, then tap your prize to stick it on!',nostickers:'You can win stickers in the prize shop.',
@@ -1036,7 +1039,7 @@ const LINES=buildLines();
 const NAME={A:'ay',B:'bee',C:'see',D:'dee',E:'ee',F:'eff',G:'jee',H:'aitch',I:'eye',J:'jay',K:'kay',L:'ell',M:'em',N:'en',O:'oh',P:'pee',Q:'cue',R:'ar',S:'ess',T:'tee',U:'you',V:'vee',W:'double you',X:'ex',Y:'why',Z:'zee'};
 const LOOK_U={B:'DPR',D:'BOP',E:'FB',F:'EPT',M:'NW',N:'MHZ',O:'QCD',Q:'OG',C:'GO',G:'CO',P:'BRF',R:'PBK',U:'VJ',V:'UWY',W:'MV',I:'LTJ',L:'IJ',T:'IJ',K:'XR',X:'KY',Y:'VX',Z:'NS',S:'Z',H:'NA',A:'HV',J:'IL'};
 const LOOK_L={B:'DPQ',D:'BPQ',P:'QBD',Q:'PDG',M:'NW',N:'MHU',U:'NV',H:'NB',I:'LJ',L:'IT',A:'OE',E:'AC',O:'AC',C:'OE',G:'QP',F:'T',T:'F',V:'WY',W:'MV',Y:'VG',S:'Z',Z:'S',K:'X',X:'K',R:'N',J:'I'};
-const HEAR={A:['a','ay','eh','hey','hay','aye'],B:['b','be','bee','bea'],C:['c','see','sea','si','cee','she'],D:['d','dee','de','the'],E:['e','ee','he','eee'],F:['f','ef','eff','if'],G:['g','gee','jee','ji','gi'],H:['h','aitch','ach','age','etch','each'],I:['i','eye','aye','hi','ai'],J:['j','jay','jae','jane'],K:['k','kay','okay','ok','cay','kate'],L:['l','el','elle','ell','al','well'],M:['m','em','am','emm','um'],N:['n','en','and','in','an','end'],O:['o','oh','owe','0','zero','ho'],P:['p','pee','pea','pe','pete'],Q:['q','queue','cue','kyu','cute','que'],R:['r','are','our','ar','or','art'],S:['s','es','ess','yes','is','as'],T:['t','tea','tee','ti','tete'],U:['u','you','yu','ew','yo'],V:['v','vee','vi','we'],W:['w','double','dub','dubya','w.'],X:['x','ex','eggs','axe','acts','x.'],Y:['y','why','wye','wy','wise'],Z:['z','zee','zed','ze','see']};
+const HEAR={A:['a','ay','eh','hey','hay','aye'],B:['b','be','bee','bea'],C:['c','see','sea','si','cee','she'],D:['d','dee','de','the'],E:['e','ee','he','eee'],F:['f','ef','eff','if'],G:['g','gee','jee','ji','gi'],H:['h','aitch','ach','age','etch','each'],I:['i','eye','aye','hi','ai'],J:['j','jay','jae','jane'],K:['k','kay','okay','ok','cay','kate'],L:['l','el','elle','ell','al','well'],M:['m','em','am','emm','um'],N:['n','en','and','in','an','end'],O:['o','oh','owe','0','zero','ho'],P:['p','pee','pea','pe','pete'],Q:['q','queue','cue','kyu','cute','que'],R:['r','are','our','ar','or','art'],S:['s','es','ess','yes','is','as'],T:['t','tea','tee','ti','tete'],U:['u','you','yu','ew','yo'],V:['v','vee','vi','we'],W:['w','double','dub','dubya','w.'],X:['x','ex','eggs','axe','acts','x.','ax','eks','ecks','x ray','xray','next','ekes','aches'],Y:['y','why','wye','wy','wise'],Z:['z','zee','zed','ze','see']};
 
 /* ---------- state ---------- */
 const KEY='letter-garage-v2',OLD_KEY='letter-garage-v1';
@@ -1067,7 +1070,7 @@ let actx=null;
 function healAudio(){if(!actx)return;if(actx.state==='closed'){actx=null;return}
   if(actx.state!=='running'){const old=actx;const p=old.resume();const check=()=>{if(old.state!=='running'&&actx===old){try{old.close()}catch(e){}actx=null}};if(p&&p.then)p.then(()=>setTimeout(check,250),()=>{if(actx===old)actx=null});else setTimeout(check,250)}}
 let audioStale=false,ckW=0,ckT=0;
-document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden'){audioStale=true;pauseTimer();if(cur==='say'){Y.away=true;stopListen();stopVoice()}}else{vUnlocked=false;resumeTimer();if(cur==='say'&&Y.away){Y.away=false;Y.busy=false;Y.micOK=false;setTimeout(()=>{if(cur==='say')nextSay(true)},500)}}});
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden'){audioStale=true;pauseTimer();if(cur==='say'){Y.away=true;stopListen();stopVoice()}}else{vUnlocked=false;resumeTimer();if(cur==='say'&&Y.away){Y.away=false;Y.busy=false;Y.micOK=false;setTimeout(()=>{if(cur==='say'&&$('#micGate').hidden&&(Y.letter||Y.word))nextSay(true)},500)}}});
 addEventListener('pageshow',()=>{audioStale=true;vUnlocked=false});addEventListener('blur',()=>{audioStale=true});
 function ac(){if(!actx){try{actx=new (window.AudioContext||window.webkitAudioContext)();actx._born=performance.now()}catch(e){}}if(actx&&actx.state!=='running'){try{actx.resume()}catch(e){}}return actx}
 let CT=null;const sfxPool=[];
@@ -1618,7 +1621,9 @@ function prizeSVG(pr,dec){
 /* ---------- navigation ---------- */
 const TITLES={write:'Write It',mad:'Mad Math Minute',def:'Number Defender',splash:'Letter Land',home:'Letter Land',game:'Bonus Game',sound:'Sound It Out',studio:'Voice Studio',who:'Players',newp:'New Player',pick:'Find It',find:'Find It',say:'Say It',shop:'Prize Shop',room:'Treasure Room',settings:'Grown-up Settings'};
 let cur='home';
+const appleTouch=/iPad|iPhone|iPod/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
 function show(id){
+  if(cur==='say'&&id!=='say'&&typeof micUsed!=='undefined'&&micUsed&&appleTouch){try{stopListen()}catch(e){}save();try{sessionStorage.setItem('ll_go',id)}catch(e){}document.body.classList.add('reloading');location.reload();return}
   if(cur==='write'&&id!=='write'&&typeof wtPause==='function')wtPause();
   if(id!=='mad'&&typeof MM!=='undefined')madPause();if(id!=='def'&&typeof DF!=='undefined')defPause();if(cur==='find'&&id!=='find'&&F&&!F.done)pauseTimer();
   const leftSay=cur==='say'&&id!=='say';if(id!=='room')petOpen=false;stopFind();stopListen();stopVoice();document.body.classList.toggle('lower',S.settings.case==='lower');if(id==='room')rz=0;
@@ -1865,11 +1870,11 @@ function micHelp(code){if(isHomeApp())return `<b>Say It can't use the microphone
 function showMicGate(){const hd=$('#s-say .hud');if(hd)hd.style.visibility='hidden';$('#micGate').hidden=false;$('.say-stage').hidden=true;say('micgate');
   $('#gateMic').onclick=()=>{ac();stopVoice();let r;try{r=new SR();r.lang='en-US';r.interimResults=false}catch(e){$('#gateNote').textContent='This browser cannot listen. Open the game in Safari.';return}
     $('#gateMic').classList.add('listening');
-    r.onstart=()=>{S.micGranted=1;save();try{r.abort()}catch(e){}micDoneMode();$('#gateMic').classList.remove('listening');$('#micGate').hidden=true;$('.say-stage').hidden=false;Y.micOK=true;sPop();setTimeout(()=>{if(cur==='say')nextSay()},300)};
+    r.onstart=()=>{S.micGranted=1;save();try{r.abort()}catch(e){}micDoneMode();$('#gateMic').classList.remove('listening');$('#micGate').hidden=true;$('.say-stage').hidden=false;Y.micOK=true;sPop();micUsed=true;setTimeout(()=>{if(cur==='say'&&!(Y.letter||Y.word))nextSay()},300)};
     r.onerror=e=>{micDoneMode();$('#gateMic').classList.remove('listening');if(e.error==='not-allowed'||e.error==='service-not-allowed')$('#gateNote').innerHTML=micHelp(e.error)};
     try{micListenMode();r.start()}catch(e){$('#gateMic').classList.remove('listening')}}}
 function showWord(){if(Y.isWord){const w=Y.word;$('#sWord').innerHTML=`${SW_PIC[w]?`<span class="emo">${pic(SW_PIC[w])}</span>`:''}<span><b>${swDisp(w)}</b></span>`;return}const L=Y.letter;$('#sWord').innerHTML=`<span class="emo">${pic(WORDS[L][1])}</span><span><b>${disp(L)}</b> is for ${WORDS[L][0]}</span>`}
-function nextSay(same){{const hd=$('#s-say .hud');if(hd)hd.style.visibility=''}stopListen();if(!same)Y.isWord=sayWordsOn()&&Math.random()<.85;
+function nextSay(same){{const hd=$('#s-say .hud');if(hd)hd.style.visibility=''}stopListen();Y.retried=false;if(!same)Y.isWord=sayWordsOn()&&Math.random()<.85;
   if(Y.wordsNew){Y.wordsNew=false;Y.busy=true;sFan();confetti();say('sw_intro');ov(`<h2>You know all your letters!</h2><p>Now let's read some words.</p>`,[{label:"Let's read!",cls:'green big',fn:()=>{Y.busy=false;nextSay(true)}}]);return}
   if(Y.parrotDue&&!S.parrotGiven){Y.parrotDue=false;Y.busy=true;superReward(()=>{Y.busy=false;nextSay(true)},'parrot');return}
   if(Y.stageUp){const st=Y.stageUp;Y.stageUp=null;toast(st===1?'New: 3-letter words!':'New: bigger words!',3500);say('swup')}
@@ -1877,9 +1882,9 @@ function nextSay(same){{const hd=$('#s-say .hud');if(hd)hd.style.visibility=''}s
   $('#sLetter').textContent=Y.isWord?swDisp(Y.word):disp(Y.letter);$('#sLetter').classList.toggle('wd',!!Y.isWord);$('#sLetter').classList.toggle('wd4',!!Y.isWord&&Y.word.length>=4);$('#sWord').innerHTML='';$('#sayScreen').classList.remove('ok','miss');sayUI();
   if(!SR&&!grownMode()){say(Y.isWord?['sw_'+Y.word]:['n_'+Y.letter,'is_'+Y.letter]);showWord();return}
   $('#micBtn').classList.add('invite');
-  const L=Y.letter;say(Y.isWord?vary('askw',3):vary('ask',4)).then(()=>{if(cur==='say'&&!Y.busy&&!rec&&Y.letter===L)listen(true)})}
+  const L=Y.letter,Wd=Y.word;say(Y.isWord?vary('askw',3):vary('ask',4)).then(()=>{setTimeout(()=>{if(cur==='say'&&!Y.busy&&!rec&&Y.letter===L&&Y.word===Wd)listen(true)},350)})}
 function norm(s){return s.toLowerCase().replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim()}
-function heard(alts,L){const ok=HEAR[L];return alts.some(a=>{const n=norm(a);if(!n)return false;if(ok.includes(n))return true;if(L==='W'&&/double ?(you|u|yu)/.test(n))return true;const toks=n.split(' ');return toks.length<=3&&toks.some(t=>ok.includes(t))})}
+function heard(alts,L){const ok=HEAR[L];return alts.some(a=>{const n=norm(a);if(!n)return false;if(ok.includes(n))return true;if(L==='W'&&/double ?(you|u|yu)/.test(n))return true;const toks=n.split(' ');return toks.length<=6&&toks.some(t=>ok.includes(t))})}
 function micListenMode(){try{if(navigator.audioSession&&navigator.audioSession.type!=='play-and-record')navigator.audioSession.type='play-and-record'}catch(e){}}
 /* after listening, switch the phone back to normal loud speaker playback and rebuild the sound engine on the next tap */
 function micDoneMode(){if(cur!=='say')restoreSpeaker()}
@@ -1887,19 +1892,23 @@ function micDoneMode(){if(cur!=='say')restoreSpeaker()}
    leaving Say It puts it back to loud speaker mode with a fresh sound player */
 function restoreSpeaker(){const f=()=>{try{if(navigator.audioSession&&!rec&&cur!=='say')navigator.audioSession.type='playback'}catch(e){}};f();setTimeout(f,300);setTimeout(f,1200);audioStale=true;unlockAudio();
   try{const n=new Audio();n.preload='auto';n.setAttribute('playsinline','');try{vEl.pause()}catch(e){}vEl=n;vUnlocked=true;n.src=SILENT;const q=n.play();if(q&&q.catch)q.catch(()=>{vUnlocked=false})}catch(e){vUnlocked=false}}
+let micUsed=false;
 function listen(auto){if(!micOk()||rec||Y.busy)return;if(!auto)stopVoice();micListenMode();
   try{rec=new SR();rec.lang='en-US';rec.interimResults=true;rec.maxAlternatives=5;rec.continuous=false}catch(e){micErr='not supported';sayUI();rec=null;return}
-  const r=rec;let decided=false;
-  $('#micBtn').classList.remove('invite');$('#micBtn').classList.add('listening');
-  r.onresult=e=>{if(decided)return;const alts=[];for(let i=e.resultIndex;i<e.results.length;i++)for(let k=0;k<e.results[i].length;k++)alts.push(e.results[i][k].transcript);
-    clearTimeout(Y.missT);if(Y.isWord?heardWord(alts,Y.word):heard(alts,Y.letter)){decided=true;stopListen();sayYes()}else if(e.results[e.results.length-1].isFinal){decided=true;stopListen();sayMiss()}else if(alts.some(a=>norm(a))){Y.missT=setTimeout(()=>{if(!decided&&rec===r){decided=true;stopListen();sayMiss()}},750)}};
+  const r=rec;let decided=false;const target=Y.isWord?Y.word:Y.letter;
+  const ok=alts=>Y.isWord?heardWord(alts,Y.word):heard(alts,Y.letter);
+  const wrong=()=>{decided=true;stopListen();if(!Y.retried){Y.retried=true;$('#micBtn').classList.add('invite');say('sayagain').then(()=>{if(cur==='say'&&!Y.busy&&!rec&&(Y.isWord?Y.word:Y.letter)===target)setTimeout(()=>{if(cur==='say'&&!Y.busy&&!rec)listen(true)},300)})}else sayMiss()};
+  $('#micBtn').classList.remove('invite');
+  r.onresult=e=>{if(decided)return;const alts=[];for(let i=0;i<e.results.length;i++)for(let k=0;k<e.results[i].length;k++)alts.push(e.results[i][k].transcript);
+    clearTimeout(Y.missT);if(ok(alts)){decided=true;stopListen();sayYes()}else if(e.results[e.results.length-1].isFinal)wrong();else if(alts.some(a=>norm(a))){Y.missT=setTimeout(()=>{if(!decided&&rec===r)wrong()},1400)}};
   r.onerror=e=>{if(e.error==='no-speech'||e.error==='aborted')return;decided=true;if(!(auto&&!Y.micOK))micErr=e.error||'unknown';sayUI();$('#micBtn').classList.add('invite')};
-  r.onstart=()=>{Y.micOK=true};
-  r.onend=()=>{if(rec===r)rec=null;$('#micBtn').classList.remove('listening');micDoneMode();
+  r.onstart=()=>{Y.micOK=true;micUsed=true;if(rec===r)$('#micBtn').classList.add('listening')};
+  clearTimeout(Y.watch);Y.watch=setTimeout(()=>{if(rec===r&&!decided){try{r.stop()}catch(e){}setTimeout(()=>{if(rec===r&&!decided){rec=null;try{r.abort()}catch(e){}r.onend&&r.onend()}},1200)}},8000);
+  r.onend=()=>{if(r._ended)return;r._ended=true;clearTimeout(Y.watch);if(rec===r)rec=null;$('#micBtn').classList.remove('listening');micDoneMode();
     if(decided||cur!=='say'||Y.busy)return;
-    Y.silent++;$('#micBtn').classList.add('invite');if(Y.silent<2){const L=Y.letter;say('nohear').then(()=>{if(cur==='say'&&!Y.busy&&!rec&&Y.letter===L&&Y.micOK)listen(true)})}else sayMiss()};
+    Y.silent++;$('#micBtn').classList.add('invite');if(Y.silent<3){say('nohear').then(()=>{if(cur==='say'&&!Y.busy&&!rec&&(Y.isWord?Y.word:Y.letter)===target&&Y.micOK)setTimeout(()=>{if(cur==='say'&&!Y.busy&&!rec)listen(true)},300)})}else sayMiss()};
   try{r.start();if(!auto)micErr='';sayUI()}catch(e){rec=null;$('#micBtn').classList.remove('listening');$('#micBtn').classList.add('invite');if(!auto)micErr=e.name||'start failed';sayUI()}}
-function stopListen(){clearTimeout(Y.missT);const r=rec;rec=null;if(r){try{r.abort()}catch(e){}}$('#micBtn')?.classList.remove('listening')}
+function stopListen(){clearTimeout(Y.missT);clearTimeout(Y.watch);const r=rec;rec=null;if(r){try{r.abort()}catch(e){}}$('#micBtn')?.classList.remove('listening')}
 function sayYes(){if(Y.busy)return;Y.busy=true;stopListen();micErr='';sayUI();Y.micOK=true;S.micGranted=1;$('#micBtn').classList.remove('invite');Y.count++;if(Y.isWord)swRecord(Y.word,true);else{bump(Y.letter,'s');sayRecord(Y.letter,true)}S.sayRun={count:Y.count,strikes:Y.strikes};save();sPop();tierSfx(1);
   starRow($('#sPips'),S.settings.sayGoal,Y.count);showWord();$('#sayScreen').classList.add('ok');
   const ck=document.createElement('div');ck.className='check';ck.textContent='✓';$('#sayScreen').appendChild(ck);setTimeout(()=>ck.remove(),900);
@@ -2342,59 +2351,59 @@ document.addEventListener('pointerdown',e=>{const so=e.target.closest&&e.target.
    Letters live in a 120 x 165 box: capitals from y 15 to the baseline at 125; small letters sit on the same baseline
    (x-height 70, tall letters reach 15, tails drop to 158). Each stroke is an SVG path drawn in the order kids are taught. */
 const WT_UP={
-  A:['M60 15 L25 125','M60 15 L95 125','M38 86 L82 86'],
-  B:['M34 15 L34 125','M34 15 H62 C90 15 90 68 62 68 H34','M34 68 H66 C98 68 98 125 66 125 H34'],
+  A:['M25 125 L60 15','M60 15 L95 125','M38 86 H82'],
+  B:['M34 15 L34 125','M34 125 L34 15 H62 C90 15 90 68 62 68 H34','M34 68 H66 C98 68 98 125 66 125 H34'],
   C:['M90 36 C80 12 38 10 28 46 C20 78 32 125 62 125 C78 125 87 115 91 104'],
-  D:['M30 15 L30 125','M30 15 H52 C102 15 102 125 52 125 H30'],
-  E:['M34 15 L34 125','M34 15 H88','M34 70 H78','M34 125 H88'],
-  F:['M34 15 L34 125','M34 15 H88','M34 70 H78'],
-  G:['M91 36 C80 12 38 10 28 46 C20 80 32 125 62 125 C84 125 92 110 92 86','M62 86 H94'],
+  D:['M30 15 L30 125','M30 125 L30 15 H52 C102 15 102 125 52 125 H30'],
+  E:['M88 15 H34','M34 15 L34 125','M34 125 H88','M34 70 H78'],
+  F:['M88 15 H34','M34 15 L34 125','M34 70 H78'],
+  G:['M91 36 C80 12 38 10 28 46 C20 80 32 125 62 125 C84 125 92 110 92 86','M92 86 H62'],
   H:['M30 15 L30 125','M90 15 L90 125','M30 70 H90'],
-  I:['M60 15 L60 125','M38 15 H82','M38 125 H82'],
+  I:['M38 15 H82','M60 15 L60 125','M38 125 H82'],
   J:['M82 15 L82 96 C82 132 30 132 28 102'],
   K:['M32 15 L32 125','M88 15 L33 74','M33 74 L90 125'],
-  L:['M34 15 L34 125 H88'],
-  M:['M24 15 L24 125','M24 15 L60 92 L96 15 L96 125'],
-  N:['M30 15 L30 125','M30 15 L90 125 L90 15'],
+  L:['M34 15 L34 125','M34 125 H88'],
+  M:['M24 125 L24 15','M24 15 L60 92','M60 92 L96 15','M96 15 L96 125'],
+  N:['M30 125 L30 15','M30 15 L90 125','M90 125 L90 15'],
   O:['M60 15 C18 15 18 125 60 125 C102 125 102 15 60 15'],
-  P:['M32 15 L32 125','M32 15 H62 C94 15 94 74 62 74 H32'],
+  P:['M32 15 L32 125','M32 125 L32 15 H62 C94 15 94 74 62 74 H32'],
   Q:['M60 15 C18 15 18 125 60 125 C102 125 102 15 60 15','M68 98 L96 130'],
-  R:['M32 15 L32 125','M32 15 H62 C94 15 94 72 62 72 H33','M33 72 L90 125'],
+  R:['M32 15 L32 125','M32 125 L32 15 H62 C94 15 94 72 62 72 H33','M33 72 L90 125'],
   S:['M89 36 C83 12 34 10 33 42 C32 70 90 62 90 96 C90 132 36 130 28 106'],
-  T:['M60 15 L60 125','M26 15 H94'],
+  T:['M26 15 H94','M60 15 L60 125'],
   U:['M30 15 L30 92 C30 134 90 134 90 92 L90 15'],
-  V:['M24 15 L60 125 L96 15'],
-  W:['M16 15 L38 125 L60 45 L82 125 L104 15'],
+  V:['M24 15 L60 125','M60 125 L96 15'],
+  W:['M16 15 L38 125','M38 125 L60 45','M60 45 L82 125','M82 125 L104 15'],
   X:['M28 15 L92 125','M92 15 L28 125'],
-  Y:['M26 15 L60 70','M94 15 L60 70 L60 125'],
-  Z:['M28 15 H92 L28 125 H92']};
+  Y:['M26 15 L60 70','M60 70 L94 15','M60 70 L60 125'],
+  Z:['M28 15 H92','M92 15 L28 125','M28 125 H92']};
 const WT_LO={
-  a:['M84 82 C72 62 32 64 32 97 C32 132 80 130 84 104','M84 70 L84 125'],
-  b:['M32 15 L32 125','M32 100 C32 64 88 62 88 97 C88 132 32 132 32 104'],
+  a:['M84 82 C72 62 32 64 32 97 C32 132 80 130 84 104 L84 70','M84 70 L84 125'],
+  b:['M32 15 L32 125','M32 125 L32 100 C32 64 88 62 88 97 C88 132 32 132 32 108'],
   c:['M85 82 C72 62 30 64 30 97 C30 132 74 132 87 112'],
-  d:['M84 82 C72 62 32 64 32 97 C32 132 80 130 84 104','M84 15 L84 125'],
+  d:['M84 82 C72 62 32 64 32 97 C32 132 80 130 84 104 L84 15','M84 15 L84 125'],
   e:['M32 97 H87 C87 62 34 60 32 96 C30 130 72 134 87 115'],
   f:['M82 28 C76 10 48 10 48 40 L48 125','M28 72 H72'],
-  g:['M84 82 C72 62 32 64 32 96 C32 128 80 126 84 102','M84 70 L84 138 C84 164 40 164 33 144'],
-  h:['M32 15 L32 125','M32 98 C32 62 86 62 86 94 L86 125'],
+  g:['M84 82 C72 62 32 64 32 96 C32 128 80 126 84 102 L84 70','M84 70 L84 138 C84 164 40 164 33 144'],
+  h:['M32 15 L32 125','M32 125 L32 96 C32 62 86 62 86 94 L86 125'],
   i:['M60 72 L60 125','M60 44 L60 49'],
   j:['M70 72 L70 140 C70 164 34 164 29 142','M70 44 L70 49'],
   k:['M34 15 L34 125','M84 68 L35 100','M35 100 L86 125'],
   l:['M60 15 L60 125'],
-  m:['M22 70 L22 125','M22 92 C22 60 59 60 59 88 L59 125','M59 92 C59 60 98 60 98 88 L98 125'],
-  n:['M32 70 L32 125','M32 94 C32 62 86 62 86 92 L86 125'],
+  m:['M22 70 L22 125','M22 125 L22 92 C22 60 59 60 59 88 L59 125','M59 125 L59 92 C59 60 98 60 98 88 L98 125'],
+  n:['M32 70 L32 125','M32 125 L32 94 C32 62 86 62 86 92 L86 125'],
   o:['M60 70 C24 70 24 125 60 125 C96 125 96 70 60 70'],
-  p:['M32 70 L32 158','M32 98 C32 64 88 64 88 97 C88 132 32 132 32 102'],
-  q:['M84 82 C72 62 32 64 32 96 C32 128 80 126 84 102','M84 70 L84 148 Q85 159 97 155'],
-  r:['M36 70 L36 125','M36 98 C36 70 64 62 86 74'],
+  p:['M32 70 L32 158','M32 158 L32 98 C32 64 88 64 88 97 C88 132 32 132 32 108'],
+  q:['M84 82 C72 62 32 64 32 96 C32 128 80 126 84 102 L84 70','M84 70 L84 148 Q85 159 97 155'],
+  r:['M36 70 L36 125','M36 125 L36 98 C36 70 64 62 86 74'],
   s:['M81 79 C72 63 38 64 38 82 C38 99 85 91 85 110 C85 132 40 133 33 116'],
   t:['M56 28 L56 125','M34 72 H80'],
-  u:['M32 70 L32 104 C32 133 86 133 86 102','M86 70 L86 125'],
-  v:['M28 70 L60 125 L92 70'],
-  w:['M16 70 L38 125 L60 80 L82 125 L104 70'],
+  u:['M32 70 L32 104 C32 133 86 133 86 102 L86 70','M86 70 L86 125'],
+  v:['M28 70 L60 125','M60 125 L92 70'],
+  w:['M16 70 L38 125','M38 125 L60 80','M60 80 L82 125','M82 125 L104 70'],
   x:['M32 70 L88 125','M88 70 L32 125'],
   y:['M30 70 L60 122','M90 70 L44 158'],
-  z:['M32 70 H88 L32 125 H88']};
+  z:['M32 70 H88','M88 70 L32 125','M32 125 H88']};
 const WT_START='ABC';
 let WT={},wtRAF=null;
 const wtSet=()=>S.settings.case==='lower'?WT_LO:WT_UP;
@@ -2444,7 +2453,7 @@ function wtStrokeDone(){const P=WT.pts[WT.si];$('#wtDone').insertAdjacentHTML('b
 function wtBind(){const svg=$('#wtSvg');let dn=false;
   const adv=e=>{if(WT.busy)return;const [x,y]=wtAt(e),P=WT.pts[WT.si],N=P.length-1,tol=WT.tol;
     if(N<8){if(Math.hypot(P[0][0]-x,P[0][1]-y)<tol*1.6){wtStrokeDone()}return}
-    if(WT.k>0){let near=1e9;for(let i=Math.max(0,WT.k-6);i<=Math.min(N,WT.k+10);i++)near=Math.min(near,Math.hypot(P[i][0]-x,P[i][1]-y));if(near>tol*1.5){dn=false;WT.fails++;sOops();WT.k=0;wtDraw();wtGuide();if(WT.fails===2||WT.fails===5)say('wt_start');return}}
+    if(WT.k>0){let near=1e9;for(let i=Math.max(0,WT.k-6);i<=Math.min(N,WT.k+10);i++)near=Math.min(near,Math.hypot(P[i][0]-x,P[i][1]-y));if(near>tol*1.5){dn=false;WT.fails++;sOops();WT.k=0;wtDraw();wtGuide();if(WT.fails===2||WT.fails===5)say(WT.si===0?'wt_start1':'wt_startb');return}}
     let moved=false;while(WT.k<N){const dn=Math.hypot(P[WT.k+1][0]-x,P[WT.k+1][1]-y),dc=Math.hypot(P[WT.k][0]-x,P[WT.k][1]-y);if(dn<tol&&dn<=dc+.6){WT.k++;moved=true}else break}
     if(moved){wtDraw();if(WT.k%10===0)tone(520+WT.k*4,.04,'triangle',.04)}
     if(WT.k>=N-1){WT.k=N;wtStrokeDone();const nx=WT.pts[WT.si];dn=!WT.busy&&!!nx&&Math.hypot(nx[0][0]-x,nx[0][1]-y)<tol*1.4}};
@@ -2494,7 +2503,7 @@ function swRecord(w,ok){S.swstat=S.swstat||{};const s=S.swstat[w]||(S.swstat[w]=
   const L=w[0].toUpperCase();S.swl=S.swl||{};const l=S.swl[L]||(S.swl[L]={n:0,ok:0});l.n++;if(ok)l.ok++;
   S.swHist=(S.swHist||[]).concat(ok?1:0).slice(-30);swMaybeGrow();save()}
 const swDisp=w=>S.settings.case==='lower'?w:w.toUpperCase();
-function heardWord(alts,w){const ok=[w,...(SW_HEAR[w]||[])];return alts.some(a=>{const n=norm(a);if(!n)return false;if(ok.includes(n))return true;const t=n.split(' ');return t.length<=3&&t.some(x=>ok.includes(x))})}
+function heardWord(alts,w){const ok=[w,...(SW_HEAR[w]||[])];return alts.some(a=>{const n=norm(a);if(!n)return false;if(ok.includes(n))return true;const t=n.split(' ');return t.length<=6&&t.some(x=>ok.includes(x))})}
 /* letters first; once every letter is in and going well, words take over (with a few letters mixed in for review) */
 function sayWordsOn(){if(S.sayStage)return true;const pool=S.sayPool||[];if(pool.length<26)return false;const comfy=pool.filter(comfortable).length;if(comfy>=24){S.sayStage=1;Y.wordsNew=true;save();return true}return false}
 
@@ -2730,10 +2739,10 @@ function doAct(id,stageEl){const p=PRIZE_BY[id],a=ACT[p.key];if(!a)return;const 
     s.taps=(s.taps||0)+1;noise(.12,2400,900,.9,.1);tone(300,.08,'square',.05);if(b){b.classList.remove('act-wobble');void b.offsetWidth;b.classList.add('act-wobble');setTimeout(()=>b.classList.remove('act-wobble'),1000)}
     if(s.taps>=3){s.on=true;save();setTimeout(()=>{tierSfx(4,0);if(stageEl)burst(stageEl,'✨',10);say('egg_hatch')},500);return 'redraw-late'}save();say(s.taps===1?'egg_tap1':'egg_tap2');return}
   if(a.t==='grow'){s.grew=(s.g||0)<2;s.g=Math.min(2,(s.g||0)+1);save();a.snd(s);delete s.grew;if(stageEl){drops(stageEl)}return 'redraw-late'}
-  const b=stageEl&&(stageEl.classList.contains('dmove')?stageEl:stageEl.querySelector('.dmove'));if(b){b.classList.remove('act-'+a.a);void b.offsetWidth;b.classList.add('act-'+a.a);setTimeout(()=>b.classList.remove('act-'+a.a),1600)}
+  const b=stageEl&&(stageEl.classList.contains('dmove')?stageEl:stageEl.querySelector('.dmove'));if(b){clearTimeout(b._actT);b.classList.remove('act-'+a.a);void b.offsetWidth;b.classList.add('act-'+a.a);b._actT=setTimeout(()=>b.classList.remove('act-'+a.a),1600)}
   if(a.a==='hug'&&stageEl)burst(stageEl,'💛',7);if(a.a==='pet'&&stageEl)floatHearts(stageEl);if(a.a==='gum'&&stageEl)gumDrop(stageEl);if(a.a==='shine'&&stageEl)burst(stageEl,'✨',8);
   if(a.snd)a.snd(s);else prizeSfx(p)}
-function floatHearts(el){for(let i=0;i<7;i++){const s=document.createElement('span');s.className='fxheart';s.textContent='💗';s.style.left=(30+Math.random()*40)+'%';s.style.animationDelay=(i*.14)+'s';s.style.fontSize=(16+Math.random()*12)+'px';el.appendChild(s);setTimeout(()=>s.remove(),2200)}}
+function floatHearts(el){for(let i=0;i<7;i++){const s=document.createElement('span');s.className='fxheart';s.textContent='💗';s.style.left=(38+Math.random()*24)+'%';s.style.animationDelay=(i*.14)+'s';s.style.fontSize=(16+Math.random()*12)+'px';el.appendChild(s);setTimeout(()=>s.remove(),2200)}}
 function burst(el,ch,n){for(let i=0;i<n;i++){const s=document.createElement('span');s.className='fxp';s.textContent=ch;s.style.setProperty('--a',(i*360/n)+'deg');el.appendChild(s);setTimeout(()=>s.remove(),1300)}}
 function drops(el){for(let i=0;i<5;i++){const s=document.createElement('span');s.className='fxdrop';s.textContent='💧';s.style.left=(30+i*10)+'%';s.style.animationDelay=(i*.1)+'s';el.appendChild(s);setTimeout(()=>s.remove(),1400)}}
 function gumDrop(el){const s=document.createElement('span');s.className='fxgum';s.style.background=pick(['#EE4B33','#2C67E0','#FFC21A','#2FA64A','#D9418C']);el.appendChild(s);setTimeout(()=>s.remove(),1700)}
@@ -3448,7 +3457,7 @@ function renderSettings(){
 
 window.__LG={ev:c=>eval(c),PRIZES,STK_LIST,LINES,games:{gMemory,gMaze,gTrace},show:id=>show(id),S:()=>S,settle:(i,x,y)=>settle(i,x,y),absPos:i=>absPos(i)};
 
-show('splash');setTimeout(()=>{if(cur!=='splash')return;const c=clips();if(c&&c.ll&&S.settings.voice){const t0=performance.now();playSrc('data:audio/mpeg;base64,'+c.ll,playTok).then(ok=>{if(ok&&performance.now()-t0>700)LL_SAID=true})}},600);
+{let go=null;try{go=sessionStorage.getItem('ll_go');sessionStorage.removeItem('ll_go')}catch(e){}if(go)show(['home','shop','room','pick','settings','who'].includes(go)?go:'home');else show('splash')}setTimeout(()=>{if(cur!=='splash')return;const c=clips();if(c&&c.ll&&S.settings.voice){const t0=performance.now();playSrc('data:audio/mpeg;base64,'+c.ll,playTok).then(ok=>{if(ok&&performance.now()-t0>700)LL_SAID=true})}},600);
 })();
 </script>
 </body></html>
