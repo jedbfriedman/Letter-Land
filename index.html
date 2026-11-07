@@ -973,7 +973,7 @@ body.reloading::after{content:"";position:fixed;inset:0;background:var(--paper,#
 <div id="ov" hidden><div class="ov-card" id="ovCard"></div></div>
 <div class="toast" id="toast" hidden></div>
 <canvas id="confetti"></canvas>
-<script>const VOICE_VER=36;document.write('<script src="voice.js?v='+VOICE_VER+'"><\/script>')</script>
+<script>const VOICE_VER=37;document.write('<script src="voice.js?v='+VOICE_VER+'"><\/script>')</script>
 <script>
 (function(){
 const $=s=>document.querySelector(s);
@@ -1046,14 +1046,15 @@ const HEAR={A:['a','ay','eh','hey','hay','aye'],B:['b','be','bee','bea'],C:['c',
 
 /* ---------- state ---------- */
 const KEY='letter-garage-v2',OLD_KEY='letter-garage-v1';
-const DEF={defMode:'kids',focus:'both',mathInput:'draw',case:'upper',myVoice:true,timer:20,tiles:'auto',rounds:3,lookalikes:false,sayGoal:5,listen:'auto',voice:true,letters:LETTERS.join('')};
-function fixData(d){d=d||{};if(d.settings&&!d._v){d.settings.timer=15;d.settings.tiles='auto'}if(d.settings&&!d.t5&&d.settings.timer){d.settings.timer=d.settings.timer+5;d.t5=1}if(d.settings&&!d.f2){d.settings.focus='both';if(d.settings.mathInput==='both')d.settings.mathInput='draw';d.f2=1}return{settings:{...DEF,...(d.settings||{})},owned:d.owned||[],pending:d.pending||0,prizeNo:d.prizeNo||0,stats:d.stats||{},pool:d.pool||null,placed:d.placed||{},decor:d.decor||{},stickers:d.stickers||{},flevel:d._v>=9?(d.flevel||{}):{},fstars:d.fstars||{},fstat:d.fstat||{},micGranted:d.micGranted||0,seals:d.seals||{},ostat:d.ostat||{},sstat:d.sstat||{},sayPool:d.sayPool||null,sayNewest:d.sayNewest||null,pairs:d.pairs||{},speedT:d.speedT||3000,speedRun:d.speedRun||0,slowPerfect:d.slowPerfect||0,sayRun:d.sayRun||null,bonus:d._v>=9?(d.bonus||0):Math.min(1,d.bonus||0),ms:d.ms||{},memLevel:d.memLevel||0,traceMode:d.traceMode||0,traceLevel:d.traceLevel||0,fround:d.fround||{},soundOn:d.soundOn||0,istate:d.istate||{},soundRun:d.soundRun||null,memWins:d.memWins!=null?d.memWins:(d.memLevel||0)*2,mazeLevel:d.mazeLevel||0,specialBox:d.specialBox||0,poolSpecial:d.poolSpecial||0,unlockPending:d.unlockPending||0,poolOpen:!!(d.pool&&d.poolOpen),stored:d.stored||[],teleGiven:d.teleGiven||0,chestOrder:d.chestOrder||[],fwins:d.fwins,math:d.math||null,hw:d.hw||null,pet:d.pet||null,batteries:d.batteries||0,tbundle:d.tbundle||{},tgrp:d.tgrp||{},tlead:d.tlead||{},bonusKind:d.bonusKind||null,doneOrder:d.doneOrder||null,soPool:d.soPool||null,soHist:d.soHist||[],soSince:d.soSince||0,owstat:d.owstat||{},everPlaced:d.everPlaced||Object.fromEntries(Object.keys(d.placed||{}).map(k=>[k,1])),t5:1,f2:1,defOn:d.defOn||0,unlockDef:d.unlockDef||0,...Object.fromEntries(['parrotGiven','eggGiven','castleGiven','crownGiven','capP','quillGiven','glassGiven','rocketGiven','wtDrawn','boxGiven','soPrizes','fixA','sayHist','saySince','sayStage','swStage','swPool','swstat','swl','swHist','swSince','swNewest','wstat','wtPool','wtHist','wtSince','wtNewest','wtRun','soAdded'].filter(k=>d[k]!=null).map(k=>[k,d[k]])),_v:10}}
+const DEF={defMode:'kids',focus:'both',mathInput:'draw',case:'upper',myVoice:true,timer:20,tiles:'auto',rounds:5,lookalikes:false,sayGoal:5,listen:'auto',voice:true,letters:LETTERS.join('')};
+function fixData(d){d=d||{};if(d.settings&&!d._v){d.settings.timer=15;d.settings.tiles='auto'}if(d.settings&&!d.t5&&d.settings.timer){d.settings.timer=d.settings.timer+5;d.t5=1}if(d.settings&&!d.f2){d.settings.focus='both';if(d.settings.mathInput==='both')d.settings.mathInput='draw';d.f2=1}return{settings:{...DEF,...(d.settings||{})},owned:d.owned||[],pending:d.pending||0,prizeNo:d.prizeNo||0,stats:d.stats||{},pool:d.pool||null,placed:d.placed||{},decor:d.decor||{},stickers:d.stickers||{},flevel:d._v>=9?(d.flevel||{}):{},fstars:d.fstars||{},fstat:d.fstat||{},micGranted:d.micGranted||0,seals:d.seals||{},ostat:d.ostat||{},sstat:d.sstat||{},sayPool:d.sayPool||null,sayNewest:d.sayNewest||null,pairs:d.pairs||{},speedT:d.speedT||3000,speedRun:d.speedRun||0,slowPerfect:d.slowPerfect||0,sayRun:d.sayRun||null,bonus:d._v>=9?(d.bonus||0):Math.min(1,d.bonus||0),ms:d.ms||{},memLevel:d.memLevel||0,traceMode:d.traceMode||0,traceLevel:d.traceLevel||0,fround:d.fround||{},soundOn:d.soundOn||0,istate:d.istate||{},soundRun:d.soundRun||null,memWins:d.memWins!=null?d.memWins:(d.memLevel||0)*2,mazeLevel:d.mazeLevel||0,specialBox:d.specialBox||0,poolSpecial:d.poolSpecial||0,unlockPending:d.unlockPending||0,poolOpen:!!(d.pool&&d.poolOpen),stored:d.stored||[],teleGiven:d.teleGiven||0,chestOrder:d.chestOrder||[],fwins:d.fwins,math:d.math||null,hw:d.hw||null,pet:d.pet||null,batteries:d.batteries||0,tbundle:d.tbundle||{},tgrp:d.tgrp||{},tlead:d.tlead||{},bonusKind:d.bonusKind||null,doneOrder:d.doneOrder||null,soPool:d.soPool||null,soHist:d.soHist||[],soSince:d.soSince||0,owstat:d.owstat||{},everPlaced:d.everPlaced||Object.fromEntries(Object.keys(d.placed||{}).map(k=>[k,1])),t5:1,f2:1,defOn:d.defOn||0,unlockDef:d.unlockDef||0,...Object.fromEntries(['r5','parrotGiven','eggGiven','castleGiven','crownGiven','capP','quillGiven','glassGiven','rocketGiven','wtDrawn','boxGiven','soPrizes','fixA','sayHist','saySince','sayStage','swStage','swPool','swstat','swl','swHist','swSince','swNewest','wstat','wtPool','wtHist','wtSince','wtNewest','wtRun','soAdded'].filter(k=>d[k]!=null).map(k=>[k,d[k]])),_v:10}}
 function loadRoot(){
   try{const r=JSON.parse(localStorage.getItem(KEY)||'null');if(r&&r.profiles&&r.profiles.length){r.profiles.forEach(p=>p.data=fixData(p.data));if(!r.profiles.some(p=>p.id===r.current))r.current=r.profiles[0].id;return r}}catch(e){}
   let old=null;try{old=JSON.parse(localStorage.getItem(OLD_KEY)||'null')}catch(e){}
   return{profiles:[{id:'p1',name:'Player',kind:'new',avatar:{type:'robot',prize:'antbot.blue.plain'},data:fixData(old)}],current:'p1',noTest:1};
 }
 let R=loadRoot();
+R.profiles.forEach(pf=>{const d=pf.data||{};if(!d.r5){d.r5=1;if(d.settings&&(d.settings.rounds||3)<5)d.settings.rounds=5}});
 if(!R.noTest){R.noTest=1;const kids=R.profiles.filter(p=>p.kind!=='test');if(kids.length){R.profiles=kids;if(!kids.some(p=>p.id===R.current))R.current=kids[0].id}else R.profiles=[{id:'p1',name:'Player',kind:'new',avatar:{type:'robot',prize:'antbot.blue.plain'},data:fixData(null)}],R.current='p1';try{localStorage.setItem(KEY,JSON.stringify(R))}catch(e){}}
 const prof=()=>R.profiles.find(p=>p.id===R.current)||R.profiles[0];
 let S=prof().data;
@@ -1715,7 +1716,7 @@ const LEVELS=[{cols:3,rows:3,t:3},{cols:4,rows:3,t:4},{cols:4,rows:4,t:5}];
 let F={},fRAF=null;
 function pips(el,n,on){el.innerHTML=Array.from({length:n},(_,i)=>`<span class="pip${i<on?' on':''}"></span>`).join('')}
 function starsRow(el,n,on){el.innerHTML=Array.from({length:n},(_,i)=>`<span class="rstar${i<on?' on':''}">★</span>`).join('')}
-const doneL=L=>(tierOf(L)>=2&&starCount(L)>=Math.min(3,S.settings.rounds))||(S.doneOrder||[]).includes(L)&&tierOf(L)>=2;
+const doneL=L=>(tierOf(L)>=2&&((S.fstars||{})[L]||0)>=S.settings.rounds)||(S.doneOrder||[]).includes(L)&&tierOf(L)>=2;
 const allDone=()=>LETTERS.every(doneL);
 function pickFresh(ex){const pool=practiceSet().filter(l=>!doneL(l)&&l!==ex);return pool.length?pick(pool):pickLetter(ex)}
 const fkey=()=>F.mystery?'?':F.letter;
@@ -2124,7 +2125,7 @@ function itemHTML(p){if(isTrack(p.id)&&!S.placed[p.id].cell){const pos=absPos(p.
 const ARTX={};
 function artExt(p){if(ARTX[p.key]!=null)return ARTX[p.key];let e=.42;try{const d=document.createElement('div');d.style.cssText='position:absolute;left:-9999px;top:0;width:100px;height:100px';d.innerHTML=prizeSVG(p);document.body.appendChild(d);const sv=d.querySelector('svg');sv.setAttribute('width','100');sv.setAttribute('height','100');const bb=sv.getBBox();d.remove();if(bb.width)e=Math.max(50-bb.x,bb.x+bb.width-50)/100}catch(_){}return ARTX[p.key]=Math.max(.25,Math.min(1.2,e))}
 const pairGap=(a,b)=>{const A=PRIZE_BY[a],B=PRIZE_BY[b];if(!A||!B)return 150;return isz(A)*artExt(A)+isz(B)*artExt(B)+30};
-function tightenPairs(){Object.keys(S.pairs||{}).forEach(k=>{if(k.split('|').some(i=>PRIZE_BY[i]&&PRIZE_BY[i].key==='mixer'))delete S.pairs[k]});const done=new Set();let ch=false;for(const k of Object.keys(S.pairs||{})){const a=k.split('|')[0];if(done.has(a)||!S.placed[a]||S.placed[a].on)continue;
+function tightenPairs(){Object.keys(S.pairs||{}).forEach(k=>{if(['Snack time!','Party time!','Champion!'].includes(S.pairs[k]))delete S.pairs[k]});Object.keys(S.pairs||{}).forEach(k=>{if(k.split('|').some(i=>PRIZE_BY[i]&&PRIZE_BY[i].key==='mixer'))delete S.pairs[k]});const done=new Set();let ch=false;for(const k of Object.keys(S.pairs||{})){const a=k.split('|')[0];if(done.has(a)||!S.placed[a]||S.placed[a].on)continue;
   const g=groupOf(a).filter(i=>S.placed[i]&&!S.placed[i].on&&PRIZE_BY[i]);g.forEach(i=>done.add(i));if(g.length<2)continue;const y=S.placed[g[0]].y,inn=S.placed[g[0]].in||'';if(g.some(i=>Math.abs(S.placed[i].y-y)>4||(S.placed[i].in||'')!==inn))continue;
   g.sort((p,q)=>S.placed[p].x-S.placed[q].x);for(let n=1;n<g.length;n++){const want=S.placed[g[n-1]].x+pairGap(g[n-1],g[n]);if(S.placed[g[n]].x>want+24||S.placed[g[n]].x<want-10){S.placed[g[n]].x=Math.round(want);ch=true}}}if(ch)save()}
 function unpair(ids){Object.keys(S.pairs||{}).forEach(k=>{if(k.split('|').some(i=>ids.includes(i)))delete S.pairs[k]});return ids}
@@ -2285,12 +2286,12 @@ function pet(){S.pet=S.pet||{x:700,y:945,e:0,packs:0,pose:''};return S.pet}
 const PET_W=420;
 const petKnows=c=>pet().packs>=c[3];
 function crownOn(){const p=pet();p.crown=1;delete S.placed[MYTHIC.crown.id];save();tierSfx(3,0);robotBeep('dance');say('crown_on');renderRoom()}
-function petHTML(){const p=pet();if(p.chest||(p.in&&!OPEN[p.in]))return '';return `<div class="pet${p.e<=0?' off':''}${p.pose?' p-'+p.pose:''}" id="pet" style="left:${PX(p.x)};top:${PY(p.y)};width:${PX(PET_W)};z-index:${(p.y|0)+2}" role="button" aria-label="Your robot">${p.crown?PET_SVG.replace('<g class="pt-head">','<g class="pt-head">'+CROWN_ON):PET_SVG}</div>`}
+function petHTML(){const p=pet();if(p.chest||(p.in&&!OPEN[p.in]))return '';return `<div class="pet${p.e<=0&&!petBusy&&!petQ.length?' off':''}${p.pose?' p-'+p.pose:''}" id="pet" style="left:${PX(p.x)};top:${PY(p.y)};width:${PX(PET_W)};z-index:${(p.y|0)+2}" role="button" aria-label="Your robot">${p.crown?PET_SVG.replace('<g class="pt-head">','<g class="pt-head">'+CROWN_ON):PET_SVG}</div>`}
 /* chest lights: green glows while he has plenty of power; under 10 moves the red one glows, brighter the closer he gets to empty */
 function petLights(){const el=$('#pet');if(!el)return;const p=pet(),g1=el.querySelector('.pt-g1'),g2=el.querySelector('.pt-g2');if(!g1)return;
   if(p.e>10){g2.setAttribute('opacity','.55');g1.setAttribute('opacity','0')}else if(p.e>0){const k=(11-p.e)/10;g2.setAttribute('opacity','0');g1.setAttribute('opacity',(.25+.7*k).toFixed(2))}else{g1.setAttribute('opacity','0');g2.setAttribute('opacity','0')}}
-function petRefresh(){const el=$('#pet');if(!el)return;const p=pet();el.classList.toggle('off',p.e<=0);petLights();renderPetBar()}
-let petOpen=false,petBusy=0;
+function petRefresh(){const el=$('#pet');if(!el)return;const p=pet();el.classList.toggle('off',p.e<=0&&!petBusy&&!petQ.length);petLights();renderPetBar()}
+let petOpen=false,petBusy=0,petQ=[];
 function openPet(){petOpen=true;renderPetBar();const p=pet();if(p.e<=0){say(batCount()>0?'pet_give':'pet_need')}else robotBeep('hi')}
 function closePet(){petOpen=false;renderPetBar()}
 function renderPetBar(){const bar=$('#petBar');if(!bar)return;bar.hidden=!petOpen||cur!=='room';if(bar.hidden)return;const p=pet(),nb=batCount(),on=p.e>0;
@@ -2306,7 +2307,6 @@ function giveBatteries(){const p=pet();const wasOff=(p.e||0)<=0;const before=PET
   {const nt=learned?PET_CMDS.filter(petKnows).slice(-1)[0]:null;const ks=[];if(wasOff)ks.push('pet_on');if(nt)ks.push('trick_'+nt[0]);if(ks.length)say(ks);else robotBeep('hi')}if(learned&&PET_CMDS.every(petKnows)&&!S.crownGiven)setTimeout(()=>{if($('#ov').hidden)superReward(()=>{},'crown')},2600);if(learned){const c=PET_CMDS.filter(petKnows).slice(-1)[0];setTimeout(()=>toast(`Your robot learned a new trick: ${c[1]} ${c[2]}!`,5000),900)}petRefresh()}
 function robotBeep(kind){const seq={toss:[523,784,1047,1319,1047],hand:[392,523,659,784,659,523],hi:[880,1175],walk:[523,587],wave:[784,988,784],dance:[523,659,784,659,880,784],sit:[440,330],leg:[660,880,1100],jump:[392,784,1175],spin:[523,698,880,1047,1397],sing:[523,587,659,698,784,880,988,1047],flex:[330,262,392],sleep:[392,330,262],low:[440,330,440,330]}[kind]||[700];
   seq.forEach((f,i)=>tone(f,.09,'square',.035,i*.11))}
-let petQ=[];
 function petDo(c,paid){const p=pet();if(!paid&&p.e<=0){say('pet_need');return}if(petBusy){if(!paid&&petQ.length<12){p.e--;petQ.push(c);save();renderPetBar();tone(1200,.05,'square',.03);if(p.e===10)setTimeout(()=>{robotBeep('low');say('pet_low')},300)}return}const el=$('#pet');if(!el)return;
   if(p.y<700||p.in){/* up on a shelf or in a cupboard: hop down to the floor first */delete p.in;p.y=735;petBusy=1;el.classList.add('p-jump');el.style.top=PY(p.y);el.style.zIndex=(p.y|0)+2;robotBeep('jump');save();setTimeout(()=>{el.classList.remove('p-jump');petBusy=0;petDo(c,paid)},1000);return}
   if(!paid)p.e--;const mv={left:[-230,0],right:[230,0],back:[0,-70],front:[0,70]}[c];let dur=2200;
@@ -2549,11 +2549,8 @@ const COMBOS=[
   {a:['dump','digger','crane'],b:['dump','digger','crane'],name:'Construction crew!'},
   {a:['bot','antbot','jetbot','laser','mech'],b:['dog'],name:'Robot buddies!'},
   {a:['rocket','mega'],b:['ufo'],name:'Space party!'},
-  {a:['teddy','bunny','plushpup','dragon','giantbear'],b:['candyjar','gumball','swirlpop'],name:'Snack time!'},
-  {a:['balloon'],b:['teddy','bunny','plushpup','dragon','giantbear'],name:'Party time!'},
   {a:['drum'],b:['flag','bot','antbot'],name:'Parade!'},
   {a:['fire'],b:['heli'],name:'Rescue team!'},
-  {a:['cup'],b:['laser','flamemt','dino','mega','mech','giantbear','swirlpop'],name:'Champion!'},
   {a:['plant'],b:['lamp'],name:'Cozy corner!'},
   {a:INSTR,b:INSTR,name:'Band time!'}];
 let comboJust=false;
@@ -2586,10 +2583,12 @@ let cdrag=null;
 /* fingers: touch events, so the page never scrolls while a toy is being pulled out */
 let tdrag=null;
 $('#chestRow').addEventListener('touchstart',e=>{const b=e.target.closest('.citem');if(!b||e.touches.length>1)return;const t=e.touches[0];tdrag={id:b.dataset.id,b,x0:t.clientX,y0:t.clientY,ghost:null};ac()},{passive:true});
-$('#chestRow').addEventListener('touchmove',e=>{if(!tdrag)return;e.preventDefault();const t=e.touches[0];
-  if(!tdrag.ghost){if(Math.hypot(t.clientX-tdrag.x0,t.clientY-tdrag.y0)<9)return;const g=document.createElement('div');g.className='drag-ghost';g.innerHTML=tdrag.b.innerHTML;document.body.appendChild(g);tdrag.ghost=g}
+$('#chestRow').addEventListener('touchmove',e=>{if(!tdrag)return;e.preventDefault();const t=e.touches[0],row=$('#chestRow'),dx=t.clientX-tdrag.x0,dy=t.clientY-tdrag.y0;
+  if(tdrag.scroll){row.scrollLeft=tdrag.sl-dx;const now=performance.now();tdrag.v=(tdrag.lx-t.clientX)/Math.max(1,now-tdrag.lt);tdrag.lx=t.clientX;tdrag.lt=now;return}
+  if(!tdrag.ghost){if(Math.hypot(dx,dy)<9)return;if(Math.abs(dx)>Math.abs(dy)*1.1){tdrag.scroll=true;tdrag.sl=row.scrollLeft;tdrag.lx=t.clientX;tdrag.lt=performance.now();tdrag.v=0;return}const g=document.createElement('div');g.className='drag-ghost';g.innerHTML=tdrag.b.innerHTML;document.body.appendChild(g);tdrag.ghost=g}
   tdrag.ghost.style.left=t.clientX+'px';tdrag.ghost.style.top=t.clientY+'px'},{passive:false});
 const tEnd=(e,cancel)=>{if(!tdrag)return;const c=tdrag;tdrag=null;const t=e.changedTouches[0];
+  if(c.scroll){let v=c.v*16;const row=$('#chestRow');const glide=()=>{if(Math.abs(v)<.5)return;row.scrollLeft+=v;v*=.93;requestAnimationFrame(glide)};requestAnimationFrame(glide);return}
   if(c.ghost){c.ghost.remove();if(cancel)return;const p=stagePt(t);if(p.inside)placeAt(c.id,p.x,p.y);return}
   if(cancel)return;if(placing===c.id){placing=null;renderChest();updatePlaceBar()}else{sPop();prizeSfx(PRIZE_BY[c.id]);startPlacing(c.id)}};
 $('#chestRow').addEventListener('touchend',e=>tEnd(e,false));$('#chestRow').addEventListener('touchcancel',e=>tEnd(e,true));
@@ -2715,7 +2714,7 @@ function mythicDue(){const due=[];const ok=new Set(S.owned.map(i=>PRIZE_BY[i]&&P
   if(!S.crownGiven&&S.pet&&PET_CMDS.every(petKnows))due.push('crown');if(!S.castleGiven&&LEG_KEYS().every(k=>ok.has(k)))due.push('castle');if(!S.eggGiven&&bonusMastered())due.push('egg');return due}
 function mythicCheck(){if(cur!=='home'&&cur!=='room')return;if(!$('#ov').hidden){setTimeout(mythicCheck,1500);return}const d=mythicDue();if(!d.length)return;const run=i=>{if(i<d.length)superReward(()=>run(i+1),d[i])};run(0)}
 function superReward(after,kind='tele'){const K=MYTHIC[kind],id=K.id;S[K.flag]=1;if(PRIZE_BY[id]&&!S.owned.includes(id)){S.owned.unshift(id);S.chestOrder=[id,...(S.chestOrder||[]).filter(x=>x!==id)]}save();
-  ov(`<div class="super-wrap" id="superW"><div class="super-rays"></div><div class="super-tele">${prizeSVG(PRIZE_BY[id])}</div><div class="super-chest">${CHEST_CLOSED}</div></div><h2 class="super-h">${K.h}</h2><p class="super-p">A <b class="cosmic">Mythic</b> treasure: ${K.p}! It's waiting in your toy chest.</p>`,[{label:'Wow! Thank you!',cls:'yellow big',fn:()=>{after&&after()}}]);
+  ov(`<div class="super-wrap" id="superW"><div class="super-rays"></div><div class="super-tele">${prizeSVG(PRIZE_BY[id])}</div><div class="super-chest">${CHEST_CLOSED}</div></div><h2 class="super-h">${K.h}</h2><p class="super-p">A <b class="cosmic">Mythic</b> treasure: ${K.p}! It's waiting in your toy chest.</p>`,[{label:'Hooray!',cls:'yellow big',fn:()=>{after&&after()}}]);
   const w=$('#superW');try{sCreak()}catch(e){}
   setTimeout(()=>{if(!w.isConnected)return;w.querySelector('.super-chest').innerHTML=CHEST_OPEN;w.classList.add('open');tierSfx(4,0);try{confetti()}catch(e){}burst(w,'✨',12);setTimeout(()=>{if(w.isConnected)burst(w,'⭐',10)},600);setTimeout(()=>{if(w.isConnected)burst(w,kind==='box'?'🎵':'🌟',8)},1300)},1200);
   say(K.lines)}
@@ -2939,27 +2938,44 @@ function makePad(host,opts){const mode=opts.mode||(S.settings.mathInput==='keys'
    Facts known cold come up less (never zero); missed or slow ones come up more. After two misses in a row, an easy one comes next.
    When 85%+ of the last 20 answers are right, the next number joins (4, 5 ... up to 20).
    Once 20 is in and going well, subtraction starts again from 0-3 and climbs the same way; it is mixed with addition (mostly subtraction at first). */
-function M(){S.math=S.math||{pool:[0,1,2,3],since:0,hist:[],facts:{},nums:{},mm:{best:0,games:0,scores:[]},df:{best:0,games:0,scores:[]},wrongRun:0,last:null};const m=S.math;m.sub=m.sub||null;return m}
+function M(){S.math=S.math||{pool:[0,1,2,3],lv:5,since:0,hist:[],facts:{},nums:{},mm:{best:0,games:0,scores:[]},df:{best:0,games:0,scores:[]},wrongRun:0,last:null};const m=S.math;m.sub=m.sub||null;if(!m.v2){m.v2=1;const mx=Math.max(...(m.pool||[3]));m.lv=mx<=3?5:mx<=5?7:10;m.since=0;m.hist=(m.hist||[]).slice(-10);m.sub=null;m.pool=Array.from({length:m.lv+1},(_,i)=>i)}return m}
 const mfk=(a,b,op='+')=>op==='-'?a+'-'+b:Math.min(a,b)+'+'+Math.max(a,b);
 const mAns=q=>q.op==='-'?q.a-q.b:q.op==='*'?q.a*q.b:q.op==='/'?q.a/q.b:q.a+q.b;
 function mRecent(s){const h=(s&&s.h)||[];return h.length?h.reduce((x,y)=>x+y,0)/h.length:null}
 function mMedTime(){const ts=Object.values(M().facts).map(f=>f.tn?f.ts/f.tn:null).filter(x=>x);ts.sort((a,b)=>a-b);return ts.length?ts[ts.length>>1]:4000}
-function mWeight(a,b,op,pool){const m=M(),k=mfk(a,b,op),s=m.facts[k];if(k===m.last)return 0;let w=1;const newest=Math.max(...pool);if(a===newest||b===newest)w*=1.5;
-  if(s&&s.n>=4){const r=mRecent(s),t=s.tn?s.ts/s.tn:0,med=mMedTime();if(s.n>=8&&r>=.95&&t&&t<med)w*=.35;else if(s.n>=6&&r>=.9)w*=.6;if(r<.5)w*=2;else if(r<.75)w*=1.5;if(t&&t>med*1.6)w*=1.4}
+/* levels are the biggest answer (or the biggest starting number for take-away): 5, 7, 10, 12, 14, 16, 18, 20 */
+const M_LV=[5,7,10,12,14,16,18,20];
+function mLv(T){if(T.lv==null){const mx=Math.max(...(T.pool||[3]));T.lv=mx<=3?5:mx<=5?7:10}return T.lv}
+const mDone=s=>!!s&&s.n>=2&&(s.h||[]).slice(-2).every(Boolean);
+const mSolid=s=>!!s&&s.n>=3&&(s.h||[]).slice(-3).every(Boolean);
+/* +0 and +1 facts fade once they're easy, so practice goes to facts like 6+4 and 7+3 */
+function mWeight(a,b,op,T){const m=M(),k=mfk(a,b,op),s=m.facts[k];if(k===m.last)return 0;const lv=mLv(T),big=op==='-'?a:a+b,prev=M_LV[M_LV.indexOf(lv)-1]||0;let w=1;
+  if(big>prev)w*=2.2;if(op==='-'?(b<=1||b===a):Math.min(a,b)<=1)w*=mDone(s)?.12:.6;
+  if(s&&s.n>=3){const r=mRecent(s),t=s.tn?s.ts/s.tn:0,med=mMedTime();if(s.n>=8&&r>=.95&&t&&t<med)w*=.35;else if(s.n>=5&&r>=.9)w*=.6;if(r<.5)w*=2.4;else if(r<.8)w*=1.6;if(t&&t>med*1.6)w*=1.4}
   return w}
-function mFacts(op){const m=M(),pool=op==='-'?m.sub.pool:m.pool,all=[];pool.forEach(a=>pool.forEach(b=>{if(op==='+'?a<=b:a>=b)all.push([a,b,op])}));return{all,pool}}
-function mPick(){const m=M();const op=m.sub&&Math.random()<(Math.max(...m.sub.pool)<10?.7:.5)?'-':'+';const {all,pool}=mFacts(op);
+function mFactList(op,T){const lv=mLv(T),all=[];if(op==='+'){for(let a=0;a<=lv;a++)for(let b=a;a+b<=lv;b++)if(a+b>0)all.push([a,b,op])}else{for(let a=1;a<=lv;a++)for(let b=0;b<=a;b++)all.push([a,b,op])}return all}
+function mFacts(op){const m=M(),T=op==='-'?m.sub:m;return{all:mFactList(op,T),pool:null,T}}
+function mPick(){const m=M();const op=m.sub&&Math.random()<.5?'-':'+';const {all,T}=mFacts(op);
   let cands=all;if(m.wrongRun>=2){const easy=all.filter(([a,b])=>{const s=m.facts[mfk(a,b,op)];return (s&&s.n>=3&&mRecent(s)>=.9)||Math.min(a,b)<=1});if(easy.length)cands=easy}
-  const ws=cands.map(([a,b])=>m.wrongRun>=2?(mfk(a,b,op)===m.last?0:1):mWeight(a,b,op,pool));let r=Math.random()*ws.reduce((x,y)=>x+y,0)||0,pk=cands[0];for(let i=0;i<cands.length;i++){r-=ws[i];if(r<=0){pk=cands[i];break}}
+  const ws=cands.map(([a,b])=>m.wrongRun>=2?(mfk(a,b,op)===m.last?0:1):mWeight(a,b,op,T));let r=Math.random()*ws.reduce((x,y)=>x+y,0)||0,pk=cands[0];for(let i=0;i<cands.length;i++){r-=ws[i];if(r<=0){pk=cands[i];break}}
   m.last=mfk(pk[0],pk[1],op);if(op==='-')return{a:pk[0],b:pk[1],op};return Math.random()<.5?{a:pk[0],b:pk[1],op}:{a:pk[1],b:pk[0],op}}
-/* record the first try at a fact; returns a note about a new number, if one joined */
+/* when is a level mastered?
+   - up to 7: 15+ answers on this level, 90% of the last 20, and every new fact right twice in a row
+   - 10 (the big one): 80+ answers, 92% of the last 40, and every fact adding to 6-10 (both numbers 2 or more, like 6+4, 7+3) right 3 times in a row
+   - 12 and up: 25+ answers, 90% of the last 20, every new fact right twice in a row
+   a hot streak never skips the mastery check */
+function mReady(op,T){const m=M(),lv=mLv(T),h=T.hist||[],since=T.since||0,rate=n=>{const l=h.slice(-n);return l.length>=n?l.reduce((x,y)=>x+y,0)/n:0};
+  const prev=M_LV[M_LV.indexOf(lv)-1]||0,facts=mFactList(op,T),big=([a,b])=>op==='-'?a:a+b;
+  if(lv===10){const core=facts.filter(f=>big(f)>=6&&(op==='-'?f[1]>=2&&f[0]-f[1]>=2:Math.min(f[0],f[1])>=2));return since>=80&&rate(40)>=.92&&core.every(([a,b])=>mSolid(m.facts[mfk(a,b,op)]))}
+  const fresh=facts.filter(f=>big(f)>prev&&!(op==='+'&&Math.min(f[0],f[1])===0));const need=lv<10?15:25,fast=hotStreak(h);
+  return (since>=need||(fast&&since>=Math.round(need*.6)))&&rate(20)>=.9&&fresh.every(([a,b])=>mDone(m.facts[mfk(a,b,op)]))}
+/* record the first try at a fact; returns a note when a new level opens */
 function mRecord(q,ok,ms){const m=M(),{a,b,op}=q,k=mfk(a,b,op),s=m.facts[k]||(m.facts[k]={n:0,ok:0,h:[],ts:0,tn:0});s.n++;if(ok)s.ok++;s.h=(s.h||[]).concat(ok?1:0).slice(-8);if(ok&&ms){s.ts+=Math.min(ms,20000);s.tn++}
   [a,b].forEach(x=>{const nq=m.nums[x]||(m.nums[x]={n:0,ok:0,ts:0,tn:0});nq.n++;if(ok)nq.ok++;if(ok&&ms){nq.ts+=Math.min(ms,20000);nq.tn++}});
-  m.wrongRun=ok?0:(m.wrongRun||0)+1;const T=op==='-'?m.sub:m;T.hist=(T.hist||[]).concat(ok?1:0).slice(-30);T.since=(T.since||0)+1;
-  let added=null;const last=T.hist.slice(-20),good=(T.since>=20&&last.length>=20&&last.reduce((x,y)=>x+y,0)/20>=.85)||(T.since>=10&&hotStreak(T.hist));
-  if(good){const nx=Math.max(...T.pool)+1;if(nx<=20){T.pool.push(nx);T.since=0;added=(op==='-'?'minus ':'')+nx;if(op==='+'&&nx===10)milestone('math10')}
-    else if(op==='+'&&!m.sub){m.sub={pool:[0,1,2,3],since:0,hist:[]};added='take-away'}}
-  save();return added}
+  m.wrongRun=ok?0:(m.wrongRun||0)+1;const T=op==='-'?m.sub:m;T.hist=(T.hist||[]).concat(ok?1:0).slice(-40);T.since=(T.since||0)+1;
+  let added=null;if(mReady(op,T)){const i=M_LV.indexOf(mLv(T));if(i<M_LV.length-1){T.lv=M_LV[i+1];T.since=0;added=(op==='-'?'take-away from ':'answers up to ')+T.lv;if(op==='+'&&T.lv===12)milestone('math10')}
+    else if(op==='+'&&!m.sub){m.sub={lv:5,since:0,hist:[]};added='take-away'}}
+  T.pool=Array.from({length:mLv(T)+1},(_,i)=>i);save();return added}
 function mOpSym(op){return op==='-'?'−':op==='*'?'×':op==='/'?'÷':'+'}
 /* grown-up Number Defender: times and division (always comes out to a whole number) */
 function adultProb(x){const r=(a,b)=>a+Math.floor(Math.random()*(b-a+1));if(Math.random()<.5)return x?{a:r(1,99),b:r(1,99),op:'*'}:{a:r(5,25),b:r(5,25),op:'*'};const top=x?1000:500,d=x?(Math.random()<.8?r(2,50):r(51,400)):r(2,20),q=r(2,Math.max(2,Math.floor(top/d)));return{a:d*q,b:d,op:'/'}}
@@ -3035,7 +3051,7 @@ document.addEventListener('visibilitychange',()=>{if(document.visibilityState===
 function showMathStats(){const m=M();const rows=Object.entries(m.nums).sort((a,b)=>+a[0]-+b[0]).map(([k,q])=>`<tr><td><b>${k}</b></td><td>${q.n?Math.round(q.ok/q.n*100)+'%':'–'}</td><td>${q.tn?(q.ts/q.tn/1000).toFixed(1)+' s':'–'}</td><td>${q.n}</td></tr>`).join('');
   const facts=Object.entries(m.facts).filter(([k,f])=>f.n>=2);const hard=facts.slice().sort((a,b)=>a[1].ok/a[1].n-b[1].ok/b[1].n).slice(0,5).map(([k,f])=>`${k} (${Math.round(f.ok/f.n*100)}%)`).join(', ')||'–';
   const slow=facts.filter(([k,f])=>f.tn).sort((a,b)=>b[1].ts/b[1].tn-a[1].ts/a[1].tn).slice(0,5).map(([k,f])=>`${k} (${(f.ts/f.tn/1000).toFixed(1)} s)`).join(', ')||'–';
-  ov(`<h2>Math progress</h2><p style="text-align:left;font-size:15px">Adding numbers: <b>${m.pool.join(', ')}</b>${m.sub?`<br>Take-away numbers: <b>${m.sub.pool.join(', ')}</b>`:''}<br>Mad Math Minute: best ${m.mm.best||0} (adult ${(m.mm.bestBy||{}).adult||0}, adult extra ${(m.mm.bestBy||{}).adultx||0}), last ${(m.mm.scores||[]).slice(-5).join(', ')||'–'}<br>Number Defender: best ${m.df.best||0} (adult ${(m.df.bestBy||{}).adult||0}, adult extra ${(m.df.bestBy||{}).adultx||0}), last ${(m.df.scores||[]).slice(-5).join(', ')||'–'}<br>Hardest facts: ${hard}<br>Slowest facts: ${slow}</p>
+  ov(`<h2>Math progress</h2><p style="text-align:left;font-size:15px">Adding: answers up to <b>${mLv(m)}</b>${m.sub?`<br>Take-away: from numbers up to <b>${mLv(m.sub)}</b>`:''}<br>Mad Math Minute: best ${m.mm.best||0} (adult ${(m.mm.bestBy||{}).adult||0}, adult extra ${(m.mm.bestBy||{}).adultx||0}), last ${(m.mm.scores||[]).slice(-5).join(', ')||'–'}<br>Number Defender: best ${m.df.best||0} (adult ${(m.df.bestBy||{}).adult||0}, adult extra ${(m.df.bestBy||{}).adultx||0}), last ${(m.df.scores||[]).slice(-5).join(', ')||'–'}<br>Hardest facts: ${hard}<br>Slowest facts: ${slow}</p>
     <table class="mtab"><tr><th>Number</th><th>Right</th><th>Avg time</th><th>Tries</th></tr>${rows||'<tr><td colspan=4>No answers yet</td></tr>'}</table>`,[{label:'OK',cls:'green'}])}
 
 /* ---------- BONUS GAMES (surprise mini-games that award a prize) ---------- */
@@ -3384,7 +3400,7 @@ function testTools(){if(prof().kind!=='test')return '';
   </div></div>`}
 function runTool(t){if(t==='tele'){S.teleGiven=0;superReward(()=>{});return}if(t==='mbox'){S.boxGiven=0;superReward(()=>{},'box');return}if(t==='myth4'){['parrot','egg','castle','crown'].forEach(k=>{S[MYTHIC[k].flag]=0});superReward(()=>superReward(()=>superReward(()=>superReward(()=>{},'crown'),'castle'),'egg'),'parrot');return}if(t==='alltricks'){pet().packs=99;save();renderSettings();toast('Your robot knows every trick');return}if(t==='myth3'){['quill','glass','rocket'].forEach(k=>{S[MYTHIC[k].flag]=0});superReward(()=>superReward(()=>superReward(()=>{},'rocket'),'glass'),'quill');return}const owned=new Set(S.owned);const add=p=>{if(p&&!owned.has(p.id)){S.owned.unshift(p.id);owned.add(p.id)}};
   if(t==='gmad'){startMad(true);return}if(t==='gdef'){startDef(true);return}if(t==='def1'){S.defOn=1;S.unlockDef=1}
-  if(t==='mathup'){const m=M();const nx=Math.max(...m.pool)+1;if(nx<=12)m.pool.push(nx)}
+  if(t==='mathup'){const m=M(),i=M_LV.indexOf(mLv(m));if(i<M_LV.length-1){m.lv=M_LV[i+1];m.since=0}}
   if(t==='mathreset'){S.math=null;S.hw=null}
   if(t==='gmem'||t==='gmaze'||t==='gtrace'){show('game');({gmem:gMemory,gmaze:gMaze,gtrace:gTrace})[t]();return}
   if(t==='tracks')[['track_h',4],['track_v',2],['track_ne',1],['track_nw',1],['track_se',1],['track_sw',1]].forEach(([k,n])=>{for(let i=0;i<n;i++)add(PRIZES.find(p=>p.key===k&&!owned.has(p.id)))});
