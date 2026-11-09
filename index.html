@@ -317,6 +317,7 @@ body.mb-on .mb-dancer{animation:mbSpin 1.3s linear infinite}
 .drag-ghost svg{width:100%;height:100%;overflow:visible}
 .hrow .pips{min-width:0}
 @media (max-width:560px){.hrow{gap:6px}.hrow .pips{flex:1 1 auto;justify-content:center;flex-wrap:nowrap}.hrow .pips .rstar{font-size:min(4.9vw,30px)!important;margin:0}.hrow .so-count{flex:none;zoom:.85}}
+.say-start{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;min-height:50vh}.say-go{font-size:34px!important;padding:22px 54px!important;border-radius:28px!important}
 .chest-empty{margin:0 auto;color:#FFE7B0;font-size:13px;line-height:1.2;align-self:center;white-space:nowrap;text-align:center}
 #roomView .chest-row.empty{height:auto!important;min-height:0;padding:4px 0 2px;justify-content:center;align-items:center}
 #roomView .chest-row.empty .chest-empty{display:inline-block;flex:none;background:rgba(0,0,0,.28);border-radius:999px;padding:3px 12px;margin:0 auto}
@@ -871,7 +872,7 @@ body.lockscroll #main{overflow:hidden!important;overscroll-behavior:none;touch-a
 .fx-glow svg{filter:drop-shadow(0 0 10px #BFE9FF) drop-shadow(0 0 4px #FFC6EC)}
 
 /* round 34 */
-.dg-tail,.dg-wingsL,.dg-feet,.dg-belly,.dg-spikes,.dg-fire,.dg-crown{display:none}.dg-fire{animation:dgFire .9s ease-in-out infinite alternate;transform-box:fill-box;transform-origin:0% 50%}@keyframes dgFire{to{transform:scaleX(1.08) scaleY(.94)}}.dge6 .dg-crown{display:inline}
+.dg-tail,.dg-wingsL,.dg-feet,.dg-belly,.dg-spikes,.dg-tspikes,.dg-fire,.dg-crown{display:none}.dge4 .dg-tspikes{display:inline}.dge1 .baby{transform:translateY(10px)}.dg-fire{animation:dgFire .9s ease-in-out infinite alternate;transform-box:fill-box;transform-origin:0% 50%}@keyframes dgFire{to{transform:scaleX(1.08) scaleY(.94)}}.dge6 .dg-crown{display:inline}
 .dge1 .dg-shell{display:none}.dge1 .dg-feet{display:inline}.dge2 .dg-spikes{display:inline}.dge3 .dg-wingsS{display:none}.dge3 .dg-wingsL{display:inline}.dge4 .dg-tail{display:inline}.dge5 .dg-belly{display:inline}.dge6 .dg-fire{display:inline}
 
 /* round 35 */
@@ -982,6 +983,7 @@ body.fw-aim #roomView{cursor:crosshair}
     <section id="s-say" class="screen" hidden>
       <div class="mic-gate" id="micGate" hidden><button class="mic big-mic" id="gateMic" aria-label="Turn on the microphone"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3" fill="#fff"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M8.5 21h7"/></svg></button><h2>Tap the microphone!</h2><p class="note" id="gateNote">Grown-ups: tap Allow if the phone asks to use the microphone.</p></div>
       <div class="hud"><div class="hrow"><div class="pips" id="sPips"></div><div class="strikes" id="sStrikes"></div><div class="so-count cap-in" id="sCount"></div></div></div>
+      <div class="say-start" id="sayStart" hidden><button class="btn green big say-go" id="sayGo">▶ Start</button><p class="note">Tap Start, then say each letter out loud.</p></div>
       <div class="say-stage">
         <div class="letter-card" id="sayScreen"><div class="bigletter" id="sLetter">A</div><div class="wordhint" id="sWord"></div></div>
         <button class="mic" id="micBtn" aria-label="Tap and say the letter"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3" fill="#fff"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M8.5 21h7"/></svg></button>
@@ -1061,7 +1063,7 @@ body.fw-aim #roomView{cursor:crosshair}
 <div id="ov" hidden><div class="ov-card" id="ovCard"></div></div>
 <div class="toast" id="toast" hidden></div>
 <canvas id="confetti"></canvas>
-<script>const VOICE_VER=45;</script>
+<script>const VOICE_VER=46;</script>
 <script>
 (function(){
 const $=s=>document.querySelector(s);
@@ -1162,7 +1164,7 @@ let actx=null;
 function healAudio(){if(!actx)return;if(actx.state==='closed'){actx=null;return}
   if(actx.state!=='running'){const old=actx;const p=old.resume();const check=()=>{if(old.state!=='running'&&actx===old){try{old.close()}catch(e){}actx=null}};if(p&&p.then)p.then(()=>setTimeout(check,250),()=>{if(actx===old)actx=null});else setTimeout(check,250)}}
 let audioStale=false,ckW=0,ckT=0;
-document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden'){audioStale=true;pauseTimer();if(cur==='say'){Y.away=true;stopListen();stopVoice()}}else{vUnlocked=false;resumeTimer();if(cur==='say'&&Y.away){Y.away=false;Y.busy=false;Y.micOK=false;setTimeout(()=>{if(cur==='say'&&$('#micGate').hidden&&(Y.letter||Y.word))nextSay(true)},500)}}});
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden'){audioStale=true;pauseTimer();if(cur==='say'){Y.away=true;try{micStop()}catch(e){}stopVoice()}}else{vUnlocked=false;resumeTimer();if(cur==='say'&&Y.away){Y.away=false;Y.busy=false;Y.micOK=false;if(!(appleTouch&&SR&&!grownMode()&&S.micGranted&&sayRestart()))startSay()}}});
 addEventListener('pageshow',()=>{audioStale=true;vUnlocked=false});addEventListener('blur',()=>{audioStale=true});
 function ac(){if(!actx){try{actx=new (window.AudioContext||window.webkitAudioContext)();actx._born=performance.now()}catch(e){}}if(actx&&actx.state!=='running'){try{actx.resume()}catch(e){}}return actx}
 let CT=null;const sfxPool=[];
@@ -1614,7 +1616,7 @@ BASES.rainbowparrot=[4,'Rainbow Parrot',()=>`${SH}<rect x="18" y="84" width="64"
 BASES.dragonegg=[4,'Dragon Egg',()=>`${SH}<g class="egg"><ellipse cx="50" cy="57" rx="26" ry="33" fill="#B48CFF" stroke="#5A2D82" stroke-width="2.5"/><ellipse cx="41" cy="44" rx="6" ry="8" fill="#7FD3FF" opacity=".85"/><ellipse cx="60" cy="62" rx="7" ry="6" fill="#FFC6EC"/><ellipse cx="44" cy="76" rx="5" ry="4" fill="#7FD3FF" opacity=".85"/><ellipse cx="62" cy="38" rx="4" ry="5" fill="#FFE680"/>
   <path d="M36 34 C40 28 46 26 50 26" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".7"/><polygon class="tw1" points="${starPts(84,26,5,1.6)}" fill="#FFE680"/><polygon class="tw2" points="${starPts(16,48,3.5,1.1)}" fill="#BFE9FF"/></g>
   <g class="baby"><g class="dg-tail"><path d="M60 68 C80 74 90 62 86 50 L93 46 L88 56 C92 70 78 82 58 74Z" fill="#5CCB6A" stroke="#1F7A33" stroke-width="2" stroke-linejoin="round"/></g>
-  <g class="dg-spikes"><path d="M62 48 L69 44 L67 51 L74 50 L70 56 L77 57 L72 61 L79 63 L73 66 L66 64Z" fill="#FF8CC8" stroke="#B5317A" stroke-width="1.3" stroke-linejoin="round"/><path d="M71 71 L74.5 63.5 L78 70Z M78.5 68 L83 60 L85.5 65.5Z M84 62 L88.5 53 L89.5 59Z" fill="#FF8CC8" stroke="#B5317A" stroke-width="1.2" stroke-linejoin="round"/></g>
+  <g class="dg-spikes"><path d="M62 48 L69 44 L67 51 L74 50 L70 56 L77 57 L72 61 L79 63 L73 66 L66 64Z" fill="#FF8CC8" stroke="#B5317A" stroke-width="1.3" stroke-linejoin="round"/></g><g class="dg-tspikes"><path d="M71 71 L74.5 63.5 L78 70Z M78.5 68 L83 60 L85.5 65.5Z M84 62 L88.5 53 L89.5 59Z" fill="#FF8CC8" stroke="#B5317A" stroke-width="1.2" stroke-linejoin="round"/></g>
   <g class="dg-wingsL"><path d="M34 52 C14 46 4 24 12 12 C16 22 24 26 29 23 C26 32 32 41 39 46Z M66 52 C86 46 96 24 88 12 C84 22 76 26 71 23 C74 32 68 41 61 46Z" fill="#7BE38F" stroke="#1F7A33" stroke-width="1.8" stroke-linejoin="round"/><path d="M14 16 L33 46 M86 16 L67 46" stroke="#1F7A33" stroke-width="1.2"/></g>
   <g class="dg-wingsS"><path d="M32 50 C22 40 20 30 30 34 C30 40 34 44 38 46Z M68 50 C78 40 80 30 70 34 C70 40 66 44 62 46Z" fill="#7BE38F" stroke="#1F7A33" stroke-width="1.6"/></g>
   <g class="dg-feet"><ellipse cx="41" cy="76" rx="7.5" ry="4.5" fill="#5CCB6A" stroke="#1F7A33" stroke-width="2"/><ellipse cx="59" cy="76" rx="7.5" ry="4.5" fill="#5CCB6A" stroke="#1F7A33" stroke-width="2"/></g>
@@ -2016,8 +2018,14 @@ function sayUI(){const m=micOk(),g=grownMode();$('#micBtn').hidden=!m;$('#grownB
   $('#sStatus').innerHTML=micErr?micHelp(micErr):''}
 function renderSayStrikes(){$('#sStrikes').innerHTML=strikesOn()?[0,1,2].map(i=>`<span class="xs${i<Y.strikes?' on':''}">✕</span>`).join(''):''}
 function sayCountUI(){const c=$('#sCount');if(c)c.innerHTML=capCount('say')}
-function startSay(){const r=S.sayRun;Y={count:r?r.count:0,letter:null,strikes:r?r.strikes:0};micErr='';initSayPool();starRow($('#sPips'),capNeed('say',5),Y.count);sayCountUI();renderSayStrikes();
-  if(micOk()&&!S.micGranted){showMicGate();return}$('#micGate').hidden=true;$('.say-stage').hidden=false;if(micOk()&&!srS){micStart();setTimeout(()=>{if(cur==='say'&&!(Y.letter||Y.word))nextSay()},700)}else nextSay()}
+function sayFreshOnce(){try{const v=sessionStorage.getItem('ll_sayfresh');sessionStorage.removeItem('ll_sayfresh');return !!v}catch(e){return true}}
+function sayRestart(){try{sessionStorage.setItem('ll_go','say');sessionStorage.setItem('ll_sayfresh','1')}catch(e){return false}try{micStop()}catch(e){}save();document.body.classList.add('reloading');setTimeout(()=>location.reload(),30);return true}
+function startSay(){if(appleTouch&&SR&&!grownMode()&&S.micGranted&&!sayFreshOnce()&&sayRestart())return;
+  $('#sLetter').textContent='';$('#sWord').innerHTML='';$('#sayScreen').classList.remove('ok','miss');$('#sayStart').hidden=true;
+  const r=S.sayRun;Y={count:r?r.count:0,letter:null,strikes:r?r.strikes:0};micErr='';initSayPool();starRow($('#sPips'),capNeed('say',5),Y.count);sayCountUI();renderSayStrikes();
+  if(micOk()&&!S.micGranted){showMicGate();return}$('#micGate').hidden=true;
+  if(micOk()){$('.say-stage').hidden=true;$('#sayStart').hidden=false;say('g_say');return}$('.say-stage').hidden=false;nextSay()}
+$('#sayGo').onclick=()=>{ac();stopVoice();$('#sayStart').hidden=true;$('.say-stage').hidden=false;try{micStop()}catch(e){}micStart();setTimeout(()=>{if(cur==='say'&&!(Y.letter||Y.word))nextSay()},800)};
 const isHomeApp=()=>{try{return navigator.standalone===true||matchMedia('(display-mode: standalone)').matches}catch(e){return false}};
 function micHelp(code){if(isHomeApp())return `<b>Say It can't use the microphone from the Home Screen icon.</b> Open the <b>Safari</b> app and go to <b>jedbfriedman.github.io/Letter-Land</b> to play Say It. (${code})`;
   return `<b>Grown-ups:</b> 1) Settings → General → Keyboard → turn on <b>Enable Dictation</b>. 2) Settings → Apps → Safari → <b>Microphone</b> → Allow. 3) In Safari, tap the <b>aA</b> (or ☰) button by the web address → Website Settings → Microphone → <b>Allow</b>. 4) Close this tab and open it again. (${code})`}
@@ -3351,7 +3359,11 @@ function goDef(){{const c=$('#defCount');if(c){c.innerHTML='';c.hidden=true}}con
 function defPause(){if(DF.on){DF.on=false;DF.paused=performance.now();cancelAnimationFrame(DF.raf)}}
 function defResume(){if(!DF.active||DF.over)return;const d=DF.paused?performance.now()-DF.paused:0;DF.paused=0;DF.next+=d;DF.jam+=d;DF.eqs.forEach(q=>q.t0+=d);DF.last=performance.now();DF.on=true;defFit();DF.raf=requestAnimationFrame(defTick)}
 function defFit(){const cv=$('#defCv');if(!cv)return;{/* the sky gets whatever room is left above the answer pad, so nothing needs scrolling */const pad=$('#defPad'),top=cv.getBoundingClientRect().top,ph=pad?pad.getBoundingClientRect().height:0,fab=document.body.classList.contains('fab')?92:0;cv.style.setProperty('height',Math.max(180,innerHeight-top-ph-fab-22)+'px','important')}const r=cv.getBoundingClientRect(),d=devicePixelRatio||1;cv.width=r.width*d;cv.height=r.height*d;DF.W=r.width;DF.H=r.height;DF.g=cv.getContext('2d');DF.g.setTransform(d,0,0,d,0,0)}
-let CHIMG=null;function chestImg(){if(!CHIMG){CHIMG=new Image();CHIMG.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(CHEST_CLOSED)}return CHIMG}
+function drawChest(g,x,y,w,h){const rr=(X,Y,W,H,r)=>{g.beginPath();g.moveTo(X+r,Y);g.arcTo(X+W,Y,X+W,Y+H,r);g.arcTo(X+W,Y+H,X,Y+H,r);g.arcTo(X,Y+H,X,Y,r);g.arcTo(X,Y,X+W,Y,r);g.closePath()};
+  g.save();g.lineWidth=Math.max(1.5,h*.07);g.strokeStyle='#4A2D16';g.fillStyle='#A0642E';rr(x,y+h*.38,w,h*.62,h*.1);g.fill();g.stroke();
+  g.fillStyle='#B97838';rr(x,y,w,h*.42,h*.18);g.fill();g.stroke();
+  g.fillStyle='#F2C230';g.fillRect(x+w*.16,y+h*.02,w*.09,h*.96);g.fillRect(x+w*.75,y+h*.02,w*.09,h*.96);g.fillRect(x,y+h*.36,w,h*.08);
+  g.fillStyle='#F2C230';rr(x+w*.42,y+h*.3,w*.16,h*.26,h*.04);g.fill();g.fillStyle='#4A2D16';g.fillRect(x+w*.485,y+h*.38,w*.03,h*.1);g.restore()}
 function defSpawn(){const alive=DF.city.map((v,i)=>v?i:-1).filter(i=>i>=0);if(!alive.length)return;const busy=new Set(DF.eqs.filter(q=>q.y<DF.H*.35).map(q=>q.col));let opts=alive.filter(i=>!busy.has(i));if(!opts.length)opts=alive;
   const dm=S.settings.defMode||'kids',col=pick(opts),taken=new Set(DF.eqs.filter(q=>!q.hit&&!q.dead).map(q=>String(mAns(q))));let pq;for(let t=0;t<30;t++){pq=dm==='kids'?mPick():adultProb(dm==='adultx');if(!taken.has(String(mAns(pq))))break;pq=null}if(!pq)return;const w=DF.W/DF_COLS;DF.eqs.push({a:pq.a,b:pq.b,op:pq.op,col,x:w*(col+.5)+(Math.random()-.5)*w*.3,y:-10,t0:performance.now()})}
 const defBH=(i,H)=>H*.11+H*.015+((i*37)%5)*H*.017;
@@ -3370,7 +3382,7 @@ function defDraw(now){const g=DF.g,W=DF.W,H=DF.H,cityTop=H*.8,w=W/DF_COLS;g.clea
   const jam=now<DF.jam,lx=W/2,ly=H-6;g.fillStyle=jam?'#888':'#EE4B33';g.beginPath();g.moveTo(lx-22,ly);g.lineTo(lx,ly-34);g.lineTo(lx+22,ly);g.fill();
   if(jam){g.fillStyle='#FFC21A';g.font=`700 ${Math.round(H*.05)}px Andika, sans-serif`;g.textAlign='center';g.fillText('⚡ '+Math.ceil((DF.jam-now)/1000),lx,ly-44)}
   const fs=Math.max(20,Math.min(40,W*.05));g.textBaseline='middle';g.fillStyle='#fff';g.font=`700 ${Math.round(fs*.8)}px Andika, sans-serif`;g.textAlign='left';g.fillText('⭐ '+DF.stopped,12,fs*.7);
-  if(!DF.adult){g.textAlign='right';const tx='  '+capGot('def')+'/'+CAP_MAX;g.fillText(tx,W-12,fs*.7);const tw=g.measureText(tx).width,ci=chestImg(),ch=fs*.85;if(ci.complete)g.drawImage(ci,W-12-tw-ch*1.25,fs*.7-ch*.5,ch*1.25,ch)}
+  if(!DF.adult){g.textAlign='right';const tx='  '+capGot('def')+'/'+CAP_MAX;g.fillText(tx,W-12,fs*.7);const tw=g.measureText(tx).width,ch=fs*.8;drawChest(g,W-12-tw-ch*1.3,fs*.7-ch*.5,ch*1.3,ch)}
   g.font=`700 ${fs}px Andika, sans-serif`;g.textAlign='center';
   for(const q of DF.eqs){const t=`${q.a}${mOpSym(q.op)}${q.b}`,tw=g.measureText(t).width+fs*.9;q.x=Math.max(tw/2+6,Math.min(W-tw/2-6,q.x));g.fillStyle='rgba(255,255,255,.95)';const rr=fs*.6;g.beginPath();g.roundRect?g.roundRect(q.x-tw/2,q.y-fs*.7,tw,fs*1.4,rr):g.rect(q.x-tw/2,q.y-fs*.7,tw,fs*1.4);g.fill();g.strokeStyle='#FFC21A';g.lineWidth=3;g.stroke();g.fillStyle='#1B2838';g.fillText(t,q.x,q.y+1)}
   for(const s of DF.shots){g.strokeStyle='rgba(255,194,26,.8)';g.lineWidth=3;g.beginPath();g.moveTo(s.x0,s.y0);g.lineTo(s.x,s.y);g.stroke();g.fillStyle='#fff';g.beginPath();g.arc(s.x,s.y,6,0,7);g.fill()}
@@ -3836,7 +3848,7 @@ document.addEventListener('click',e=>{if(e.isTrusted&&performance.now()-navT<450
   ['pointerup','click','touchend'].forEach(t=>addEventListener(t,e=>{if(inRoom(e)){e.stopPropagation();if(t!=='touchend')e.preventDefault()}},true))}
 window.__LG={ev:c=>eval(c),PRIZES,STK_LIST,LINES,games:{gMemory,gMaze,gTrace},show:id=>show(id),S:()=>S,settle:(i,x,y)=>settle(i,x,y),absPos:i=>absPos(i)};
 
-{let go=null;try{go=sessionStorage.getItem('ll_go');sessionStorage.removeItem('ll_go')}catch(e){}if(go){document.body.classList.add('fresh-in');setTimeout(()=>document.body.classList.remove('fresh-in'),400)}if(go)show(['home','shop','room','pick','settings','who'].includes(go)?go:'home');else show('splash')}Promise.all([within(V_READY,6000),new Promise(r=>setTimeout(r,600))]).then(()=>{if(cur!=='splash')return;const c=clips();if(c&&c.ll&&S.settings.voice){const t0=performance.now();playSrc('data:audio/mpeg;base64,'+c.ll,playTok).then(ok=>{if(ok&&performance.now()-t0>700)LL_SAID=true})}});
+{let go=null;try{go=sessionStorage.getItem('ll_go');sessionStorage.removeItem('ll_go')}catch(e){}if(go){document.body.classList.add('fresh-in');setTimeout(()=>document.body.classList.remove('fresh-in'),400)}if(go==='say'){show('say');startSay()}else if(go)show(['home','shop','room','pick','settings','who'].includes(go)?go:'home');else show('splash')}Promise.all([within(V_READY,6000),new Promise(r=>setTimeout(r,600))]).then(()=>{if(cur!=='splash')return;const c=clips();if(c&&c.ll&&S.settings.voice){const t0=performance.now();playSrc('data:audio/mpeg;base64,'+c.ll,playTok).then(ok=>{if(ok&&performance.now()-t0>700)LL_SAID=true})}});
 })();
 </script>
 </body></html>
