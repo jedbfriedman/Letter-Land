@@ -3811,7 +3811,7 @@ const ADV_NAME={fill:'Fill It In',mean:'Word Meaning'};
 /* Fill It In opens at 30 Sound It Out treasures; Word Meaning opens at 30 Fill It In treasures (or both from Settings) */
 const fillOpen=()=>!!S.advOn||capGot('sound')>=30,meanOpen=()=>!!S.advOn||capGot('fill')>=30;
 let RV_LOADED=false,RV_P=null;
-function loadRV(){if(!RV_P)RV_P=new Promise(res=>{const sc=document.createElement('script');sc.src='rvoice.js?v='+VOICE_VER;sc.onload=()=>{RV_LOADED=true;res()};sc.onerror=()=>res();document.head.appendChild(sc)});return RV_P}
+function loadRV(){if(!RV_P){const one=f=>new Promise(res=>{const sc=document.createElement('script');sc.src=f+'?v='+VOICE_VER;sc.onload=res;sc.onerror=res;document.head.appendChild(sc)});RV_P=Promise.all([one('rvoice.js'),one('rvoice2.js')]).then(()=>{RV_LOADED=true})}return RV_P}
 /* a round: 5 right before 3 strikes wins a prize (10 right after 20 prizes); 50 prizes at most */
 const AV={mode:'fill',it:null,ok:0,strikes:0,first:true,busy:false};
 const advNeed=m=>capGot(m)>=20?10:5;
