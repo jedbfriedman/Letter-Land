@@ -574,8 +574,8 @@ label.btn{display:block;text-align:center}
 .abtn{border:0;border-radius:16px;background:var(--panel);box-shadow:0 5px 0 #C5D0D8;font-size:34px;padding:0}
 .abtn:active{transform:translateY(3px);box-shadow:0 2px 0 #C5D0D8}
 .a-u{grid-column:2;grid-row:1}.a-l{grid-column:1;grid-row:2}.a-d{grid-column:2;grid-row:2}.a-r{grid-column:3;grid-row:2}
-.prog{display:flex;flex-wrap:wrap;gap:4px;justify-content:center;min-height:40px;margin-top:8px;padding:6px;border-radius:14px;background:#FFF4D6}
-.pstep{font-size:24px;line-height:1;padding:2px;border-radius:8px}
+.prog{display:flex;flex-wrap:wrap;gap:4px;justify-content:center;align-content:center;height:80px;overflow:hidden;box-sizing:border-box;margin-top:8px;padding:6px;border-radius:14px;background:#FFF4D6}
+.pstep{font-size:var(--ps,24px);line-height:1;padding:2px;border-radius:8px}
 .pstep.now{background:#FFC21A}.pstep.did{opacity:.45}.pstep.bad{background:#FFB4A8}
 .phint2{color:var(--ink-soft);font-weight:700;align-self:center}
 .code-row{display:flex;gap:10px;justify-content:center;margin-top:8px}
@@ -899,6 +899,7 @@ body.fresh-in #main{animation:frIn .25s ease-out}@keyframes frIn{from{opacity:.0
 .m-time{background:#2C67E0;--sh:#1B3E8C}
 .pdead{display:block;width:100%;height:100%}.pdead>svg{width:100%;height:100%}
 .m-fill{background:#0E9C8C;--sh:#08665B}
+.xf-txt{width:100%;height:120px;box-sizing:border-box;border:2px solid #C9D3DF;border-radius:12px;padding:8px;font:12px/1.3 ui-monospace,monospace;word-break:break-all;resize:none;user-select:text;-webkit-user-select:text}
 .wt-nums{display:flex;gap:8px;justify-content:center;align-items:center}.wt-nums span{display:grid;place-items:center;width:64px;height:84px;border-radius:16px;background:#2FA64A;color:#fff;font:800 56px/1 var(--display,sans-serif);box-shadow:0 5px 0 #1E7A35}.wt-nums span:nth-child(2){background:#2C67E0;box-shadow:0 5px 0 #1B3E8C}.wt-nums span:nth-child(3){background:#E0731A;box-shadow:0 5px 0 #A04F0D}
 .bw-view{position:relative;width:100%;height:min(64vh,640px);margin:0 auto 10px;border-radius:24px;overflow:hidden;touch-action:none;background:linear-gradient(#BFE9FF,#E8F7FF 60%,#C8F0C8 60%,#9EDC9E)}
 .bw-wand{position:absolute;width:64px;height:128px;margin:-26px 0 0 -32px;pointer-events:none;transform:rotate(-12deg);z-index:3}.bw-wand svg{width:100%;height:100%}
@@ -1120,7 +1121,7 @@ body.fw-aim #roomView{cursor:crosshair}
 <div id="ov" hidden><div class="ov-card" id="ovCard"></div></div>
 <div class="toast" id="toast" hidden></div>
 <canvas id="confetti"></canvas>
-<script>const VOICE_VER=53;</script>
+<script>const VOICE_VER=54;</script>
 <script>
 (function(){
 const $=s=>document.querySelector(s);
@@ -1225,7 +1226,7 @@ let actx=null;
 function healAudio(){if(!actx)return;if(actx.state==='closed'){actx=null;return}
   if(actx.state!=='running'){const old=actx;const p=old.resume();const check=()=>{if(old.state!=='running'&&actx===old){try{old.close()}catch(e){}actx=null}};if(p&&p.then)p.then(()=>setTimeout(check,250),()=>{if(actx===old)actx=null});else setTimeout(check,250)}}
 let audioStale=false,ckW=0,ckT=0;
-document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden'){audioStale=true;pauseTimer();if(cur==='say'){Y.away=true;try{micStop()}catch(e){}stopVoice()}}else{vUnlocked=false;resumeTimer();if(cur==='say'&&Y.away){Y.away=false;Y.busy=false;Y.micOK=false;if(!(appleTouch&&SR&&!grownMode()&&S.micGranted&&sayRestart()))startSay()}}});
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden'){audioStale=true;pauseTimer();try{stopVoice();stopSong();if(cur==='room')leaveRoomSounds();if(actx){const a=actx;actx=null;a.close()}}catch(e){}if(cur==='say'){Y.away=true;try{micStop()}catch(e){}stopVoice()}}else{vUnlocked=false;resumeTimer();if(cur==='say'&&Y.away){Y.away=false;Y.busy=false;Y.micOK=false;if(!(appleTouch&&SR&&!grownMode()&&S.micGranted&&sayRestart()))startSay()}}});
 addEventListener('pageshow',()=>{audioStale=true;vUnlocked=false});addEventListener('blur',()=>{audioStale=true});
 function ac(){if(!actx){try{actx=new (window.AudioContext||window.webkitAudioContext)();actx._born=performance.now()}catch(e){}}if(actx&&actx.state!=='running'){try{actx.resume()}catch(e){}}return actx}
 let CT=null;const sfxPool=[];
@@ -1287,7 +1288,7 @@ let micUsed=false,audioHoldUntil=0;try{if(navigator.audioSession)navigator.audio
 const clips=()=>window.VOICE_CLIPS||null;const CLIPS=clips();let playTok=0,voice=null;
 const SILENT='data:audio/mpeg;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjYwLjE2LjEwMAAAAAAAAAAAAAAA//OEwAAAAAAAAAAAAEluZm8AAAAPAAAACQAABCAARUVFRUVFRUVFRUVdXV1dXV1dXV1dXXR0dHR0dHR0dHR0i4uLi4uLi4uLi4uioqKioqKioqKiorq6urq6urq6urq60dHR0dHR0dHR0dHo6Ojo6Ojo6Ojo6P//////////////AAAAAExhdmM2MC4zMQAAAAAAAAAAAAAAACQD8AAAAAAAAAQgDeb0IwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//NExAAAAANIAAAAAExBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVTEFNRTMu//NExFMAAANIAAAAADEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVTEFNRTMu//NExKYAAANIAAAAADEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVTEFNRTMu//NExKwAAANIAAAAADEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVTEFNRTMu//NExKwAAANIAAAAADEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVTEFNRTMu//NExKwAAANIAAAAADEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVTEFNRTMu//NExKwAAANIAAAAADEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//NExKwAAANIAAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//NExKwAAANIAAAAAFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV';
 let vEl=new Audio();vEl.preload='auto';vEl.setAttribute('playsinline','');let vUnlocked=false;
-function unlockAudio(){try{if(navigator.audioSession&&!srS&&cur!=='say'&&navigator.audioSession.type!=='playback')navigator.audioSession.type='playback'}catch(e){}
+function unlockAudio(){try{if(navigator.audioSession&&!srS&&(cur!=='say'||sayDone)&&navigator.audioSession.type!=='playback')navigator.audioSession.type='playback'}catch(e){}
   /* iOS can hand back an engine that says "running" but is silent after another app had the sound,
      so after any trip away (or if its clock has stopped) build a fresh one inside this tap */
   const now=performance.now()/1000;let dead=false;if(actx&&actx.state==='running'&&ckW&&now-ckW>.6&&actx.currentTime-ckT<(now-ckW)*.3)dead=true;
@@ -1555,7 +1556,7 @@ Object.assign(BASES,{
  sax:[2,'Saxophone',(b,c,l,d)=>`${SH}<path d="M38 18 C42 34 40 56 41 70 C42 84 52 90 62 88 C72 86 74 78 74 66 L74 54" stroke="${OL}" stroke-width="14" fill="none" stroke-linecap="round"/><path d="M38 18 C42 34 40 56 41 70 C42 84 52 90 62 88 C72 86 74 78 74 66 L74 54" stroke="${b}" stroke-width="10.5" fill="none" stroke-linecap="round"/>
   <path d="M68 58 L63 36 Q74 30 87 36 L80 58Z" fill="${b}" stroke="${OL}" stroke-width="2.2" stroke-linejoin="round"/><ellipse cx="75" cy="35.5" rx="12.5" ry="4" fill="${d}" stroke="${OL}" stroke-width="2"/><path d="M40 52 C40 64 40 72 44 80" stroke="#fff" stroke-width="2" opacity=".45" fill="none"/>
   <path d="M38 19 Q34 10 24 8" stroke="${OL}" stroke-width="7" fill="none" stroke-linecap="round"/><path d="M38 19 Q34 10 24 8" stroke="${l}" stroke-width="4.5" fill="none" stroke-linecap="round"/><path d="M24 4.5 L13 6 L13 10 L24 11.5Z" fill="${OL}"/>
-  ${[[40,28],[40.4,36],[40.6,44],[40.6,52],[40.8,60],[41.4,68],[50,86],[72,72]].map(([x,y],k)=>`<g data-n="${7-k}"><circle cx="${x}" cy="${y}" r="3.3" fill="#FFF8E6" stroke="${OL}" stroke-width="1.4"/><circle cx="${x}" cy="${y}" r="4.4" ${HZ}/></g>`).join('')}`],
+  ${[[40,28],[40.4,36],[40.6,44],[40.6,52],[40.8,60],[41.4,68],[50,86],[72,72]].map(([x,y],k)=>`<g data-n="${7-k}"><circle cx="${x}" cy="${y}" r="${k>=6?4.6:3.3}" fill="#FFF8E6" stroke="${OL}" stroke-width="1.4"/><circle cx="${x}" cy="${y}" r="${k===7?11:k===6?8.5:4.4}" ${HZ}/></g>`).join('')}`],
  drumkit:[2,'Drum Kit',(b,c,l,d)=>`${SH}
   <g data-n="2"><line class="stand" x1="14" y1="28" x2="14" y2="90" stroke="${OL}" stroke-width="2.5"/><ellipse cx="14" cy="30" rx="13" ry="3.5" fill="#E2B13C" stroke="${OL}" stroke-width="1.6"/><ellipse cx="14" cy="26" rx="13" ry="3.5" fill="#F2C94C" stroke="${OL}" stroke-width="1.6"/><ellipse cx="14" cy="28" rx="15" ry="7" ${HZ}/></g>
   <g data-n="3"><line class="stand" x1="86" y1="20" x2="86" y2="90" stroke="${OL}" stroke-width="2.5"/><ellipse cx="82" cy="18" rx="17" ry="4.5" fill="#F2C94C" stroke="${OL}" stroke-width="1.6"/><ellipse cx="82" cy="17" rx="5" ry="1.4" fill="#C79000"/><ellipse cx="82" cy="18" rx="18" ry="7" ${HZ}/></g>
@@ -1571,7 +1572,7 @@ Object.assign(BASES,{
   <rect x="6" y="78" width="88" height="5" fill="${d}" stroke="${OL}" stroke-width="1.5"/><path d="M12 83 V94 M88 83 V94" stroke="#E2B13C" stroke-width="4.5" stroke-linecap="round"/><path d="M46 84 v6 M54 84 v6" stroke="#E2B13C" stroke-width="2.5"/><polygon points="${starPts(18,10,5,2)}" fill="#FFD23F"/><polygon points="${starPts(96,30,4,1.6)}" fill="#FFF3A0"/>`]
 });
 /* some prizes are big */
-const SIZEK={bubblewand:1.1,cuckooclock:1.35,rainbowparrot:1.2,dragonegg:1.05,crystalcastle:1.6,robotcrown:.9,telescope:1.68,musicbox:.95,quill:1.15,hourglass:1.05,guardrocket:1.3,lion:1.35,piano:1.2,harp:1.1,drumkit:1.5,giantbear:1.1,elephant:1.2,giraffe:1.25,unicorn:1.3,bigdragon:1.3,pegasus:1.3,phoenix:1.3,candycastle:1.125,swirlpop:1.1};
+const SIZEK={bubblewand:1.1,cuckooclock:1.01,rainbowparrot:1.2,dragonegg:1.05,crystalcastle:1.6,robotcrown:.9,telescope:1.68,musicbox:.95,quill:1.15,hourglass:1.05,guardrocket:1.3,lion:1.35,piano:1.2,harp:1.1,drumkit:1.5,giantbear:1.1,elephant:1.2,giraffe:1.25,unicorn:1.3,bigdragon:1.3,pegasus:1.3,phoenix:1.3,candycastle:1.125,swirlpop:1.1};
 /* ---------- animals and treats ---------- */
 const EYE=(x,y,r=2.8)=>`<circle cx="${x}" cy="${y}" r="${r}" fill="${OL}"/><circle cx="${x+r*.35}" cy="${y-r*.35}" r="${(r*.36).toFixed(2)}" fill="#fff"/>`;
 const BLUSH=(x,y,r=3)=>`<circle cx="${x}" cy="${y}" r="${r}" fill="#FF8FAB" opacity=".5"/>`;
@@ -2097,7 +2098,7 @@ function renderSayStrikes(){$('#sStrikes').innerHTML=strikesOn()?[0,1,2].map(i=>
 function sayCountUI(){const c=$('#sCount');if(c)c.innerHTML=capCount('say')}
 function sayFreshOnce(){try{const v=sessionStorage.getItem('ll_sayfresh');sessionStorage.removeItem('ll_sayfresh');return !!v}catch(e){return true}}
 function sayRestart(){try{sessionStorage.setItem('ll_go','say');sessionStorage.setItem('ll_sayfresh','1')}catch(e){return false}try{micStop()}catch(e){}save();document.body.classList.add('reloading');setTimeout(()=>location.reload(),30);return true}
-function startSay(fromMenu){if(fromMenu)sayFreshOnce();else if(appleTouch&&SR&&!grownMode()&&S.micGranted&&!sayFreshOnce()&&sayRestart())return;
+function startSay(fromMenu){sayDone=false;if(fromMenu)sayFreshOnce();else if(appleTouch&&SR&&!grownMode()&&S.micGranted&&!sayFreshOnce()&&sayRestart())return;
   $('#sLetter').textContent='';$('#sWord').innerHTML='';$('#sayScreen').classList.remove('ok','miss');$('#sayStart').hidden=true;
   const r=S.sayRun;Y={count:r?r.count:0,letter:null,strikes:r?r.strikes:0};micErr='';initSayPool();starRow($('#sPips'),capNeed('say',5),Y.count);sayCountUI();renderSayStrikes();
   if(micOk()&&!S.micGranted){showMicGate();return}$('#micGate').hidden=true;
@@ -2126,7 +2127,7 @@ function nextSay(same){{const hd=$('#s-say .hud');if(hd)hd.style.visibility=''}s
 function askListen(keys){const ks=[].concat(keys);stopListen();
   /* first question: switch the microphone on before asking, so it never cuts into the question */
   if(SR&&!grownMode()&&!srS){micStart();const L0=Y.letter,W0=Y.word;return wait(800).then(()=>{if(cur==='say'&&!Y.busy&&Y.letter===L0&&Y.word===W0)return askListen(ks)})}
-  Y.ptoks=ks.map(k=>norm(LINES[k]||'')).join(' ').split(' ').filter(Boolean);Y.qT=performance.now();Y.early=true;Y.lis=!!SR&&!grownMode();
+  Y.ptoks=ks.map(k=>norm(LINES[k]||'')).join(' ').split(' ').filter(Boolean);Y.qT=performance.now();Y.early=true;Y.lis=!!SR&&!grownMode();if(Y.lis&&srS){$('#micBtn').classList.add('listening');$('#micBtn').classList.remove('invite')}
   const L=Y.letter,Wd=Y.word;return say(ks).then(()=>{if(cur!=='say'||Y.busy||Y.letter!==L||Y.word!==Wd)return;Y.early=false;listen(true)})}
 function stripAsk(a){if(!Y.ptoks||!Y.ptoks.length)return a;const keep=Y.isWord?[]:(HEAR[Y.letter]||[]),left=Y.ptoks.filter(t=>!keep.includes(t));return norm(a).split(' ').filter(t=>{const i=left.indexOf(t);if(i>=0){left.splice(i,1);return false}return true}).join(' ')}
 function norm(s){return s.toLowerCase().replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim()}
@@ -2136,7 +2137,8 @@ function micListenMode(){micUsed=true;try{if(navigator.audioSession&&navigator.a
 function micDoneMode(){if(cur!=='say')restoreSpeaker()}
 /* the phone stays in one listening mode for all of Say It (switching back and forth is what made it quiet);
    leaving Say It puts it back to loud speaker mode with a fresh sound player */
-function restoreSpeaker(){const f=()=>{try{if(navigator.audioSession&&!srS&&cur!=='say')navigator.audioSession.type='playback'}catch(e){}};f();setTimeout(f,300);setTimeout(f,1200);setTimeout(f,2500);audioStale=true;unlockAudio();
+let sayDone=false;
+function restoreSpeaker(){const f=()=>{try{if(navigator.audioSession&&!srS&&(cur!=='say'||sayDone))navigator.audioSession.type='playback'}catch(e){}};f();[150,300,700,1200,2500,4000].forEach(t=>setTimeout(f,t));audioStale=true;unlockAudio();
   try{const n=new Audio();n.preload='auto';n.setAttribute('playsinline','');try{vEl.pause()}catch(e){}vEl=n;vUnlocked=true;n.src=SILENT;const q=n.play();if(q&&q.catch)q.catch(()=>{vUnlocked=false})}catch(e){vUnlocked=false}}
 
 /* Say It keeps ONE microphone session open for the whole game (instead of switching it on and off for every
@@ -2154,7 +2156,7 @@ function micStart(){if(srS||!SR||grownMode()||cur!=='say')return;let r;try{r=new
     if(Y.early)return;/* while the question is still playing, only a right answer counts */
     if(e.results[idx[idx.length-1]].isFinal)sayWrong(alts);else Y.missT=setTimeout(()=>{if(Y.lis&&!Y.busy)sayWrong(alts)},1300)};
   r.onerror=e=>{if(e.error==='no-speech'||e.error==='aborted')return;if(e.error==='not-allowed'||e.error==='service-not-allowed'){micErr=e.error;r._dead=true;sayUI();$('#micBtn').classList.add('invite')}};
-  r.onend=()=>{if(srEnding===r)srEnding=null;if(srS===r){srS=null;rec=null}if(r._stop||r._dead||cur!=='say')return;r._restarts=(r._restarts||0);setTimeout(()=>{if(cur==='say'&&!srS)micStart()},120)};
+  r.onend=()=>{if(srEnding===r)srEnding=null;if(srS===r){srS=null;rec=null}/* listening has really ended: now the speaker can come back at full volume */if(r._stop&&!srS&&(cur!=='say'||sayDone)){audioStale=true;restoreSpeaker()}if(r._stop||r._dead||cur!=='say')return;r._restarts=(r._restarts||0);setTimeout(()=>{if(cur==='say'&&!srS)micStart()},120)};
   try{r.start()}catch(e){srS=null;rec=null}}
 let srEnding=null;
 function micStop(){const r=srS;srS=null;rec=null;stopListen();if(r){r._stop=true;srEnding=r;setTimeout(()=>{if(srEnding===r)srEnding=null},1500);try{r.abort()}catch(e){}}}
@@ -2171,8 +2173,8 @@ function sayYes(){if(Y.busy)return;Y.busy=true;stopListen();micErr='';sayUI();Y.
   const ck=document.createElement('div');ck.className='check';ck.textContent='✓';$('#sayScreen').appendChild(ck);setTimeout(()=>ck.remove(),900);
   const L=Y.letter;
   say([vary('sayYes',4),Y.isWord?'sw_'+Y.word:'is_'+L]).then(()=>{if(cur!=='say')return;checkMaster();
-    if(Y.count>=capNeed('say',5)){S.sayRun=null;lastGame='say';sFan();confetti();const dk=vary('done',8);
-      if(!capWin('say',()=>{say(dk);ov(`<h2>${LINES[dk].replace(' You win a prize!','')}</h2><p>You win a prize!</p>`,[{label:'Pick my prize',cls:'yellow big',fn:()=>show('shop')}])})){save();say('cap_max');ov(capFullHTML('say'),[{label:'Play again',cls:'green big',fn:()=>{show('say');startSay()}},{brk:1},homeBtn])}sayCountUI()}
+    if(Y.count>=capNeed('say',5)){S.sayRun=null;lastGame='say';sayDone=true;try{micStop()}catch(e){}$('#micBtn').classList.remove('listening','invite');audioStale=true;restoreSpeaker();sFan();confetti();const dk=vary('done',8);
+      if(!capWin('say',()=>{say(dk);ov(`<h2>${LINES[dk].replace(' You win a prize!','')}</h2><p>You win a prize!</p>`,[{label:'Pick my prize',cls:'yellow big',fn:()=>show('shop')}])})){save();say('cap_max');ov(capFullHTML('say'),[{label:'Play again',cls:'green big',fn:()=>{show('say');startSay(true)}},{brk:1},homeBtn])}sayCountUI()}
     else setTimeout(()=>{if(cur==='say')nextSay()},500)})}
 function sayMiss(){if(Y.busy)return;Y.busy=true;stopListen();$('#micBtn').classList.remove('invite');sOops();showWord();$('#sayScreen').classList.add('miss');if(Y.isWord)swRecord(Y.word,false);else sayRecord(Y.letter,false);
   const strike=strikesOn();if(strike){Y.strikes++;renderSayStrikes()}S.sayRun={count:Y.count,strikes:Y.strikes};save();
@@ -2675,6 +2677,8 @@ function storeHTML(){if(!OPEN.ward)return '';const n=(S.stored||[]).filter(i=>PR
   return `<button class="store-obj" id="storeObj" style="left:${PX(STORE.x)};top:${PY(STORE.y)};width:${PX(STORE.w)};z-index:${STORE.y+5}" aria-label="Storage chest">${CHEST_CLOSED}${n?`<span class="badge">${n}</span>`:''}<span class="slabel">Storage</span></button>`}
 function storeHit(x,y){return !!OPEN.ward&&Math.abs(x-STORE.x)<STORE.w*.75&&y>STORE.y-STORE.w*.9&&y<STORE.y+40}
 function storeItem(id){if(!PRIZE_BY[id]||id==='__pet')return false;S.stored=S.stored||[];const ids=groupOf(id).filter(k=>PRIZE_BY[k]);
+  {/* blocks stacked with it (above or below) come along, word or not */const isB=k=>PRIZE_BY[k]&&PRIZE_BY[k].key==='block';const add=k=>{if(!ids.includes(k))ids.push(k)};
+    for(let i=0;i<ids.length;i++){const k=ids[i];if(!isB(k))continue;const on=S.placed[k]&&S.placed[k].on;if(on&&isB(on))add(on);S.owned.forEach(o=>{if(isB(o)&&S.placed[o]&&S.placed[o].on===k)add(o)})}}
   ids.forEach(k=>{const sk=sealOf(k);if(sk)delete S.seals[sk];dropChildren(k);delete S.placed[k];if(!S.stored.includes(k))S.stored.push(k)});
   ids.forEach(k=>Object.keys(S.pairs||{}).forEach(pk=>{if(pk.split('|').includes(k))delete S.pairs[pk]}));
   save();sThud();toast(ids.length>1?`${ids.length} treasures are in the storage chest`:`${PRIZE_BY[id].name} is in the storage chest`,2200);return true}
@@ -2868,7 +2872,8 @@ function swRecord(w,ok){S.swstat=S.swstat||{};const s=S.swstat[w]||(S.swstat[w]=
   const L=w[0].toUpperCase();S.swl=S.swl||{};const l=S.swl[L]||(S.swl[L]={n:0,ok:0});l.n++;if(ok)l.ok++;
   S.swHist=(S.swHist||[]).concat(ok?1:0).slice(-30);swMaybeGrow();save()}
 const swDisp=w=>S.settings.case==='lower'?w:w.toUpperCase();
-function heardWord(alts,w){const ok=[w,...(SW_HEAR[w]||[])];return alts.some(a=>{const n=norm(a);if(!n)return false;if(ok.includes(n))return true;/* "A.M.", "U.S.": letters written apart */if(n.split(' ').every(t=>t.length===1)&&ok.includes(n.replace(/ /g,'')))return true;const t=n.split(' ');return t.length<=6&&t.some(x=>ok.includes(x))})}
+const SW_NOT={to:['toe','toes','tow','toad'],no:['not','nose'],go:['goat','gold'],be:['beat','bead'],so:['soap','soak']};
+function heardWord(alts,w){const ok=[w,...(SW_HEAR[w]||[])];{const no=SW_NOT[w];/* the best guess was clearly a different word */if(no&&alts.length&&norm(alts[0]).split(' ').some(x=>no.includes(x)))return false}return alts.some(a=>{const n=norm(a);if(!n)return false;if(ok.includes(n))return true;/* "A.M.", "U.S.": letters written apart */if(n.split(' ').every(t=>t.length===1)&&ok.includes(n.replace(/ /g,'')))return true;const t=n.split(' ');return t.length<=6&&t.some(x=>ok.includes(x))})}
 /* letters first; once every letter is in and going well, words take over (with a few letters mixed in for review) */
 function sayWordsOn(){if(S.sayStage)return true;const pool=S.sayPool||[];if(pool.length<26)return false;const comfy=pool.filter(comfortable).length;if(comfy>=22){S.sayStage=1;Y.wordsNew=true;save();return true}return false}
 
@@ -3644,7 +3649,7 @@ function gMaze(rd=0){const base=S.mazeLevel||0,lv=Math.min(MAZE_LV.length-1,base
     let dn=false;svg.onpointerdown=e=>{dn=true;svg.setPointerCapture(e.pointerId);tryMove(cellAt(e))};svg.onpointermove=e=>{if(dn&&!GM.done)tryMove(cellAt(e))};svg.onpointerup=()=>{dn=false};return}
   if(mode==='arrows'){document.querySelectorAll('.abtn').forEach(b=>b.onclick=()=>{if(GM.done)return;if(!step(b.dataset.a)){sThud()}});return}
   /* coding: build a list of moves; each arrow moves one square */
-  const MAX=999;const showProg=()=>{$('#mzProg').innerHTML=GM.prog.length?GM.prog.map((k,i)=>`<span class="pstep" data-i="${i}">${ARW[k][3]}</span>`).join(''):'<span class="phint2">Tap arrows to plan the path</span>';
+  const MAX=999;const showProg=()=>{$('#mzProg').innerHTML=GM.prog.length?GM.prog.map((k,i)=>`<span class="pstep" data-i="${i}">${ARW[k][3]}</span>`).join(''):'<span class="phint2">Tap arrows to plan the path</span>';{const pg=$('#mzProg');let f=24;pg.style.setProperty('--ps',f+'px');while(pg.scrollHeight>pg.clientHeight+1&&f>10){f-=2;pg.style.setProperty('--ps',f+'px')}}
     let [x,y]=GM.pos,d=`M${x*C+25} ${y*C+25}`;for(const k of GM.prog){const [dx,dy]=ARW[k];x+=dx;y+=dy;d+=` L${x*C+25} ${y*C+25}`}};showProg();
   document.querySelectorAll('.abtn').forEach(b=>b.onclick=()=>{if(GM.running||GM.done||GM.prog.length>=MAX)return;GM.prog.push(b.dataset.a);tone(880,.05,'triangle',.05);showProg()});
   $('#mzUndo').onclick=()=>{if(GM.running)return;GM.prog.pop();showProg()};
@@ -3895,7 +3900,7 @@ let RV_LOADED=false,RV_P=null;
 function loadRV(){if(!RV_P){const one=f=>new Promise(res=>{const sc=document.createElement('script');sc.src=f+'?v='+VOICE_VER;sc.onload=res;sc.onerror=res;document.head.appendChild(sc)});RV_P=Promise.all([one('rvoice.js'),one('rvoice2.js')]).then(()=>{RV_LOADED=true})}return RV_P}
 /* a round: 5 right before 3 strikes wins a prize (10 right after 10 prizes); 50 prizes at most */
 const AV={mode:'fill',it:null,ok:0,strikes:0,first:true,busy:false};
-const advNeed=m=>capGot(m)>=10?10:5;
+function advNeed(m){S.advTen=S.advTen||{};if(capGot(m)>=10)S.advTen[m]=1;return S.advTen[m]?10:5}
 function advS(m){S.adv=S.adv||{};return S.adv[m]||(S.adv[m]={lv:0,hist:[],since:0,qs:{}})}
 const advBank=m=>m==='fill'?FI_BANK:WM_BANK;
 function advPick(m){const a=advS(m),B=advBank(m);let lv=Math.min(a.lv,B.length-1);if(lv>0&&Math.random()<.15){const lo=lv>=4?4:0;if(lv>lo)lv=lo+rand(lv-lo)}
@@ -3928,8 +3933,11 @@ function advWin(m){AV.ok=0;AV.strikes=0;const n=capGot(m);
 function advChoose(b){if(AV.busy||!AV.it||b.classList.contains('wrong'))return;ac();const w=b.dataset.w,m=AV.mode,a=advS(m),B=advBank(m);
   if(w===AV.it.a){AV.busy=true;b.classList.add('right');sPop();tierSfx(1,0);$('#fiCard').classList.add('ok');
     if(m==='fill'){const bl=$('#fiBlank');if(bl){bl.textContent=w;bl.classList.add('filled');advFit()}}
-    AV.ok++;a.hist=(a.hist||[]).concat(AV.first?1:0).slice(-20);a.since=(a.since||0)+1;
-    let up=false;const h8=a.hist.slice(-8);if(a.lv<B.length-1&&a.since>=8&&h8.length>=8&&h8.reduce((x,y)=>x+y,0)>=7){a.lv++;a.since=0;a.qs={};up=true}
+    AV.ok++;let up=false;
+    /* LEVEL UP RULE. Only questions at the current level count (not review ones). An answer is "right" only if the first pick was right.
+       Needs ALL of: 15+ questions at this level; 9 of the last 10 right; the last 3 all right; 80%+ right over the last 20. */
+    if(AV.it.lv===a.lv){a.lh=(a.lh||[]).concat(AV.first?1:0).slice(-30);const h=a.lh,sum=x=>x.reduce((p,q)=>p+q,0),l10=h.slice(-10),l20=h.slice(-20);
+      if(a.lv<B.length-1&&h.length>=15&&sum(l10)>=9&&sum(h.slice(-3))===3&&sum(l20)/l20.length>=.8){a.lv++;a.lh=[];a.qs={};up=true}}
     const win=AV.ok>=advNeed(m);save();advHud();
     const keys=[vary('sayYes',4)];if(m==='fill')keys.push(advKey()+'f');
     const after=()=>{if(cur!=='fill')return;if(win)advWin(m);else setTimeout(advNext,350)};
@@ -3937,8 +3945,29 @@ function advChoose(b){if(AV.busy||!AV.it||b.classList.contains('wrong'))return;a
       if(up){sShine();confetti();say('adv_lvup');ov(`<div class="big-prize">⭐</div><h2>Level up!</h2><p>Great job! You leveled up your difficulty with all those correct answers!</p>`,[{label:'Keep going',cls:'green big',fn:after}]);return}
       after()});return}
   AV.first=false;AV.strikes++;b.classList.remove('shake');void b.offsetWidth;b.classList.add('shake','wrong');sBuzz();advHud();
-  if(AV.strikes>=3){AV.busy=true;setTimeout(()=>{AV.ok=0;AV.strikes=0;advHud()},700);say('adv_redo').then(()=>{if(cur!=='fill')return;AV.ok=0;AV.strikes=0;advHud();advNext()});toast("Let's try that again!",2200);return}
+  if(AV.strikes>=3){AV.busy=true;setTimeout(()=>{if(cur!=='fill')return;say('adv_redo');ov(`<div class="big-prize">💪</div><h2>Let's try that again!</h2>`,[{label:'Try again',cls:'green big',fn:()=>{AV.ok=0;AV.strikes=0;advHud();advNext()}}])},600);return}
   say(vary('adv_no',4))}
+
+/* ---------- SAVE TRANSFER: the whole saved game as a code (compressed), to paste or open as a file on another device ---------- */
+const b64e=u=>{let t='';for(let i=0;i<u.length;i+=0x8000)t+=String.fromCharCode.apply(null,u.subarray(i,i+0x8000));return btoa(t)},b64d=t=>Uint8Array.from(atob(t),c=>c.charCodeAt(0));
+async function xferCode(){save();const raw=new TextEncoder().encode(JSON.stringify(R));
+  try{if(typeof CompressionStream!=='undefined'){const z=new Uint8Array(await new Response(new Blob([raw]).stream().pipeThrough(new CompressionStream('gzip'))).arrayBuffer());return 'LL1:'+b64e(z)}}catch(e){}
+  return 'LL0:'+b64e(raw)}
+async function xferParse(txt){txt=String(txt||'').replace(/\s+/g,'');const m=txt.match(/LL([01]):([A-Za-z0-9+/=]+)/);if(!m)throw new Error('no code');let u=b64d(m[2]);
+  if(m[1]==='1')u=new Uint8Array(await new Response(new Blob([u]).stream().pipeThrough(new DecompressionStream('gzip'))).arrayBuffer());
+  const r=JSON.parse(new TextDecoder().decode(u));if(!r||!Array.isArray(r.profiles)||!r.profiles.length||!r.profiles.every(p=>p&&p.id&&p.data))throw new Error('bad');return r}
+async function xferOut(){const code=await xferCode(),kb=Math.max(1,Math.round(code.length/1024));
+  ov(`<h2>Save code</h2><p class="note">Copy this code (or share it as a file) and send it to the new device. It holds ${R.profiles.length} player${R.profiles.length>1?'s':''} (${kb} KB).</p><textarea id="xfTxt" class="xf-txt" readonly></textarea><div class="hc-btns"><button class="btn yellow" id="xfCopy">Copy code</button><button class="btn" id="xfFile">Share as a file</button></div><p class="note" id="xfMsg"></p>`,[{label:'Done',cls:'green',fn:()=>renderSettings()}]);
+  const ta=$('#xfTxt');ta.value=code;const msg=t=>{$('#xfMsg').textContent=t};
+  $('#xfCopy').onclick=async()=>{try{await navigator.clipboard.writeText(code);msg('Copied! Paste it into a message to yourself.')}catch(e){ta.focus();ta.select();try{document.execCommand('copy');msg('Copied!')}catch(_){msg('Tap and hold the code, choose Select All, then Copy.')}}};
+  $('#xfFile').onclick=async()=>{const name='letter-land-save.txt';try{const f=new File([code],name,{type:'text/plain'});if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f],title:'Letter Land save'});return}}catch(e){if(e&&e.name==='AbortError')return}
+    try{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([code],{type:'text/plain'}));a.download=name;document.body.appendChild(a);a.click();a.remove();msg('Saved as '+name)}catch(e){msg('Could not make a file here. Use Copy code instead.')}}}
+function xferIn(){ov(`<h2>Load a save</h2><p class="note">Paste the save code from the other device, or choose the save file.</p><textarea id="xfTxt" class="xf-txt" placeholder="Paste the code here"></textarea><div class="hc-btns"><button class="btn" id="xfPick">Choose a file</button><button class="btn yellow" id="xfLoad">Load</button></div><input type="file" id="xfInp" accept=".txt,text/plain" hidden><p class="note" id="xfMsg"></p>`,[{label:'Cancel',cls:'',fn:()=>renderSettings()}]);
+  const msg=t=>{$('#xfMsg').textContent=t};$('#xfPick').onclick=()=>$('#xfInp').click();
+  $('#xfInp').onchange=async e=>{const f=e.target.files[0];if(f){$('#xfTxt').value=await f.text();msg('File ready. Tap Load.')}};
+  $('#xfLoad').onclick=async()=>{let r;try{r=await xferParse($('#xfTxt').value)}catch(e){msg("That doesn't look like a Letter Land save code. Make sure the whole code was copied.");return}
+    const names=r.profiles.map(p=>esc(p.name||'Player')).join(', ');
+    ov(`<h2>Replace this device's game?</h2><p>The save has: <b>${names}</b>.</p><p class="note">Everything saved on <b>this</b> device will be replaced. This can't be undone.</p>`,[{label:'Yes, load it',cls:'yellow big',fn:()=>{try{localStorage.setItem(KEY,JSON.stringify(r))}catch(e){toast('Could not save on this device.');return}document.body.classList.add('reloading');setTimeout(()=>location.reload(),50)}},{brk:1},{label:'Cancel',cls:'',fn:()=>renderSettings()}])}}
 /* ---------- LETTER STATS (grown-ups) ---------- */
 function statRows(g){return LETTERS.map(L=>{let ok=0,n=0;if(g==='find'){const s=(S.fstat||{})[L];if(s){ok=s.h;n=s.h+s.m}}else if(g==='say'){const s=(S.sstat||{})[L];if(s){ok=s.ok;n=s.n}}else if(g==='words'){const s=(S.swl||{})[L];if(s){ok=s.ok;n=s.n}}else if(g==='write'){const s=(S.wstat||{})[L];if(s){ok=s.ok;n=s.n}}else{const s=(S.ostat||{})[L];if(s){ok=s.ok;n=s.n}}return{L,ok,n,p:n?ok/n:null}}).filter(r=>r.n)}
 function showStats(g){const rows=statRows(g).sort((a,b)=>b.p-a.p||b.n-a.n);const solid=rows.filter(r=>r.n>=3);
@@ -4065,6 +4094,7 @@ function renderSettings(){
   <p class="note">Settings below are for <b>${esc(me.name)}</b>. Each player has their own treasures, stars and settings.</p>
   <div class="set-sec"><h3>How it's going</h3><p class="note">See which letters and math facts are easy and which need practice.</p><div class="btn-pair"><button class="btn yellow" id="statsBtn">Letter stats</button><button class="btn yellow" id="mathStatsBtn">Math stats</button></div></div>
   ${testTools()}
+  <div class="set-sec"><h3>Move to another device</h3><p class="note">Copies every player, treasure and setting. On the old device tap <b>Get save code</b> and send the code to the new device (Messages, AirDrop, Notes or email). On the new device open Letter Land and tap <b>Load a save</b>.</p><div class="btn-pair"><button class="btn yellow" id="xferOut">Get save code</button><button class="btn" id="xferIn">Load a save</button></div></div>
   <div class="set-sec"><h3>Number writing</h3><p class="note">The writing box reads numbers on its own. To make it even better for this player, have them write each number 3 times.${(()=>{const n=Object.values(S.hwCal||{}).reduce((a,v)=>a+v.length,0);return n?` <b>Learned ${n} samples.</b>`:''})()}</p><div class="btn-pair"><button class="btn yellow" id="hwTeach">✍️ Teach my number writing</button>${S.hwCal&&Object.keys(S.hwCal).length||(S.hwU||[]).length?'<button class="btn grey" id="hwForget">Forget my writing</button>':''}</div></div>
   <div class="set-sec"><h3>Big reader games</h3><p class="note">Fill It In opens by itself at 30 Sound It Out treasures, and Word Meaning at 30 Fill It In treasures.</p><div class="btn-pair"><button class="btn ${S.advOn?'grey':'yellow'}" id="advTog">${S.advOn?'On ✓ (tap to turn off)':'Turn them on now'}</button></div></div>
   ${Object.keys(GAME_DONE).filter(gameDone).length?`<div class="set-sec"><h3>Finished games</h3><p class="note">Select a game to add back to the main menu.</p><div class="btn-pair">${Object.keys(GAME_DONE).filter(gameDone).map(g=>(S.showDone||{})[g]?`<button class="btn grey" data-hidedone="${g}">${GAME_NAME[g]} ✓ on menu</button>`:`<button class="btn yellow" data-showdone="${g}">${GAME_NAME[g]}</button>`).join('')}</div></div>`:''}
@@ -4102,7 +4132,7 @@ function renderSettings(){
     b.onclick=()=>{if(!resetArmed){resetArmed=true;lbl.textContent='Now press and hold to erase everything';setTimeout(()=>{if(resetArmed&&!raf){resetArmed=false;const l=$('#resetBtn .lbl');if(l)l.textContent='Reset all progress'}},6000)}};
     b.addEventListener('pointerdown',()=>{if(!resetArmed)return;t0=performance.now();const step=now=>{const f=Math.min(1,(now-t0)/3000);fill.style.width=(f*100)+'%';if(f>=1){stop();resetArmed=false;const keep=S.settings;prof().data={...fixData(null),settings:keep,_v:8};S=prof().data;save();toast('Progress erased');renderSettings();return}raf=requestAnimationFrame(step)};raf=requestAnimationFrame(step)});
     ['pointerup','pointerleave','pointercancel'].forEach(ev=>b.addEventListener(ev,stop));})();
-  el.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>runTool(b.dataset.t));{const a=el.querySelector('#hwTeach');if(a)a.onclick=()=>hwCalib();const f=el.querySelector('#hwForget');if(f)f.onclick=()=>{S.hwCal={};S.hwU=[];S.hwP=[];save();renderSettings();toast('Forgot this player\'s number writing')}}{const t=el.querySelector('#advTog');if(t)t.onclick=()=>{S.advOn=!S.advOn;if(S.advOn)S.fillSeen=S.meanSeen=1;save();renderSettings();toast(S.advOn?'Fill It In and Word Meaning are on the main menu':'Big reader games turned off')}}el.querySelectorAll('[data-showdone]').forEach(b=>b.onclick=()=>{const g=b.dataset.showdone;ov(`<h2>Add ${GAME_NAME[g]} back?</h2><p>${GAME_NAME[g]} will be back on the main menu.</p>`,[{label:'Add it back',cls:'green big',fn:()=>{S.showDone=S.showDone||{};S.showDone[g]=true;save();toast(GAME_NAME[g]+' is back on the main menu');renderSettings()}},{label:'Cancel',cls:'',fn:()=>{}}])});
+  el.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>runTool(b.dataset.t));{const o=el.querySelector('#xferOut');if(o)o.onclick=xferOut;const i=el.querySelector('#xferIn');if(i)i.onclick=xferIn}{const a=el.querySelector('#hwTeach');if(a)a.onclick=()=>hwCalib();const f=el.querySelector('#hwForget');if(f)f.onclick=()=>{S.hwCal={};S.hwU=[];S.hwP=[];save();renderSettings();toast('Forgot this player\'s number writing')}}{const t=el.querySelector('#advTog');if(t)t.onclick=()=>{S.advOn=!S.advOn;if(S.advOn)S.fillSeen=S.meanSeen=1;save();renderSettings();toast(S.advOn?'Fill It In and Word Meaning are on the main menu':'Big reader games turned off')}}el.querySelectorAll('[data-showdone]').forEach(b=>b.onclick=()=>{const g=b.dataset.showdone;ov(`<h2>Add ${GAME_NAME[g]} back?</h2><p>${GAME_NAME[g]} will be back on the main menu.</p>`,[{label:'Add it back',cls:'green big',fn:()=>{S.showDone=S.showDone||{};S.showDone[g]=true;save();toast(GAME_NAME[g]+' is back on the main menu');renderSettings()}},{label:'Cancel',cls:'',fn:()=>{}}])});
   el.querySelectorAll('[data-hidedone]').forEach(b=>b.onclick=()=>{const g=b.dataset.hidedone;ov(`<h2>Take ${GAME_NAME[g]} off the menu?</h2>`,[{label:'Take it off',cls:'green big',fn:()=>{S.showDone[g]=false;save();renderSettings()}},{label:'Cancel',cls:'',fn:()=>{}}])});
   $('#whoBtn').onclick=()=>{ac();show('who')};
   {const d=$('#delMe');if(d)d.onclick=()=>{const id=me.id,nm=esc(me.name);
