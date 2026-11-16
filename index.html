@@ -899,6 +899,7 @@ body.fresh-in #main{animation:frIn .25s ease-out}@keyframes frIn{from{opacity:.0
 .m-time{background:#2C67E0;--sh:#1B3E8C}
 .pdead{display:block;width:100%;height:100%}.pdead>svg{width:100%;height:100%}
 .m-fill{background:#0E9C8C;--sh:#08665B}
+.wt-nums{display:flex;gap:8px;justify-content:center;align-items:center}.wt-nums span{display:grid;place-items:center;width:64px;height:84px;border-radius:16px;background:#2FA64A;color:#fff;font:800 56px/1 var(--display,sans-serif);box-shadow:0 5px 0 #1E7A35}.wt-nums span:nth-child(2){background:#2C67E0;box-shadow:0 5px 0 #1B3E8C}.wt-nums span:nth-child(3){background:#E0731A;box-shadow:0 5px 0 #A04F0D}
 .bw-view{position:relative;width:100%;height:min(64vh,640px);margin:0 auto 10px;border-radius:24px;overflow:hidden;touch-action:none;background:linear-gradient(#BFE9FF,#E8F7FF 60%,#C8F0C8 60%,#9EDC9E)}
 .bw-wand{position:absolute;width:64px;height:128px;margin:-26px 0 0 -32px;pointer-events:none;transform:rotate(-12deg);z-index:3}.bw-wand svg{width:100%;height:100%}
 .bw-tip{position:absolute;left:0;right:0;top:38%;text-align:center;font-weight:700;color:#2C4A6B;font-size:clamp(18px,3vw,26px);transition:opacity .4s;pointer-events:none}.bw-tip.gone{opacity:0}
@@ -1119,7 +1120,7 @@ body.fw-aim #roomView{cursor:crosshair}
 <div id="ov" hidden><div class="ov-card" id="ovCard"></div></div>
 <div class="toast" id="toast" hidden></div>
 <canvas id="confetti"></canvas>
-<script>const VOICE_VER=52;</script>
+<script>const VOICE_VER=53;</script>
 <script>
 (function(){
 const $=s=>document.querySelector(s);
@@ -1150,7 +1151,7 @@ const VL={
   cheer:['Awesome!','Great job!','Nice work!','Congrats!','Way to go!','You did it!'],
   trace:['Trace the line with your finger! Stay inside the lines!','Trace the line with your finger!'],
   misc:{sup_all:'Wow! You found every single letter! That is amazing!',sup_tele:'Here is a super special Mythic treasure. The Magic Telescope!',sup_50:'Wow! You earned fifty Sound It Out treasures!',sup_box:'Here is a super special Mythic treasure. The Magic Music Box!',sup_f50:'Wow! You earned fifty Fill It In treasures!',sup_wand:'Here is a super special Mythic treasure. The Bubble Wand!',so_max:'Great job! You already earned every Sound It Out treasure. Try another game for more prizes!',wt_trace:'Trace the letter',store_n:'Storage chest!',store_empty:'This is your storage chest. Drag extra toys here to keep them safe!',wt_start:'Start at the green dot!',wt_start1:'Start at number one!',wt_startb:'Start at the blue dot!',sayagain:'Can you say that again?',trick_jump:'Your robot learned a new trick! Jump!',trick_spin:'Your robot learned a new trick! Spin!',trick_sing:'Your robot learned a new trick! Sing!',trick_toss:'Your robot learned a new trick! Toss!',trick_sleep:'Your robot learned a new trick! Sleep!',trick_hand:'Your robot learned a new trick! Cartwheel!',askw0:'Can you read this word?',askw1:'What word is this?',askw2:'Read this word out loud!',swsays:'That word says',sw_intro:'Wow! You know all your letters! Now let\'s read some words!',swup:'Great reading! Here come some new words!',tele_look:'Look through the telescope! Connect the stars in number order!',sup_words:'Wow! You can read all the words!',sup_parrot:'Here is a super special Mythic treasure. The Rainbow Parrot!',sup_bonus:'Wow! You mastered every bonus game!',sup_egg:'Here is a super special Mythic treasure. A Dragon Egg! Tap it to see what happens!',sup_leg:'Wow! You collected every legendary treasure!',sup_castle:'Here is a super special Mythic treasure. The Crystal Castle!',sup_tricks:'Wow! Your robot knows every trick!',sup_crown:'Here is a super special Mythic treasure. The Robot Crown! Give it to your robot!',egg_tap1:'Something is moving inside!',egg_tap2:'Crack! Almost there!',egg_hatch:'It hatched! A baby dragon!',crown_on:'Your robot is a king now!',dragon_eat:'Yum yum! Your dragon is growing!',dragon_full:'Wow! Your dragon is all grown up!',dragon_hungry:'Your dragon is hungry! Win some dragon food!',pzfood:'Dragon food! Feed it to your dragon!','tt_ask':"What time is it?",'tt_try':"Let's try again!",'tt_new':"You unlocked a new game! Time Teller!",'sup_t50':"Wow! You earned fifty Time Teller treasures!",'sup_clock':"Here is a super special Mythic treasure. The Sun and Moon Clock! It shows the real time.",'ck_night':"Good night, treasure room!",'ck_day':"Good morning, treasure room!",'trash_ask':"Do you want to throw it away? It will be gone.",'trash_sure':"Are you sure? Tap the trash can again.",'trash_done':"Into the trash it goes!",'drag_new':"Drag your new treasure into your room!",'drag_it':"Drag it into your room!",'fi_intro':"Fill It In! Read the four words, then pick the one that fits in the blank.",'wm_intro':"Word Meaning! Listen to what the word means, then pick the word that matches.",
-  'adv_no0':"Not quite.",'adv_no1':"Nope!",'adv_no2':"That wasn't right.",'adv_no3':"Try again!",'adv_redo':"Let's try that again!",'bw_hi':"Wave the wand to blow bubbles! Tap a bubble to pop it.",
+  'adv_no0':"Not quite.",'adv_no1':"Nope!",'adv_no2':"That wasn't right.",'adv_no3':"Try again!",'adv_redo':"Let's try that again!",'wtn_new':"Wow! You learned so many letters! Now we're adding numbers to Write It, too. And you earned a bonus game!",'wt_0':"Trace the number zero!",'wt_1':"Trace the number one!",'wt_2':"Trace the number two!",'wt_3':"Trace the number three!",'wt_4':"Trace the number four!",'wt_5':"Trace the number five!",'wt_6':"Trace the number six!",'wt_7':"Trace the number seven!",'wt_8':"Trace the number eight!",'wt_9':"Trace the number nine!",'bw_hi':"Wave the wand to blow bubbles! Tap a bubble to pop it.",
   'adv_lvup':"Great job! You leveled up your difficulty with all those correct answers!",
   'fi_new':"You've unlocked a new game! Fill It In!",'wm_new':"You've unlocked a new game! Word Meaning!",
   'fi_max':"Wow! You already earned all fifty Fill It In treasures!",'wm_max':"Wow! You already earned all fifty Word Meaning treasures!",'tele_done':"You made a constellation! Look at the stars sparkle!",'tele_heart':"You made a heart!",'tele_star':"You made a star!",'tele_spiral':"You made a spiral!",'tele_house':"You made a house!",'tele_fish':"You made a fish!",'tele_cat':"You made a cat!",'tele_shirt':"You made a shirt!",'tele_watch':"You made a watch!",'tele_rocket':"You made a rocket!",'tele_sailboat':"You made a sailboat!",'tele_tree':"You made a tree!",'tele_moon':"You made a moon!",'tele_kite':"You made a kite!",'drag_food':"Drag the dragon food onto your dragon!",'drag_bat':"Drag the batteries onto your robot!",'store_all':"Move all your toys to the storage chest?",'quill_draw':"Drag the magic quill around your room to draw!",'tt_1_00':"One o'clock!",'tt_1_05':"One oh five!",'tt_1_10':"One ten!",'tt_1_15':"One fifteen!",'tt_1_20':"One twenty!",'tt_1_25':"One twenty five!",'tt_1_30':"One thirty!",'tt_1_35':"One thirty five!",'tt_1_40':"One forty!",'tt_1_45':"One forty five!",'tt_1_50':"One fifty!",'tt_1_55':"One fifty five!",'tt_2_00':"Two o'clock!",'tt_2_05':"Two oh five!",'tt_2_10':"Two ten!",'tt_2_15':"Two fifteen!",'tt_2_20':"Two twenty!",'tt_2_25':"Two twenty five!",'tt_2_30':"Two thirty!",'tt_2_35':"Two thirty five!",'tt_2_40':"Two forty!",'tt_2_45':"Two forty five!",'tt_2_50':"Two fifty!",'tt_2_55':"Two fifty five!",'tt_3_00':"Three o'clock!",'tt_3_05':"Three oh five!",'tt_3_10':"Three ten!",'tt_3_15':"Three fifteen!",'tt_3_20':"Three twenty!",'tt_3_25':"Three twenty five!",'tt_3_30':"Three thirty!",'tt_3_35':"Three thirty five!",'tt_3_40':"Three forty!",'tt_3_45':"Three forty five!",'tt_3_50':"Three fifty!",'tt_3_55':"Three fifty five!",'tt_4_00':"Four o'clock!",'tt_4_05':"Four oh five!",'tt_4_10':"Four ten!",'tt_4_15':"Four fifteen!",'tt_4_20':"Four twenty!",'tt_4_25':"Four twenty five!",'tt_4_30':"Four thirty!",'tt_4_35':"Four thirty five!",'tt_4_40':"Four forty!",'tt_4_45':"Four forty five!",'tt_4_50':"Four fifty!",'tt_4_55':"Four fifty five!",'tt_5_00':"Five o'clock!",'tt_5_05':"Five oh five!",'tt_5_10':"Five ten!",'tt_5_15':"Five fifteen!",'tt_5_20':"Five twenty!",'tt_5_25':"Five twenty five!",'tt_5_30':"Five thirty!",'tt_5_35':"Five thirty five!",'tt_5_40':"Five forty!",'tt_5_45':"Five forty five!",'tt_5_50':"Five fifty!",'tt_5_55':"Five fifty five!",'tt_6_00':"Six o'clock!",'tt_6_05':"Six oh five!",'tt_6_10':"Six ten!",'tt_6_15':"Six fifteen!",'tt_6_20':"Six twenty!",'tt_6_25':"Six twenty five!",'tt_6_30':"Six thirty!",'tt_6_35':"Six thirty five!",'tt_6_40':"Six forty!",'tt_6_45':"Six forty five!",'tt_6_50':"Six fifty!",'tt_6_55':"Six fifty five!",'tt_7_00':"Seven o'clock!",'tt_7_05':"Seven oh five!",'tt_7_10':"Seven ten!",'tt_7_15':"Seven fifteen!",'tt_7_20':"Seven twenty!",'tt_7_25':"Seven twenty five!",'tt_7_30':"Seven thirty!",'tt_7_35':"Seven thirty five!",'tt_7_40':"Seven forty!",'tt_7_45':"Seven forty five!",'tt_7_50':"Seven fifty!",'tt_7_55':"Seven fifty five!",'tt_8_00':"Eight o'clock!",'tt_8_05':"Eight oh five!",'tt_8_10':"Eight ten!",'tt_8_15':"Eight fifteen!",'tt_8_20':"Eight twenty!",'tt_8_25':"Eight twenty five!",'tt_8_30':"Eight thirty!",'tt_8_35':"Eight thirty five!",'tt_8_40':"Eight forty!",'tt_8_45':"Eight forty five!",'tt_8_50':"Eight fifty!",'tt_8_55':"Eight fifty five!",'tt_9_00':"Nine o'clock!",'tt_9_05':"Nine oh five!",'tt_9_10':"Nine ten!",'tt_9_15':"Nine fifteen!",'tt_9_20':"Nine twenty!",'tt_9_25':"Nine twenty five!",'tt_9_30':"Nine thirty!",'tt_9_35':"Nine thirty five!",'tt_9_40':"Nine forty!",'tt_9_45':"Nine forty five!",'tt_9_50':"Nine fifty!",'tt_9_55':"Nine fifty five!",'tt_10_00':"Ten o'clock!",'tt_10_05':"Ten oh five!",'tt_10_10':"Ten ten!",'tt_10_15':"Ten fifteen!",'tt_10_20':"Ten twenty!",'tt_10_25':"Ten twenty five!",'tt_10_30':"Ten thirty!",'tt_10_35':"Ten thirty five!",'tt_10_40':"Ten forty!",'tt_10_45':"Ten forty five!",'tt_10_50':"Ten fifty!",'tt_10_55':"Ten fifty five!",'tt_11_00':"Eleven o'clock!",'tt_11_05':"Eleven oh five!",'tt_11_10':"Eleven ten!",'tt_11_15':"Eleven fifteen!",'tt_11_20':"Eleven twenty!",'tt_11_25':"Eleven twenty five!",'tt_11_30':"Eleven thirty!",'tt_11_35':"Eleven thirty five!",'tt_11_40':"Eleven forty!",'tt_11_45':"Eleven forty five!",'tt_11_50':"Eleven fifty!",'tt_11_55':"Eleven fifty five!",'tt_12_00':"Twelve o'clock!",'tt_12_05':"Twelve oh five!",'tt_12_10':"Twelve ten!",'tt_12_15':"Twelve fifteen!",'tt_12_20':"Twelve twenty!",'tt_12_25':"Twelve twenty five!",'tt_12_30':"Twelve thirty!",'tt_12_35':"Twelve thirty five!",'tt_12_40':"Twelve forty!",'tt_12_45':"Twelve forty five!",'tt_12_50':"Twelve fifty!",'tt_12_55':"Twelve fifty five!",cap_max:'Great job! You earned every treasure in this game. Try another game for more prizes!',sup_w50:'Wow! You earned fifty Write It treasures!',sup_quill:'Here is a super special Mythic treasure. The Magic Quill!',sup_m50:'Wow! You earned fifty Mad Math Minute treasures!',sup_glass:'Here is a super special Mythic treasure. The Magic Hourglass!',sup_d50:'Wow! You earned fifty Number Defender treasures!',sup_rocket:'Here is a super special Mythic treasure. The Fireworks Launcher! Launch fireworks all over your room!',fw_aim:'Tap anywhere in your room to launch a firework!',par_type:'Type a word, and the parrot will say it!',par_huh:"The parrot doesn't know that word. Try another!",dragon_snack:'Yum! What a tasty snack!',ms_defb:'Great defending! You earned a bonus game!',ms_madb:'Super fast math! You earned a bonus game!',dg_n0:'Baby Dragon!',dg_n1:'Little Dragon!',dg_n2:'Spiky Dragon!',dg_n3:'Flying Dragon!',dg_n4:'Big Dragon!',dg_n5:'Mighty Dragon!',dg_n6:'Dragon King!',fw_draw:'Draw a shape, and it will light up the sky!',welcome:'Welcome to Letter Land!',hi:'Hi there! Let\'s play!',who:'Who\'s playing?',pickletter:'Pick a letter to find!',
@@ -2100,7 +2101,7 @@ function startSay(fromMenu){if(fromMenu)sayFreshOnce();else if(appleTouch&&SR&&!
   $('#sLetter').textContent='';$('#sWord').innerHTML='';$('#sayScreen').classList.remove('ok','miss');$('#sayStart').hidden=true;
   const r=S.sayRun;Y={count:r?r.count:0,letter:null,strikes:r?r.strikes:0};micErr='';initSayPool();starRow($('#sPips'),capNeed('say',5),Y.count);sayCountUI();renderSayStrikes();
   if(micOk()&&!S.micGranted){showMicGate();return}$('#micGate').hidden=true;
-  if(micOk()){if(fromMenu){$('#sayStart').hidden=true;$('.say-stage').hidden=false;try{micStop()}catch(e){}micStart();setTimeout(()=>{if(cur==='say'&&!(Y.letter||Y.word))nextSay()},800);return}$('.say-stage').hidden=true;$('#sayStart').hidden=false;say('g_say');return}$('.say-stage').hidden=false;nextSay()}
+  if(micOk()){if(fromMenu){ac();stopVoice();Y.micOK=false;$('#sayStart').hidden=true;$('.say-stage').hidden=false;try{micStop()}catch(e){}micStartClean();setTimeout(()=>{if(cur==='say'&&!(Y.letter||Y.word))nextSay()},900);return}$('.say-stage').hidden=true;$('#sayStart').hidden=false;say('g_say');return}$('.say-stage').hidden=false;nextSay()}
 $('#sayGo').onclick=()=>{ac();stopVoice();$('#sayStart').hidden=true;$('.say-stage').hidden=false;try{micStop()}catch(e){}micStart();setTimeout(()=>{if(cur==='say'&&!(Y.letter||Y.word))nextSay()},800)};
 const isHomeApp=()=>{try{return navigator.standalone===true||matchMedia('(display-mode: standalone)').matches}catch(e){return false}};
 function micHelp(code){if(isHomeApp())return `<b>Say It can't use the microphone from the Home Screen icon.</b> Open the <b>Safari</b> app and go to <b>jedbfriedman.github.io/Letter-Land</b> to play Say It. (${code})`;
@@ -2145,7 +2146,7 @@ let srS=null;
 function micStart(){if(srS||!SR||grownMode()||cur!=='say')return;let r;try{r=new SR();r.lang='en-US';r.interimResults=true;r.maxAlternatives=5;r.continuous=true}catch(e){micErr='not supported';sayUI();return}
   srS=r;rec=r;r._t=[];micListenMode();
   r.onstart=()=>{Y.micOK=true;micUsed=true;S.micGranted=1};
-  r.onresult=e=>{const now=performance.now();for(let i=0;i<e.results.length;i++)if(r._t[i]==null)r._t[i]=now;if(!Y.lis||Y.busy||cur!=='say')return;
+  r.onresult=e=>{const now=performance.now();r._x=r._x||[];for(let i=0;i<e.results.length;i++){const tr=(e.results[i][0]&&e.results[i][0].transcript||'').trim(),nw=tr?tr.split(/\s+/).length:0;if(r._t[i]==null)r._t[i]=now;else if(Y.qT&&r._t[i]<Y.qT&&now>=Y.qT&&nw>(r._x[i]||0))r._t[i]=now;r._x[i]=Math.max(r._x[i]||0,nw)}if(!Y.lis||Y.busy||cur!=='say')return;
     const idx=[];for(let i=0;i<e.results.length;i++)if(r._t[i]>=Y.qT)idx.push(i);if(!idx.length)return;
     let alts=[];idx.forEach(i=>{for(let k=0;k<e.results[i].length;k++)alts.push(e.results[i][k].transcript)});if(idx.length>1)alts.push(idx.map(i=>e.results[i][0].transcript).join(' '));
     alts=alts.map(stripAsk).filter(a=>norm(a));if(!alts.length)return;clearTimeout(Y.missT);
@@ -2153,9 +2154,13 @@ function micStart(){if(srS||!SR||grownMode()||cur!=='say')return;let r;try{r=new
     if(Y.early)return;/* while the question is still playing, only a right answer counts */
     if(e.results[idx[idx.length-1]].isFinal)sayWrong(alts);else Y.missT=setTimeout(()=>{if(Y.lis&&!Y.busy)sayWrong(alts)},1300)};
   r.onerror=e=>{if(e.error==='no-speech'||e.error==='aborted')return;if(e.error==='not-allowed'||e.error==='service-not-allowed'){micErr=e.error;r._dead=true;sayUI();$('#micBtn').classList.add('invite')}};
-  r.onend=()=>{if(srS===r){srS=null;rec=null}if(r._stop||r._dead||cur!=='say')return;r._restarts=(r._restarts||0);setTimeout(()=>{if(cur==='say'&&!srS)micStart()},120)};
+  r.onend=()=>{if(srEnding===r)srEnding=null;if(srS===r){srS=null;rec=null}if(r._stop||r._dead||cur!=='say')return;r._restarts=(r._restarts||0);setTimeout(()=>{if(cur==='say'&&!srS)micStart()},120)};
   try{r.start()}catch(e){srS=null;rec=null}}
-function micStop(){const r=srS;srS=null;rec=null;stopListen();if(r){r._stop=true;try{r.abort()}catch(e){}}}
+let srEnding=null;
+function micStop(){const r=srS;srS=null;rec=null;stopListen();if(r){r._stop=true;srEnding=r;setTimeout(()=>{if(srEnding===r)srEnding=null},1500);try{r.abort()}catch(e){}}}
+/* start listening once the last session has really ended; if it does not come on, try once more */
+function micStartClean(tries=1){const go=()=>{if(cur!=='say')return;micStart();const r=srS;setTimeout(()=>{if(cur!=='say'||Y.micOK||!tries)return;if(srS===r){try{micStop()}catch(e){}}micStartClean(tries-1)},2500)};
+  if(!srEnding){go();return}const t0=performance.now();const w=()=>{if(!srEnding||performance.now()-t0>1500)go();else setTimeout(w,60)};w()}
 /* start (or keep) accepting an answer */
 function listen(auto){if(Y.busy||cur!=='say')return;if(!srS)micStart();Y.lis=true;if(!auto)Y.qT=performance.now();$('#micBtn').classList.add('listening');$('#micBtn').classList.remove('invite');clearTimeout(Y.silT);if(!Y.early)Y.silT=setTimeout(noHear,7000)}
 function noHear(){if(!Y.lis||Y.busy||cur!=='say')return;Y.lis=false;Y.silent=(Y.silent||0)+1;$('#micBtn').classList.add('invite');if(Y.silent<3)askListen('nohear');else sayMiss()}
@@ -2234,16 +2239,18 @@ function renderShop(){
 function goDrag(id,line){S.chestFront=id;save();show('room');setTimeout(()=>{if(cur!=='room')return;placing=null;updatePlaceBar();if(!chestOpen)setChest(true);else renderChest();const r=$('#chestRow');if(r)r.scrollLeft=0;say(line)},350)}
 $('#keepBtn').onclick=()=>{if(!sel)return;const id=sel;S.pending=Math.max(0,S.pending-1);if(!S.poolSpecial)S.prizeNo++;S.pool=null;S.poolOpen=false;S.poolSpecial=0;sFan();confetti();
   if(S.prizeNo>=25)milestone('p25');if(S.prizeNo>=50)milestone('p50');
-  const again=lastGame==='mad'?{label:'Play again',cls:'green big',fn:()=>startMad(true,true)}:lastGame==='def'?{label:'Play again',cls:'green big',fn:()=>startDef(true,true)}:lastGame==='sound'?{label:'Play Sound It Out again',cls:'green big',fn:()=>{show('sound');startSound()}}:lastGame==='say'?{label:'Play Say It again',cls:'green big',fn:()=>{show('say');startSay()}}:lastGame==='write'?{label:'Play Write It again',cls:'green big',fn:()=>startWrite()}:lastGame==='time'?{label:'Play Time Teller again',cls:'green big',fn:()=>startTime()}:lastGame==='find'?{label:'Find a new letter',cls:'green big',fn:()=>show('pick')}:null;const tail=again?[{brk:1},again,{brk:1},homeBtn]:[{brk:1},homeBtn];
+  const again=lastGame==='mad'?{label:'Play again',cls:'green big',fn:()=>startMad(true,true)}:lastGame==='def'?{label:'Play again',cls:'green big',fn:()=>startDef(true,true)}:lastGame==='sound'?{label:'Play Sound It Out again',cls:'green big',fn:()=>{show('sound');startSound()}}:lastGame==='say'?{label:'Play Say It again',cls:'green big',fn:()=>{show('say');startSay(true)}}:(lastGame==='fill'||lastGame==='mean')?{label:lastGame==='fill'?'Play Fill It In again':'Play Word Meaning again',cls:'green big',fn:()=>startAdv(lastGame)}:lastGame==='write'?{label:'Play Write It again',cls:'green big',fn:()=>startWrite()}:lastGame==='time'?{label:'Play Time Teller again',cls:'green big',fn:()=>startTime()}:lastGame==='find'?{label:'Find a new letter',cls:'green big',fn:()=>show('pick')}:null;const tail=again?[{brk:1},again,{brk:1},homeBtn]:[{brk:1},homeBtn];
+  /* keep playing comes first and green; the room/decorate choice is second */
+  const order=x=>again?[again,{brk:1},{...x,cls:'yellow'},{brk:1},homeBtn]:[x,...tail];
   const more={label:'Pick another prize',cls:'yellow big',fn:()=>show('shop')};
-  if(id==='dfood'){const fid=newFood();S.owned.unshift(fid);save();say(['newprize','pzfood']);ov(`<div class="big-prize t2">${prizeSVG(PRIZE_BY[fid])}</div><h2>Dragon Food</h2><p>Feed it to your dragon!</p>`,S.pending>0?[more]:[{label:'Go to my dragon',cls:'yellow big',fn:()=>goDrag(fid,'drag_food')},...tail]);return}
-  if(id==='bat'){const bid=newBat();S.owned.unshift(bid);save();say(['newprize','pzbat']);robotBeep('hi');ov(`<div class="big-prize t1">${BAT_SVG}</div><h2>Robot Batteries</h2><p>Give them to your robot in the treasure room!</p>`,S.pending>0?[more]:[{label:'Go to my robot',cls:'yellow big',fn:()=>goDrag(bid,'drag_bat')},...tail]);return}
+  if(id==='dfood'){const fid=newFood();S.owned.unshift(fid);save();say(['newprize','pzfood']);ov(`<div class="big-prize t2">${prizeSVG(PRIZE_BY[fid])}</div><h2>Dragon Food</h2><p>Feed it to your dragon!</p>`,S.pending>0?[more]:order({label:'Go to my dragon',cls:'yellow big',fn:()=>goDrag(fid,'drag_food')}));return}
+  if(id==='bat'){const bid=newBat();S.owned.unshift(bid);save();say(['newprize','pzbat']);robotBeep('hi');ov(`<div class="big-prize t1">${BAT_SVG}</div><h2>Robot Batteries</h2><p>Give them to your robot in the treasure room!</p>`,S.pending>0?[more]:order({label:'Go to my robot',cls:'yellow big',fn:()=>goDrag(bid,'drag_bat')}));return}
   if(id.startsWith('st:')){const st=STK_BY[id.slice(3)],n=STK_AMT[st.tier];S.stickers[st.id]=(S.stickers[st.id]||0)+n;save();say(['newsticker','s_'+st.id]);
     ov(`<div class="big-prize t${st.tier}">${stickerSVG(st)}</div><h2>${st.name}</h2><p>Stick ${n>1?'them':'it'} on any prize in your treasure room.</p>`,
-      S.pending>0?[more]:[{label:'Decorate a prize',cls:'yellow big',fn:()=>{show('room');toast('Tap a prize in your room to decorate it')}},...tail]);return}
+      S.pending>0?[more]:order({label:'Decorate a prize',cls:'yellow big',fn:()=>{show('room');toast('Tap a prize in your room to decorate it')}}));return}
   const p=PRIZE_BY[id];S.owned.unshift(id);S.chestFront=id;if(isTrack(id))addTrackBundle(id);save();say(['newprize',isTrack(id)?'trk3':'pz_'+id]);
   ov(`<div class="big-prize t${p.tier}"><div class="dmove" id="keptMove">${isTrack(id)?trackBundleSVG(p):prizeSVG(p)}</div></div><h2>${isTrack(id)?'3 Train Tracks':p.name}</h2><p>You get to pick where it goes in your room!</p>`,
-    S.pending>0?[more]:[{label:'Put it in my room',cls:'yellow big',fn:()=>goDrag(id,'drag_new')},...tail]);const km=$('#keptMove');if(km)km.onclick=()=>{if(isInstr(p.key))instrRiff(p.key);else if(ACT[p.key])doAct(id,km);else prizeSfx(p)};};
+    S.pending>0?[more]:order({label:'Put it in my room',cls:'yellow big',fn:()=>goDrag(id,'drag_new')}));const km=$('#keptMove');if(km)km.onclick=()=>{if(isInstr(p.key))instrRiff(p.key);else if(ACT[p.key])doAct(id,km);else prizeSfx(p)};};
 
 /* ---------- TREASURE ROOM (cabin) ---------- */
 const ROOM_W=2400,ROOM_H=1000,PX=x=>(x/24).toFixed(3)+'%',PY=y=>(y/10).toFixed(3)+'%';
@@ -2739,6 +2746,20 @@ const WT_LO={
   x:['M32 70 L88 125','M88 70 L32 125'],
   y:['M30 70 L60 122','M90 70 L44 158'],
   z:['M32 70 H88','M88 70 L32 125','M32 125 H88']};
+/* numbers, drawn the way they are taught: 5 = down, around, then the hat on top; 4 = down and across, then the long line */
+const WT_NUM={
+  '0':['M60 15 C22 15 22 125 60 125 C98 125 98 15 60 15'],
+  '1':['M60 15 L60 125'],
+  '2':['M30 42 C30 6 92 6 90 42 C88 66 54 90 28 125 H94'],
+  '3':['M30 32 C38 6 92 8 88 40 C86 62 68 68 54 68 C74 68 94 78 92 100 C90 134 38 134 28 108'],
+  '4':['M72 15 L24 92 H98','M74 15 L74 125'],
+  '5':['M38 15 L35 62 C50 50 92 50 92 88 C92 130 42 134 28 108','M38 15 H88'],
+  '6':['M84 24 C64 6 28 22 28 80 C28 132 92 132 92 92 C92 56 34 56 30 88'],
+  '7':['M28 15 H92 L46 125'],
+  '8':['M86 36 C84 8 36 8 36 36 C36 62 86 62 86 94 C86 132 34 132 34 94 C34 62 86 62 86 36'],
+  '9':['M88 44 C88 8 32 8 32 44 C32 78 88 78 88 44 L88 125']};
+const WT_DIGITS='1234567890'.split(''),isNum=L=>WT_DIGITS.includes(L);
+const wtLetterCount=()=>(S.wtPool||[]).filter(L=>!isNum(L)).length;
 const WT_START='ABC';
 let WT={},wtRAF=null;
 const wtSet=()=>S.settings.case==='lower'?WT_LO:WT_UP;
@@ -2747,17 +2768,21 @@ function wtInitPool(){S.wtPool=S.wtPool&&S.wtPool.length?S.wtPool:WT_START.split
 const wtComfy=L=>{const s=(S.wstat||{})[L];if(!s)return false;const h=s.hist.slice(-3);return s.ok>=2&&h.filter(Boolean).length>=2&&h[h.length-1]===1};
 /* hot streak: 10 in a row, or 9 of the last 10... (90% of the last 20) -> new letters come faster */
 function hotStreak(h){if(!h||!h.length)return false;let run=0;for(let i=h.length-1;i>=0&&h[i];i--)run++;const l=h.slice(-20);return run>=10||(l.length>=20&&l.reduce((a,b)=>a+b,0)/20>=.9)}
-function wtMaybeGrow(){const pool=S.wtPool;if(pool.length>=26)return;const fast=hotStreak(S.wtHist);S.wtSince=(S.wtSince||0)+1;
+function wtMaybeGrow(){const pool=S.wtPool;if(pool.length>=26+(S.wtNums?10:0))return;const fast=hotStreak(S.wtHist);S.wtSince=(S.wtSince||0)+1;
   const comfy=pool.filter(wtComfy).length;const ready=fast?S.wtSince>=2:comfy>=pool.length-1&&S.wtSince>=3;if(!ready)return;
-  const nx=LETTERS.filter(L=>!pool.includes(L)).slice(0,fast?2:1);if(nx.length){pool.push(...nx);S.wtNewest=nx[0];WT.newLetter=nx[0];S.wtSince=0}}
+  const ls=LETTERS.filter(L=>!pool.includes(L)),ds=S.wtNums?WT_DIGITS.filter(d=>!pool.includes(d)):[];const useNum=ds.length&&(!ls.length||S.wtNextNum);if(S.wtNums)S.wtNextNum=!useNum;
+  const nx=(useNum?ds:ls).slice(0,fast?2:1);if(nx.length){pool.push(...nx);S.wtNewest=nx[0];WT.newLetter=nx[0];S.wtSince=0}}
+/* numbers come in once half the alphabet (13 letters) is in Write It */
+const wtNumsReady=()=>!S.wtNums&&wtLetterCount()>=13;
+function wtNumsOn(){S.wtNums=1;S.wtNumSeen=1;S.wtPool.push('1','2','3');S.wtNextNum=false;S.bonus=(S.bonus||0)+1;save()}
 function wtWeight(L){if(L===WT.letter&&S.wtPool.length>1)return 0;const s=(S.wstat||{})[L];if(!s||s.n<2)return L===S.wtNewest?1.6:1.2;const h=s.hist.slice(-6),r=h.reduce((a,b)=>a+b,0)/h.length;let w=1;if(s.streak>=6)w=.4;else if(s.streak>=3)w=.7;if(r<.5)w=1.8;return w}
 function wtPick(){wtInitPool();if(WT.newLetter&&S.wtPool.includes(WT.newLetter)){const n=WT.newLetter;WT.newLetter=null;return n}const p=S.wtPool;return wpick(p,wtWeight)}
 function wtRecord(L,ok){S.wtDrawn=(S.wtDrawn||0)+1;const s=wtStat(L);s.n++;if(ok){s.ok++;s.streak++}else s.streak=0;s.hist=s.hist.concat(ok?1:0).slice(-12);S.wtHist=(S.wtHist||[]).concat(ok?1:0).slice(-30);wtMaybeGrow();save()}
 function wtHud(){starRow($('#wPips'),capNeed('write',5),WT.count);const c=$('#wCount');if(c)c.innerHTML=capCount('write')}
-function startWrite(){const r=S.wtRun;WT={count:r?r.count:0};wtInitPool();show('write');wtHud();nextWrite()}
+function startWrite(){const r=S.wtRun;WT={count:r?r.count:0};wtInitPool();show('write');wtHud();if(wtNumsReady()){wtNumsPopup();return}nextWrite()}
 function wtStop(){if(wtRAF){cancelAnimationFrame(wtRAF);wtRAF=null}}
 function nextWrite(same){wtStop();if(!same)WT.letter=wtPick();WT.k=0;WT.si=0;WT.busy=false;WT.fails=0;WT.started=false;
-  const L=WT.letter,ch=S.settings.case==='lower'?L.toLowerCase():L,strokes=wtSet()[ch];WT.ch=ch;
+  const L=WT.letter,ch=S.settings.case==='lower'?L.toLowerCase():L,strokes=WT_NUM[L]||wtSet()[ch];WT.ch=ch;
   const s=(S.wstat||{})[L];WT.tol=s&&s.ok>=4&&s.streak>=2?11:13;const W=WT.tol*2;
   const all=strokes.map(d=>`<path d="${d}"/>`).join('');
   $('#wtCard').innerHTML=`<svg viewBox="0 0 120 165" id="wtSvg"><g fill="none" stroke-linecap="round" stroke-linejoin="round"><g stroke="#C9A35E" stroke-width="${W+4}">${all}</g><g stroke="#FFF7E2" stroke-width="${W}">${all}</g><g stroke="#E4CF9E" stroke-width="1.6" stroke-dasharray="3 4">${all}</g>
@@ -2780,7 +2805,7 @@ function wtTimer(){if(WT.started||!S.settings.timer){if(!S.settings.timer){$('#w
   let last=performance.now();const step=now=>{if(now-last>700)WT.tEnd+=now-last;last=now;const f=Math.max(0,(WT.tEnd-now)/tot);wtBar(f);if(f<=0){wtRAF=null;wtTimeout();return}wtRAF=requestAnimationFrame(step)};wtRAF=requestAnimationFrame(step)}
 function wtPause(){if(wtRAF&&!WT.busy&&WT.started){WT.tLeft=Math.max(1000,WT.tEnd-performance.now());wtStop();WT.started=false}}
 function wtTimeout(){if(WT.busy||cur!=='write')return;WT.busy=true;wtRecord(WT.letter,false);S.wtRun={count:WT.count};save();sOops();say('batt');
-  ov(`<h2>Time's up!</h2><p>Let's try that letter again.</p>`,[{label:'Try again',cls:'green big',fn:()=>nextWrite(true)}])}
+  ov(`<h2>Time's up!</h2><p>Let's try that ${isNum(WT.letter)?'number':'letter'} again.</p>`,[{label:'Try again',cls:'green big',fn:()=>nextWrite(true)}])}
 function wtAt(e){const svg=$('#wtSvg'),r=svg.getBoundingClientRect(),v=WT.vb||[0,0,120,165];return[v[0]+(e.clientX-r.left)*120/r.width,v[1]+(e.clientY-r.top)*165/r.height]}
 function wtDraw(){const P=WT.pts[WT.si];$('#wtCur').setAttribute('d',P&&WT.k>0?'M'+P.slice(0,WT.k+1).map(p=>p[0].toFixed(1)+' '+p[1].toFixed(1)).join(' L'):'')}
 function wtStrokeDone(){const P=WT.pts[WT.si];$('#wtDone').insertAdjacentHTML('beforeend',`<path d="${WT.strokes[WT.si]}"/>`);$('#wtCur').setAttribute('d','');WT.si++;WT.k=0;
@@ -2796,12 +2821,16 @@ function wtBind(){const svg=$('#wtSvg');let dn=false;
     const from=WT.k>0?P[WT.k]:P[0];if(Math.hypot(from[0]-x,from[1]-y)>WT.tol*1.8){if(WT.k===0){const g=$('#wtGuide .wt-start');if(g){g.classList.remove('wt-flash');void g.getBoundingClientRect();g.classList.add('wt-flash')}}return}
     if(!WT.started)wtTimer();dn=true;try{svg.setPointerCapture(e.pointerId)}catch(_){}adv(e)};
   svg.onpointermove=e=>{if(dn)adv(e)};svg.onpointerup=svg.onpointercancel=()=>{dn=false;wtGuide()}}
-function wtWin(){WT.busy=true;wtStop();const L=WT.letter;wtRecord(L,true);bump(L,'w');WT.count++;S.wtRun={count:WT.count};save();wtHud();
+function wtWin(){WT.busy=true;wtStop();const L=WT.letter;wtRecord(L,true);if(!isNum(L))bump(L,'w');WT.count++;S.wtRun={count:WT.count};save();wtHud();
   $('#wtCard').classList.add('ok');setTimeout(()=>$('#wtCard')&&$('#wtCard').classList.remove('ok'),900);sPop();tierSfx(1,0);
-  say([vary('sayYes',4),'n_'+L]).then(()=>{if(cur!=='write')return;
+  say([vary('sayYes',4),isNum(L)?'num_'+L:'n_'+L]).then(()=>{if(cur!=='write')return;
     if(WT.count>=capNeed('write',5)){S.wtRun=null;lastGame='write';sFan();confetti();const dk=vary('done',8);
       if(!capWin('write',()=>{say(dk);ov(`<h2>${LINES[dk].replace(' You win a prize!','')}</h2><p>You win a prize!</p>`,[{label:'Pick my prize',cls:'yellow big',fn:()=>show('shop')}])})){save();say('cap_max');ov(capFullHTML('write'),[{label:'Play again',cls:'green big',fn:()=>startWrite()},{brk:1},homeBtn])}wtHud()}
+    else if(wtNumsReady())wtNumsPopup();
     else setTimeout(()=>{if(cur==='write')nextWrite()},450)})}
+function wtNumsPopup(){wtNumsOn();sFan();confetti();say('wtn_new');
+  ov(`<div class="big-prize t3 unlock-art wt-nums"><span>1</span><span>2</span><span>3</span></div><h2>Numbers are coming to Write It!</h2><p>You learned so many letters that we're adding the numbers 0 to 9, too.</p><p class="lvlup">🎁 You earned a <b>bonus game</b> for all that great writing!</p>`,
+    [{label:'Keep writing',cls:'green big',fn:()=>nextWrite()},{brk:1},{label:'Play my bonus game',cls:'yellow',fn:()=>startBonus()}])}
 ['pagehide','blur'].forEach(ev=>addEventListener(ev,()=>{if(cur==='write'&&!WT.busy&&wtRAF){wtPause();WT.away=true}}));
 document.addEventListener('visibilitychange',()=>{if(cur!=='write'||WT.busy)return;if(document.hidden){wtPause();WT.away=true}else if(WT.away){WT.away=false;ov(`<h2>Welcome back!</h2>`,[{label:'▶ Keep going',cls:'green big',fn:()=>{wtGuide();say('wt_'+WT.letter);if(WT.k>0||WT.si>0||WT.tLeft!=null)wtTimer()}}])}});
 const ART_WRITE='<svg viewBox="0 0 100 100"><ellipse cx="50" cy="92" rx="30" ry="4" fill="#000" opacity=".15"/><path d="M22 84 L40 18 L58 84 M29 60 H51" fill="none" stroke="#fff" stroke-width="13" stroke-linecap="round" stroke-linejoin="round" opacity=".55"/><path d="M22 84 L40 18 L58 84" fill="none" stroke="#2FA64A" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="84" r="6" fill="#2FA64A"/><g transform="rotate(35 72 52)"><rect x="64" y="10" width="16" height="62" rx="3" fill="#FFC21A" stroke="#1B2838" stroke-width="3"/><rect x="64" y="10" width="16" height="11" rx="3" fill="#F28CA0" stroke="#1B2838" stroke-width="3"/><path d="M64 72 L72 90 L80 72Z" fill="#F6D7A7" stroke="#1B2838" stroke-width="3" stroke-linejoin="round"/><path d="M69.5 84 L72 90 L74.5 84Z" fill="#1B2838"/></g></svg>';
