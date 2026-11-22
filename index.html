@@ -875,6 +875,16 @@ body.lockscroll #main{overflow:hidden!important;overscroll-behavior:none;touch-a
 .spk{fill:#fff;transform-box:fill-box;transform-origin:center;opacity:0;animation:spk 1.2s ease-in-out infinite;filter:drop-shadow(0 0 1.5px #FFF6C2)}
 @keyframes spk{0%,100%{opacity:0;transform:scale(.2) rotate(0deg)}50%{opacity:1;transform:scale(1) rotate(45deg)}}
 .btn.glowgo{animation:csBtn 1.2s ease-in-out infinite}
+.pg-wrap{max-height:min(64vh,700px);overflow:auto;text-align:left;margin:0 -4px;padding:0 4px;-webkit-overflow-scrolling:touch}
+.pg-sec{background:#F4F7FB;border-radius:14px;padding:10px 12px;margin:0 0 10px}.pg-sec h3{margin:0 0 8px;font-size:17px}.pg-sec h3 small{font-weight:600;color:#5B6B7A;font-size:13px;margin-left:6px}
+.pg-days{display:flex;gap:6px;align-items:flex-end}.pg-day{flex:1;text-align:center;font-size:12px}.pg-day b{display:block}.pg-day small{color:#5B6B7A;min-height:14px;display:block}
+.pg-bar{height:70px;background:#E3E9F1;border-radius:8px;display:flex;align-items:flex-end;overflow:hidden}.pg-bar i{display:block;width:100%;background:#3A7BEA;border-radius:8px 8px 0 0;min-height:0}
+.pg-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.pg-chip{background:#fff;border-radius:999px;padding:3px 10px;font-size:13px}
+.pg-grid{display:flex;flex-wrap:wrap;gap:5px}.pg-l{display:inline-grid;place-items:center;width:32px;height:32px;border-radius:9px;font-weight:800;font-size:17px;background:#E3E9F1;color:#8A97A6}
+.pg-l.k1{background:#FFE1DC;color:#C0392B}.pg-l.k2{background:#FFF1BF;color:#9A6B00}.pg-l.k3{background:#D6F5DD;color:#1E7A35}
+.pg-key{margin-top:8px;font-size:12px;color:#5B6B7A;display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center}.pg-key .pg-l{width:14px;height:14px;border-radius:4px}
+.pg-row{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:3px 0;font-size:15px}.pg-row span{color:#3D4B59}
+.pg-words{margin:2px 0 8px;font-size:14px}.pg-w{display:inline-block;background:#fff;border-radius:8px;padding:1px 8px;margin:2px;font-weight:700}
 .myth-card{margin:4px auto 10px;max-width:min(92vw,560px)}
 .myth-card.book{background:linear-gradient(#FFF8E6,#FFF1C9);border:4px solid #6A3FB5;border-radius:22px;padding:18px 16px}
 .mb-word{font-family:Georgia,serif;font-size:clamp(34px,6vh,58px);font-weight:800;color:#6A3FB5}
@@ -1145,7 +1155,8 @@ body.fw-aim #roomView{cursor:crosshair}
 <div id="ov" hidden><div class="ov-card" id="ovCard"></div></div>
 <div class="toast" id="toast" hidden></div>
 <canvas id="confetti"></canvas>
-<script>const VOICE_VER=59;</script>
+<script>const VOICE_VER=61;const VHASH={"voice.js":"9ca6fd8cd7","svoice.js":"597afa5727","pvoice.js":"453548a110","words.js":"654d91b763","v/d_a.js":"d2f5c1134e","v/d_b.js":"89428c2f70","v/d_c.js":"28ce69f043","v/d_d.js":"be77eeaaa6","v/d_e.js":"b5c44b76bc","v/d_f.js":"0f325974fa","v/d_g.js":"6c43fb5502","v/d_h.js":"3b4fe0ec66","v/d_i.js":"a12ba3ff4f","v/d_j.js":"3a720a6112","v/d_k.js":"9496736de6","v/d_l.js":"44e705be04","v/d_m.js":"10a5c12968","v/d_n.js":"501f7b13a9","v/d_o.js":"29d3d8529a","v/d_p.js":"3dad4c6039","v/d_q.js":"bbf47b72d2","v/d_r.js":"7340e9ff65","v/d_s.js":"c2d0c80a65","v/d_t.js":"abd48f8739","v/d_u.js":"2a95de90ea","v/d_v.js":"d0230ee33a","v/d_w.js":"03a81f2f28","v/f0_0.js":"a62816d5e3","v/f0_1.js":"4d729a05af","v/f0_2.js":"d4e6c6c42a","v/f0_3.js":"f3c782f286","v/f0_4.js":"8dee8db33d","v/f0_5.js":"3e71c627fe","v/f0_6.js":"1c09bbaf2f","v/f0_7.js":"b9be6025cd","v/f1_0.js":"a8ee03710b","v/f1_1.js":"92a5e7f12f","v/f1_2.js":"1a70fdd113","v/f1_3.js":"551a14746d","v/f1_4.js":"c452ad1e8c","v/f1_5.js":"40401dc1fd","v/f1_6.js":"57a072c936","v/f1_7.js":"2a5d768c88","v/f1_8.js":"c8f4490a5e","v/f2_0.js":"2dd209fc46","v/f2_1.js":"cc5411a359","v/f2_2.js":"12e578719d","v/f2_3.js":"3dbc2f0e35","v/f2_4.js":"d7e4607ae8","v/f2_5.js":"33e29de74d","v/f2_6.js":"68b660410f","v/f2_7.js":"538f9571c6","v/f2_8.js":"a0fb8a69f3","v/f3_0.js":"47d1f697f9","v/f3_1.js":"4e63b28b8b","v/f3_2.js":"f3bb0b8af8","v/f3_3.js":"0e86300228","v/f3_4.js":"71f7fd20c6","v/f3_5.js":"bfad97398c","v/f3_6.js":"0ad6801e48","v/f3_7.js":"14393baa25","v/f3_8.js":"87f1a150b7","v/f4_0.js":"5fe42fa6f6","v/f4_1.js":"73125a9f9b","v/f4_2.js":"a3f9645239","v/f4_3.js":"cec003743c","v/f4_4.js":"fad0490ffb","v/f4_5.js":"162199c63a","v/f4_6.js":"2d40c5c554","v/f4_7.js":"640bf7cca3","v/f4_8.js":"e1d60b5c7c","v/f5_0.js":"042bc1cb85","v/f5_1.js":"19c5030445","v/f5_2.js":"3910d2d493","v/f5_3.js":"01178bc717","v/f5_4.js":"b80d4fa518","v/f5_5.js":"e9cff7c1f9","v/f5_6.js":"34ad997175","v/f5_7.js":"fabb567d41","v/f5_8.js":"e8fccf1ae3","v/m0_0.js":"49653afffb","v/m0_1.js":"60400cd55b","v/m0_2.js":"aad13f6922","v/m0_3.js":"9884a8c090","v/m1_0.js":"bf74dab833","v/m1_1.js":"036bf7b0f9","v/m1_2.js":"eab48c2079","v/m1_3.js":"8fe7f748e7","v/m2_0.js":"2260b3c288","v/m2_1.js":"011955223c","v/m2_2.js":"02d4756117","v/m2_3.js":"ca7ba8dbfe","v/m3_0.js":"498b391731","v/m3_1.js":"9880870da3","v/m3_2.js":"e0641ffb47","v/m3_3.js":"b9573e1529","v/m4_0.js":"e8f6e052d0","v/m4_1.js":"d26cbac705","v/m4_2.js":"548d0ba77e","v/m5_0.js":"3ac16047b1","v/m5_1.js":"82c912ce82","v/m5_2.js":"c275c4cadf","v/m5_3.js":"81ad36880b","v/misc.js":"fdcb056255","v/w_a.js":"738ddafb36","v/w_b.js":"dec5d34520","v/w_c.js":"65f23399bd","v/w_d.js":"2fb7af4669","v/w_e.js":"06f3450931","v/w_f.js":"82350ccd8a","v/w_g.js":"6d89d6eb4a","v/w_h.js":"0d0daabc27","v/w_i.js":"33a2c9d621","v/w_j.js":"4ae367ba9c","v/w_k.js":"30903d1906","v/w_l.js":"28104c4065","v/w_m.js":"d8d24a5116","v/w_n.js":"724016a9c3","v/w_o.js":"c5bde4234f","v/w_p.js":"832af05d6e","v/w_q.js":"b31200d958","v/w_r.js":"9d767a0bd4","v/w_s.js":"3ee5524a37","v/w_t.js":"40332058c1","v/w_u.js":"6555af37ac","v/w_v.js":"990a9e193b","v/w_w.js":"56eee41d06","v/w_y.js":"82ad96f5f0","v/w_z.js":"097d2f5c07"};/*VHASH*/
+const vurl=f=>f+'?h='+(VHASH[f]||VOICE_VER);</script>
 <script>
 (function(){
 const $=s=>document.querySelector(s);
@@ -1234,6 +1245,13 @@ R.profiles.forEach(pf=>{const d=pf.data||{};if(!d.r5){d.r5=1;if(d.settings&&(d.s
 if(!R.noTest){R.noTest=1;const kids=R.profiles.filter(p=>p.kind!=='test');if(kids.length){R.profiles=kids;if(!kids.some(p=>p.id===R.current))R.current=kids[0].id}else R.profiles=[{id:'p1',name:'Player',kind:'new',avatar:{type:'robot',prize:'antbot.blue.plain'},data:fixData(null)}],R.current='p1';try{localStorage.setItem(KEY,JSON.stringify(R))}catch(e){}}
 const prof=()=>R.profiles.find(p=>p.id===R.current)||R.profiles[0];
 let S=prof().data;
+/* play time: counts 5-second ticks while a game screen is open, the app is visible and someone touched the screen in the last 90 seconds */
+const PT_SCR={find:'find',pick:'find',say:'say',write:'write',sound:'sound',mad:'mad',def:'def',time:'time',fill:'adv',game:'bonus',room:'room',shop:'room'};
+const PT_NAME={find:'Find It',say:'Say It',write:'Write It',sound:'Sound It Out',mad:'Mad Math Minute',def:'Number Defender',time:'Time Teller',fill:'Fill It In',mean:"What's That Word?",bonus:'Bonus games',room:'Treasure room'};
+let ptAct=performance.now(),ptN=0;['pointerdown','keydown'].forEach(ev=>addEventListener(ev,()=>{ptAct=performance.now()},true));
+const dayKey=(d=new Date())=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+setInterval(()=>{try{if(document.visibilityState!=='visible'||typeof cur==='undefined')return;let g=PT_SCR[cur];if(!g||performance.now()-ptAct>90000)return;if(g==='adv')g=(typeof AV!=='undefined'&&AV.mode==='mean')?'mean':'fill';
+  const pt=S.pt||(S.pt={}),d=dayKey(),o=pt[d]||(pt[d]={});o[g]=(o[g]||0)+5;if(++ptN%6===0){const ks=Object.keys(pt).sort();if(ks.length>70)ks.slice(0,ks.length-70).forEach(k=>delete pt[k]);save()}}catch(e){}},5000);
 function save(){try{localStorage.setItem(KEY,JSON.stringify(R))}catch(e){toast('Couldn\'t save. This browser may be blocking storage.')}}
 const disp=L=>S.settings.case==='lower'?L.toLowerCase():L;
 function bump(L,k){const st=S.stats[L]||(S.stats[L]={f:0,s:0});st[k]++;save()}
@@ -1243,7 +1261,7 @@ const letterScore=L=>tierOf(L)*3+starCount(L);
 function starsHTML(L){const n=starCount(L);return `<span class="stars t${tierOf(L)}">`+starsInner(n)+'</span>'}
 function starsInner(n){let h='';for(let i=0;i<3;i++)h+=i<n?'★':'<span class="off">★</span>';return h}
 function practiceSet(){const l=[...(S.settings.letters||'')];return l.length?l:LETTERS}
-function pickLetter(exclude){let pool=practiceSet().filter(l=>l!==exclude);if(!pool.length)pool=practiceSet();const ws=pool.map(l=>{const st=S.stats[l]||{f:0,s:0};return 1/(1+st.f+st.s)});let r=Math.random()*ws.reduce((a,b)=>a+b,0);for(let i=0;i<pool.length;i++){r-=ws[i];if(r<=0)return pool[i]}return pool[0]}
+function pickLetter(exclude){let pool=practiceSet().filter(l=>l!==exclude);if(!pool.length)pool=practiceSet();const ws=pool.map(l=>{const st=S.stats[l]||{f:0,s:0};return frvW(l)/(1+st.f+st.s)});let r=Math.random()*ws.reduce((a,b)=>a+b,0);for(let i=0;i<pool.length;i++){r-=ws[i];if(r<=0)return pool[i]}return pool[0]}
 
 /* ---------- sound + voice ---------- */
 let actx=null;
@@ -1342,9 +1360,9 @@ function ttsLine(text,tok){return new Promise(res=>{let done=false;const fin=()=
 /* say(keys): each item is a recorded-line key (see LINES) or plain text, which falls back to the device voice */
 let introKey=null;
 /* the voice files are big: wait for them instead of falling back to the robot voice */
-const V_READY=window.VOICE_CLIPS?Promise.resolve():new Promise(res=>{const sc=document.createElement('script');sc.src='voice.js?v='+VOICE_VER;sc.onload=res;sc.onerror=res;document.head.appendChild(sc)});
+const V_READY=window.VOICE_CLIPS?Promise.resolve():new Promise(res=>{const sc=document.createElement('script');sc.src=vurl('voice.js');sc.onload=res;sc.onerror=res;document.head.appendChild(sc)});
 /* the big extra voice files load after the main one so the screen comes up fast */
-let PV_LOADED=false;const PV_READY=new Promise(res=>{V_READY.then(()=>setTimeout(()=>{{const sc=document.createElement('script');sc.src='svoice.js?v='+VOICE_VER;document.head.appendChild(sc)}const sc=document.createElement('script');sc.src='pvoice.js?v='+VOICE_VER;sc.onload=()=>{PV_LOADED=true;res()};sc.onerror=()=>res();document.head.appendChild(sc)},1200))});
+let PV_LOADED=false;const PV_READY=new Promise(res=>{V_READY.then(()=>setTimeout(()=>{{const sc=document.createElement('script');sc.src=vurl('svoice.js');document.head.appendChild(sc)}const sc=document.createElement('script');sc.src=vurl('pvoice.js');sc.onload=()=>{PV_LOADED=true;res()};sc.onerror=()=>res();document.head.appendChild(sc)},1200))});
 const within=(p,ms)=>Promise.race([p,new Promise(r=>setTimeout(r,ms))]);
 async function say(keys){if(performance.now()<audioHoldUntil)return;if(!Array.isArray(keys))keys=[keys];keys=keys.filter(Boolean);if(introKey){keys=[introKey,...keys];introKey=null}stopVoice();const tok=playTok;if(!S.settings.voice)return;
   if(!window.VOICE_CLIPS){await within(V_READY,15000);if(tok!==playTok)return}
@@ -1509,7 +1527,7 @@ function mbCrankInit(){const sv=$('#mbCrank');if(!sv)return;const arm=$('#mbArm'
     while(acc>=40){acc-=40;if(MBW<MB_MAX){MBW++;tone(2600,.025,'square',.035);tone(1700,.03,'triangle',.03,.012);mbMeterSet(MBW,.12)}else tone(900,.03,'square',.02)}upd()};
   sv.onpointerup=sv.onpointercancel=()=>{if(last===null)return;last=null;if(MBW>0)mbPlay(MBW)}}
 /* the Rainbow Parrot repeats any real word you type, in a squawky parrot voice */
-function loadWords(){if(window.WORDS_OK)return Promise.resolve();return new Promise(res=>{const sc=document.createElement('script');sc.src='words.js?v='+VOICE_VER;sc.onload=res;sc.onerror=res;document.head.appendChild(sc)})}
+function loadWords(){if(window.WORDS_OK)return Promise.resolve();return new Promise(res=>{const sc=document.createElement('script');sc.src=vurl('words.js');sc.onload=res;sc.onerror=res;document.head.appendChild(sc)})}
 function squawk(d=0){[1900,2700,1500].forEach((f,i)=>sweep(f,f*1.35,.08,'square',.03,d+i*.085))}
 function parrotTalk(w){squawk();setTimeout(()=>{try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(w+'!');u.lang='en-US';u.pitch=2;u.rate=1.05;u.volume=1;const v=speechSynthesis.getVoices().find(v=>/en-US/i.test(v.lang)&&/Samantha|Karen|Moira|Tessa|Female|Google US/i.test(v.name));if(v)u.voice=v;u.onend=()=>squawk(.05);speechSynthesis.speak(u)}catch(e){}},320)}
 function parInit(){const go=$('#parGo'),inp=$('#parIn');if(!go)return;loadWords();if(!S.parTold){S.parTold=1;save();say('par_type')}
@@ -1884,7 +1902,7 @@ let navT=0;
 function bankLeftWin(g){const R={say:['sayRun','count',5],write:['wtRun','count',5],time:['ttRun','count',10],sound:['soundRun','ok',5]}[g];if(!R)return;const run=S[R[0]];if(!run||(run[R[1]]||0)<capNeed(g,R[2]))return;
   S[R[0]]=null;const n=capGot(g);if(n>=CAP_MAX){save();return}S.capP[g]=n+1;const k=CAP_MYTH[g];
   if(S.capP[g]>=CAP_MAX&&!S[MYTHIC[k].flag]){S[MYTHIC[k].flag]=1;const mid=MYTHIC[k].id;if(PRIZE_BY[mid]&&!S.owned.includes(mid))S.owned.unshift(mid);S.chestFront=mid}else S.pending++;save()}
-function show(id){navT=performance.now();if(cur==='newp'&&id!=='newp'&&typeof NP!=='undefined')NP.edit=null;if(cur&&cur!==id)try{bankLeftWin(cur)}catch(e){}if(cur==='room'&&id!=='room')try{leaveRoomSounds()}catch(e){}if(id!=='room'&&typeof FW!=='undefined'&&FW.aim)fwAimStop();
+function show(id){navT=performance.now();if(typeof FW!=='undefined'&&FW.aim&&id!=='room')fwAimStop();if(cur==='newp'&&id!=='newp'&&typeof NP!=='undefined')NP.edit=null;if(cur&&cur!==id)try{bankLeftWin(cur)}catch(e){}if(cur==='room'&&id!=='room')try{leaveRoomSounds()}catch(e){}if(id!=='room'&&typeof FW!=='undefined'&&FW.aim)fwAimStop();
   if(cur==='say'&&id!=='say'){try{micStop()}catch(e){}if(micUsed){audioHoldUntil=performance.now()+500;try{if(actx){const a=actx;actx=null;setTimeout(()=>{try{a.close()}catch(e){}},50)}}catch(e){}audioStale=true;restoreSpeaker()}}
   if(cur==='write'&&id!=='write'&&typeof wtPause==='function')wtPause();
   if(id!=='mad'&&typeof MM!=='undefined')madPause();if(id!=='def'&&typeof DF!=='undefined')defPause();if(cur==='find'&&id!=='find'&&F&&!F.done)pauseTimer();
@@ -1986,7 +2004,8 @@ function pips(el,n,on){el.innerHTML=Array.from({length:n},(_,i)=>`<span class="p
 function starsRow(el,n,on){el.innerHTML=Array.from({length:n},(_,i)=>`<span class="rstar${i<on?' on':''}">★</span>`).join('')}
 const doneL=L=>(tierOf(L)>=2&&((S.fstars||{})[L]||0)>=S.settings.rounds)||(S.doneOrder||[]).includes(L)&&tierOf(L)>=2;
 const allDone=()=>LETTERS.every(doneL);
-function pickFresh(ex){const pool=practiceSet().filter(l=>!doneL(l)&&l!==ex);return pool.length?pick(pool):pickLetter(ex)}
+const frvW=l=>{const v=(S.frv||{})[l]||0;return v>=1&&v<3?1.2:1};
+function pickFresh(ex){const pool=practiceSet().filter(l=>!doneL(l)&&l!==ex);return pool.length?wpick(pool,frvW):pickLetter(ex)}
 const fkey=()=>F.mystery?'?':F.letter;
 const MEDAL=(c1,c2)=>`<svg viewBox="0 0 24 30" width="100%" height="100%"><path d="M5 0h6l2.5 10h-6z" fill="#E5402B"/><path d="M13 0h6l-2.5 10h-6z" fill="#2C67E0"/><circle cx="12" cy="19.5" r="9" fill="${c1}" stroke="${c2}" stroke-width="2"/><polygon points="${starPts(12,19.8,5.2,2.3)}" fill="${c2}" opacity=".75"/></svg>`;
 const MEDAL_S=MEDAL('#E3E8EE','#8C99A6'),MEDAL_G=MEDAL('#FFD45A','#C79000');
@@ -2034,7 +2053,7 @@ function startFind(L){const mystery=L==='?',key=mystery?'?':L;F={mystery,key,let
 function introFind(){const L=F.letter,w=wordFor(L);
   ov(`<div class="letter-card"><div class="bigletter">${disp(L)}</div><div class="wordhint"><span class="emo">${pic(w[1])}</span><span><b>${disp(L)}</b> is for ${w[0]}</span></div></div><h2>Find every ${disp(L)}!</h2>`,[{label:'Go!',cls:'green big',fn:()=>{F.fromIntro=true;newBoard()}}]);
   say(promptKeys(L))}
-function findWin(){F.done=true;stopFind();S.fwins=(S.fwins==null?0:S.fwins)+1;checkSoundUnlock();bump(F.letter,'f');lastGame='find';const R=S.settings.rounds,key=F.key;
+function findWin(){F.done=true;stopFind();{S.frv=S.frv||{};if(F.strikes>0)S.frv[F.letter]=(S.frv[F.letter]||0)+1;else delete S.frv[F.letter]}S.fwins=(S.fwins==null?0:S.fwins)+1;checkSoundUnlock();bump(F.letter,'f');lastGame='find';const R=S.settings.rounds,key=F.key;
   if(F.practice){F.pw++;starsRow($('#fPips'),R,F.pw);
     if(F.pw>=R){save();sFan();confetti();say('gotall');
       ov(`<div class="done-check">${CHECK_SVG}</div><h2>Good job, you got them all!</h2><p>${key==='?'?'Every mystery level':disp(F.letter)+' is all'} done. Keep practicing anytime.</p>`,[{label:'Find a new letter',cls:'green big',fn:()=>show('pick')},{brk:1},homeBtn]);return}
@@ -3190,7 +3209,7 @@ function superReward(after,kind='tele'){const K=MYTHIC[kind],id=K.id;S[K.flag]=1
 /* the music box: a twinkly bell tune */
 function musicBoxSong(){const N={C:1047,D:1175,E:1319,F:1397,G:1568,A:1760};'CCGGAAG FFEEDDC'.split('').forEach((n,i)=>{if(n===' ')return;const f=N[n],t=i*.32;tone(f,.55,'sine',.07,t);tone(f*2,.3,'sine',.02,t);tone(f*3,.15,'triangle',.01,t)})}
 /* looking through the telescope: the stars of a letter; trace from star to star to make the constellation */
-const TELE_SHAPES=[["heart", 1, [[50, 30], [62, 16], [80, 14], [92, 30], [86, 52], [50, 88], [14, 52], [8, 30], [20, 14], [38, 16]]], ["star", 1, [[50, 6], [62, 36], [94, 38], [69, 58], [77, 89], [50, 72], [23, 89], [31, 58], [6, 38], [38, 36]]], ["spiral", 0, [[56, 50], [56, 58], [46, 64], [32, 56], [31, 37], [50, 23], [75, 32], [84, 61], [62, 88], [24, 86]]], ["house", 1, [[20, 92], [20, 48], [50, 16], [66, 32], [66, 20], [76, 20], [76, 42], [80, 48], [80, 92]]], ["fish", 1, [[10, 50], [28, 32], [55, 30], [72, 44], [90, 28], [90, 72], [72, 56], [55, 70], [28, 68]]], ["cat", 1, [[24, 90], [16, 50], [22, 12], [40, 32], [60, 32], [78, 12], [84, 50], [76, 90]]], ["shirt", 1, [[36, 12], [10, 32], [22, 48], [28, 42], [28, 92], [72, 92], [72, 42], [78, 48], [90, 32], [64, 12], [50, 24]]], ["watch", 1, [[40, 4], [60, 4], [62, 24], [78, 38], [78, 62], [62, 76], [60, 96], [40, 96], [38, 76], [22, 62], [22, 38], [38, 24]]], ["rocket", 1, [[50, 4], [66, 28], [66, 68], [82, 92], [60, 82], [40, 82], [18, 92], [34, 68], [34, 28]]], ["sailboat", 0, [[52, 6], [84, 52], [52, 52], [52, 62], [92, 62], [74, 88], [28, 88], [10, 62]]], ["tree", 1, [[50, 4], [76, 36], [62, 36], [86, 70], [56, 70], [56, 94], [44, 94], [44, 70], [14, 70], [38, 36], [24, 36]]], ["moon", 1, [[62, 8], [38, 14], [22, 34], [18, 56], [28, 78], [50, 92], [70, 94], [46, 74], [38, 50], [46, 28]]], ["kite", 1, [[50, 4], [82, 40], [50, 96], [18, 40]]]];
+const TELE_SHAPES=[["heart", 1, [[50, 30], [62, 16], [80, 14], [92, 30], [86, 52], [50, 88], [14, 52], [8, 30], [20, 14], [38, 16]]], ["star", 1, [[50, 6], [62, 36], [94, 38], [69, 58], [77, 89], [50, 72], [23, 89], [31, 58], [6, 38], [38, 36]]], ["spiral", 0, [[56, 50], [56, 58], [46, 64], [32, 56], [31, 37], [50, 23], [75, 32], [84, 61], [62, 88], [24, 86]]], ["house", 1, [[20, 92], [20, 48], [50, 16], [66, 32], [66, 20], [76, 20], [76, 42], [80, 48], [80, 92]]], ["fish", 1, [[10, 50], [28, 32], [55, 30], [72, 44], [90, 28], [90, 72], [72, 56], [55, 70], [28, 68]]], ["cat", 1, [[24, 90], [16, 50], [22, 12], [40, 32], [60, 32], [78, 12], [84, 50], [76, 90]]], ["shirt", 1, [[36, 12], [10, 32], [22, 48], [28, 42], [28, 92], [72, 92], [72, 42], [78, 48], [90, 32], [64, 12], [50, 24]]], ["watch", 1, [[40, 4], [60, 4], [62, 24], [78, 38], [78, 62], [62, 76], [60, 96], [40, 96], [38, 76], [22, 62], [22, 38], [38, 24]]], ["rocket", 1, [[50, 4], [66, 28], [66, 68], [82, 92], [60, 82], [40, 82], [18, 92], [34, 68], [34, 28]]], ["sailboat", 0, [[48, 60], [48, 6], [84, 52], [92, 62], [74, 88], [26, 88], [8, 62]], [0, 1, 2, 0, 3, 4, 5, 6, 0]], ["tree", 1, [[50, 4], [76, 36], [62, 36], [86, 70], [56, 70], [56, 94], [44, 94], [44, 70], [14, 70], [38, 36], [24, 36]]], ["moon", 1, [[62, 8], [38, 14], [22, 34], [18, 56], [28, 78], [50, 92], [70, 94], [46, 74], [38, 50], [46, 28]]], ["kite", 1, [[50, 4], [82, 40], [50, 96], [18, 40]]]];
 /* the stars make a picture (heart, cat, rocket…) about 85% of the time, otherwise a random constellation; everything stays inside the round lens */
 /* real constellations: pts in a 0-100 box, seq = the order the stars are tapped (a star can be tapped again) */
 const CONSTEL=[
@@ -3208,9 +3227,9 @@ const CONSTEL=[
 function starView(){stopSong();let pts=[],seq=null,shape=null,con=null;const r0=Math.random();
   if(r0<.5){con=pick(CONSTEL);const P0=con[2],R0=Math.max(...P0.map(([x,y])=>Math.hypot(x-50,y-50))),k=56/R0;
     pts=P0.map(([x,y])=>[75+(x-50)*k+(Math.random()-.5)*1.5,75+(y-50)*k+(Math.random()-.5)*1.5]);seq=con[3].slice()}
-  else if(r0<.92){const [nm,cl,P0]=pick(TELE_SHAPES);shape=nm;const a=(Math.random()-.5)*.3,ca=Math.cos(a),sa=Math.sin(a);
+  else if(r0<.92){const [nm,cl,P0,SQ]=pick(TELE_SHAPES);shape=nm;const a=(Math.random()-.5)*.3,ca=Math.cos(a),sa=Math.sin(a);
     const R0=Math.max(...P0.map(([x,y])=>Math.hypot(x-50,y-50))),k=54/R0;pts=P0.map(([x,y])=>{const dx=(x-50)*k,dy=(y-50)*k;return[75+dx*ca-dy*sa+(Math.random()-.5)*2,75+dx*sa+dy*ca+(Math.random()-.5)*2]});
-    seq=pts.map((_,i)=>i);if(cl)seq.push(0)}
+    seq=SQ?SQ.slice():pts.map((_,i)=>i);if(cl&&!SQ)seq.push(0)}
   else{const N=6+rand(4);for(let t=0;pts.length<N&&t<3000;t++){const r=Math.sqrt(Math.random())*46,th=Math.random()*6.283,x=75+r*Math.cos(th),y=75+r*Math.sin(th);if(pts.every(p=>Math.hypot(p[0]-x,p[1]-y)>(t<1500?26:20)))pts.push([x,y])}
     const mx=pts.reduce((a,p)=>a+p[0],0)/pts.length,my=pts.reduce((a,p)=>a+p[1],0)/pts.length;pts.sort((a,b)=>Math.atan2(a[1]-my,a[0]-mx)-Math.atan2(b[1]-my,b[0]-mx));{const o=rand(pts.length);pts=pts.slice(o).concat(pts.slice(0,o))}
     seq=pts.map((_,i)=>i)}
@@ -4023,7 +4042,7 @@ function chunkOf(k){let m;
   if((m=k.match(/^df_([a-z])/)))return `v/d_${m[1]}.js`;
   if(/^(cons_|wm[yn]\d)/.test(k))return 'v/misc.js';
   return null}
-function loadChunk(f){if(!VCH[f])VCH[f]=V_READY.then(()=>new Promise(res=>{const sc=document.createElement('script');sc.src=f+'?v='+VOICE_VER;sc.onload=()=>res(true);sc.onerror=()=>{delete VCH[f];sc.remove();res(false)};document.head.appendChild(sc)}));return VCH[f]}
+function loadChunk(f){if(!VCH[f])VCH[f]=V_READY.then(()=>new Promise(res=>{const sc=document.createElement('script');sc.src=vurl(f);sc.onload=()=>res(true);sc.onerror=()=>{delete VCH[f];sc.remove();res(false)};document.head.appendChild(sc)}));return VCH[f]}
 function needChunks(keys){const c=clips();const fs=[...new Set(keys.filter(k=>!(c&&c[k])).map(chunkOf).filter(Boolean))];return fs.length?Promise.all(fs.map(loadChunk)):null}
 function loadRV(){return needChunks(['wmy0'])||Promise.resolve()}
 /* a round: 5 right before 3 strikes wins a prize (10 right after 10 prizes); 50 prizes at most */
@@ -4051,6 +4070,11 @@ function advTrack(m,right){const a=advS(m),B=advBank(m);if(!AV.it||AV.it.lv!==a.
   else if(a.lv>0&&h.length>=10&&sum(h.slice(-10))<=5){a.lv--;a.lh=[];a.qs={}}
   save()}
 const advBank=m=>m==='fill'?FI_BANK:WM_BANK;
+/* gentle review: a question missed on the first try is put back once, 25-45 questions later.
+   If it is missed again it just goes back into the normal rotation, so nobody gets the same hard one over and over. */
+function advReview(m,it,ok){const a=advS(m),k=it.lv+'_'+it.i;a.rq=a.rq||{};const W=(S.wmiss=S.wmiss||{})[m]||(S.wmiss[m]={}),e=W[it.a]||(W[it.a]={m:0,ok:0,t:0});
+  if(ok){e.ok++;if(a.rq[k])delete a.rq[k]}else{e.m++;e.t=Date.now();if(!a.rq[k]){a.rq[k]=1;a.qs=a.qs||{};const q=a.qs[it.lv]||(a.qs[it.lv]=[]);const at=Math.min(q.length,25+rand(21));q.splice(at,0,it.i)}}
+  {const ks=Object.keys(W);if(ks.length>200)ks.sort((x,y)=>W[x].t-W[y].t).slice(0,ks.length-200).forEach(x=>delete W[x])}save()}
 function advPick(m){const a=advS(m),B=advBank(m);let lv=Math.min(a.lv,B.length-1);if(lv>0&&Math.random()<.15){const lo=lv>=4?4:0;if(lv>lo)lv=lo+rand(lv-lo)}
   a.qs=a.qs||{};let q=a.qs[lv];if(!q||!q.length||q.some(i=>i>=B[lv].length)){q=a.qs[lv]=shuffle(B[lv].map((_,i)=>i));if(AV.it&&AV.it.lv===lv&&q[0]===AV.it.i)q.push(q.shift())}
   return{lv,i:q.shift()}}
@@ -4092,7 +4116,7 @@ function advWin(m){AV.ok=0;AV.strikes=0;const n=capGot(m);
     if(c>=50&&!S[MYTHIC[m1].flag]){save();lastGame=m;superReward(()=>advMore(m),m1);return}
     if(c>=100&&!S[MYTHIC[m2].flag]){save();lastGame=m;superReward(mythicAfter,m2);return}}S.pending++;save();lastGame=m;sFan();confetti();const dk=vary('done',8);say(dk);
   ov(`<h2>${LINES[dk].replace(' You win a prize!','')}</h2><p>You win a prize!</p>`,[{label:'Pick my prize',cls:'yellow big',fn:()=>show('shop')},{brk:1},{label:'Keep reading',cls:'green',fn:()=>{advHud();advNext()}}])}
-function advChoose(b){if(AV.busy||!AV.it||b.classList.contains('wrong'))return;ac();const w=b.dataset.w,m=AV.mode,a=advS(m),B=advBank(m);if(AV.first)advTrack(m,w===AV.it.a);
+function advChoose(b){if(AV.busy||!AV.it||b.classList.contains('wrong'))return;ac();const w=b.dataset.w,m=AV.mode,a=advS(m),B=advBank(m);if(AV.first){advTrack(m,w===AV.it.a);advReview(m,AV.it,w===AV.it.a)}
   if(w===AV.it.a){AV.busy=true;b.classList.add('right');sPop();tierSfx(1,0);$('#fiCard').classList.add('ok');
     if(m==='fill'){const bl=$('#fiBlank');if(bl){bl.textContent=w;bl.classList.add('filled');advFit()}}
     document.querySelectorAll('#fiOpts .fi-dict').forEach(x=>{x.disabled=true;x.classList.add('off')});
@@ -4129,6 +4153,47 @@ function xferIn(){ov(`<h2>Load a save</h2><p class="note">Paste the save code fr
     ov(`<h2>Replace this device's game?</h2><p>The save has: <b>${names}</b>.</p><p class="note">Everything saved on <b>this</b> device will be replaced. This can't be undone.</p>`,[{label:'Yes, load it',cls:'yellow big',fn:()=>{try{localStorage.setItem(KEY,JSON.stringify(r))}catch(e){toast('Could not save on this device.');return}document.body.classList.add('reloading');setTimeout(()=>location.reload(),50)}},{brk:1},{label:'Cancel',cls:'',fn:()=>renderSettings()}])}}
 /* ---------- LETTER STATS (grown-ups) ---------- */
 function statRows(g){return LETTERS.map(L=>{let ok=0,n=0;if(g==='find'){const s=(S.fstat||{})[L];if(s){ok=s.h;n=s.h+s.m}}else if(g==='say'){const s=(S.sstat||{})[L];if(s){ok=s.ok;n=s.n}}else if(g==='words'){const s=(S.swl||{})[L];if(s){ok=s.ok;n=s.n}}else if(g==='write'){const s=(S.wstat||{})[L];if(s){ok=s.ok;n=s.n}}else{const s=(S.ostat||{})[L];if(s){ok=s.ok;n=s.n}}return{L,ok,n,p:n?ok/n:null}}).filter(r=>r.n)}
+
+/* ---------- offline: a service worker keeps a copy of the game and its voices on this device ---------- */
+const OFF_FILES=()=>['voice.js','svoice.js','pvoice.js','words.js',...Object.keys(VHASH).filter(f=>f.startsWith('v/'))];
+let OFF={done:0,total:0,busy:false};
+async function offlineSync(force){if(OFF.busy||!('caches' in window)||!navigator.serviceWorker||!navigator.serviceWorker.controller)return;if(R.offlineOff&&!force)return;if(!navigator.onLine)return;
+  OFF.busy=true;try{try{navigator.storage&&navigator.storage.persist&&navigator.storage.persist()}catch(e){}
+    const c=await caches.open('ll-audio'),want=OFF_FILES().map(f=>new URL(vurl(f),location.href).href),keys=await c.keys();
+    for(const k of keys)if(!want.includes(k.url))await c.delete(k);
+    OFF.total=want.length;OFF.done=0;
+    for(const u of want){if(await c.match(u)){OFF.done++;continue}if(!navigator.onLine||(R.offlineOff&&!force))break;
+      try{const r=await fetch(u);if(r.ok){OFF.done++}}catch(e){break}await new Promise(r=>setTimeout(r,250));offUI()}
+  }catch(e){}OFF.busy=false;offUI()}
+function offUI(){const el=$('#offStat');if(!el)return;el.textContent=!navigator.serviceWorker?'This browser can’t save the game for offline use.':!navigator.serviceWorker.controller?'Open Letter Land once more to turn on offline mode.':R.offlineOff?'Offline voices are off.':OFF.total?(OFF.done>=OFF.total?`Ready for offline play ✓ (${OFF.total} files saved)`:`Saving for offline: ${OFF.done} of ${OFF.total} files…`):'Checking…'}
+if('serviceWorker' in navigator&&(location.protocol==='https:'||location.hostname==='localhost')){try{navigator.serviceWorker.register('sw.js').then(()=>{setTimeout(()=>offlineSync(),15000)}).catch(()=>{})}catch(e){}
+  try{navigator.serviceWorker.addEventListener('controllerchange',()=>setTimeout(()=>offlineSync(),5000))}catch(e){}addEventListener('online',()=>setTimeout(()=>offlineSync(),3000))}
+/* ---------- grown-up progress report ---------- */
+function letterLevel(L){let ok=0,n=0;const add=(a,b)=>{ok+=a;n+=b};const f=(S.fstat||{})[L];if(f)add(f.h,f.h+f.m);
+  [S.wstat,S.ostat,S.sstat].forEach(t=>{const q=(t||{})[L];if(q)add(q.ok,q.n)});
+  if(doneL(L)||(n>=10&&ok/n>=.85))return 3;if(!n)return 0;if(n>=6&&ok/n<.6)return 1;return 2}
+function showProgress(){const me=prof(),pt=S.pt||{},days=[];for(let i=6;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);days.push(d)}
+  const mins=days.map(d=>Object.values(pt[dayKey(d)]||{}).reduce((a,b)=>a+b,0)/60),tot=mins.reduce((a,b)=>a+b,0),mx=Math.max(10,...mins);
+  const per={};days.forEach(d=>Object.entries(pt[dayKey(d)]||{}).forEach(([g,v])=>per[g]=(per[g]||0)+v/60));
+  const fm=m=>m<1?(m>0?'<1 min':'0 min'):m<60?Math.round(m)+' min':Math.floor(m/60)+' h '+Math.round(m%60)+' min';
+  const bars=days.map((d,i)=>`<div class="pg-day"><div class="pg-bar"><i style="height:${Math.round(mins[i]/mx*100)}%"></i></div><b>${['Su','Mo','Tu','We','Th','Fr','Sa'][d.getDay()]}</b><small>${mins[i]>=1?Math.round(mins[i])+'m':''}</small></div>`).join('');
+  const pgames=Object.entries(per).sort((a,b)=>b[1]-a[1]).map(([g,v])=>`<span class="pg-chip">${esc(PT_NAME[g]||g)} <b>${fm(v)}</b></span>`).join('')||'<span class="note">No play time recorded yet this week.</span>';
+  const LV=['not started','needs practice','learning','got it!'],lc=LETTERS.map(L=>[L,letterLevel(L)]),cnt=[0,1,2,3].map(k=>lc.filter(x=>x[1]===k).length);
+  const lgrid=lc.map(([L,k])=>`<span class="pg-l k${k}" title="${LV[k]}">${disp(L)}</span>`).join('');
+  const nums=[...'0123456789'].map(d=>{const q=(S.wstat||{})[d];let k=0;if(q&&q.n){const h=q.hist.slice(-6),r=h.reduce((a,b)=>a+b,0)/h.length;k=q.n>=4&&r>=.8?3:q.n>=4&&r<.5?1:2}return `<span class="pg-l k${k}">${d}</span>`}).join('');
+  const adv=['fill','mean'].map(g=>{const a=advS(g),W=(S.wmiss||{})[g]||{},ws=Object.entries(W).filter(([w,e])=>e.m>e.ok).sort((x,y)=>y[1].t-x[1].t).slice(0,10).map(([w])=>`<span class="pg-w">${esc(w)}</span>`).join('');
+    return `<div class="pg-row"><b>${ADV_NAME[g]}</b><span>Level ${a.lv+1} of 6 · ${capGot(g)}/${capMax(g)} treasures</span></div>${ws?`<div class="pg-words"><small>Words to practice:</small> ${ws}</div>`:''}`}).join('');
+  const m=M(),f=Object.values(m.facts||{}),fok=f.reduce((a,q)=>a+(q.ok||0),0),fn=f.reduce((a,q)=>a+(q.n||0),0);
+  const myth=S.owned.filter(isMythic).length;
+  ov(`<h2>📊 ${esc(me.name)}'s progress</h2><div class="pg-wrap">
+    <div class="pg-sec"><h3>Play time this week: ${fm(tot)}</h3><div class="pg-days">${bars}</div><div class="pg-chips">${pgames}</div></div>
+    <div class="pg-sec"><h3>Letters <small>${cnt[3]} got it · ${cnt[2]} learning · ${cnt[1]} need practice</small></h3><div class="pg-grid">${lgrid}</div>
+      <div class="pg-key"><span class="pg-l k3"></span>got it <span class="pg-l k2"></span>learning <span class="pg-l k1"></span>needs practice <span class="pg-l k0"></span>not started</div></div>
+    <div class="pg-sec"><h3>Writing numbers</h3><div class="pg-grid">${nums}</div></div>
+    <div class="pg-sec"><h3>Reading</h3>${adv}</div>
+    <div class="pg-sec"><h3>Math</h3><div class="pg-row"><b>Mad Math Minute</b><span>Facts up to ${m.lv} · best ${m.mm&&m.mm.best||0} in a minute</span></div><div class="pg-row"><b>Number Defender</b><span>Best ${m.df&&m.df.best||0}</span></div>${fn?`<div class="pg-row"><b>Math facts right</b><span>${Math.round(fok/fn*100)}% of ${fn}</span></div>`:''}</div>
+    <div class="pg-sec"><h3>Treasures</h3><div class="pg-row"><b>${S.owned.length} collected</b><span>${myth} Mythic</span></div></div></div>`,
+    [{label:'Letter details',cls:'yellow',fn:()=>setTimeout(()=>showStats('find'),30)},{label:'Math details',cls:'yellow',fn:()=>setTimeout(showMathStats,30)},{brk:1},{label:'Done',cls:'green'}])}
 function showStats(g){const rows=statRows(g).sort((a,b)=>b.p-a.p||b.n-a.n);const solid=rows.filter(r=>r.n>=3);
   const best=solid.filter(r=>r.p>=.8).slice(0,5).map(r=>r.L).join(', ')||'–',worst=solid.slice().reverse().filter(r=>r.p<.8).slice(0,5).map(r=>r.L).join(', ')||'–';
   const tabs=[['find','Find It'],['say','Say It'],['words','Say It words'],['write','Write It'],['sound','Sound It Out']].map(([k,t])=>`<button class="chip${k===g?' on':''}" data-g="${k}">${t}</button>`).join('');
@@ -4258,8 +4323,9 @@ function renderSettings(){
   const st=S.settings,el=$('#s-settings'),me=prof();
   el.innerHTML=`<h2>Grown-up Settings</h2>
   <p class="note">Settings below are for <b>${esc(me.name)}</b>. Each player has their own treasures, stars and settings.</p>
-  <div class="set-sec"><h3>How it's going</h3><p class="note">See which letters and math facts are easy and which need practice.</p><div class="btn-pair"><button class="btn yellow" id="statsBtn">Letter stats</button><button class="btn yellow" id="mathStatsBtn">Math stats</button></div></div>
+  <div class="set-sec"><h3>How it's going</h3><p class="note">See which letters and math facts are easy and which need practice.</p><div class="btn-pair"><button class="btn green" id="progBtn">📊 Progress report</button><button class="btn yellow" id="statsBtn">Letter stats</button><button class="btn yellow" id="mathStatsBtn">Math stats</button></div></div>
   ${testTools()}
+  <div class="set-sec"><h3>Offline play</h3><p class="note">Letter Land saves itself and all its voices on this device (about 250 MB) so it works with no internet, like in the car. Updates still arrive when you're online.</p><p class="note"><b id="offStat"></b></p><div class="btn-pair"><button class="btn ${R.offlineOff?'yellow':'grey'}" id="offTog">${R.offlineOff?'Turn offline voices on':'Turn offline voices off'}</button></div></div>
   <div class="set-sec"><h3>Move to another device</h3><p class="note">Copies every player, treasure and setting. On the old device tap <b>Get save code</b> and send the code to the new device (Messages, AirDrop, Notes or email). On the new device open Letter Land and tap <b>Load a save</b>.</p><div class="btn-pair"><button class="btn yellow" id="xferOut">Get save code</button><button class="btn" id="xferIn">Load a save</button></div></div>
   <div class="set-sec"><h3>Number writing</h3><p class="note">The writing box reads numbers on its own. To make it even better for this player, have them write each number 3 times.${(()=>{const n=Object.values(S.hwCal||{}).reduce((a,v)=>a+v.length,0);return n?` <b>Learned ${n} samples.</b>`:''})()}</p><div class="btn-pair"><button class="btn yellow" id="hwTeach">✍️ Teach my number writing</button>${S.hwCal&&Object.keys(S.hwCal).length||(S.hwU||[]).length?'<button class="btn grey" id="hwForget">Forget my writing</button>':''}</div></div>
   <div class="set-sec"><h3>Big reader games</h3><p class="note">Fill It In opens by itself at 30 Sound It Out treasures, and What's That Word? at 30 Fill It In treasures.</p><div class="btn-pair"><button class="btn ${S.advOn?'grey':'yellow'}" id="advTog">${S.advOn?'On ✓ (tap to turn off)':'Turn them on now'}</button></div>
@@ -4307,7 +4373,8 @@ function renderSettings(){
   {const d=$('#delMe');if(d)d.onclick=()=>{const id=me.id,nm=esc(me.name);
     ov(`<h2>Delete ${nm}?</h2><p>All of ${nm}'s treasures, stars and progress will be erased.</p>`,[{label:'Keep '+me.name,cls:'green big',fn:()=>{}},{brk:1},{label:'Delete',cls:'red',fn:()=>setTimeout(()=>
       ov(`<h2>Are you really sure?</h2><p>This can't be undone. ${nm}'s treasure room will be gone for good.</p>`,[{label:'Keep '+me.name,cls:'green big',fn:()=>{}},{brk:1},{label:'Yes, delete '+me.name,cls:'red',fn:()=>{R.profiles=R.profiles.filter(p=>p.id!==id);R.current=R.profiles[0].id;S=prof().data;save();toast(me.name+' was deleted');show('who')}}]),50)}])}}
-  $('#statsBtn').onclick=()=>showStats('find');{const mb=$('#mathStatsBtn');if(mb)mb.onclick=showMathStats}
+  offUI();$('#offTog').onclick=async()=>{ac();R.offlineOff=!R.offlineOff;save();if(R.offlineOff){try{await caches.delete('ll-audio')}catch(e){}OFF={done:0,total:0,busy:false}}else offlineSync(true);renderSettings()};
+  $('#statsBtn').onclick=()=>showStats('find');$('#progBtn').onclick=()=>{ac();showProgress()};{const mb=$('#mathStatsBtn');if(mb)mb.onclick=showMathStats}
   el.querySelectorAll('[data-play]').forEach(b=>b.onclick=()=>usePlayer(b.dataset.play));
   $('#doneBtn').onclick=()=>show('home');
 }
